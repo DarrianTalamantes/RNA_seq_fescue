@@ -22,8 +22,8 @@ logs = config["directories"]["logs"]
 # =================================================================================================
 
 # Listing Progeny Files
-# (SAMPLES,) = glob_wildcards(datadir + "{sample}.fastq.gz")
-
+sample_names_file = "sample_list.txt"
+SAMPLES = read_sample_names(sample_names_file)
 
 
 
@@ -54,7 +54,7 @@ rule fastqc:
 # This rule uses multiqc on the output of the rule fastqc
 rule multiqc:
     input:
-        expand(qcdir + "/{sample}_fastqc.html")
+        expand("{qcdir}/{sample}_fastqc.html", qcdir=qcdir, sample=SAMPLES)
     output:
         "multiqc_report.html"
     conda:
@@ -63,6 +63,9 @@ rule multiqc:
         "multiqc {qcdir} -o {qcdir} --filename multiqc_report.html"
 
 
-
+def read_sample_names(file_path):
+    with open(file_path, "r") as file:
+        sample_names = [line.strip() for line in file]
+    return sample_names
 
         
