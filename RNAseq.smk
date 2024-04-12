@@ -55,7 +55,7 @@ rule fastqc:
         html = qcdir + "/{sample}_fastqc.html",
         zip = qcdir + "/{sample}_fastqc.zip"   
     conda:
-        "Conda_Env/multiqc.yaml"
+        "Conda_Envs/multiqc.yaml"
     shell:
         """
         fastqc  -o {qcdir} {input.fastq} 
@@ -68,7 +68,7 @@ rule multiqc:
     output:
         "multiqc_report.html"
     conda:
-        "Conda_Env/multiqc.yaml"        
+        "Conda_Envs/multiqc.yaml"        
     shell:
         "multiqc {qcdir} -o {qcdir} --filename multiqc_report.html"
 
