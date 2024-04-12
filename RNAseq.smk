@@ -49,13 +49,12 @@ rule fastqc:
     shell:
         """
         fastqc  -o {qcdir} {input.fastq} 
-        echo "fastqc  -o {qcdir} {input.fastq}" >> {log}
         """
 
-# This rule uses multiqc on the output of the rul fastqc
+# This rule uses multiqc on the output of the rule fastqc
 rule multiqc:
     input:
-        expand(qcdir/"{sample}_fastqc.html")
+        expand(qcdir + "/{sample}_fastqc.html")
     output:
         "multiqc_report.html"
     conda:
