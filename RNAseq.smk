@@ -36,7 +36,8 @@ rule fastqc:
     conda:
         "Conda_Env/multiqc.yaml"
     shell:
-        "fastqc {input.fastq} --outdir {qcdir}"
+        "fastqc {input.fastq} --outdir {qcdir}
+        echo "fastqc {input.fastq} --outdir {qcdir}""
 
 # This rule uses multiqc on the output of the rul fastqc
 rule multiqc:
