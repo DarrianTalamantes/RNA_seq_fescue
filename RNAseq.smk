@@ -35,7 +35,7 @@ rule fastqc:
         html = qcdir + "/{sample}_fastqc.html",
         zip = qcdir + "/{sample}_fastqc.zip"
     log:
-        logs + /fastqc.log
+        f"{logs} + /fastqc.log"
     conda:
         "Conda_Env/multiqc.yaml"
     shell:
