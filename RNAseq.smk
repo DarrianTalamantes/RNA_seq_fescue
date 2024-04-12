@@ -15,6 +15,7 @@ configfile: "config.yaml"
 # Config importing paths to directories 
 datadir = config["directories"]["datadir"]
 qcdir = config["directories"]["qcdir"]
+logs = config["directories"]["logs"]
 
 
 # =================================================================================================
@@ -33,11 +34,15 @@ rule fastqc:
     output:
         html = qcdir + "/{sample}_fastqc.html",
         zip = qcdir + "/{sample}_fastqc.zip"
+    log:
+        logs + /fastqc.log
     conda:
         "Conda_Env/multiqc.yaml"
     shell:
-        "fastqc {input.fastq} --outdir {qcdir}
-        echo "fastqc {input.fastq} --outdir {qcdir}""
+        ""
+        fastqc {input.fastq} --outdir {qcdir}
+        fastqc {input.fastq} --outdir {qcdir} &>> {log}
+        ""
 
 # This rule uses multiqc on the output of the rul fastqc
 rule multiqc:
