@@ -35,7 +35,7 @@ rule fastqc:
         html = qcdir + "/{sample}_fastqc.html",
         zip = qcdir + "/{sample}_fastqc.zip"
     log:
-         f"{logs}/{wildcards.sample}_fastqc.log"
+        construct_log_path(wildcards.sample)
     conda:
         "Conda_Env/multiqc.yaml"
     shell:
@@ -53,3 +53,10 @@ rule multiqc:
         "Conda_Env/multiqc.yaml"        
     shell:
         "multiqc {qcdir} --outdir {qcdir} --filename multiqc_report.html"
+
+
+
+
+# Functions needed to work 
+def construct_log_path(sample_name):
+    return f"{logs}/{sample_name}_fastqc.log"        
