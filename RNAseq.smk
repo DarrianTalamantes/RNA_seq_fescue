@@ -32,7 +32,7 @@ def read_sample_names(file_path):
 # =================================================================================================
 
 # Listing Progeny Files
-sample_names_file = "sample_list.txt"
+sample_names_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/sample_list.txt"
 SAMPLES = read_sample_names(sample_names_file)
 
 
