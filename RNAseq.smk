@@ -18,6 +18,16 @@ qcdir = config["directories"]["qcdir"]
 logs = config["directories"]["logs"]
 
 # =================================================================================================
+#   Functions
+# =================================================================================================
+def read_sample_names(file_path):
+    with open(file_path, "r") as file:
+        sample_names = [line.strip() for line in file]
+    return sample_names
+
+
+
+# =================================================================================================
 #   List Variables
 # =================================================================================================
 
@@ -63,9 +73,6 @@ rule multiqc:
         "multiqc {qcdir} -o {qcdir} --filename multiqc_report.html"
 
 
-def read_sample_names(file_path):
-    with open(file_path, "r") as file:
-        sample_names = [line.strip() for line in file]
-    return sample_names
+
 
         
