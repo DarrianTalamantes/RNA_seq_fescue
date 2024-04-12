@@ -22,6 +22,10 @@ logs = config["directories"]["logs"]
 #    Rules
 # =================================================================================================
 
+# Functions needed to work 
+def construct_log_path(sample_name):
+    return f"{logs}/{sample_name}_fastqc.log" 
+
 
 rule all:
     input:
@@ -57,6 +61,4 @@ rule multiqc:
 
 
 
-# Functions needed to work 
-def construct_log_path(sample_name):
-    return f"{logs}/{sample_name}_fastqc.log"        
+       
