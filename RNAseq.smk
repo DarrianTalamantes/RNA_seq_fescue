@@ -22,10 +22,6 @@ logs = config["directories"]["logs"]
 #    Rules
 # =================================================================================================
 
-# Functions needed to work 
-def construct_log_path(sample_name):
-    return f"{logs}/{sample_name}_fastqc.log" 
-
 
 rule all:
     input:
@@ -39,12 +35,13 @@ rule fastqc:
         html = qcdir + "/{sample}_fastqc.html",
         zip = qcdir + "/{sample}_fastqc.zip"
     log:
-        construct_log_path(wildcards.sample)
+         f"{logs}/{sample}_fastqc.log"
     conda:
         "Conda_Env/multiqc.yaml"
     shell:
         """
-        fastqc {input.fastq} --outdir {qcdir} &>> {log}
+        fastqc  -o {qcdir} {input.fastq} 
+        echo "fastqc  -o {qcdir} {input.fastq}" >> {log}
         """
 
 # This rule uses multiqc on the output of the rul fastqc
@@ -56,9 +53,9 @@ rule multiqc:
     conda:
         "Conda_Env/multiqc.yaml"        
     shell:
-        "multiqc {qcdir} --outdir {qcdir} --filename multiqc_report.html"
+        "multiqc {qcdir} -o {qcdir} --filename multiqc_report.html"
 
 
 
 
-       
+        
