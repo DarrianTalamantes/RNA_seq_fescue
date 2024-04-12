@@ -17,6 +17,16 @@ datadir = config["directories"]["datadir"]
 qcdir = config["directories"]["qcdir"]
 logs = config["directories"]["logs"]
 
+# =================================================================================================
+#   List Variables
+# =================================================================================================
+
+# Listing Progeny Files
+(SAMPLES,) = glob_wildcards(datadir + "{sample}.fastq.gz")
+
+
+
+
 
 # =================================================================================================
 #    Rules
@@ -30,7 +40,7 @@ rule all:
 # This rule runs fastqc on all data fastq files
 rule fastqc:
     input:
-        fastq = datadir + "/{sample}.fastq.gz"
+        fastq = datadir + expand("/{sample}.fastq.gz", sample = SAMPLES)
     output:
         html = qcdir + "/{sample}_fastqc.html",
         zip = qcdir + "/{sample}_fastqc.zip"
