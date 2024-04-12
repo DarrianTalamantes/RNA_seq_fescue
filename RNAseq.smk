@@ -40,7 +40,7 @@ rule all:
 # This rule runs fastqc on all data fastq files
 rule fastqc:
     input:
-        fastq = datadir + expand("/{sample}.fastq.gz", sample = SAMPLES)
+        fastq = expand("{datadir}/{sample}.fastq.gz", sample = SAMPLES)
     output:
         html = qcdir + "/{sample}_fastqc.html",
         zip = qcdir + "/{sample}_fastqc.zip"
