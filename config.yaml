@@ -1,0 +1,5 @@
+directories:
+  datadir: "/scratch/drt83172/Wallace_lab/RNA_SEQ/Data"
+  scriptdir: "/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts"
+  qcdir: "/scratch/drt83172/Wallace_lab/RNA_SEQ/qc"
+

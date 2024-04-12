@@ -26,6 +26,7 @@ rule all:
     input:
         "multiqc_report.html"
 
+# This rule runs fastqc on all data fastq files
 rule fastqc:
     input:
         fastq = datadir + "/{sample}.fastq.gz"
@@ -35,8 +36,9 @@ rule fastqc:
     conda:
         "Conda_Env/multiqc.yaml"
     shell:
-        "fastqc {input.fastq} --outdir {QC_DIR}"
+        "fastqc {input.fastq} --outdir {qcdir}"
 
+# This rule uses multiqc on the output of the rul fastqc
 rule multiqc:
     input:
         expand(qcdir + "/{sample}_fastqc.html", sample=input_files.sample)
