@@ -22,7 +22,7 @@ logs = config["directories"]["logs"]
 # =================================================================================================
 
 # Listing Progeny Files
-(SAMPLES,) = glob_wildcards(datadir + "{sample}.fastq.gz")
+# (SAMPLES,) = glob_wildcards(datadir + "{sample}.fastq.gz")
 
 
 
@@ -40,12 +40,12 @@ rule all:
 # This rule runs fastqc on all data fastq files
 rule fastqc:
     input:
-        fastq = expand("{datadir}/{sample}.fastq.gz", sample = SAMPLES)
+        fastq = datadir + "/{sample}.fastq.gz"
     output:
         html = qcdir + "/{sample}_fastqc.html",
         zip = qcdir + "/{sample}_fastqc.zip"
     log:
-         f"{logs}/{sample}_fastqc.log"
+        f"{logs}/{wildcards.sample}_fastqc.log"    
     conda:
         "Conda_Env/multiqc.yaml"
     shell:
