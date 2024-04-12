@@ -55,7 +55,7 @@ rule fastqc:
 # This rule uses multiqc on the output of the rul fastqc
 rule multiqc:
     input:
-        expand(qcdir + "/{sample}_fastqc.html")
+        expand(qcdir/"{sample}_fastqc.html")
     output:
         "multiqc_report.html"
     conda:
