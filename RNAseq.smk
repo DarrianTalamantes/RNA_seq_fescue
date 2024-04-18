@@ -62,17 +62,25 @@ rule fastqc:
         """
 
 # This rule uses multiqc on the output of the rule fastqc
+# rule multiqc:
+#     input:
+#         expand("{qcdir}/{sample}_fastqc.html", qcdir=qcdir, sample=SAMPLES)
+#     output:
+#         "multiqc_report.html"
+#     conda:
+#         "Conda_Envs/multiqc.yaml"        
+#     shell:
+#         "multiqc {qcdir} -o {qcdir} --filename multiqc_report.html"
+
+
 rule multiqc:
     input:
         expand("{qcdir}/{sample}_fastqc.html", qcdir=qcdir, sample=SAMPLES)
     output:
-        "multiqc_report.html"
-    conda:
-        "Conda_Envs/multiqc.yaml"        
-    shell:
-        "multiqc {qcdir} -o {qcdir} --filename multiqc_report.html"
-
-
-
-
+        html_report = qcdir + "multiqc_report.html"
+    params:
+        outdir = qcdir,
+        options = "--filename multiqc_report.html"
+    wrapper:
+            "v3.8.0/bio/multiqc"
         
