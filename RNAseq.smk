@@ -45,7 +45,7 @@ SAMPLES = read_sample_names(sample_names_file)
 
 rule all:
     input:
-        "multiqc_report.html"
+        qcdir + "multiqc_report.html"
 
 # This rule runs fastqc on all data fastq files
 rule fastqc:
