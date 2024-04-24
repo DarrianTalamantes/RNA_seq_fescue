@@ -11,7 +11,7 @@
 # =========================================================================================================
 #   Importing wrapper stuff
 # =========================================================================================================
-import snakemake_wrapper_utils
+
 
 # =========================================================================================================
 #     Load config file
@@ -68,17 +68,6 @@ rule fastqc:
         fastqc  -o {qcdir} {input.fastq} 
         """
 
-# This rule uses multiqc on the output of the rule fastqc
-# rule multiqc:
-#     input:
-#         expand("{qcdir}/{sample}_fastqc.html", qcdir=qcdir, sample=SAMPLES)
-#     output:
-#         "multiqc_report.html"
-#     conda:
-#         "Conda_Envs/multiqc.yaml"        
-#     shell:
-#         "multiqc {qcdir} -o {qcdir} --filename multiqc_report.html"
-
 
 rule multiqc:
     input:
@@ -88,5 +77,7 @@ rule multiqc:
         mqcdir + "/multiqc_report.zip",
     params:
         extra= "--verbose",
+    conda:
+        "Conda_Envs/multiqc.yaml"
     wrapper:
         "v3.9.0/bio/multiqc"
