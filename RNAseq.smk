@@ -79,10 +79,10 @@ rule multiqc:
         expand(qcdir + "/{sample}_fastqc.html", sample=SAMPLES)
     output:
         mqcdir + "/multiqc_report.html",
-        mqcdir + "multiqc_report.zip"
+        mqcdir + "/multiqc_report.zip"
     params:
         extra= "--verbose"
     message: 
         "Performing MultiQC on the FastQC results"
     wrapper:
-        "v1.20.0/bio/multiqc" 
+        "v3.9.0/bio/multiqc" 
