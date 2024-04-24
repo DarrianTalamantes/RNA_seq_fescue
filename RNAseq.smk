@@ -83,4 +83,4 @@ rule multiqc:
     params:
         extra= "--verbose",
     wrapper:
-        "v3.9.0/bio/multiqc"
+        "v1.20.0/bio/multiqc"
