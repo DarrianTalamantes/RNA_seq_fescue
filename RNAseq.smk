@@ -82,7 +82,6 @@ rule multiqc:
         outdir = qcdir,
         options = "--filename multiqc_report.html"
     message: 
-        "Performing MultiQC on the FastQC results..."
+        "Performing MultiQC on the FastQC results"
     wrapper:
-            "v3.8.0/bio/multiqc"
-        
+        "v1.20.0/bio/multiqc"        
