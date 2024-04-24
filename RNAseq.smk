@@ -77,11 +77,12 @@ rule multiqc:
     input:
         expand(qcdir + "/{sample}_fastqc.html", sample=SAMPLES)
     output:
-        html_report = qcdir + "multiqc_report.html"
+        html_report = qcdir + "/multiqc_report.html"
     params:
         outdir = qcdir,
         options = "--filename multiqc_report.html"
     message: 
         "Performing MultiQC on the FastQC results"
     wrapper:
-        "v1.20.0/bio/multiqc"        
+        "v1.20.0/bio/multiqc" 
+               
