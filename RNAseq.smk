@@ -16,6 +16,7 @@ configfile: "config.yaml"
 datadir = config["directories"]["datadir"]
 qcdir = config["directories"]["qcdir"]
 logs = config["directories"]["logs"]
+mqcdir = config["directories"]["mqcdir"]
 
 # =================================================================================================
 #   Functions
@@ -45,7 +46,7 @@ SAMPLES = read_sample_names(sample_names_file)
 
 rule all:
     input:
-        qcdir + "multiqc_report.html"
+        mqcdir + "/multiqc_report.html"
 
 # This rule runs fastqc on all data fastq files
 rule fastqc:
@@ -77,12 +78,11 @@ rule multiqc:
     input:
         expand(qcdir + "/{sample}_fastqc.html", sample=SAMPLES)
     output:
-        html_report = qcdir + "/multiqc_report.html"
+        mqcdir + "/multiqc_report.html",
+        mqcdir + "multiqc_report.zip"
     params:
-        outdir = qcdir,
-        options = "--filename multiqc_report.html"
+        extra= "--verbose"
     message: 
         "Performing MultiQC on the FastQC results"
     wrapper:
         "v1.20.0/bio/multiqc" 
-               

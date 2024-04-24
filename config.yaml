@@ -3,4 +3,5 @@ directories:
   scriptdir: /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts
   qcdir: /scratch/drt83172/Wallace_lab/RNA_SEQ/qc
   logs: /scratch/drt83172/Wallace_lab/RNA_SEQ/logs
+  mqcdir: /scratch/drt83172/Wallace_lab/RNA_SEQ/mqcdir
 
