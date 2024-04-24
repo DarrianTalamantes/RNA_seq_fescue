@@ -81,7 +81,8 @@ rule multiqc:
         mqcdir + "/multiqc_report.html",
         mqcdir + "/multiqc_report.zip"
     params:
-        extra= "--verbose"
+        extra= "--verbose",
+        use_input_files_only=True
     message: 
         "Performing MultiQC on the FastQC results"
     wrapper:
