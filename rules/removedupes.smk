@@ -5,15 +5,15 @@
 # I need to do input and output for both foward and reverse data. I made a list 
 rule trim_galore_pe:
     input:
-        fastq = datadir + "/{sample}.fastq.gz"
+        [datadir + "/{sample}R1.fastq.gz", datadir + "/{sample}R2.fastq.gz"]
     output:
-        fasta = trimmed + "{sample}.fq.gz",
-        report = trimmed + "{sample}.trimming_report.txt"
+        fasta_fwd= trimmed + "/{sample}_R1.fq.gz",
+        report_fwd=trimmed + "{sample}_R1_trimming_report.txt",
+        fasta_rev=trimmed + "{sample}_R2.fq.gz",
+        report_rev=trimmed + "{sample}_R2_trimming_report.txt",
     threads: 1
     params:
         extra="--illumina -q 20",
-    shell:
-        """
-        trim_galore --fastqc --gzip --output_dir {qcdir} {input.fastq}
-        """
+    wrapper:
+        "v3.9.0/bio/trim_galore/pe"
 
