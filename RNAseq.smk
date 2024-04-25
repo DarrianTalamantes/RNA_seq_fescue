@@ -23,6 +23,8 @@ datadir = config["directories"]["datadir"]
 qcdir = config["directories"]["qcdir"]
 logs = config["directories"]["logs"]
 mqcdir = config["directories"]["mqcdir"]
+trimmed = config["directories"]["trimmed"]
+
 
 # =================================================================================================
 #   Functions
@@ -42,7 +44,8 @@ def read_sample_names(file_path):
 sample_names_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/samples_list.txt"
 SAMPLES = read_sample_names(sample_names_file)
 
-
+sample_names_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/samples_list.txt"
+SAMPLES = read_sample_names(sample_names_file)
 
 
 # =================================================================================================
@@ -68,16 +71,24 @@ rule fastqc:
         fastqc  -o {qcdir} {input.fastq} 
         """
 
+#################################
+# Multiqc (could not get multiqc installed in conda)
+#################################
+# rule multiqc:
+#     input:
+#         expand(qcdir + "/{sample}_fastqc.html", sample=SAMPLES),
+#     output:
+#         mqcdir + "/multiqc_report.html",
+#         mqcdir + "/multiqc_report.zip",
+#     params:
+#         extra= "--verbose",
+#     conda:
+#         "Conda_Envs/multiqc.yaml"
+#     wrapper:
+#         "v3.9.0/bio/multiqc"
+####
+# Code below was ran instead of the multiqc rule
+# multiqc . 
+###
 
-rule multiqc:
-    input:
-        expand(qcdir + "/{sample}_fastqc.html", sample=SAMPLES),
-    output:
-        mqcdir + "/multiqc_report.html",
-        mqcdir + "/multiqc_report.zip",
-    params:
-        extra= "--verbose",
-    conda:
-        "Conda_Envs/multiqc.yaml"
-    wrapper:
-        "v3.9.0/bio/multiqc"
+include: "rules/removedupes.smk"
