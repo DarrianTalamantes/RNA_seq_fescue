@@ -7,10 +7,10 @@ rule trim_galore_pe:
     input:
         [datadir + "/{pairs}R1.fastq.gz", datadir + "/{pairs}R2.fastq.gz"]
     output:
-        fasta_fwd= trimmed + "/{pairs}_R1.fq.gz",
-        report_fwd=trimmed + "{pairs}_R1_trimming_report.txt",
-        fasta_rev=trimmed + "{pairs}_R2.fq.gz",
-        report_rev=trimmed + "{pairs}_R2_trimming_report.txt",
+        fasta_fwd = trimmed + "/{pairs}R1.fq.gz",
+        report_fwd = trimmed + "/{pairs}R1_trimming_report.txt",
+        fasta_rev = trimmed + "/{pairs}R2.fq.gz",
+        report_rev = trimmed + "/{pairs}R2_trimming_report.txt",
     threads: 1
     params:
         extra="--illumina -q 20",
