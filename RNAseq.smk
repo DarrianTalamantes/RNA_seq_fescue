@@ -45,7 +45,7 @@ sample_names_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescu
 SAMPLES = read_sample_names(sample_names_file)
 
 paired_list_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/paired_list.txt"
-PAIRS = read_paired_list(paired_list.txt)
+PAIRS = read_sample_names(paired_list_file)
 
 
 # =================================================================================================
