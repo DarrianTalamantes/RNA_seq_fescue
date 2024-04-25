@@ -45,7 +45,7 @@ sample_names_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescu
 SAMPLES = read_sample_names(sample_names_file)
 
 paired_list_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/paired_list.txt"
-pairs = read_sample_names(paired_list_file)
+PAIRS = read_sample_names(paired_list_file)
 
 
 # =================================================================================================
@@ -56,10 +56,10 @@ pairs = read_sample_names(paired_list_file)
 rule all:
     input:
         # mqcdir + "/multiqc_report.html"
-        fasta_fwd=trimmed + "/{pairs}R1.fq.gz",
-        report_fwd=trimmed + "/{pairs}R1_trimming_report.txt",
-        fasta_rev=trimmed + "/{pairs}R2.fq.gz",
-        report_rev=trimmed + "/{pairs}R2_trimming_report.txt"
+        fasta_fwd= expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS),
+        report_fwd= expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
+        fasta_rev= expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS),
+        report_rev= expand(trimmed + "/{pairs}R2_trimming_report.txt" pairs=PAIRS)
 
 
 # This rule runs fastqc on all data fastq files
@@ -96,4 +96,4 @@ rule fastqc:
 # multiqc . 
 ###
 
-include: "rules/removedupes.smk"
+include: "rules/trim.smk"
