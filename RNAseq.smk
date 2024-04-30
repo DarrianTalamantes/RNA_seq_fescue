@@ -61,13 +61,7 @@ PAIRS = read_sample_names(paired_list_file)
 
 rule all:
     input:
-        # mqcdir + "/multiqc_report.html"
-        fasta_fwd= expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS),
-        report_fwd= expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
-        fasta_rev= expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS),
-        report_rev= expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS),
         directory(config["directories"]["genome_idx"])
-
 
 # This rule runs fastqc on all data fastq files
 rule fastqc:

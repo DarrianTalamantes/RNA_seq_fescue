@@ -8,7 +8,7 @@
 
 rule star_index:
     input:
-        genome_file =trimmed + genome
+        genome_file = genome
     output:
         directory(config["directories"]["genome_idx"])
     conda:
