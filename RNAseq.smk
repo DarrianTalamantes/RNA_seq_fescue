@@ -65,7 +65,7 @@ rule all:
         fasta_fwd= expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS),
         report_fwd= expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
         fasta_rev= expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS),
-        report_rev= expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
+        report_rev= expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS),
         directory(genomedic)
 
 
