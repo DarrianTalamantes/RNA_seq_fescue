@@ -12,7 +12,7 @@ rule star_index:
     output:
         directory(config["directories"]["genome_idx"])
     conda:
-        'Conda_Envs/transcriptome.yaml',
+        'Conda_Envs/transcriptome.yaml'
     threads: 10
     shell:
     """
@@ -27,7 +27,7 @@ rule star_alignment:
     input:
         reads1 = trimmed + "/{pairs}R1.fq.gz",
         reads2 = trimmed + "/{pairs}R2.fq.gz",
-        genome_index=directory("genome_index")
+        genome_index = config["directories"]["genome_idx"]
     output:
         alignment = align + "aligned_reads.bam"
     conda:
