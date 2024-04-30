@@ -36,25 +36,24 @@ rule star_index:
 #     --sjdbOverhang 101
 #     """
 
-rule star_alignment:
-    input:
-        reads1 = trimmed + "/{pairs}R1.fq.gz",
-        reads2 = trimmed + "/{pairs}R2.fq.gz",
-        genome_index = config["directories"]["genome_idx"]
-    output:
-        alignment = align + "aligned_reads.bam"
-    conda:
-        'Conda_Envs/transcriptome.yaml'
-    threads: 10
-    shell:
-    """
-    STAR --genomeDir {input.genome_index} \
-    --readFilesIn {input.reads1} {input.reads2} \
-    --runThreadN {params.threads} \
-    --outSAMtype BAM SortedByCoordinate \
-    --outFileNamePrefix aligned_reads
-
-    """
+# rule star_alignment:
+#     input:
+#         reads1 = trimmed + "/{pairs}R1.fq.gz",
+#         reads2 = trimmed + "/{pairs}R2.fq.gz",
+#         genome_index = config["directories"]["genome_idx"]
+#     output:
+#         alignment = align + "aligned_reads.bam"
+#     conda:
+#         'Conda_Envs/transcriptome.yaml'
+#     threads: 10
+#     shell:
+#     """
+#     STAR --genomeDir {input.genome_index} \
+#     --readFilesIn {input.reads1} {input.reads2} \
+#     --runThreadN {params.threads} \
+#     --outSAMtype BAM SortedByCoordinate \
+#     --outFileNamePrefix aligned_reads
+#     """
 
 
 '''
