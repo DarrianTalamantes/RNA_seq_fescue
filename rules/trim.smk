@@ -18,7 +18,3 @@ rule trim_galore_pe:
     wrapper:
         "v3.9.0/bio/trim_galore/pe"
 
-
-
-
-

@@ -4,4 +4,8 @@ directories:
   qcdir: /scratch/drt83172/Wallace_lab/RNA_SEQ/qc
   logs: /scratch/drt83172/Wallace_lab/RNA_SEQ/logs
   mqcdir: /scratch/drt83172/Wallace_lab/RNA_SEQ/mqcdir
-  trimmed: /scratch/drt83172/Wallace_lab/RNA_SEQ/mqcdir
+  trimmed: /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed
+  genomedic: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome
+  align: /scratch/drt83172/Wallace_lab/RNA_SEQ/Alignment
+
+genome: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/tall_fescuev0.1.fa

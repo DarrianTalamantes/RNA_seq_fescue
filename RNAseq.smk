@@ -3,9 +3,10 @@
 
 
 
-# 1. QC/QA using mutliQC and Trimmomatic to remove adapters and low quality reads 
-# 2. Map to genome using Salmon (quasi mapper) it also quantifies the reads 
-# 3. Differential analysis using DESeq2 (via R) 
+# 1. QC/QA using mutliQC and Trim Galore to remove adapters and low quality reads 
+# 2. Create a transcriptome using trinity from both genome and sequence data
+# 3. Use salmon to quantify shit 
+# 4. Differential analysis using DESeq2 (via R) 
 
 
 # =========================================================================================================
@@ -24,6 +25,11 @@ qcdir = config["directories"]["qcdir"]
 logs = config["directories"]["logs"]
 mqcdir = config["directories"]["mqcdir"]
 trimmed = config["directories"]["trimmed"]
+genomedic = config["directories"]["genomedic"]
+align = config["directories"]["Alignment"]
+
+# Files
+genome = config["genome"]
 
 
 # =================================================================================================
@@ -60,6 +66,7 @@ rule all:
         report_fwd= expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
         fasta_rev= expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS),
         report_rev= expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
+        directory(genomedic)
 
 
 # This rule runs fastqc on all data fastq files
@@ -97,3 +104,8 @@ rule fastqc:
 ###
 
 include: "rules/trim.smk"
+include: "make_transcriptome.smk"
+
+
+
+
