@@ -61,7 +61,7 @@ PAIRS = read_sample_names(paired_list_file)
 
 rule all:
     input:
-        directory(config["directories"]["genome_idx"])
+        config["directories"]["genome_idx"]
 
 # This rule runs fastqc on all data fastq files
 rule fastqc:
