@@ -26,7 +26,7 @@ logs = config["directories"]["logs"]
 mqcdir = config["directories"]["mqcdir"]
 trimmed = config["directories"]["trimmed"]
 genome_idx = config["directories"]["genome_idx"]
-align = config["directories"]["Alignment"]
+align = config["directories"]["align"]
 
 # Files
 genome = config["genome"]
