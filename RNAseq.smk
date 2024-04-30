@@ -30,7 +30,7 @@ align = config["directories"]["align"]
 
 # Files
 genome = config["genome"]
-
+star_manifest = config["star_manifest"]
 
 # =================================================================================================
 #   Functions

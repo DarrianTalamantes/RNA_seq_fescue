@@ -6,35 +6,46 @@
 # align reads to genome with STAR
 # put bam file into trinity guided approuch 
 
-
+# This resulted in an out of memory error
 rule star_index:
     input:
         fasta = genome,
     output:
         directory(config["directories"]["genome_idx"])
-    threads:12
+    threads:10
     params:
         extra = ""
     wrapper:
         "0.49.0/bio/star/index"
 
+rule star_pe_multi:
+    input:
+        # We actually need manifest file here not whatever these inputs are
+        manifest = star_manifest
+        genome_index=config["directories"]["genome_idx"],
+    output:
+        # see STAR manual for additional output files
+        aln= align + "{pairs}/pe_aligned.sam",
+        log= align + "{pairs}/Log.out",
+        sj= align + "{pairs}/SJ.out.tab",
+        unmapped=[ align + "{pairs}/unmapped.1.fastq.gz", align + "{pairs}/unmapped.2.fastq.gz"],
+    conda:
+        "Conda_Envs/transcriptome.yaml"
+    threads: 8
+    params:
+        threads = 8
+        prefix = align
+    shell:
+        """
+    STAR --genomeDir {input.genome_index} \
+    --readFilesManifest {input.manifest} \
+    --runThreadN {params.threads} \
+    --outSAMtype BAM SortedByCoordinate \
+    --outFileNamePrefix {params.prefix}/aligned_reads
+        """
 
-# rule star_index:
-#     input:
-#         genome_file = genome
-#     output:
-#         directory(config["directories"]["genome_idx"])
-#     conda:
-#         'Conda_Envs/transcriptome.yaml'
-#     threads: 10
-#     shell:
-#     """
-#     STAR --runThreadN {threads} \
-#     --runMode genomeGenerate \
-#     --genomeDir {output} \
-#     --genomeFastaFiles {input.genome_file} \
-#     --sjdbOverhang 101
-#     """
+
+
 
 # rule star_alignment:
 #     input:
