@@ -25,7 +25,7 @@ qcdir = config["directories"]["qcdir"]
 logs = config["directories"]["logs"]
 mqcdir = config["directories"]["mqcdir"]
 trimmed = config["directories"]["trimmed"]
-genomedic = config["directories"]["genomedic"]
+genome_idx = config["directories"]["genome_idx"]
 align = config["directories"]["Alignment"]
 
 # Files
@@ -66,7 +66,7 @@ rule all:
         report_fwd= expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
         fasta_rev= expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS),
         report_rev= expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS),
-        directory(genomedic)
+        directory(config["directories"]["genome_idx"])
 
 
 # This rule runs fastqc on all data fastq files
