@@ -98,7 +98,7 @@ rule fastqc:
 ###
 
 include: "rules/trim.smk"
-include: "make_transcriptome.smk"
+include: "rules/make_transcriptome.smk"
 
 
 
