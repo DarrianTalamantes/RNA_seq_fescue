@@ -6,22 +6,35 @@
 # align reads to genome with STAR
 # put bam file into trinity guided approuch 
 
+
 rule star_index:
     input:
-        genome_file = genome
+        fasta = genome,
     output:
         directory(config["directories"]["genome_idx"])
-    conda:
-        'Conda_Envs/transcriptome.yaml'
-    threads: 10
-    shell:
-    """
-    STAR --runThreadN {threads} \
-    --runMode genomeGenerate \
-    --genomeDir {output} \
-    --genomeFastaFiles {input.genome_file} \
-    --sjdbOverhang 101
-    """
+    threads:12
+    params:
+        extra = ""
+    wrapper:
+        "0.49.0/bio/star/index"
+
+
+# rule star_index:
+#     input:
+#         genome_file = genome
+#     output:
+#         directory(config["directories"]["genome_idx"])
+#     conda:
+#         'Conda_Envs/transcriptome.yaml'
+#     threads: 10
+#     shell:
+#     """
+#     STAR --runThreadN {threads} \
+#     --runMode genomeGenerate \
+#     --genomeDir {output} \
+#     --genomeFastaFiles {input.genome_file} \
+#     --sjdbOverhang 101
+#     """
 
 rule star_alignment:
     input:
