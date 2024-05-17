@@ -61,7 +61,7 @@ PAIRS = read_sample_names(paired_list_file)
 
 rule all:
     input:
-        config["directories"]["genome_idx"]
+        expand("{trimmed}/{pairs}/Aligned.sortedByCoord.out.bam", trimmed=config["directories"]["trimmed"], pairs=PAIRS)
 
 # This rule runs fastqc on all data fastq files
 rule fastqc:
