@@ -29,7 +29,8 @@ rule star_mapping:
         bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"
     run:
         shell("STAR --runThreadN {params.threads} \
-            --genomeDir {input.genome_dir} {params.compcomm} \
+            --genomeDir {input.genome_dir} \
+            --readFilesCommand zcat \
             --readFilesManifest {input.manifest} \
             --outFileNamePrefix {output.bam} \
             --outSAMtype BAM SortedByCoordinate")

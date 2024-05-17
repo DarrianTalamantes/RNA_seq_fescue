@@ -15,4 +15,3 @@ star_manifest: manifest.tsv
 params:
   star_mapping:
     threads: 10
-    compcomm: "--readFilesCommand gunzip -c"
