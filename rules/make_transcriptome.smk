@@ -18,12 +18,6 @@ rule star_index:
     wrapper:
         "0.49.0/bio/star/index"
 
-
-
-rule all:
-    input:
-        expand("{star_bams}/{samples}Aligned.sortedByCoord.out.bam", star_bams=config["directories"]["star_bams"], samples=SAMPLES)
-
 rule star_mapping:
     input:
         manifest = star_manifest,
