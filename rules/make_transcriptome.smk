@@ -21,7 +21,7 @@ rule star_index:
 rule star_mapping:
     input:
         manifest = star_manifest,
-        genome_dir = ["directories"]["genome_idx"]
+        genome_dir = config["directories"]["genome_idx"]
     params:
         threads = config["params"]["star_mapping"]["threads"],
         compcomm = config["params"]["star_mapping"]["compcomm"]
