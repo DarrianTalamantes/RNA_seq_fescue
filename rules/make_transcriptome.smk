@@ -25,6 +25,8 @@ rule star_mapping:
     params:
         threads = config["params"]["star_mapping"]["threads"],
         prefix = config["directories"]["star_bams"],
+    conda:
+        "Conda_Envs/transcriptome.yaml"
     output:
         bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
         log_out = config["directories"]["star_bams"] + "Log.out",
@@ -38,7 +40,7 @@ rule star_mapping:
             --readFilesManifest {input.manifest} \
             --outFileNamePrefix {params.prefix} \
             --outSAMtype BAM SortedByCoordinate
-        """"
+        """
 
 
 
