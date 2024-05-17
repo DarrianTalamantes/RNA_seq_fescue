@@ -24,7 +24,6 @@ rule star_mapping:
         genome_dir = config["directories"]["genome_idx"]
     params:
         threads = config["params"]["star_mapping"]["threads"],
-        compcomm = config["params"]["star_mapping"]["compcomm"]
     output:
         bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"
     run:
