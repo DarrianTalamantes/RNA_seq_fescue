@@ -20,7 +20,7 @@ rule star_index:
 
 rule star_mapping:
     input:
-        manifest = star_manifest
+        manifest = star_manifest,
         inpath = trimmed
     params:
         threads = config["params"]["star_mapping"]["threads"],
