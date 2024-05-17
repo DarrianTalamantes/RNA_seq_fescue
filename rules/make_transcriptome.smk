@@ -18,53 +18,26 @@ rule star_index:
     wrapper:
         "0.49.0/bio/star/index"
 
-# rule star_pe_multi:
-#     input:
-#         # We actually need manifest file here not whatever these inputs are
-#         manifest = star_manifest,
-#         genome_index=config["directories"]["genome_idx"],
-#     output:
-#         # see STAR manual for additional output files
-#         aln= align + "{pairs}/pe_aligned.sam",
-#         log= align + "{pairs}/Log.out",
-#         sj= align + "{pairs}/SJ.out.tab",
-#         unmapped=[ align + "{pairs}/unmapped.1.fastq.gz", align + "{pairs}/unmapped.2.fastq.gz"],
-#     conda:
-#         "Conda_Envs/transcriptome.yaml"
-#     threads: 8
-#     params:
-#         threads = 8
-#         prefix = align
-#     shell:
-#         """
-#     STAR --genomeDir {input.genome_index} \
-#     --readFilesManifest {input.manifest} \
-#     --runThreadN {params.threads} \
-#     --outSAMtype BAM SortedByCoordinate \
-#     --outFileNamePrefix {params.prefix}/aligned_reads
-#         """
+rule star_mapping:
+    input:
+        manifest = star_manifest
+        inpath = trimmed
+    params:
+        threads = config["params"]["star_mapping"]["threads"],
+        compcomm = config["params"]["star_mapping"]["compcomm"]
+    output:
+        outpath = trimmed
+    run:
+        shell("if [ ! -d {output.outpath} ]; then \
+            mkdir -p {output.outpath}; fi")
+        shell("STAR --runThreadN {params.threads} \
+            --genomeDir {input.inpath} {params.compcomm} \
+            --readFilesManifest {input.manifest} \
+            --outFileNamePrefix {output.outpath}/{sample} \
+            --outSAMtype BAM SortedByCoordinate")
 
 
 
-
-# rule star_alignment:
-#     input:
-#         reads1 = trimmed + "/{pairs}R1.fq.gz",
-#         reads2 = trimmed + "/{pairs}R2.fq.gz",
-#         genome_index = config["directories"]["genome_idx"]
-#     output:
-#         alignment = align + "aligned_reads.bam"
-#     conda:
-#         'Conda_Envs/transcriptome.yaml'
-#     threads: 10
-#     shell:
-#     """
-#     STAR --genomeDir {input.genome_index} \
-#     --readFilesIn {input.reads1} {input.reads2} \
-#     --runThreadN {params.threads} \
-#     --outSAMtype BAM SortedByCoordinate \
-#     --outFileNamePrefix aligned_reads
-#     """
 
 
 '''

@@ -10,3 +10,8 @@ directories:
 
 genome: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/tall_fescuev0.1.fa
 star_manifest: manifest.tsv
+
+params:
+  star_mapping:
+    threads: 10
+    compcomm: "--readFilesCommand gunzip -c"

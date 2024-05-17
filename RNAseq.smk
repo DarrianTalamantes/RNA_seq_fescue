@@ -97,6 +97,9 @@ rule fastqc:
 # multiqc . 
 ###
 
+
+## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
+
 include: "rules/trim.smk"
 include: "rules/make_transcriptome.smk"
 
