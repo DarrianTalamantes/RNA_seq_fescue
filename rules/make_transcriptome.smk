@@ -25,7 +25,7 @@ rule star_mapping:
     params:
         threads = config["params"]["star_mapping"]["threads"],
     output:
-        bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"
+        bam = config["directories"]["star_bams"]
     run:
         shell("STAR --runThreadN {params.threads} \
             --genomeDir {input.genome_dir} \
