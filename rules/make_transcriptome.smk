@@ -24,15 +24,21 @@ rule star_mapping:
         genome_dir = config["directories"]["genome_idx"]
     params:
         threads = config["params"]["star_mapping"]["threads"],
+        prefix = config["directories"]["star_bams"],
     output:
-        bam = config["directories"]["star_bams"]
-    run:
-        shell("STAR --runThreadN {params.threads} \
+        bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
+        log_out = config["directories"]["star_bams"] + "Log.out",
+        log_final = config["directories"]["star_bams"] + "Log.final.out",
+        sj_out = config["directories"]["star_bams"] + "SJ.out.tab"
+    shell:
+        """        
+        STAR --runThreadN {params.threads} \
             --genomeDir {input.genome_dir} \
             --readFilesCommand zcat \
             --readFilesManifest {input.manifest} \
-            --outFileNamePrefix {output.bam} \
-            --outSAMtype BAM SortedByCoordinate")
+            --outFileNamePrefix {params.prefix} \
+            --outSAMtype BAM SortedByCoordinate
+        """"
 
 
 
