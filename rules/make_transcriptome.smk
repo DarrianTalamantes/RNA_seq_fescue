@@ -18,6 +18,12 @@ rule star_index:
     wrapper:
         "0.49.0/bio/star/index"
 
+
+
+rule all:
+    input:
+        expand("{star_bams}/{samples}Aligned.sortedByCoord.out.bam", star_bams=config["directories"]["star_bams"], samples=SAMPLES)
+
 rule star_mapping:
     input:
         manifest = star_manifest,
@@ -26,14 +32,12 @@ rule star_mapping:
         threads = config["params"]["star_mapping"]["threads"],
         compcomm = config["params"]["star_mapping"]["compcomm"]
     output:
-        outpath = config["directories"]["star_bams"]
+        bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"
     run:
-        shell("if [ ! -d {output.outpath} ]; then \
-            mkdir -p {output.outpath}; fi")
         shell("STAR --runThreadN {params.threads} \
             --genomeDir {input.genome} {params.compcomm} \
             --readFilesManifest {input.manifest} \
-            --outFileNamePrefix {output.outpath}/{samples} \
+            --outFileNamePrefix {output.bam} \
             --outSAMtype BAM SortedByCoordinate")
 
 

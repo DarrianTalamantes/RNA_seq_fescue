@@ -61,7 +61,7 @@ PAIRS = read_sample_names(paired_list_file)
 
 rule all:
     input:
-        expand("{star_bams}/{samples}Aligned.sortedByCoord.out.bam", star_bams=config["directories"]["star_bams"], samples=SAMPLES)
+        config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"
 
 # This rule runs fastqc on all data fastq files
 rule fastqc:
