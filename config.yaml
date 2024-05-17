@@ -7,6 +7,7 @@ directories:
   trimmed: /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed
   genome_idx: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome_idx
   align: /scratch/drt83172/Wallace_lab/RNA_SEQ/Alignment
+  star_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/star_bams
 
 genome: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/tall_fescuev0.1.fa
 star_manifest: manifest.tsv

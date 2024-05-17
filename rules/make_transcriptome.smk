@@ -21,17 +21,17 @@ rule star_index:
 rule star_mapping:
     input:
         manifest = star_manifest,
-        inpath = trimmed
+        genome_dir = ["directories"]["genome_idx"]
     params:
         threads = config["params"]["star_mapping"]["threads"],
         compcomm = config["params"]["star_mapping"]["compcomm"]
     output:
-        outpath = trimmed
+        outpath = config["directories"]["star_bams"]
     run:
         shell("if [ ! -d {output.outpath} ]; then \
             mkdir -p {output.outpath}; fi")
         shell("STAR --runThreadN {params.threads} \
-            --genomeDir {input.inpath} {params.compcomm} \
+            --genomeDir {input.genome} {params.compcomm} \
             --readFilesManifest {input.manifest} \
             --outFileNamePrefix {output.outpath}/{samples} \
             --outSAMtype BAM SortedByCoordinate")
