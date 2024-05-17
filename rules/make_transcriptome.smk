@@ -33,7 +33,7 @@ rule star_mapping:
         shell("STAR --runThreadN {params.threads} \
             --genomeDir {input.inpath} {params.compcomm} \
             --readFilesManifest {input.manifest} \
-            --outFileNamePrefix {output.outpath}/{sample} \
+            --outFileNamePrefix {output.outpath}/{pairs} \
             --outSAMtype BAM SortedByCoordinate")
 
 
