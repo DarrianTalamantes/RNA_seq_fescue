@@ -1,4 +1,3 @@
-read1-file-name	read2-file-name	Read-group-line
 /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C1_A018_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C1_A018_R2.fq.gz	CTE25N_J16_C1_A018_R1
 /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C2_A146_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C2_A146_R2.fq.gz	CTE25N_J16_C2_A146_R1
 /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H1_A052_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H1_A052_R2.fq.gz	CTE25N_J16_H1_A052_R1
