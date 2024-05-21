@@ -43,7 +43,7 @@ dependencies:
   - setuptools=68.2.2=py310h06a4308_0
   - slclust=02022010=1
   - sqlite=3.45.3=h5eee18b_0
-  - star=2.5.2b=0
+  - star=2.7.11b-1
   - tk=8.6.12=h1ccaba5_0
   - trimmomatic=0.39=hdfd78af_2
   - trinity=2.1.1=6
