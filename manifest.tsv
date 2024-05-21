@@ -1,206 +1,206 @@
 read1-file-name	read2-file-name	Read-group-line
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C1_A018_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C1_A018_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C2_A146_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C2_A146_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H1_A052_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H1_A052_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H2_A228_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H2_A228_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H3_S290_F61_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H3_S290_F61_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP1_A112_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP1_A112_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP2_A178_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP2_A178_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP3_S372_F63_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP3_S372_F63_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_C2_S018_F65_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_C2_S018_F65_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_C3_S260_F76_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_C3_S260_F76_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H1_S052_F67_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H1_S052_F67_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H2_S228_F74_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H2_S228_F74_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H3_S290_F78_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H3_S290_F78_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP1_S112_F70_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP1_S112_F70_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP2_S178_F72_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP2_S178_F72_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP3_S372_F80_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP3_S372_F80_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C1_A028_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C1_A028_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C2_A130_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C2_A130_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C3_A282_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C3_A282_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H1_A058_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H1_A058_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H2_A230_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H2_A230_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H3_S292_F62_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H3_S292_F62_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP1_A100_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP1_A100_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP2_A188_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP2_A188_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP3_S380_F64_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP3_S380_F64_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C1_S028_F66_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C1_S028_F66_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C2_S130_F71_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C2_S130_F71_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C3_S282_F77_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C3_S282_F77_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H1_S058_F68_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H1_S058_F68_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H2_S230_F75_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H2_S230_F75_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H3_S292_F79_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H3_S292_F79_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_HP1_S100_F69_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_HP1_S100_F69_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_HP2_S188_F73_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_HP2_S188_F73_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_C1_P020_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_C1_P020_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_C2_P154_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_C2_P154_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H1_P060_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H1_P060_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H2_P226_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H2_P226_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H3_P306_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H3_P306_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP1_P098_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP1_P098_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP2_P186_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP2_P186_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP3_P368_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP3_P368_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C1_S020_F81_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C1_S020_F81_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C2_S154_F88_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C2_S154_F88_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C3_S262_F93_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C3_S262_F93_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_H2_S226_F91_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_H2_S226_F91_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_H3_S306_F96_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_H3_S306_F96_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP1_S098_F85_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP1_S098_F85_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP2_S186_F90_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP2_S186_F90_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP3_S368_F98_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP3_S368_F98_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C1_P026_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C1_P026_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C2_P144_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C2_P144_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C3_P284_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C3_P284_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H1_P048_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H1_P048_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H2_P250_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H2_P250_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H3_P304_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H3_P304_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP1_P116_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP1_P116_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP2_P162_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP2_P162_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP3_P354_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP3_P354_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C1_S026_F82_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C1_S026_F82_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C2_S144_F87_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C2_S144_F87_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C3_S284_F94_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C3_S284_F94_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H1_S048_F83_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H1_S048_F83_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H2_S259_F92_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H2_S259_F92_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H3_S304_F95_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H3_S304_F95_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP1_S116_F86_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP1_S116_F86_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP2_S162_F89_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP2_S162_F89_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP3_S354_F97_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP3_S354_F97_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_C2_Z134_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_C2_Z134_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_C3_Z272_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_C3_Z272_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H1_Z036_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H1_Z036_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H2_Z244_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H2_Z244_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H3_Z294_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H3_Z294_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP1_Z114_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP1_Z114_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP2_Z180_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP2_Z180_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP3_Z378_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP3_Z378_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C1_S2_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C1_S2_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C2_S7_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C2_S7_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C3_F1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C3_F1_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H1_S3_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H1_S3_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H2_S12_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H2_S12_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H3_F3_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H3_F3_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_HP1_S5_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_HP1_S5_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_HP3_F6_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_HP3_F6_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C1_R006_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C1_R006_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C2_R134_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C2_R134_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C3_R272_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C3_R272_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H1_S036_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H1_S036_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H2_S244_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H2_S244_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H3_294_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H3_294_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP1_R114_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP1_R114_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP2_R180_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP2_R180_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP3_R378_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP3_R378_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C1_S006_F26_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C1_S006_F26_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C2_S134_F31_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C2_S134_F31_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C3_S272_F37_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C3_S272_F37_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H1_S036_F27_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H1_S036_F27_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H2_S244_F36_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H2_S244_F36_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H3_S294_F39_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H3_S294_F39_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP1_S114_F29_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP1_S114_F29_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP2_S180_F34_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP2_S180_F34_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP3_S378_F42_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP3_S378_F42_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_C2_Z156_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_C2_Z156_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_C3_Z276_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_C3_Z276_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H1_Z038_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H1_Z038_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H2_Z242_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H2_Z242_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H3_Z314_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H3_Z314_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP1_Z122_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP1_Z122_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP2_Z166_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP2_Z166_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP3_Z370_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP3_Z370_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C1_S1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C1_S1_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C2_S8_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C2_S8_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C3_F2_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C3_F2_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H1_S4_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H1_S4_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H2_S11_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H2_S11_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H3_F4_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H3_F4_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP1_S6_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP1_S6_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP2_S9_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP2_S9_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP3_F5_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP3_F5_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C1_R002_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C1_R002_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C2_R156_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C2_R156_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C3_R276_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C3_R276_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H1_S038_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H1_S038_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H2_S242_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H2_S242_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H3_S314_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H3_S314_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP1_R122_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP1_R122_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP2_R166_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP2_R166_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP3_R370_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP3_R370_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C1_S002_F25_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C1_S002_F25_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C2_S156_F32_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C2_S156_F32_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C3_S276_F38_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C3_S276_F38_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H1_S038_F28_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H1_S038_F28_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H2_S242_F35_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H2_S242_F35_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H3_S314_F40_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H3_S314_F40_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_HP1_S122_F30_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_HP1_S122_F30_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_HP3_S370_F41_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_HP3_S370_F41_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_C1_V016_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_C1_V016_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_C2_V132_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_C2_V132_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H1_V050_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H1_V050_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H2_V252_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H2_V252_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H3_V308_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H3_V308_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP1_V102_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP1_V102_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP2_V176_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP2_V176_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP3_V358_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP3_V358_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C1_S016_F9_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C1_S016_F9_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C2_S132_F13_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C2_S132_F13_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C3_S258_F19_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C3_S258_F19_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H1_S050_F10_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H1_S050_F10_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H2_S252_F18_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H2_S252_F18_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H3_S308_F21_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H3_S308_F21_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP1_S102_F11_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP1_S102_F11_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP2_S176_F16_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP2_S176_F16_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP3_S358_F24_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP3_S358_F24_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C1__S16_T2_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C1__S16_T2_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C2_S132_T5_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C2_S132_T5_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C3_S258_T9_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C3_S258_T9_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H1_X8_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H1_X8_1_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H2_X10_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H2_X10_1_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H3_X11_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H3_X11_1_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP1_S102_T3_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP1_S102_T3_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP2_S176_T8_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP2_S176_T8_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP3_S358_T12_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP3_S358_T12_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C1_S016_F44_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C1_S016_F44_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C2_S132_F49_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C2_S132_F49_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C3_S258_F55_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C3_S258_F55_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H1_S050_F46_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H1_S050_F46_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H2_S252_F54_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H2_S252_F54_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H3_S308_F57_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H3_S308_F57_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP1_S102_F47_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP1_S102_F47_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP2_S176_F52_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP2_S176_F52_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP3_S358_F60_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP3_S358_F60_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C1_V004_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C1_V004_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C2_V148_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C2_V148_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C3_V274_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C3_V274_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H1_V034_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H1_V034_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H2_V240_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H2_V240_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H3_V316_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H3_V316_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_HP1_V124_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_HP1_V124_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_HP2_V164_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_HP2_V164_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C1_S004_F7_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C1_S004_F7_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C2_S148_F14_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C2_S148_F14_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C3_S274_F20_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C3_S274_F20_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H1_S034_F8_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H1_S034_F8_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H2_S240_F17_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H2_S240_F17_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H3_S316_F22_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H3_S316_F22_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP1_S124_F12_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP1_S124_F12_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP2_S164_F15_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP2_S164_F15_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP3_S356_F23_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP3_S356_F23_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C1_S4_T1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C1_S4_T1_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C2_S148_T6_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C2_S148_T6_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C3_S274_T10_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C3_S274_T10_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H1_X7_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H1_X7_1_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H2_X9_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H2_X9_1_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H3_X12_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H3_X12_1_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP1_S124_T4_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP1_S124_T4_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP2_S164_T7_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP2_S164_T7_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP3_S356_T11_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP3_S356_T11_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C1_S004_F43_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C1_S004_F43_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C2_S148_F50_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C2_S148_F50_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C3_S274_F56_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C3_S274_F56_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H1_S034_F45_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H1_S034_F45_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H2_S240_F53_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H2_S240_F53_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H3_S316_F58_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H3_S316_F58_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP1_S124_F48_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP1_S124_F48_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP2_S164_F51_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP2_S164_F51_R2.fq.gz	
-/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP3_S356_F59_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP3_S356_F59_R2.fq.gz	
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C1_A018_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C1_A018_R2.fq.gz	CTE25N_J16_C1_A018_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C2_A146_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_C2_A146_R2.fq.gz	CTE25N_J16_C2_A146_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H1_A052_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H1_A052_R2.fq.gz	CTE25N_J16_H1_A052_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H2_A228_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H2_A228_R2.fq.gz	CTE25N_J16_H2_A228_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H3_S290_F61_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_H3_S290_F61_R2.fq.gz	CTE25N_J16_H3_S290_F61_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP1_A112_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP1_A112_R2.fq.gz	CTE25N_J16_HP1_A112_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP2_A178_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP2_A178_R2.fq.gz	CTE25N_J16_HP2_A178_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP3_S372_F63_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J16_HP3_S372_F63_R2.fq.gz	CTE25N_J16_HP3_S372_F63_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_C2_S018_F65_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_C2_S018_F65_R2.fq.gz	CTE25N_J17_C2_S018_F65_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_C3_S260_F76_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_C3_S260_F76_R2.fq.gz	CTE25N_J17_C3_S260_F76_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H1_S052_F67_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H1_S052_F67_R2.fq.gz	CTE25N_J17_H1_S052_F67_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H2_S228_F74_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H2_S228_F74_R2.fq.gz	CTE25N_J17_H2_S228_F74_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H3_S290_F78_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_H3_S290_F78_R2.fq.gz	CTE25N_J17_H3_S290_F78_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP1_S112_F70_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP1_S112_F70_R2.fq.gz	CTE25N_J17_HP1_S112_F70_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP2_S178_F72_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP2_S178_F72_R2.fq.gz	CTE25N_J17_HP2_S178_F72_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP3_S372_F80_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25N_J17_HP3_S372_F80_R2.fq.gz	CTE25N_J17_HP3_S372_F80_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C1_A028_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C1_A028_R2.fq.gz	CTE25P_J16_C1_A028_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C2_A130_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C2_A130_R2.fq.gz	CTE25P_J16_C2_A130_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C3_A282_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_C3_A282_R2.fq.gz	CTE25P_J16_C3_A282_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H1_A058_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H1_A058_R2.fq.gz	CTE25P_J16_H1_A058_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H2_A230_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H2_A230_R2.fq.gz	CTE25P_J16_H2_A230_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H3_S292_F62_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_H3_S292_F62_R2.fq.gz	CTE25P_J16_H3_S292_F62_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP1_A100_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP1_A100_R2.fq.gz	CTE25P_J16_HP1_A100_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP2_A188_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP2_A188_R2.fq.gz	CTE25P_J16_HP2_A188_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP3_S380_F64_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J16_HP3_S380_F64_R2.fq.gz	CTE25P_J16_HP3_S380_F64_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C1_S028_F66_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C1_S028_F66_R2.fq.gz	CTE25P_J17_C1_S028_F66_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C2_S130_F71_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C2_S130_F71_R2.fq.gz	CTE25P_J17_C2_S130_F71_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C3_S282_F77_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_C3_S282_F77_R2.fq.gz	CTE25P_J17_C3_S282_F77_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H1_S058_F68_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H1_S058_F68_R2.fq.gz	CTE25P_J17_H1_S058_F68_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H2_S230_F75_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H2_S230_F75_R2.fq.gz	CTE25P_J17_H2_S230_F75_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H3_S292_F79_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_H3_S292_F79_R2.fq.gz	CTE25P_J17_H3_S292_F79_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_HP1_S100_F69_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_HP1_S100_F69_R2.fq.gz	CTE25P_J17_HP1_S100_F69_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_HP2_S188_F73_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE25P_J17_HP2_S188_F73_R2.fq.gz	CTE25P_J17_HP2_S188_F73_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_C1_P020_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_C1_P020_R2.fq.gz	CTE31N_J16_C1_P020_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_C2_P154_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_C2_P154_R2.fq.gz	CTE31N_J16_C2_P154_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H1_P060_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H1_P060_R2.fq.gz	CTE31N_J16_H1_P060_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H2_P226_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H2_P226_R2.fq.gz	CTE31N_J16_H2_P226_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H3_P306_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_H3_P306_R2.fq.gz	CTE31N_J16_H3_P306_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP1_P098_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP1_P098_R2.fq.gz	CTE31N_J16_HP1_P098_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP2_P186_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP2_P186_R2.fq.gz	CTE31N_J16_HP2_P186_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP3_P368_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J16_HP3_P368_R2.fq.gz	CTE31N_J16_HP3_P368_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C1_S020_F81_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C1_S020_F81_R2.fq.gz	CTE31N_J17_C1_S020_F81_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C2_S154_F88_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C2_S154_F88_R2.fq.gz	CTE31N_J17_C2_S154_F88_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C3_S262_F93_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_C3_S262_F93_R2.fq.gz	CTE31N_J17_C3_S262_F93_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_H2_S226_F91_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_H2_S226_F91_R2.fq.gz	CTE31N_J17_H2_S226_F91_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_H3_S306_F96_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_H3_S306_F96_R2.fq.gz	CTE31N_J17_H3_S306_F96_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP1_S098_F85_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP1_S098_F85_R2.fq.gz	CTE31N_J17_HP1_S098_F85_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP2_S186_F90_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP2_S186_F90_R2.fq.gz	CTE31N_J17_HP2_S186_F90_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP3_S368_F98_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31N_J17_HP3_S368_F98_R2.fq.gz	CTE31N_J17_HP3_S368_F98_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C1_P026_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C1_P026_R2.fq.gz	CTE31P_J16_C1_P026_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C2_P144_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C2_P144_R2.fq.gz	CTE31P_J16_C2_P144_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C3_P284_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_C3_P284_R2.fq.gz	CTE31P_J16_C3_P284_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H1_P048_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H1_P048_R2.fq.gz	CTE31P_J16_H1_P048_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H2_P250_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H2_P250_R2.fq.gz	CTE31P_J16_H2_P250_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H3_P304_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_H3_P304_R2.fq.gz	CTE31P_J16_H3_P304_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP1_P116_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP1_P116_R2.fq.gz	CTE31P_J16_HP1_P116_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP2_P162_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP2_P162_R2.fq.gz	CTE31P_J16_HP2_P162_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP3_P354_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J16_HP3_P354_R2.fq.gz	CTE31P_J16_HP3_P354_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C1_S026_F82_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C1_S026_F82_R2.fq.gz	CTE31P_J17_C1_S026_F82_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C2_S144_F87_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C2_S144_F87_R2.fq.gz	CTE31P_J17_C2_S144_F87_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C3_S284_F94_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_C3_S284_F94_R2.fq.gz	CTE31P_J17_C3_S284_F94_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H1_S048_F83_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H1_S048_F83_R2.fq.gz	CTE31P_J17_H1_S048_F83_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H2_S259_F92_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H2_S259_F92_R2.fq.gz	CTE31P_J17_H2_S259_F92_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H3_S304_F95_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_H3_S304_F95_R2.fq.gz	CTE31P_J17_H3_S304_F95_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP1_S116_F86_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP1_S116_F86_R2.fq.gz	CTE31P_J17_HP1_S116_F86_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP2_S162_F89_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP2_S162_F89_R2.fq.gz	CTE31P_J17_HP2_S162_F89_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP3_S354_F97_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE31P_J17_HP3_S354_F97_R2.fq.gz	CTE31P_J17_HP3_S354_F97_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_C2_Z134_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_C2_Z134_R2.fq.gz	CTE45N_J16_C2_Z134_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_C3_Z272_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_C3_Z272_R2.fq.gz	CTE45N_J16_C3_Z272_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H1_Z036_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H1_Z036_R2.fq.gz	CTE45N_J16_H1_Z036_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H2_Z244_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H2_Z244_R2.fq.gz	CTE45N_J16_H2_Z244_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H3_Z294_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_H3_Z294_R2.fq.gz	CTE45N_J16_H3_Z294_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP1_Z114_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP1_Z114_R2.fq.gz	CTE45N_J16_HP1_Z114_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP2_Z180_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP2_Z180_R2.fq.gz	CTE45N_J16_HP2_Z180_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP3_Z378_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J16_HP3_Z378_R2.fq.gz	CTE45N_J16_HP3_Z378_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C1_S2_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C1_S2_R2.fq.gz	CTE45N_J17_C1_S2_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C2_S7_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C2_S7_R2.fq.gz	CTE45N_J17_C2_S7_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C3_F1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_C3_F1_R2.fq.gz	CTE45N_J17_C3_F1_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H1_S3_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H1_S3_R2.fq.gz	CTE45N_J17_H1_S3_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H2_S12_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H2_S12_R2.fq.gz	CTE45N_J17_H2_S12_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H3_F3_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_H3_F3_R2.fq.gz	CTE45N_J17_H3_F3_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_HP1_S5_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_HP1_S5_R2.fq.gz	CTE45N_J17_HP1_S5_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_HP3_F6_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_J17_HP3_F6_R2.fq.gz	CTE45N_J17_HP3_F6_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C1_R006_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C1_R006_R2.fq.gz	CTE45N_O16_C1_R006_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C2_R134_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C2_R134_R2.fq.gz	CTE45N_O16_C2_R134_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C3_R272_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_C3_R272_R2.fq.gz	CTE45N_O16_C3_R272_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H1_S036_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H1_S036_R2.fq.gz	CTE45N_O16_H1_S036_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H2_S244_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H2_S244_R2.fq.gz	CTE45N_O16_H2_S244_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H3_294_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_H3_294_R2.fq.gz	CTE45N_O16_H3_294_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP1_R114_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP1_R114_R2.fq.gz	CTE45N_O16_HP1_R114_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP2_R180_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP2_R180_R2.fq.gz	CTE45N_O16_HP2_R180_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP3_R378_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O16_HP3_R378_R2.fq.gz	CTE45N_O16_HP3_R378_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C1_S006_F26_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C1_S006_F26_R2.fq.gz	CTE45N_O17_C1_S006_F26_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C2_S134_F31_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C2_S134_F31_R2.fq.gz	CTE45N_O17_C2_S134_F31_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C3_S272_F37_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_C3_S272_F37_R2.fq.gz	CTE45N_O17_C3_S272_F37_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H1_S036_F27_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H1_S036_F27_R2.fq.gz	CTE45N_O17_H1_S036_F27_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H2_S244_F36_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H2_S244_F36_R2.fq.gz	CTE45N_O17_H2_S244_F36_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H3_S294_F39_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_H3_S294_F39_R2.fq.gz	CTE45N_O17_H3_S294_F39_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP1_S114_F29_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP1_S114_F29_R2.fq.gz	CTE45N_O17_HP1_S114_F29_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP2_S180_F34_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP2_S180_F34_R2.fq.gz	CTE45N_O17_HP2_S180_F34_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP3_S378_F42_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45N_O17_HP3_S378_F42_R2.fq.gz	CTE45N_O17_HP3_S378_F42_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_C2_Z156_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_C2_Z156_R2.fq.gz	CTE45P_J16_C2_Z156_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_C3_Z276_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_C3_Z276_R2.fq.gz	CTE45P_J16_C3_Z276_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H1_Z038_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H1_Z038_R2.fq.gz	CTE45P_J16_H1_Z038_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H2_Z242_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H2_Z242_R2.fq.gz	CTE45P_J16_H2_Z242_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H3_Z314_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_H3_Z314_R2.fq.gz	CTE45P_J16_H3_Z314_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP1_Z122_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP1_Z122_R2.fq.gz	CTE45P_J16_HP1_Z122_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP2_Z166_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP2_Z166_R2.fq.gz	CTE45P_J16_HP2_Z166_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP3_Z370_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J16_HP3_Z370_R2.fq.gz	CTE45P_J16_HP3_Z370_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C1_S1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C1_S1_R2.fq.gz	CTE45P_J17_C1_S1_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C2_S8_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C2_S8_R2.fq.gz	CTE45P_J17_C2_S8_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C3_F2_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_C3_F2_R2.fq.gz	CTE45P_J17_C3_F2_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H1_S4_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H1_S4_R2.fq.gz	CTE45P_J17_H1_S4_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H2_S11_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H2_S11_R2.fq.gz	CTE45P_J17_H2_S11_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H3_F4_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_H3_F4_R2.fq.gz	CTE45P_J17_H3_F4_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP1_S6_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP1_S6_R2.fq.gz	CTE45P_J17_HP1_S6_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP2_S9_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP2_S9_R2.fq.gz	CTE45P_J17_HP2_S9_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP3_F5_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_J17_HP3_F5_R2.fq.gz	CTE45P_J17_HP3_F5_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C1_R002_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C1_R002_R2.fq.gz	CTE45P_O16_C1_R002_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C2_R156_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C2_R156_R2.fq.gz	CTE45P_O16_C2_R156_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C3_R276_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_C3_R276_R2.fq.gz	CTE45P_O16_C3_R276_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H1_S038_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H1_S038_R2.fq.gz	CTE45P_O16_H1_S038_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H2_S242_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H2_S242_R2.fq.gz	CTE45P_O16_H2_S242_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H3_S314_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_H3_S314_R2.fq.gz	CTE45P_O16_H3_S314_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP1_R122_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP1_R122_R2.fq.gz	CTE45P_O16_HP1_R122_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP2_R166_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP2_R166_R2.fq.gz	CTE45P_O16_HP2_R166_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP3_R370_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O16_HP3_R370_R2.fq.gz	CTE45P_O16_HP3_R370_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C1_S002_F25_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C1_S002_F25_R2.fq.gz	CTE45P_O17_C1_S002_F25_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C2_S156_F32_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C2_S156_F32_R2.fq.gz	CTE45P_O17_C2_S156_F32_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C3_S276_F38_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_C3_S276_F38_R2.fq.gz	CTE45P_O17_C3_S276_F38_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H1_S038_F28_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H1_S038_F28_R2.fq.gz	CTE45P_O17_H1_S038_F28_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H2_S242_F35_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H2_S242_F35_R2.fq.gz	CTE45P_O17_H2_S242_F35_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H3_S314_F40_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_H3_S314_F40_R2.fq.gz	CTE45P_O17_H3_S314_F40_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_HP1_S122_F30_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_HP1_S122_F30_R2.fq.gz	CTE45P_O17_HP1_S122_F30_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_HP3_S370_F41_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE45P_O17_HP3_S370_F41_R2.fq.gz	CTE45P_O17_HP3_S370_F41_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_C1_V016_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_C1_V016_R2.fq.gz	CTE46N_J16_C1_V016_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_C2_V132_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_C2_V132_R2.fq.gz	CTE46N_J16_C2_V132_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H1_V050_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H1_V050_R2.fq.gz	CTE46N_J16_H1_V050_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H2_V252_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H2_V252_R2.fq.gz	CTE46N_J16_H2_V252_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H3_V308_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_H3_V308_R2.fq.gz	CTE46N_J16_H3_V308_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP1_V102_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP1_V102_R2.fq.gz	CTE46N_J16_HP1_V102_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP2_V176_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP2_V176_R2.fq.gz	CTE46N_J16_HP2_V176_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP3_V358_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP3_V358_R2.fq.gz	CTE46N_J16_HP3_V358_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C1_S016_F9_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C1_S016_F9_R2.fq.gz	CTE46N_J17_C1_S016_F9_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C2_S132_F13_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C2_S132_F13_R2.fq.gz	CTE46N_J17_C2_S132_F13_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C3_S258_F19_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_C3_S258_F19_R2.fq.gz	CTE46N_J17_C3_S258_F19_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H1_S050_F10_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H1_S050_F10_R2.fq.gz	CTE46N_J17_H1_S050_F10_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H2_S252_F18_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H2_S252_F18_R2.fq.gz	CTE46N_J17_H2_S252_F18_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H3_S308_F21_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_H3_S308_F21_R2.fq.gz	CTE46N_J17_H3_S308_F21_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP1_S102_F11_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP1_S102_F11_R2.fq.gz	CTE46N_J17_HP1_S102_F11_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP2_S176_F16_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP2_S176_F16_R2.fq.gz	CTE46N_J17_HP2_S176_F16_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP3_S358_F24_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J17_HP3_S358_F24_R2.fq.gz	CTE46N_J17_HP3_S358_F24_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C1__S16_T2_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C1__S16_T2_R2.fq.gz	CTE46N_O16_C1__S16_T2_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C2_S132_T5_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C2_S132_T5_R2.fq.gz	CTE46N_O16_C2_S132_T5_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C3_S258_T9_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_C3_S258_T9_R2.fq.gz	CTE46N_O16_C3_S258_T9_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H1_X8_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H1_X8_1_R2.fq.gz	CTE46N_O16_H1_X8_1_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H2_X10_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H2_X10_1_R2.fq.gz	CTE46N_O16_H2_X10_1_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H3_X11_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_H3_X11_1_R2.fq.gz	CTE46N_O16_H3_X11_1_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP1_S102_T3_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP1_S102_T3_R2.fq.gz	CTE46N_O16_HP1_S102_T3_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP2_S176_T8_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP2_S176_T8_R2.fq.gz	CTE46N_O16_HP2_S176_T8_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP3_S358_T12_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O16_HP3_S358_T12_R2.fq.gz	CTE46N_O16_HP3_S358_T12_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C1_S016_F44_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C1_S016_F44_R2.fq.gz	CTE46N_O17_C1_S016_F44_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C2_S132_F49_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C2_S132_F49_R2.fq.gz	CTE46N_O17_C2_S132_F49_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C3_S258_F55_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_C3_S258_F55_R2.fq.gz	CTE46N_O17_C3_S258_F55_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H1_S050_F46_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H1_S050_F46_R2.fq.gz	CTE46N_O17_H1_S050_F46_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H2_S252_F54_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H2_S252_F54_R2.fq.gz	CTE46N_O17_H2_S252_F54_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H3_S308_F57_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_H3_S308_F57_R2.fq.gz	CTE46N_O17_H3_S308_F57_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP1_S102_F47_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP1_S102_F47_R2.fq.gz	CTE46N_O17_HP1_S102_F47_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP2_S176_F52_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP2_S176_F52_R2.fq.gz	CTE46N_O17_HP2_S176_F52_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP3_S358_F60_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_O17_HP3_S358_F60_R2.fq.gz	CTE46N_O17_HP3_S358_F60_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C1_V004_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C1_V004_R2.fq.gz	CTE46P_J16_C1_V004_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C2_V148_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C2_V148_R2.fq.gz	CTE46P_J16_C2_V148_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C3_V274_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_C3_V274_R2.fq.gz	CTE46P_J16_C3_V274_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H1_V034_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H1_V034_R2.fq.gz	CTE46P_J16_H1_V034_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H2_V240_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H2_V240_R2.fq.gz	CTE46P_J16_H2_V240_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H3_V316_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_H3_V316_R2.fq.gz	CTE46P_J16_H3_V316_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_HP1_V124_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_HP1_V124_R2.fq.gz	CTE46P_J16_HP1_V124_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_HP2_V164_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J16_HP2_V164_R2.fq.gz	CTE46P_J16_HP2_V164_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C1_S004_F7_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C1_S004_F7_R2.fq.gz	CTE46P_J17_C1_S004_F7_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C2_S148_F14_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C2_S148_F14_R2.fq.gz	CTE46P_J17_C2_S148_F14_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C3_S274_F20_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_C3_S274_F20_R2.fq.gz	CTE46P_J17_C3_S274_F20_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H1_S034_F8_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H1_S034_F8_R2.fq.gz	CTE46P_J17_H1_S034_F8_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H2_S240_F17_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H2_S240_F17_R2.fq.gz	CTE46P_J17_H2_S240_F17_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H3_S316_F22_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_H3_S316_F22_R2.fq.gz	CTE46P_J17_H3_S316_F22_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP1_S124_F12_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP1_S124_F12_R2.fq.gz	CTE46P_J17_HP1_S124_F12_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP2_S164_F15_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP2_S164_F15_R2.fq.gz	CTE46P_J17_HP2_S164_F15_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP3_S356_F23_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_J17_HP3_S356_F23_R2.fq.gz	CTE46P_J17_HP3_S356_F23_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C1_S4_T1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C1_S4_T1_R2.fq.gz	CTE46P_O16_C1_S4_T1_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C2_S148_T6_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C2_S148_T6_R2.fq.gz	CTE46P_O16_C2_S148_T6_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C3_S274_T10_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_C3_S274_T10_R2.fq.gz	CTE46P_O16_C3_S274_T10_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H1_X7_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H1_X7_1_R2.fq.gz	CTE46P_O16_H1_X7_1_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H2_X9_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H2_X9_1_R2.fq.gz	CTE46P_O16_H2_X9_1_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H3_X12_1_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_H3_X12_1_R2.fq.gz	CTE46P_O16_H3_X12_1_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP1_S124_T4_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP1_S124_T4_R2.fq.gz	CTE46P_O16_HP1_S124_T4_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP2_S164_T7_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP2_S164_T7_R2.fq.gz	CTE46P_O16_HP2_S164_T7_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP3_S356_T11_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O16_HP3_S356_T11_R2.fq.gz	CTE46P_O16_HP3_S356_T11_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C1_S004_F43_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C1_S004_F43_R2.fq.gz	CTE46P_O17_C1_S004_F43_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C2_S148_F50_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C2_S148_F50_R2.fq.gz	CTE46P_O17_C2_S148_F50_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C3_S274_F56_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_C3_S274_F56_R2.fq.gz	CTE46P_O17_C3_S274_F56_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H1_S034_F45_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H1_S034_F45_R2.fq.gz	CTE46P_O17_H1_S034_F45_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H2_S240_F53_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H2_S240_F53_R2.fq.gz	CTE46P_O17_H2_S240_F53_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H3_S316_F58_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_H3_S316_F58_R2.fq.gz	CTE46P_O17_H3_S316_F58_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP1_S124_F48_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP1_S124_F48_R2.fq.gz	CTE46P_O17_HP1_S124_F48_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP2_S164_F51_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP2_S164_F51_R2.fq.gz	CTE46P_O17_HP2_S164_F51_R1
+/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP3_S356_F59_R1.fq.gz	/scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46P_O17_HP3_S356_F59_R2.fq.gz	CTE46P_O17_HP3_S356_F59_R1
