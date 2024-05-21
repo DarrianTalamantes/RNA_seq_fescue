@@ -15,3 +15,6 @@ star_manifest: manifest.tsv
 params:
   star_mapping:
     threads: 10
+
+scallop:
+  output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf
