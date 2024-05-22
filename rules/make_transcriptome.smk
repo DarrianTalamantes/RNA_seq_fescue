@@ -9,7 +9,7 @@
 # This resulted in an out of memory error
 rule star_index:
     input:
-        fasta = genome,
+        fasta = config["genome"],
     params:
         threads = config["params"]["star_mapping"]["threads"]
     conda:
