@@ -12,6 +12,7 @@ rule star_index:
         fasta = config["genome"],
     params:
         threads = config["params"]["star_mapping"]["threads"]
+        genome_dir = config["directories"]["genome_idx"]
     conda:
         "../Conda_Envs/transcriptome.yaml"
     output:
@@ -20,7 +21,7 @@ rule star_index:
         """
         STAR --runThreadN {params.threads} \
             --runMode genomeGenerate \
-            --genomeDir config["directories"]["genome_idx"] \
+            --genomeDir {params.genome_dir} \
             --genomeFastaFiles {input}
         """
 
