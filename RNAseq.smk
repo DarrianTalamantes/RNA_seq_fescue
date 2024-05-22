@@ -61,7 +61,7 @@ PAIRS = read_sample_names(paired_list_file)
 
 rule all:
     input:
-        expand("{output_dir}/SAindex", output_dir=config["directories"]["genome_idx"])
+        expand("{output_dir}/SAindex", output_dir=config["directories"]["genome_idx"]),
         config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
         config["directories"]["star_bams"] + "Log.out",
         config["directories"]["star_bams"] + "Log.final.out",
