@@ -55,17 +55,32 @@ PAIRS = read_sample_names(paired_list_file)
 
 
 # =================================================================================================
+#    Star Index files
+# =================================================================================================
+
+star_index_files = [
+    "SA",
+    "SAindex",
+    "Genome",
+    "chrLength.txt",
+    "chrName.txt",
+    "chrNameLength.txt",
+    "chrStart.txt",
+    "genomeParameters.txt"
+]
+
+# =================================================================================================
 #    Rules
 # =================================================================================================
 
 
 rule all:
     input:
-        config["directories"]["genome_idx"],
-        config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
-        config["directories"]["star_bams"] + "Log.out",
-        config["directories"]["star_bams"] + "Log.final.out",
-        config["directories"]["star_bams"] + "SJ.out.tab",
+        expand(config["directories"]["genome_idx"] + "{file}", file=star_index_files), # For indexing genome
+        config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
+        config["directories"]["star_bams"] + "Log.out", # mapping
+        config["directories"]["star_bams"] + "Log.final.out", # mapping
+        config["directories"]["star_bams"] + "SJ.out.tab", # mapping
         # gtf=config["scallop"]["output_file"]
 
 # This rule runs fastqc on all data fastq files
