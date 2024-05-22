@@ -15,9 +15,10 @@ rule star_index:
     conda:
         "../Conda_Envs/transcriptome.yaml"
     output:
-        index = config["directories"]["genome_idx"]
+        index = directory(config["directories"]["genome_idx"])
     shell:
         """
+        rm -r {output}
         STAR --runThreadN {params.threads} \
             --runMode genomeGenerate \
             --genomeDir {output} \
