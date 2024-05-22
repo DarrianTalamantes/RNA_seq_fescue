@@ -58,16 +58,7 @@ PAIRS = read_sample_names(paired_list_file)
 #    Star Index files
 # =================================================================================================
 
-star_index_files = [
-    "SA",
-    "SAindex",
-    "Genome",
-    "chrLength.txt",
-    "chrName.txt",
-    "chrNameLength.txt",
-    "chrStart.txt",
-    "genomeParameters.txt"
-]
+star_index_files = config["star_index_files"]
 
 # =================================================================================================
 #    Rules

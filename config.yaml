@@ -18,3 +18,15 @@ params:
 
 scallop:
   output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf
+
+
+
+star_index_files:
+    - "SA"
+    - "SAindex"
+    - "Genome"
+    - "chrLength.txt"
+    - "chrName.txt"
+    - "chrNameLength.txt"
+    - "chrStart.txt"
+    - "genomeParameters.txt"
