@@ -67,7 +67,7 @@ star_index_files = config["star_index_files"]
 
 rule all:
     input:
-        expand(config["directories"]["genome_idx"] + "{file}", file=star_index_files), # For indexing genome
+        expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
         config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
         config["directories"]["star_bams"] + "Log.out", # mapping
         config["directories"]["star_bams"] + "Log.final.out", # mapping
