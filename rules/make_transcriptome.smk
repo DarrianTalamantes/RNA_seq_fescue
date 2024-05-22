@@ -28,10 +28,11 @@ rule star_index:
 rule star_mapping:
     input:
         manifest = star_manifest,
-        genome_dir = config["directories"]["genome_idx"]
+        genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
     params:
         threads = config["params"]["star_mapping"]["threads"],
         prefix = config["directories"]["star_bams"],
+        genome_dir = config["directories"]["genome_idx"]
     conda:
         "../Conda_Envs/transcriptome.yaml"
     output:
@@ -42,7 +43,7 @@ rule star_mapping:
     shell:
         """        
         STAR --runThreadN {params.threads} \
-            --genomeDir {input.genome_dir} \
+            --genomeDir {params.genome_dir} \
             --readFilesCommand zcat \
             --readFilesManifest {input.manifest} \
             --outFileNamePrefix {params.prefix} \
