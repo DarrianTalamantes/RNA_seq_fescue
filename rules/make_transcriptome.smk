@@ -15,13 +15,12 @@ rule star_index:
     conda:
         "../Conda_Envs/transcriptome.yaml"
     output:
-        index = directory(config["directories"]["genome_idx"])
+        expand(config["directories"]["genome_idx"] + "{file}", file=star_index_files)
     shell:
         """
-        rm -r {output}
         STAR --runThreadN {params.threads} \
             --runMode genomeGenerate \
-            --genomeDir {output} \
+            --genomeDir config["directories"]["genome_idx"] \
             --genomeFastaFiles {input}
         """
 
