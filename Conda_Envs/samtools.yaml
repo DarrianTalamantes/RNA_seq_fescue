@@ -1,0 +1,29 @@
+name: smatools
+channels:
+  - bioconda
+  - defaults
+  - conda-forge
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - bzip2=1.0.8=h5eee18b_6
+  - c-ares=1.19.1=h5eee18b_0
+  - ca-certificates=2024.3.11=h06a4308_0
+  - htslib=1.20=h81da01d_0
+  - krb5=1.20.1=h143b758_1
+  - libcurl=8.7.1=h251f7ec_0
+  - libdeflate=1.20=hd590300_0
+  - libedit=3.1.20230828=h5eee18b_0
+  - libev=4.33=h7f8727e_1
+  - libgcc-ng=13.2.0=h77fa898_7
+  - libgomp=13.2.0=h77fa898_7
+  - libnghttp2=1.57.0=h2d74bed_0
+  - libssh2=1.11.0=h251f7ec_0
+  - libstdcxx-ng=11.2.0=h1234567_1
+  - libzlib=1.2.13=hd590300_5
+  - ncurses=6.5=h59595ed_0
+  - openssl=3.3.0=h4ab18f5_3
+  - samtools=1.20=h50ea8bc_0
+  - xz=5.4.6=h5eee18b_1
+  - zlib=1.2.13=hd590300_5
+prefix: /home/drt83172/.conda/envs/smatools
