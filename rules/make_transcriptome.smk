@@ -6,7 +6,6 @@
 # align reads to genome with STAR
 # put bam file into trinity guided approuch 
 
-# This resulted in an out of memory error
 rule star_index:
     input:
         fasta = config["genome"],
@@ -40,7 +39,7 @@ rule star_mapping:
         log_out = config["directories"]["star_bams"] + "Log.out",
         log_final = config["directories"]["star_bams"] + "Log.final.out",
         sj_out = config["directories"]["star_bams"] + "SJ.out.tab"
-    shell:
+    shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 100GB
         """        
         STAR --runThreadN {params.threads} \
             --genomeDir {params.genome_dir} \
@@ -55,10 +54,15 @@ rule bam_seperation:
     input:
         config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"
     conda:
+        "../Conda_Envs/samtools.yaml"
     output:
-        config["directories"]["sep_bams"] 
-
+        expand(sep_bams + "/{sample}.bam", sample=SAMPLES) 
     shell:
+    """
+        for sample in {SAMPLES}; do
+            samtools view -b -r $sample {input.bam} > {sep_bams}/$sample.bam;
+        done
+    """
 
 
 

@@ -3,10 +3,11 @@
 
 
 
-# 1. QC/QA using mutliQC and Trim Galore to remove adapters and low quality reads 
-# 2. Create a transcriptome using trinity from both genome and sequence data
-# 3. Use salmon to quantify shit 
-# 4. Differential analysis using DESeq2 (via R) 
+# 1. Use fastqc and multiqc before running this. I could not get multiqc to work.
+# 2. trim: This will use trimgalore to trim the reads.
+# 3. make_transcriptome: Uses STAR to index and align reads to genome. It then makes lots of small bam files from the large one
+# 4. scallop: Uses Scallop to create the transcriptome 
+# 5. feature_counts: Uses featurecounts in R to do feature counting. 
 
 
 # =========================================================================================================
@@ -27,7 +28,7 @@ mqcdir = config["directories"]["mqcdir"]
 trimmed = config["directories"]["trimmed"]
 genome_idx = config["directories"]["genome_idx"]
 align = config["directories"]["align"]
-
+sep_bams = config["directories"]["sep_bams"]
 # Files
 genome = config["genome"]
 star_manifest = config["star_manifest"]
@@ -114,6 +115,7 @@ rule fastqc:
 include: "rules/trim.smk"
 include: "rules/make_transcriptome.smk"
 include: "rules/scallop.smk"
+include: "rules/feature_counts.smk"
 
 
 
