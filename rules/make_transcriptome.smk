@@ -51,6 +51,15 @@ rule star_mapping:
             --outSAMtype BAM SortedByCoordinate
         """
 
+rule bam_seperation:
+    input:
+        config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"
+    conda:
+    output:
+        config["directories"]["sep_bams"] 
+
+    shell:
+
 
 
 
