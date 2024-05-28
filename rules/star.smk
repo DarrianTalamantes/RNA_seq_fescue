@@ -69,7 +69,7 @@ rule bam_seperation:
     conda:
         "../Conda_Envs/samtools.yaml"
     output:
-        expand(sep_bams + "/{sample}.bam", sample=SAMPLES) 
+        expand(sep_bams + "{sample}.bam", sample=SAMPLES) 
     shell:
         """
             for sample in {SAMPLES}; do
