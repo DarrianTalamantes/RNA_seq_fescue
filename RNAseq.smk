@@ -68,12 +68,13 @@ star_index_files = config["star_index_files"]
 
 rule all:
     input:
-        expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
-        config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
-        config["directories"]["star_bams"] + "Log.out", # mapping
-        config["directories"]["star_bams"] + "Log.final.out", # mapping
-        config["directories"]["star_bams"] + "SJ.out.tab", # mapping
-        gtf=config["scallop"]["output_file"] #Activates scallop2
+        # expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
+        # config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
+        # config["directories"]["star_bams"] + "Log.out", # mapping
+        # config["directories"]["star_bams"] + "Log.final.out", # mapping
+        # config["directories"]["star_bams"] + "SJ.out.tab", # mapping
+        expand(sep_bams + "/{sample}.bam", sample=SAMPLES) # bam_seperation
+        gtf=config["scallop"]["output_file"] # Activates scallop2
 
 # This rule runs fastqc on all data fastq files
 rule fastqc:
@@ -113,7 +114,7 @@ rule fastqc:
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
 include: "rules/trim.smk"
-include: "rules/make_transcriptome.smk"
+include: "rules/star.smk"
 include: "rules/scallop.smk"
 include: "rules/feature_counts.smk"
 

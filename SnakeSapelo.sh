@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -J RNA_Seq
 #SBATCH -p batch
-#SBATCH --ntasks=16
+#SBATCH --ntasks=32
 #SBATCH --mem 110gb
-#SBATCH -t 70:00:00
+#SBATCH -t 110:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.err
 #SBATCH --mail-type=FAIL,END
@@ -21,4 +21,4 @@ source activate snakemake
 export LC_ALL=en_SG.utf8
 export LANG=en_SG.utf8
 
-snakemake --use-conda --cores 10 -s RNAseq.smk
+snakemake --use-conda --cores 32 -s RNAseq.smk

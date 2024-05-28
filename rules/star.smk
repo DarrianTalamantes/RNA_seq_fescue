@@ -50,9 +50,22 @@ rule star_mapping:
             --outSAMtype BAM SortedByCoordinate
         """
 
-rule bam_seperation:
+rule seperate_mapped:
     input:
         config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"
+    conda:
+        "../Conda_Envs/samtools.yaml"
+    output:
+        config["directories"]["star_bams"] + "Aligned.sortedByCoord.mapped.out.bam"
+    shell:
+    """
+    samtools view -b -F 4 file.bam > mapped.bam
+    """
+
+
+rule bam_seperation:
+    input:
+        bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.mapped.out.bam"
     conda:
         "../Conda_Envs/samtools.yaml"
     output:
@@ -63,7 +76,4 @@ rule bam_seperation:
             samtools view -b -r $sample {input.bam} > {sep_bams}/$sample.bam;
         done
     """
-
-
-
 
