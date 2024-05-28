@@ -59,7 +59,7 @@ rule seperate_mapped:
         config["directories"]["star_bams"] + "Aligned.sortedByCoord.mapped.out.bam"
     shell:
     """
-    samtools view -b -F 4 file.bam > mapped.bam
+    samtools view -b -F 4 {input} > {output}
     """
 
 
