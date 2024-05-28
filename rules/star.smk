@@ -58,9 +58,9 @@ rule seperate_mapped:
     output:
         config["directories"]["star_bams"] + "Aligned.sortedByCoord.mapped.out.bam"
     shell:
-    """
-    samtools view -b -F 4 {input} > {output}
-    """
+        """
+        samtools view -b -F 4 {input} > {output}
+        """
 
 
 rule bam_seperation:
@@ -71,9 +71,9 @@ rule bam_seperation:
     output:
         expand(sep_bams + "/{sample}.bam", sample=SAMPLES) 
     shell:
-    """
-        for sample in {SAMPLES}; do
-            samtools view -b -r $sample {input.bam} > {sep_bams}/$sample.bam;
-        done
-    """
+        """
+            for sample in {SAMPLES}; do
+                samtools view -b -r $sample {input.bam} > {sep_bams}/$sample.bam;
+            done
+        """
 
