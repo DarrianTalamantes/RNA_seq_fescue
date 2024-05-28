@@ -73,7 +73,7 @@ rule all:
         # config["directories"]["star_bams"] + "Log.out", # mapping
         # config["directories"]["star_bams"] + "Log.final.out", # mapping
         # config["directories"]["star_bams"] + "SJ.out.tab", # mapping
-        expand(sep_bams + "/{sample}.bam", sample=SAMPLES), # bam_seperation
+        expand(sep_bams + "{sample}.bam", sample=SAMPLES), # bam_seperation
         gtf=config["scallop"]["output_file"] # Activates scallop2
 
 # This rule runs fastqc on all data fastq files
