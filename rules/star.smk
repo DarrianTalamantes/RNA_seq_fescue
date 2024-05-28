@@ -73,7 +73,7 @@ rule bam_seperation:
     shell:
         """
             for sample in {SAMPLES}; do
-                samtools view -b -r $sample {input.bam} > {sep_bams}/$sample.bam;
+                samtools view -b -r $sample {input.bam} > {sep_bams}$sample.bam;
             done
         """
 
