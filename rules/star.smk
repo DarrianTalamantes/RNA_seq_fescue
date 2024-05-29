@@ -75,7 +75,7 @@ rule bam_seperation:
     shell:
         """
         for pairs in {params.pairs}; do
-            samtools view -b -r ${pairs}R1 {input.bam} > {sep_bams}${{pairs}}.bam;
+            samtools view -b -r ${{pairs}}R1 {input.bam} > {sep_bams}${{pairs}}.bam;
         done
         """
 
