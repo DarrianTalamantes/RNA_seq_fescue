@@ -74,6 +74,6 @@ rule bam_seperation:
         dir = config["directories"]["sep_bams"]
     shell:
         """
-        samtools split -r {input.bam} {params.dir}
+        samtools split {input.bam} {params.dir}
         """
 
