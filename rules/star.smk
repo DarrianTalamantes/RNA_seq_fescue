@@ -70,12 +70,8 @@ rule bam_seperation:
         "../Conda_Envs/samtools.yaml"
     output:
         expand(sep_bams + "{pairs}.bam", pairs=PAIRS) 
-    params:
-        pairs = " ".join(PAIRS)
-    run:
-        for pair in config["lists"]["paired_list_file"]:
-            shell(f"""
-            echo "Processing pair: ${{pairs}}R1" 
-            samtools view -b -r ${{pairs}}R1 {input.bam} > {sep_bams}${{pairs}}.bam;
-        """)
+    shell:
+        """
+        samtools split -r {input.bam} {config["directories"]["star_bams"]}
+        """
 
