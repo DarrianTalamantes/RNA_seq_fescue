@@ -72,11 +72,10 @@ rule bam_seperation:
         expand(sep_bams + "{pairs}.bam", pairs=PAIRS) 
     params:
         pairs = " ".join(PAIRS)
-    shell:
-        """
-        for pairs in {params.pairs}; do
-            echo "Processing pair: ${pairs}R1" 
-            samtools view -b -r ${pairs}R1 {input.bam} > {sep_bams}${{pairs}}.bam;
-        done
-        """
+    run:
+        for pair in config["lists"]["paired_list_file"]:
+            shell(f"""
+            echo "Processing pair: ${{pairs}}R1" 
+            samtools view -b -r ${{pairs}}R1 {input.bam} > {sep_bams}${{pairs}}.bam;
+        """)
 

@@ -51,7 +51,7 @@ def read_sample_names(file_path):
 sample_names_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/samples_list.txt"
 SAMPLES = read_sample_names(sample_names_file)
 
-paired_list_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/paired_list.txt"
+paired_list_file = config["lists"]["paired_list_file"]
 PAIRS = read_sample_names(paired_list_file)
 
 

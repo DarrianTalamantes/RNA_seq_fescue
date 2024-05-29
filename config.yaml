@@ -11,6 +11,9 @@ directories:
   sep_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/sep_bams/
   features: /scratch/drt83172/Wallace_lab/RNA_SEQ/features/
 
+lists:
+  paired_list_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/paired_list.txt
+  
 genome: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/tall_fescuev0.1.fa
 star_manifest: manifest.tsv
 
