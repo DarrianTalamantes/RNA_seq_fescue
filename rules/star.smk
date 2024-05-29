@@ -70,8 +70,10 @@ rule bam_seperation:
         "../Conda_Envs/samtools.yaml"
     output:
         expand(sep_bams + "{pairs}.bam", pairs=PAIRS) 
+    params:
+        dir = config["directories"]["star_bams"]
     shell:
         """
-        samtools split -r {input.bam} {config["directories"]["star_bams"]}
+        samtools split -r {input.bam} {params.dir}
         """
 
