@@ -76,7 +76,7 @@ rule bam_seperation:
     shell:
         """
         for pair in {PAIRS}; do
-            echo "Processing $pair" >> {logsheet}
+            echo "Processing $pair" >> {params.logsheet}
             samtools view -b -r ${{pair}}R1 {input.bam} > {params.dir}${{pair}}.bam
         done
         """
