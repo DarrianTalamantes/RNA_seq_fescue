@@ -74,10 +74,7 @@ rule all:
         # config["directories"]["star_bams"] + "Log.final.out", # mapping
         # config["directories"]["star_bams"] + "SJ.out.tab", # mapping
         expand(config["directories"]["sep_bams"] + "{pairs}.Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
-        expand(config["directories"]["sep_bams"] + "{pairs}.Log.out", pairs=PAIRS), #mapping 2
-        expand(config["directories"]["sep_bams"] + "{pairs}.Log.final.out", pairs=PAIRS), #mapping 2
-        expand(config["directories"]["sep_bams"] + "{pairs}.SJ.out.tab", pairs=PAIRS), # mapping 2
-        expand(sep_bams + "{pairs}.bam", pairs=PAIRS), # bam_seperation
+        # expand(sep_bams + "{pairs}.bam", pairs=PAIRS), # bam_seperation
         # gtf=config["scallop"]["output_file"] # Activates scallop2
 
 # This rule runs fastqc on all data fastq files
