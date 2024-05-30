@@ -73,7 +73,7 @@ rule bam_seperation:
     params:
         dir = config["directories"]["sep_bams"],
         logsheet = config["params"]["star_mapping"]["log"],
-        log_dir = congif["directories"]["log"]
+        log_dir = config["directories"]["log"]
     shell:
         """
         if [ ! -d {params.log_dir} ]; then \
