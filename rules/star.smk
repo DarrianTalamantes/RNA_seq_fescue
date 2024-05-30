@@ -72,10 +72,12 @@ rule bam_seperation:
         expand(sep_bams + "{pairs}.bam", pairs=PAIRS) 
     params:
         dir = config["directories"]["sep_bams"]
-    run:
-        sep_bams = config["directories"]["sep_bams"]
-        for pair in PAIRS:
-            shell(f"""
-            samtools view -b -r {pair}R1 {input.bam} > {sep_bams}{pair}.bam
+        logsheet = config["params"]["star_mapping"]["threads"]
+    shell:
+        """
+        for pair in {PAIRS}; do
+            echo "Processing $pair" >> {logsheet}
+            samtools view -b -r ${{pair}}R1 {input.bam} > {params.dir}${{pair}}.bam
+        done
         """)
 
