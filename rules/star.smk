@@ -55,6 +55,7 @@ rule star_mapping_seperate:
     input:
         fasta_fwd=trimmed + "/{pairs}R1.fq.gz",
         fasta_rev=trimmed + "/{pairs}R2.fq.gz",
+        genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
     params:
         threads = config["params"]["star_mapping"]["threads_multi"],
         prefix = config["directories"]["sep_bams"] + "{pairs}",
