@@ -71,7 +71,7 @@ rule bam_seperation:
     output:
         expand(sep_bams + "{pairs}.bam", pairs=PAIRS) 
     params:
-        dir = config["directories"]["sep_bams"]
+        dir = config["directories"]["sep_bams"],
         logsheet = config["params"]["star_mapping"]["threads"]
     shell:
         """
