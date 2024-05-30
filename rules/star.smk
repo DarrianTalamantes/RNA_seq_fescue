@@ -51,7 +51,7 @@ rule star_mapping:
         """
 
 
-rule: star_mapping_seperate:
+rule star_mapping_seperate:
     input:
         fasta_fwd=trimmed + "/{pairs}R1.fq.gz",
         fasta_rev=trimmed + "/{pairs}R2.fq.gz",
