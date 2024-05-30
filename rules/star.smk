@@ -62,10 +62,10 @@ rule: star_mapping_seperate:
     conda:
         "../Conda_Envs/transcriptome.yaml"
     output:
-        bam = config["directories"]["sep_bams"] + "{sample}.Aligned.sortedByCoord.out.bam"),
-        log = config["directories"]["sep_bams"] + "{sample}.Log.out"),
-        log_final = config["directories"]["sep_bams"] + "{sample}.Log.final.out"),
-        sj = config["directories"]["sep_bams"] + "{sample}.SJ.out.tab")
+        bam = config["directories"]["sep_bams"] + "{pairs}.Aligned.sortedByCoord.out.bam"),
+        log = config["directories"]["sep_bams"] + "{pairs}.Log.out"),
+        log_final = config["directories"]["sep_bams"] + "{pairs}.Log.final.out"),
+        sj = config["directories"]["sep_bams"] + "{pairs}.SJ.out.tab")
     shell:
         """        
         STAR --runThreadN {params.threads} \
