@@ -51,3 +51,29 @@ rule star_mapping:
         """
 
 
+rule: star_mapping_seperate:
+    input:
+        fasta_fwd=trimmed + "/{pairs}R1.fq.gz",
+        fasta_rev=trimmed + "/{pairs}R2.fq.gz",
+    params:
+        threads = config["params"]["star_mapping"]["threads_multi"],
+        prefix = config["directories"]["sep_bams"] + "{pairs}",
+        genome_dir = config["directories"]["genome_idx"]
+    conda:
+        "../Conda_Envs/transcriptome.yaml"
+    output:
+        bam = config["directories"]["sep_bams"] + "{sample}.Aligned.sortedByCoord.out.bam"),
+        log = config["directories"]["sep_bams"] + "{sample}.Log.out"),
+        log_final = config["directories"]["sep_bams"] + "{sample}.Log.final.out"),
+        sj = config["directories"]["sep_bams"] + "{sample}.SJ.out.tab")
+    shell:
+        """        
+        STAR --runThreadN {params.threads} \
+            --genomeDir {params.genome_dir} \
+            --readFilesCommand zcat \
+            --readFilesIn {input.fasta_fwd} {input.fasta_rev} \
+            --outFileNamePrefix {params.prefix} \
+            --limitBAMsortRAM 15000000000 \
+            --outSAMtype BAM SortedByCoordinate
+        """
+
