@@ -72,7 +72,7 @@ rule bam_seperation:
         expand(sep_bams + "{pairs}.bam", pairs=PAIRS) 
     params:
         dir = config["directories"]["sep_bams"],
-        logsheet = config["params"]["star_mapping"]["log"]
+        logsheet = config["params"]["star_mapping"]["log"],
         log_dir = congif["directories"]["log"]
     shell:
         """
