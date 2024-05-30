@@ -73,10 +73,10 @@ rule all:
         # config["directories"]["star_bams"] + "Log.out", # mapping
         # config["directories"]["star_bams"] + "Log.final.out", # mapping
         # config["directories"]["star_bams"] + "SJ.out.tab", # mapping
-        config["directories"]["sep_bams"] + "{pairs}.Aligned.sortedByCoord.out.bam"), # mapping 2
-        config["directories"]["sep_bams"] + "{pairs}.Log.out"), #mapping 2
-        config["directories"]["sep_bams"] + "{pairs}.Log.final.out"), #mapping 2
-        config["directories"]["sep_bams"] + "{pairs}.SJ.out.tab") # mapping 2
+        config["directories"]["sep_bams"] + "{pairs}.Aligned.sortedByCoord.out.bam", # mapping 2
+        config["directories"]["sep_bams"] + "{pairs}.Log.out", #mapping 2
+        config["directories"]["sep_bams"] + "{pairs}.Log.final.out", #mapping 2
+        config["directories"]["sep_bams"] + "{pairs}.SJ.out.tab", # mapping 2
         expand(sep_bams + "{pairs}.bam", pairs=PAIRS), # bam_seperation
         # gtf=config["scallop"]["output_file"] # Activates scallop2
 
