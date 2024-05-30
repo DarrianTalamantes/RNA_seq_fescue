@@ -1,21 +1,25 @@
 # Objective: These rules will seperate the bam file into many smaller files.
 
-rule seperate_mapped:
-    input:
-        config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"
-    conda:
-        "../Conda_Envs/samtools.yaml"
-    output:
-        config["directories"]["star_bams"] + "Aligned.sortedByCoord.mapped.out.bam"
-    shell:
-        """
-        samtools view -b -F 4 {input} > {output}
-        """
+
+#############################
+# This is deactivated cause I think it is an extra step that might not do anything
+#############################
+# rule seperate_mapped:
+#     input:
+#         config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"
+#     conda:
+#         "../Conda_Envs/samtools.yaml"
+#     output:
+#         config["directories"]["star_bams"] + "Aligned.sortedByCoord.mapped.out.bam"
+#     shell:
+#         """
+#         samtools view -b -F 4 {input} > {output}
+#         """
 
 
 rule bam_seperation:
     input:
-        bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.mapped.out.bam"
+        bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"
     conda:
         "../Conda_Envs/samtools.yaml"
     output:
