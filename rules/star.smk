@@ -79,5 +79,5 @@ rule bam_seperation:
             echo "Processing $pair" >> {logsheet}
             samtools view -b -r ${{pair}}R1 {input.bam} > {params.dir}${{pair}}.bam
         done
-        """)
+        """
 
