@@ -72,8 +72,10 @@ rule bam_seperation:
         expand(sep_bams + "{pairs}.bam", pairs=PAIRS) 
     params:
         dir = config["directories"]["sep_bams"]
-    shell:
-        """
-        samtools split -v {input.bam} -u {params.dir}unrecognized.bam
-        """
+    run:
+        sep_bams = config["directories"]["sep_bams"]
+        for pair in PAIRS:
+            shell(f"""
+            samtools view -b -r {pair}R1 {input.bam} > {sep_bams}{pair}.bam
+        """)
 
