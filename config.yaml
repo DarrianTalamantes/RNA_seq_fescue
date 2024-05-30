@@ -10,6 +10,7 @@ directories:
   star_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/star_bams/
   sep_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/sep_bams/
   features: /scratch/drt83172/Wallace_lab/RNA_SEQ/features/
+  log: /scratch/drt83172/Wallace_lab/RNA_SEQ/log
 
 lists:
   paired_list_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/paired_list.txt

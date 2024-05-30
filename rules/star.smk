@@ -73,11 +73,14 @@ rule bam_seperation:
     params:
         dir = config["directories"]["sep_bams"],
         logsheet = config["params"]["star_mapping"]["log"]
+        log_dir = congif["directories"]["log"]
     shell:
         """
+        if [ ! -d {params.log_dir} ]; then \
+            mkdir -p {params.log_dir}; fi
+
         for pair in {PAIRS}; do
             echo "Processing $pair" >> {params.logsheet}
             samtools view -b -r ${{pair}}R1 {input.bam} > {params.dir}${{pair}}.bam
         done
         """
-
