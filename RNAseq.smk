@@ -116,7 +116,7 @@ rule fastqc:
 
 include: "rules/trim.smk"
 include: "rules/star.smk"
-# include: "rules/samtools.smk"
+# include: "rules/samtools.smk" # this should probs be deleted.
 include: "rules/scallop.smk"
 include: "rules/feature_counts.smk"
 
