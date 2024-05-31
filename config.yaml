@@ -21,7 +21,7 @@ star_manifest: manifest.tsv
 params:
   star_mapping:
     log: /scratch/drt83172/Wallace_lab/RNA_SEQ/log/samtoolsview_log.txt
-    threads: 10
+    threads: 32
     threads_multi: 12
 
 scallop:
