@@ -59,12 +59,12 @@ rule star_mapping_seperate:
         fasta_rev=trimmed + "/{pairs}R2.fq.gz",
         genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
     params:
-        threads = config["params"]["star_mapping"]["threads_multi"],
+        threads = config["params"]["star_mapping"]["threads"],
         prefix = config["directories"]["sep_bams"] + "{pairs}",
         genome_dir = config["directories"]["genome_idx"]
     conda:
         "../Conda_Envs/transcriptome.yaml"
-    threads: 10
+    threads: 32
     output:
         bam = config["directories"]["sep_bams"] + "{pairs}.Aligned.sortedByCoord.out.bam",
         log = config["directories"]["sep_bams"] + "{pairs}.Log.out",
