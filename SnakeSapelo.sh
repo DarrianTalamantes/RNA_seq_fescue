@@ -10,7 +10,7 @@
 #SBATCH --mail-user drt83172@uga.edu
 
 echo "This JobID for this job is ${SLURM_JOB_ID}."
-sleep 20
+sleep 5
 echo "Done."
 
 sacct -j $SLURM_JOB_ID --format=JobID,JobName,AllocCPUS,Elapsed,ExitCode,State,MaxRSS,TotalCPU
