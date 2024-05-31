@@ -14,8 +14,8 @@ rule star_index:
         genome_dir = config["directories"]["genome_idx"]
     conda:
         "../Conda_Envs/transcriptome.yaml"
-    output:
     threads: 32
+    output:
         expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
     shell:
         """
