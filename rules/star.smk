@@ -66,10 +66,10 @@ rule star_mapping_seperate:
         "../Conda_Envs/transcriptome.yaml"
     threads: 32
     output:
-        bam = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam",
-        log = config["directories"]["sep_bams"] + "{pairs}Log.out",
-        log_final = config["directories"]["sep_bams"] + "{pairs}Log.final.out",
-        sj = config["directories"]["sep_bams"] + "{pairs}SJ.out.tab"
+        bam = config["directories"]["sep_bams"] + "{pairs}.Aligned.sortedByCoord.out.bam",
+        log = config["directories"]["sep_bams"] + "{pairs}.Log.out",
+        log_final = config["directories"]["sep_bams"] + "{pairs}.Log.final.out",
+        sj = config["directories"]["sep_bams"] + "{pairs}.SJ.out.tab"
     shell:
         """        
         STAR --runThreadN {params.threads} \
