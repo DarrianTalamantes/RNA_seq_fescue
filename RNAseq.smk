@@ -75,8 +75,7 @@ rule all:
         # config["directories"]["star_bams"] + "Log.out", # mapping
         # config["directories"]["star_bams"] + "Log.final.out", # mapping
         # config["directories"]["star_bams"] + "SJ.out.tab", # mapping
-        # expand(config["directories"]["sep_bams"] + "{pairs}.Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
-        # expand(sep_bams + "{pairs}.bam", pairs=PAIRS), # bam_seperation
+        expand(config["directories"]["sep_bams"] + "{pairs}.Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
         # gtf=config["scallop"]["output_file"] # Activates scallop2
 
 # This rule runs fastqc on all data fastq files
@@ -117,17 +116,9 @@ rule fastqc:
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
 # include: "rules/trim.smk"
-# include: "rules/star.smk"
-# # include: "rules/samtools.smk" # this should probs be deleted.
-# include: "rules/scallop.smk"
-# include: "rules/feature_counts.smk"
+include: "rules/star.smk"
+include: "rules/scallop.smk"
+include: "rules/feature_counts.smk"
 
 
 
-
-
-rule debug_print_wildcards:
-    output:
-        "debug_{pairs}.txt"
-    shell:
-        "echo '{wildcards.pairs}' > {output}"
