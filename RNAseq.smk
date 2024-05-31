@@ -38,7 +38,7 @@ star_manifest = config["star_manifest"]
 # =================================================================================================
 def read_sample_names(file_path):
     with open(file_path, "r") as file:
-        sample_names = [line.strip() for line in file]
+        sample_names = [line.strip().strip('.') for line in file]
     return sample_names
 
 
