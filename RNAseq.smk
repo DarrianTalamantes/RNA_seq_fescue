@@ -69,12 +69,13 @@ star_index_files = config["star_index_files"]
 
 rule all:
     input:
-        expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
+        expand("debug_{pairs}.txt", pairs=PAIRS)
+        # expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
         # config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
         # config["directories"]["star_bams"] + "Log.out", # mapping
         # config["directories"]["star_bams"] + "Log.final.out", # mapping
         # config["directories"]["star_bams"] + "SJ.out.tab", # mapping
-        expand(config["directories"]["sep_bams"] + "{pairs}.Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
+        # expand(config["directories"]["sep_bams"] + "{pairs}.Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
         # expand(sep_bams + "{pairs}.bam", pairs=PAIRS), # bam_seperation
         # gtf=config["scallop"]["output_file"] # Activates scallop2
 
@@ -116,11 +117,17 @@ rule fastqc:
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
 # include: "rules/trim.smk"
-include: "rules/star.smk"
-# include: "rules/samtools.smk" # this should probs be deleted.
-include: "rules/scallop.smk"
-include: "rules/feature_counts.smk"
+# include: "rules/star.smk"
+# # include: "rules/samtools.smk" # this should probs be deleted.
+# include: "rules/scallop.smk"
+# include: "rules/feature_counts.smk"
 
 
 
 
+
+rule debug_print_wildcards:
+    output:
+        "debug_{pairs}.txt"
+    shell:
+        "echo '{wildcards.pairs}' > {output}"
