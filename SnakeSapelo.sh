@@ -21,4 +21,4 @@ source activate snakemake
 export LC_ALL=en_SG.utf8
 export LANG=en_SG.utf8
 
-snakemake --use-conda --rerun-incomplete --cores 32 -s RNAseq.smk
+snakemake --use-conda --rerun-incomplete --cores 32 --skip star_index -s RNAseq.smk

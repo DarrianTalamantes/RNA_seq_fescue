@@ -22,7 +22,7 @@ params:
   star_mapping:
     log: /scratch/drt83172/Wallace_lab/RNA_SEQ/log/samtoolsview_log.txt
     threads: 32
-    threads_multi: 12
+    threads_multi: 10
 
 scallop:
   output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf

@@ -15,6 +15,7 @@ rule star_index:
     conda:
         "../Conda_Envs/transcriptome.yaml"
     output:
+    threads: 32
         expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
     shell:
         """
@@ -34,8 +35,7 @@ rule star_mapping:
         genome_dir = config["directories"]["genome_idx"]
     conda:
         "../Conda_Envs/transcriptome.yaml"
-    resources:
-        cores = 32
+    threads: 32
     output:
         bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
         log_out = config["directories"]["star_bams"] + "Log.out",
@@ -64,8 +64,7 @@ rule star_mapping_seperate:
         genome_dir = config["directories"]["genome_idx"]
     conda:
         "../Conda_Envs/transcriptome.yaml"
-    resources:
-        cores = 12
+    threads: 10
     output:
         bam = config["directories"]["sep_bams"] + "{pairs}.Aligned.sortedByCoord.out.bam",
         log = config["directories"]["sep_bams"] + "{pairs}.Log.out",
