@@ -24,34 +24,34 @@ rule star_index:
             --genomeDir {params.genome_dir} \
             --genomeFastaFiles {input}
         """
-        
+
 if config["use_ignored_rule"]:
-rule star_mapping:
-    input:
-        manifest = star_manifest,
-        genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
-    params:
-        threads = config["params"]["star_mapping"]["threads"],
-        prefix = config["directories"]["star_bams"],
-        genome_dir = config["directories"]["genome_idx"]
-    conda:
-        "../Conda_Envs/transcriptome.yaml"
-    threads: 32
-    output:
-        bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
-        log_out = config["directories"]["star_bams"] + "Log.out",
-        log_final = config["directories"]["star_bams"] + "Log.final.out",
-        sj_out = config["directories"]["star_bams"] + "SJ.out.tab"
-    shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 100GB
-        """        
-        STAR --runThreadN {params.threads} \
-            --genomeDir {params.genome_dir} \
-            --readFilesCommand zcat \
-            --readFilesManifest {input.manifest} \
-            --outFileNamePrefix {params.prefix} \
-            --limitBAMsortRAM 107089370995 \
-            --outSAMtype BAM SortedByCoordinate
-        """
+    rule star_mapping:
+        input:
+            manifest = star_manifest,
+            genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
+        params:
+            threads = config["params"]["star_mapping"]["threads"],
+            prefix = config["directories"]["star_bams"],
+            genome_dir = config["directories"]["genome_idx"]
+        conda:
+            "../Conda_Envs/transcriptome.yaml"
+        threads: 32
+        output:
+            bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
+            log_out = config["directories"]["star_bams"] + "Log.out",
+            log_final = config["directories"]["star_bams"] + "Log.final.out",
+            sj_out = config["directories"]["star_bams"] + "SJ.out.tab"
+        shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 100GB
+            """        
+            STAR --runThreadN {params.threads} \
+                --genomeDir {params.genome_dir} \
+                --readFilesCommand zcat \
+                --readFilesManifest {input.manifest} \
+                --outFileNamePrefix {params.prefix} \
+                --limitBAMsortRAM 107089370995 \
+                --outSAMtype BAM SortedByCoordinate
+            """
 
 
 rule star_mapping_seperate:
