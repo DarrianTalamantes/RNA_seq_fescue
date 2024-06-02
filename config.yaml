@@ -38,3 +38,5 @@ star_index_files:
     - "chrNameLength.txt"
     - "chrStart.txt"
     - "genomeParameters.txt"
+
+use_ignored_rule: false

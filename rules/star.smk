@@ -24,7 +24,8 @@ rule star_index:
             --genomeDir {params.genome_dir} \
             --genomeFastaFiles {input}
         """
-
+        
+if config["use_ignored_rule"]:
 rule star_mapping:
     input:
         manifest = star_manifest,
