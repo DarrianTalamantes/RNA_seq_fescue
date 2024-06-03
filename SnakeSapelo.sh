@@ -1,13 +1,18 @@
 #!/bin/bash
 #SBATCH -J RNA_Seq
 #SBATCH -p batch
-#SBATCH --ntasks=32
-#SBATCH --mem 110gb
-#SBATCH -t 110:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=32               # CPU core count per task, by default 1 CPU core per task
+#SBATCH --mem 120gb
+#SBATCH -t 140:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
+
+# Use when you use a program that does not have native multithreading.
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK  # This line is to be used when you use --cpus-per-task
+
 
 echo "This JobID for this job is ${SLURM_JOB_ID}."
 sleep 5
