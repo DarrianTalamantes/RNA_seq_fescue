@@ -8,5 +8,5 @@ rule feature_counts:
         counts = config["directories"]["features"] + "feature_counts.txt"
     shell:
         """
-        feature_counts.R {input.gtf} {input.bams} {output.gtf}
+        feature_counts.R {input.gtf} {input.bams} {output.counts}
         """
