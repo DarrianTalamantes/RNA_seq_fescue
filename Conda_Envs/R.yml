@@ -8,6 +8,7 @@ dependencies:
   - _openmp_mutex=4.5=2_gnu
   - _r-mutex=1.0.0=anacondar_1
   - binutils_impl_linux-64=2.38=h2a08ee3_1
+  - bioconductor-rsubread=2.16.1=r43ha9d7317_0
   - bwidget=1.9.16=h9eba36c_0
   - bzip2=1.0.8=h5eee18b_6
   - c-ares=1.28.1=hd590300_0
@@ -68,6 +69,8 @@ dependencies:
   - pcre2=10.43=hcad00b1_0
   - pixman=0.43.2=h59595ed_0
   - r-base=4.3.3=hf0d99cb_1
+  - r-lattice=0.22_5=r43h76d94ec_0
+  - r-matrix=1.6_1.1=r43h76d94ec_0
   - readline=8.2=h5eee18b_0
   - sed=4.8=he412f7d_0
   - sysroot_linux-64=2.12=he073ed8_17
