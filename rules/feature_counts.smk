@@ -6,7 +6,7 @@ rule feature_counts:
         bams = expand(sep_bams + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS)
     output:
         counts = config["directories"]["features"] + "feature_counts.txt"
-    script:
+    shell:
         """
         feature_counts.R {input.gtf} {input.bams} {output.gtf}
         """
