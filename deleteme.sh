@@ -2,7 +2,7 @@
 #SBATCH -J Fixer
 #SBATCH -p batch
 #SBATCH --ntasks=4
-#SBATCH --mem 60gb
+#SBATCH --mem 100gb
 #SBATCH -t 140:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Fixer.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Fixer.%j.err
