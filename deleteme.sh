@@ -1,3 +1,20 @@
+#!/bin/bash
+#SBATCH -J Fixer
+#SBATCH -p batch
+#SBATCH --ntasks=4
+#SBATCH --mem 24gb
+#SBATCH -t 140:00:00
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.err
+#SBATCH --mail-type=FAIL,END
+#SBATCH --mail-user drt83172@uga.edu
+
+echo "This JobID for this job is ${SLURM_JOB_ID}."
+sleep 5
+echo "Done."
+
+ml STAR/2.7.10b-GCC-11.3.0     
+    
         STAR --runThreadN 4 \
             --genomeDir {/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome_idx} \
             --readFilesCommand zcat \
