@@ -74,8 +74,10 @@ rule all:
         # config["directories"]["star_bams"] + "Log.out", # mapping
         # config["directories"]["star_bams"] + "Log.final.out", # mapping
         # config["directories"]["star_bams"] + "SJ.out.tab", # mapping
-        expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
-        gtf=config["scallop"]["output_file"] # Activates scallop2
+        # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
+        # gtf=config["scallop"]["output_file"] # Activates scallop2
+        counts = config["directories"]["features"] + "feature_counts.txt" # feature counts
+
 
 # This rule runs fastqc on all data fastq files
 rule fastqc:
@@ -115,8 +117,8 @@ rule fastqc:
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
 # include: "rules/trim.smk"
-include: "rules/star.smk"
-include: "rules/scallop.smk"
+# include: "rules/star.smk"
+# include: "rules/scallop.smk"
 include: "rules/feature_counts.smk"
 
 
