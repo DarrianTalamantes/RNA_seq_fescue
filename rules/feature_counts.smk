@@ -1,4 +1,5 @@
 # This rule will run R feature counts.
+# Will need to change directoy to your scripts directy in execution
 
 rule feature_counts:
     input:
@@ -8,5 +9,5 @@ rule feature_counts:
         counts = config["directories"]["features"] + "feature_counts.txt"
     shell:
         """
-        Scripts/feature_counts.R {input.gtf} {input.bams} {output.counts}
+        /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/Scripts/feature_counts.R {input.gtf} {input.bams} {output.counts}
         """
