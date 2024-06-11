@@ -11,6 +11,7 @@ rule feature_counts:
         outpath = config["directories"]["features"]
     conda:
         "../Conda_Envs/R.yaml"
+    # You can put R script path in config file so you dont have to change it here    
     shell:
         """
         if [ ! -d {params.outpath} ]; then 
