@@ -9,7 +9,9 @@ rule feature_counts:
         counts = config["directories"]["features"] + "feature_counts.txt"
     conda:
         "../Conda_Envs/R.yaml"
-    run:
-        input_bams = " ".join(input.bams)
-        shell("Rscript /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/Scripts/feature_counts.R {output.counts} {input.gtf} '{input_bams}'") 
-    
+    shell:
+        """
+        input_bams="{input.bams}"
+        input_bams_joined=$(echo $input_bams | tr ' ' ',')
+        Rscript /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/Scripts/feature_counts.R {output.counts} {input.gtf} "$input_bams_joined") 
+        """
