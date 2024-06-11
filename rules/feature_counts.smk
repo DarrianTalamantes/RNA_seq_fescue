@@ -11,5 +11,5 @@ rule feature_counts:
         "../Conda_Envs/R.yaml"
     shell:
         """
-        Rscript /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/Scripts/feature_counts.R {input.gtf} "{' '.join(input.bams)}" {output.counts}
+        Rscript /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/Scripts/feature_counts.R {output.counts} {input.gtf} "{' '.join(input.bams)}" 
         """

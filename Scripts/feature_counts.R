@@ -1,9 +1,9 @@
 # This script uses R featurecounts for RNA seq pipline anlaysis. 
 
 args <- commandArgs(trailingOnly=TRUE)
-bam_files <- unlist(strsplit(args[2], ",")) # Convert comma-separated string to character vector
-gtf_file <- args[1]
-output_file <- args[3]
+bam_files <- unlist(strsplit(args[3], ",")) # Convert comma-separated string to character vector
+gtf_file <- args[2]
+output_file <- args[1]
 
 library(Rsubread)
 
