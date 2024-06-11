@@ -1,7 +1,7 @@
 # This script uses R featurecounts for RNA seq pipline anlaysis.
 
 args <- commandArgs(trailingOnly=TRUE)
-bam_files <- strsplit(args[3], " ") # string to charachter vector
+bam_files <- unlist(strsplit(args[3], " ")) # string to charachter vector
 gtf_file <- args[2]
 output_file <- args[1]
 
