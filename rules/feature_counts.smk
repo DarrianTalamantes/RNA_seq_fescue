@@ -16,5 +16,5 @@ rule feature_counts:
         if [ ! -d {params.outpath} ]; then 
         mkdir -p {params.outpath}; fi
 
-        Rscript /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/Scripts/feature_counts.R {output.counts} {input.gtf} "{input.bams}") 
+        Rscript /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/Scripts/feature_counts.R {output.counts} {input.gtf} "{input.bams}" 
         """
