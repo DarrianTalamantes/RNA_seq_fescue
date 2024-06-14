@@ -60,28 +60,41 @@ res <- res[order(res$padj),]
 summary(res)
 head(res)
 
+# Function to get results.
+get_results <- function(DeSeqData,column,t1,t2){
+  if(!is.character(column) || !is.character(t1) || !is.character(t2)) {
+    stop("The column and treatment levels (t1, t2) must be provided as strings.")
+  }
+  output <- results(DeSeqData, contrast = c(column, t1, t2))
+  output <- output[order(output$padj),]
+  return(output)
+}
+
+
 # Control vs Heat
-Control_vs_Heat <- results(dds, contrast = c("Treatment", "Control", "Heat"))
-Control_vs_Heat <- Control_vs_Heat[order(Control_vs_Heat$padj),]
+Control_vs_Heat <- get_results(dds,"Treatment","Control","Heat")
 summary(Control_vs_Heat)
 head(Control_vs_Heat)
 
-#
-res <- res[order(res$padj),]
-summary(res)
-head(res)
+# Control vs HeatxPercipitation
+Control_vs_HxP <- get_results(dds,"Treatment","Control","HeatxPercipitation")
+summary(Control_vs_HxP)
+head(Control_vs_HxP)
 
-#
-res <- res[order(res$padj),]
-summary(res)
-head(res)
+# Heat vs HeatxPercipitation
+Heat_vs_HxP <- get_results(dds,"Treatment","Control","HeatxPercipitation")
+summary(Heat_vs_HxP)
+head(Heat_vs_HxP)
 
-#
-res <- res[order(res$padj),]
-summary(res)
-head(res)
+# E+ vs E-
+Endo_vs_No_Edno <- get_results(dds,"Endophyte","Negative","Positive")
+summary(Endo_vs_No_Edno)
+head(Endo_vs_No_Edno)
 
 
+###############################
+# Scatter Plot
+###############################
 
 
 # Scatter Plot
@@ -93,43 +106,49 @@ head(res)
 # plotCounts(dds, gene="gene.54571.320.0", intgroup="Treatment")
 # plotCounts(dds, gene="gene.1127.808.0", intgroup="Treatment")
 
-# Volcano Plot (template)
-res$significance <- "Not Significant"
-res$significance[res$padj < 0.05 & res$log2FoldChange > 2] <- "Significant Upregulated"
-res$significance[res$padj < 0.05 & res$log2FoldChange < -2] <- "Significant Downregulated"
-
-ggplot(res, aes(x = log2FoldChange, y = -log10(pvalue), color = significance)) +
-  geom_point(alpha = 0.8) + 
-  scale_color_manual(values = c("Not Significant" = "grey", 
-                                "Significant Upregulated" = "red", 
-                                "Significant Downregulated" = "blue")) +
-  labs(title = "Volcano Plot", x = "Log2 Fold Change", y = "-Log10 P-value") +
-  theme_minimal() +
-  theme(legend.position = "top")
-
-
-# Volcano plot Control v Heat
-Control_vs_Heat$significance <- "Not Significant"
-Control_vs_Heat$significance[Control_vs_Heat$padj < 0.05 & Control_vs_Heat$log2FoldChange > 2] <- "Significant Upregulated"
-Control_vs_Heat$significance[Control_vs_Heat$padj < 0.05 & Control_vs_Heat$log2FoldChange < -2] <- "Significant Downregulated"
-
-ggplot(Control_vs_Heat, aes(x = log2FoldChange, y = -log10(pvalue), color = significance)) +
-  geom_point(alpha = 0.8) + 
-  scale_color_manual(values = c("Not Significant" = "grey", 
-                                "Significant Upregulated" = "red", 
-                                "Significant Downregulated" = "blue")) +
-  labs(title = "Control vs Heat", x = "Log2 Fold Change", y = "-Log10 P-value") +
-  theme_minimal() +
-  theme(legend.position = "top")
-
+#######################
+# Volcano Plot Function 
+#######################
+# Define the function to create a volcano plot
+create_volcano_plot <- function(results, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Volcano Plot") {
+  
+  # Ensure the results have the required columns
+  if(!all(c("log2FoldChange", "padj") %in% colnames(results))) {
+    stop("Results must contain 'log2FoldChange' and 'padj' columns.")
+  }
+  
+  # Create a column to indicate significance
+  results$significance <- "Not Significant"
+  results$significance[results$padj < pvalue_threshold & results$log2FoldChange > log2FC_threshold] <- "Significant Upregulated"
+  results$significance[results$padj < pvalue_threshold & results$log2FoldChange < (log2FC_threshold * -1)] <- "Significant Downregulated"
+  
+  # Create the volcano plot
+  p <- ggplot(results, aes(x = log2FoldChange, y = -log10(padj))) +
+    geom_point(aes(color = significance), alpha = 0.9) +
+    scale_color_manual(values = c("Significant Upregulated" = "red", "Not Significant" = "grey", "Significant Downregulated" = "blue")) +
+    geom_vline(xintercept = c(-log2FC_threshold, log2FC_threshold), linetype = "dashed", color = "black") +
+    geom_hline(yintercept = -log10(pvalue_threshold), linetype = "dashed", color = "black") +
+    labs(x = "Log2 Fold Change", y = "-log10 Adjusted P-value", title = title) +
+    theme_minimal()
+  
+  return(p)
+}
 
 
+###############################
+# Volcano Plots
+###############################
 
+volcano_plot_CvH <- create_volcano_plot(Control_vs_Heat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Control vs Heat")
+print(volcano_plot_CvH)
 
+volcano_plot_CvHxP <- create_volcano_plot(Control_vs_HxP, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Control vs HeatxPercipitation")
+print(volcano_plot_CvHxP)
 
+volcano_plot_HvHxP<- create_volcano_plot(Heat_vs_HxP, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Heat vs HeatxPercipitation")
+print(volcano_plot_HvHxP)
 
-
-
-
+volcano_plot_EvNE <- create_volcano_plot(Endo_vs_No_Edno, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Positive vs Endohpyte Negative")
+print(volcano_plot_EvNE)
 
 
