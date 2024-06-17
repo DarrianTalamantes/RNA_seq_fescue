@@ -8,11 +8,6 @@
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 
-# Install DESeq2 package from Bioconductor
-BiocManager::install("DESeq2")
-
-
-
 library(DESeq2)
 library(ggplot2)
 
@@ -41,7 +36,8 @@ MetaData$Year <- as.character(MetaData$Year)
 #Makes DeSeq data set
 dds <- DESeqDataSetFromMatrix(countData = Featurecount,
                               colData = MetaData,
-                              design= ~ Treatment + Clone + Endophyte + Year + Month, tidy = TRUE)
+                              design= ~ Month + Clone + Year + Treatment + Endophyte, tidy = TRUE)
+
 #Run DeSeq function, 
 dds_og <- DESeq(dds)
  dds <- dds_og
@@ -49,17 +45,10 @@ dds_og <- DESeq(dds)
 # filter for genes that have 10 occurrences in 1/4 the samples
 keep <- rowSums(counts(dds) >= 1) >= (ncol(dds) / 4)
 dds <- dds[keep, ]
-res <- results(dds)
 
 ####################################
 # Getting many comparisons
 ####################################
-
-# Get Main Set of Results
-res <- res[order(res$padj),]
-summary(res)
-head(res)
-
 # Function to get results.
 get_results <- function(DeSeqData,column,t1,t2){
   if(!is.character(column) || !is.character(t1) || !is.character(t2)) {
@@ -74,21 +63,25 @@ get_results <- function(DeSeqData,column,t1,t2){
 # Control vs Heat
 Control_vs_Heat <- get_results(dds,"Treatment","Control","Heat")
 summary(Control_vs_Heat)
+Control_vs_Heat <- Control_vs_Heat[order(Control_vs_Heat$pvalue),]
 head(Control_vs_Heat)
 
 # Control vs HeatxPercipitation
 Control_vs_HxP <- get_results(dds,"Treatment","Control","HeatxPercipitation")
 summary(Control_vs_HxP)
+Control_vs_HxP <- Control_vs_HxP[order(Control_vs_HxP$pvalue),]
 head(Control_vs_HxP)
 
 # Heat vs HeatxPercipitation
-Heat_vs_HxP <- get_results(dds,"Treatment","Control","HeatxPercipitation")
+Heat_vs_HxP <- get_results(dds,"Treatment","Heat","HeatxPercipitation")
 summary(Heat_vs_HxP)
+Heat_vs_HxP <- Heat_vs_HxP[order(Heat_vs_HxP$pvalue),]
 head(Heat_vs_HxP)
 
 # E+ vs E-
 Endo_vs_No_Edno <- get_results(dds,"Endophyte","Negative","Positive")
 summary(Endo_vs_No_Edno)
+Endo_vs_No_Edno <- Endo_vs_No_Edno[order(Endo_vs_No_Edno$pvalue),]
 head(Endo_vs_No_Edno)
 
 
