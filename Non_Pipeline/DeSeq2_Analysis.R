@@ -10,6 +10,8 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 
 library(DESeq2)
 library(ggplot2)
+library(dplyr)
+library(tidyverse)
 
 # File locations
 MetaData_loc <- "/home/drt06/Documents/Tall_fescue/RNA_seq_fescue/Non_Pipeline/Meta_Data.csv"
@@ -37,7 +39,7 @@ MetaData$Year <- as.character(MetaData$Year)
 dds <- DESeqDataSetFromMatrix(countData = Featurecount,
                               colData = MetaData,
                               design= ~ Month + Clone + Year + Treatment + Endophyte, tidy = TRUE)
-
+ 
 #Run DeSeq function, 
 dds_og <- DESeq(dds)
  dds <- dds_og
@@ -143,5 +145,48 @@ print(volcano_plot_HvHxP)
 
 volcano_plot_EvNE <- create_volcano_plot(Endo_vs_No_Edno, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Positive vs Endohpyte Negative")
 print(volcano_plot_EvNE)
+
+###################################
+# Heat map
+###################################
+# Check what comparison the data is doing. Seems like id have to rerun the data everytime for heatmaps. 
+results(dds)
+
+vsd <- vst(dds, blind = FALSE)
+vsd_data <- assay(vsd)
+# Select highly expressed genes
+select <- order(rowMeans(counts(dds, normalized = TRUE)), decreasing = TRUE)[1:100]
+top200_data <- vsd_data[select, ]
+# Convert the matrix to a long format for ggplot2
+top200_long <- as.data.frame(top200_data) %>%
+  rownames_to_column(var = "gene") %>%
+  pivot_longer(cols = -gene, names_to = "sample", values_to = "expression")
+# Add sample information
+sample_info <- as.data.frame(colData(dds))
+top200_long <- top200_long %>%
+  left_join(sample_info, by = c("sample" = "Sample"))
+
+# Create the heatmap ()
+heatmap <- ggplot(top200_long, aes(x = sample, y = gene, fill = expression)) +
+  geom_tile() +
+  scale_fill_viridis_c(option = "viridis") +
+  theme_minimal() + 
+  theme(axis.text.x = element_blank(),  # Remove x-axis labels
+        axis.text.y = element_blank(),  # Remove y-axis labels
+        panel.grid = element_blank()) +  # Remove grid lines
+  labs(x = "Sample", y = "Gene", title = "Heatmap of Top 100 Gene Expression") +
+  facet_grid(~ Treatment, scales = "free_x", space = "free_x") 
+print(heatmap)
+
+
+
+
+
+
+
+
+
+
+
 
 
