@@ -17,4 +17,4 @@ sacct -j $SLURM_JOB_ID --format=JobID,JobName,AllocCPUS,Elapsed,ExitCode,State,M
 
 module load FastQC/0.11.9-Java-11
 
-./scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/Scripts/RunFastQC.sh /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed
+./RunFastQC.sh /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed
