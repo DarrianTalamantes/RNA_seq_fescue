@@ -43,7 +43,7 @@ dds_og <- DESeq(dds)
  dds <- dds_og
 
 # filter for genes that have 10 occurrences in 1/4 the samples
-keep <- rowSums(counts(dds) >= 1) >= (ncol(dds) / 4)
+keep <- rowSums(counts(dds) >= 5) >= (ncol(dds) / 4)
 dds <- dds[keep, ]
 
 ####################################
