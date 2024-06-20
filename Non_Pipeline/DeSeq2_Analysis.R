@@ -11,6 +11,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 library(DESeq2)
 library(ggplot2)
 library(dplyr)
+library(ggpubr)
 library(tidyverse)
 
 # File locations
@@ -38,8 +39,8 @@ MetaData$Year <- as.character(MetaData$Year)
 #Makes DeSeq data set
 dds <- DESeqDataSetFromMatrix(countData = Featurecount,
                               colData = MetaData,
-                              design= ~ Month + Clone + Year + Treatment + Endophyte, tidy = TRUE)
- 
+                              design= ~ Month + Clone + Year + Endophyte + Treatment, tidy = TRUE)
+
 #Run DeSeq function, 
 dds_og <- DESeq(dds)
  dds <- dds_og
@@ -150,6 +151,7 @@ print(volcano_plot_EvNE)
 # Heat map
 ###################################
 # Check what comparison the data is doing. Seems like id have to rerun the data everytime for heatmaps. 
+# I probably 
 results(dds)
 
 vsd <- vst(dds, blind = FALSE)
@@ -167,7 +169,7 @@ top200_long <- top200_long %>%
   left_join(sample_info, by = c("sample" = "Sample"))
 
 # Create the heatmap ()
-heatmap <- ggplot(top200_long, aes(x = sample, y = gene, fill = expression)) +
+heatmap <- ggplot(Heat_vs_HxP, aes(x = sample, y = gene, fill = log2FoldChange)) +
   geom_tile() +
   scale_fill_viridis_c(option = "viridis") +
   theme_minimal() + 
@@ -177,6 +179,103 @@ heatmap <- ggplot(top200_long, aes(x = sample, y = gene, fill = expression)) +
   labs(x = "Sample", y = "Gene", title = "Heatmap of Top 100 Gene Expression") +
   facet_grid(~ Treatment, scales = "free_x", space = "free_x") 
 print(heatmap)
+
+
+
+
+#########################################
+# DeSeq2 function interaction method
+#########################################
+# remaking og dds file
+dds <- dds_og
+# Grouping our treatment groups
+dds$group <- factor(paste0(dds$Endophyte, dds$Treatment))
+design(dds) <- ~ group
+
+#Run DeSeq function, 
+dds <- DESeq(dds)
+resultsNames(dds) # This will show you all your comparisions you want to look at
+
+# filter for genes that have 10 occurrences in 1/4 the samples
+keep <- rowSums(counts(dds) >= 5) >= (ncol(dds) / 4)
+dds <- dds[keep, ]
+
+####################################
+# Getting contrats of interactions
+####################################
+
+# The Treatments
+
+# Endo negative, heat v control
+EndoNeg_HeatxControl <- get_results(dds,"group","NegativeHeat","NegativeControl")
+summary(EndoNeg_HeatxControl)
+EndoNeg_HeatxControl <- EndoNeg_HeatxControl[order(EndoNeg_HeatxControl$pvalue),]
+head(EndoNeg_HeatxControl)
+
+# Endo positive, heat v control
+EndoPos_HeatxControl <- get_results(dds,"group","PositiveHeat","PositiveControl")
+summary(EndoPos_HeatxControl)
+EndoPos_HeatxControl <- EndoPos_HeatxControl[order(EndoPos_HeatxControl$pvalue),]
+head(EndoPos_HeatxControl)
+
+# Endo positive, HP v control
+EndoPos_HPxControl <- get_results(dds,"group","PositiveHeatxPercipitation","PositiveControl")
+summary(EndoPos_HPxControl)
+EndoPos_HPxControl <- EndoPos_HPxControl[order(EndoPos_HPxControl$pvalue),]
+head(EndoPos_HPxControl)
+
+# Endo negative, HP v control
+EndoNeg_HPxControl <- get_results(dds,"group","NegativeHeatxPercipitation","NegativeControl")
+summary(EndoNeg_HPxControl)
+EndoNeg_HPxControl <- EndoNeg_HPxControl[order(EndoNeg_HPxControl$pvalue),]
+head(EndoNeg_HPxControl)
+
+# Endophyte negative vs Positive
+
+# Endo Positive v negative , control
+Control_NegxPos <- get_results(dds,"group","NegativeControl","PositiveControl")
+summary(Control_NegxPos)
+Control_NegxPos <- Control_NegxPos[order(Control_NegxPos$pvalue),]
+head(Control_NegxPos)
+
+# Endo Positive v negative , Heat
+Heat_NegxPos <- get_results(dds,"group","NegativeHeat","PositiveHeat")
+summary(Heat_NegxPos)
+Heat_NegxPos <- Heat_NegxPos[order(Heat_NegxPos$pvalue),]
+head(Heat_NegxPos)
+
+# Endo Positive v negative , PxH
+PxH_NegxPos <- get_results(dds,"group","NegativeHeatxPercipitation","PositiveHeatxPercipitation")
+summary(PxH_NegxPos)
+PxH_NegxPos <- PxH_NegxPos[order(PxH_NegxPos$pvalue),]
+head(PxH_NegxPos)
+
+###################################
+# Heat map
+###################################
+
+# Heat x Control
+volcano_plot_EndoNeg_HeatxControl <- create_volcano_plot(EndoNeg_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "EndoNeg vs HeatxControl")
+print(volcano_plot_EndoNeg_HeatxControl)
+
+volcano_plot_EndoPos_HeatxControl <- create_volcano_plot(EndoPos_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "EndoPos vs HeatxControl")
+print(volcano_plot_EndoPos_HeatxControl)
+# Make code to put plots side by side
+ggarrange(volcano_plot_EndoNeg_HeatxControl, volcano_plot_EndoPos_HeatxControl, ncol = 2, nrow =1)
+
+# HeatxPresipitation x control
+volcano_plot_EndoPos_HPxControl <- create_volcano_plot(EndoPos_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "EndoPos vs HeatxControl")
+print(volcano_plot_EndoPos_HPxControl)
+
+volcano_plot_EndoNeg_HPxControl <- create_volcano_plot(EndoNeg_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "EndoNeg vs HeatxControl")
+print(volcano_plot_EndoNeg_HPxControl)
+
+# Make code to put plots side by side
+ggarrange(volcano_plot_EndoNeg_HeatxControl, volcano_plot_EndoPos_HeatxControl, ncol = 2, nrow =1)
+
+
+
+
 
 
 
