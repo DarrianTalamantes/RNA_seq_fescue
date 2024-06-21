@@ -13,6 +13,7 @@ library(ggplot2)
 library(dplyr)
 library(ggpubr)
 library(tidyverse)
+library(grid)
 
 # File locations
 MetaData_loc <- "/home/drt06/Documents/Tall_fescue/RNA_seq_fescue/Non_Pipeline/Meta_Data.csv"
@@ -124,8 +125,11 @@ create_volcano_plot <- function(results, log2FC_threshold = 2, pvalue_threshold 
     scale_color_manual(values = c("Significant Upregulated" = "red", "Not Significant" = "grey", "Significant Downregulated" = "blue")) +
     geom_vline(xintercept = c(-log2FC_threshold, log2FC_threshold), linetype = "dashed", color = "black") +
     geom_hline(yintercept = -log10(pvalue_threshold), linetype = "dashed", color = "black") +
-    labs(x = "Log2 Fold Change", y = "-log10 Adjusted P-value", title = title) +
-    theme_minimal()
+    labs(x = "Log2 Fold Change", y = "-log10 Adjusted P-value") +
+    ggtitle(title) +
+    theme_minimal() + 
+    theme(plot.title = element_text(hjust = .5, size = 14)) 
+    
   
   return(p)
 }
@@ -203,8 +207,9 @@ dds <- dds[keep, ]
 ####################################
 # Getting contrats of interactions
 ####################################
+resultsNames(dds) # This will show you all your comparisions you want to look at
 
-# The Treatments
+# The Treatments #
 
 # Endo negative, heat v control
 EndoNeg_HeatxControl <- get_results(dds,"group","NegativeHeat","NegativeControl")
@@ -230,7 +235,22 @@ summary(EndoNeg_HPxControl)
 EndoNeg_HPxControl <- EndoNeg_HPxControl[order(EndoNeg_HPxControl$pvalue),]
 head(EndoNeg_HPxControl)
 
-# Endophyte negative vs Positive
+# Heat x Heat Percipitation #
+
+# Endo positive, HP v control
+EndoPos_HPxHeat <- get_results(dds,"group","PositiveHeatxPercipitation","PositiveHeat")
+summary(EndoPos_HPxHeat)
+EndoPos_HPxHeat <- EndoPos_HPxHeat[order(EndoPos_HPxHeat$pvalue),]
+head(EndoPos_HPxHeat)
+
+# Endo negative, HP v control
+EndoNeg_HPxHeat <- get_results(dds,"group","NegativeHeatxPercipitation","NegativeHeat")
+summary(EndoNeg_HPxHeat)
+EndoNeg_HPxHeat <- EndoNeg_HPxHeat[order(EndoNeg_HPxHeat$pvalue),]
+head(EndoNeg_HPxHeat)
+
+
+# Endophyte negative vs Positive #
 
 # Endo Positive v negative , control
 Control_NegxPos <- get_results(dds,"group","NegativeControl","PositiveControl")
@@ -251,29 +271,39 @@ PxH_NegxPos <- PxH_NegxPos[order(PxH_NegxPos$pvalue),]
 head(PxH_NegxPos)
 
 ###################################
-# Heat map
+# Volcano plots of interactions
 ###################################
-
+separator <- ggplot() + theme_void() + 
+  theme(panel.background = element_rect(fill = "black", colour = "black"))
 # Heat x Control
 volcano_plot_EndoNeg_HeatxControl <- create_volcano_plot(EndoNeg_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "EndoNeg vs HeatxControl")
 print(volcano_plot_EndoNeg_HeatxControl)
 
 volcano_plot_EndoPos_HeatxControl <- create_volcano_plot(EndoPos_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "EndoPos vs HeatxControl")
 print(volcano_plot_EndoPos_HeatxControl)
-# Make code to put plots side by side
-ggarrange(volcano_plot_EndoNeg_HeatxControl, volcano_plot_EndoPos_HeatxControl, ncol = 2, nrow =1)
+
+combined_plot1 <- ggarrange(volcano_plot_EndoNeg_HeatxControl, separator, volcano_plot_EndoPos_HeatxControl, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
+annotate_figure(combined_plot1, top = text_grob("Heat x Control Volcano Plots", face = "bold", size = 14))
 
 # HeatxPresipitation x control
-volcano_plot_EndoPos_HPxControl <- create_volcano_plot(EndoPos_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "EndoPos vs HeatxControl")
+volcano_plot_EndoPos_HPxControl <- create_volcano_plot(EndoPos_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Posititve, Heat x Control")
 print(volcano_plot_EndoPos_HPxControl)
 
-volcano_plot_EndoNeg_HPxControl <- create_volcano_plot(EndoNeg_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "EndoNeg vs HeatxControl")
+volcano_plot_EndoNeg_HPxControl <- create_volcano_plot(EndoNeg_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Negative, Heat x Control")
 print(volcano_plot_EndoNeg_HPxControl)
 
-# Make code to put plots side by side
-ggarrange(volcano_plot_EndoNeg_HeatxControl, volcano_plot_EndoPos_HeatxControl, ncol = 2, nrow =1)
+combined_plot2 <- ggarrange(volcano_plot_EndoNeg_HPxControl, separator, volcano_plot_EndoPos_HPxControl, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
+annotate_figure(combined_plot2, top = text_grob("Heat with Percipitation x Control Volcano Plots", face = "bold", size = 14))
 
+# HeatxPresipitation x Heat
+volcano_plot_EndoPos_HPxHeat <- create_volcano_plot(EndoPos_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Positive, Heat and Percipitation x Heat")
+print(volcano_plot_EndoPos_HPxHeat)
 
+volcano_plot_EndoNeg_HPxHeat <- create_volcano_plot(EndoNeg_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Negative, Heat and Percipitation x Heat")
+print(volcano_plot_EndoNeg_HPxHeat)
+
+combined_plot3 <- ggarrange(volcano_plot_EndoNeg_HPxHeat, separator, volcano_plot_EndoPos_HPxHeat, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
+annotate_figure(combined_plot3, top = text_grob("Heat with Percipitation x Heat Volcano Plots", face = "bold", size = 14))
 
 
 
