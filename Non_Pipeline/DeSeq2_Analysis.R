@@ -296,23 +296,54 @@ combined_plot2 <- ggarrange(volcano_plot_EndoNeg_HPxControl, separator, volcano_
 annotate_figure(combined_plot2, top = text_grob("Heat with Percipitation x Control Volcano Plots", face = "bold", size = 14))
 
 # HeatxPresipitation x Heat
-volcano_plot_EndoPos_HPxHeat <- create_volcano_plot(EndoPos_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Positive, Heat and Percipitation x Heat")
+volcano_plot_EndoPos_HPxHeat <- create_volcano_plot(EndoPos_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Positive, Heat with Percipitation x Heat")
 print(volcano_plot_EndoPos_HPxHeat)
 
-volcano_plot_EndoNeg_HPxHeat <- create_volcano_plot(EndoNeg_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Negative, Heat and Percipitation x Heat")
+volcano_plot_EndoNeg_HPxHeat <- create_volcano_plot(EndoNeg_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Negative, Heat with Percipitation x Heat")
 print(volcano_plot_EndoNeg_HPxHeat)
 
 combined_plot3 <- ggarrange(volcano_plot_EndoNeg_HPxHeat, separator, volcano_plot_EndoPos_HPxHeat, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
 annotate_figure(combined_plot3, top = text_grob("Heat with Percipitation x Heat Volcano Plots", face = "bold", size = 14))
 
+# Treatments, Negative x Positive
+volcano_plot_Heat_NegxPos <- create_volcano_plot(Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Heat treatment, Endo Negative x Positive")
+print(volcano_plot_Heat_NegxPos)
 
+volcano_plot_HP_NegxPos <- create_volcano_plot(PxH_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Heat with Percipitation, Endo Negactive x Positive")
+print(volcano_plot_HP_NegxPos)
 
+combined_plot4 <- ggarrange(volcano_plot_Heat_NegxPos, separator, volcano_plot_HP_NegxPos, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
+annotate_figure(combined_plot4, top = text_grob("Treatments by Endophyte Status", face = "bold", size = 14))
 
+#######################################
+# PCA Plots
+#######################################
 
+vsd <- vst(dds, blind = FALSE)
+plotPCA(vsd, intgroup=c("Year"))
 
+########################################
+# Investigating the Clone
+########################################
 
+# remaking og dds file
+dds_clone <- dds_og
 
+#Run DeSeq function, 
+dds_clone <- DESeq(dds_clone)
 
+# filter for genes that have 10 occurrences in 1/4 the samples
+keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
+dds_clone <- dds_clone[keep, ]
+results(dds_clone)
+# Clone 
+CTE45xCTE46 <- get_results(dds,"Clone","CTE45","CTE46")
+summary(CTE45xCTE46)
+CTE45xCTE46 <- CTE45xCTE46[order(CTE45xCTE46$pvalue),]
+head(CTE45xCTE46)
+
+CTE45xCTE46 <- create_volcano_plot(CTE45xCTE46, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "CTE45 vs CTE46")
+print(CTE45xCTE46)
 
 
 
