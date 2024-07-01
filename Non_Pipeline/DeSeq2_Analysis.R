@@ -14,6 +14,7 @@ library(dplyr)
 library(ggpubr)
 library(tidyverse)
 library(grid)
+library(data.table)
 
 # File locations
 MetaData_loc <- "/home/drt06/Documents/Tall_fescue/RNA_seq_fescue/Non_Pipeline/Meta_Data.csv"
@@ -133,6 +134,53 @@ create_volcano_plot <- function(results, log2FC_threshold = 2, pvalue_threshold 
   
   return(p)
 }
+#######################
+# Volcano Plot Function different colored 
+#######################
+# Define the function to create a volcano plot
+create_volcano_plot_2_dataset <- function(results1, results2, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Volcano Plot") {
+  
+  # Ensure the results have the required columns
+  if(!all(c("log2FoldChange", "padj") %in% colnames(results1))) {
+    stop("Results must contain 'log2FoldChange' and 'padj' columns.")
+  }
+significance <- rep("Not Significant", nrow(results2))
+significance[results2$padj < pvalue_threshold & results2$log2FoldChange > log2FC_threshold] <- "Significant Upregulated"
+significance[results2$padj < pvalue_threshold & results2$log2FoldChange < -log2FC_threshold] <- "Significant Downregulated"
+  
+
+# Ensure that results1 and results2 have the same set of rownames (gene identifiers)
+if (!all(rownames(results1) %in% rownames(results2))) {
+  stop("Some gene identifiers in results1 are not found in results2.")
+}
+if (!all(rownames(results2) %in% rownames(results1))) {
+  stop("Some gene identifiers in results2 are not found in results1.")
+}
+
+matched_indices <- match(rownames(results1), rownames(results2))
+
+results1$significance <- significance[matched_indices]
+
+not_significant <- subset(results1, significance == "Not Significant")
+upregulated <- subset(results1, significance == "Significant Upregulated")
+downregulated <- subset(results1, significance == "Significant Downregulated")
+
+  # Create the volcano plot
+  p <- ggplot() +
+    geom_point(data = not_significant, aes(x = log2FoldChange, y = -log10(padj)), color = "grey", size = 1, alpha = 0.01) +
+    geom_point(data = upregulated, aes(x = log2FoldChange, y = -log10(padj)), color = "red", size = 3, alpha = 1) +
+    geom_point(data = downregulated, aes(x = log2FoldChange, y = -log10(padj)), color = "blue", size = 3, alpha = 1) +
+    geom_vline(xintercept = c(-log2FC_threshold, log2FC_threshold), linetype = "dashed", color = "black") +
+    geom_hline(yintercept = -log10(pvalue_threshold), linetype = "dashed", color = "black") +
+    labs(x = "Log2 Fold Change", y = "-log10 Adjusted P-value") +
+    ggtitle(title) +
+    theme_minimal() + 
+    theme(plot.title = element_text(hjust = .5, size = 14)) 
+  
+  
+  return(p)
+}
+
 
 
 ###############################
@@ -312,15 +360,42 @@ print(volcano_plot_Heat_NegxPos)
 volcano_plot_HP_NegxPos <- create_volcano_plot(PxH_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Heat with Percipitation, Endo Negactive x Positive")
 print(volcano_plot_HP_NegxPos)
 
+volcano_plot_Control_NegxPos <- create_volcano_plot(Control_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Control, Endo Negactive x Positive")
+print(volcano_plot_Control_NegxPos)
+
 combined_plot4 <- ggarrange(volcano_plot_Heat_NegxPos, separator, volcano_plot_HP_NegxPos, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
 annotate_figure(combined_plot4, top = text_grob("Treatments by Endophyte Status", face = "bold", size = 14))
+
 
 #######################################
 # PCA Plots
 #######################################
 
 vsd <- vst(dds, blind = FALSE)
-plotPCA(vsd, intgroup=c("Year"))
+plotPCA(vsd, intgroup=c("Clone"))
+
+# Doing a regular PCA without auto making it via DeSeq2
+vst_data <- assay(vsd) # creates an expression matrix
+pca_result <- prcomp(t(vst_data), center = TRUE, scale. = TRUE) # does PCA
+explained_variance <- summary(pca_result)$importance[2, 1:100] * 100 # extracting explained variance
+pca_data <- as.data.frame(pca_result$x) #savong as data frame
+pca_data$sample <- rownames(pca_data)
+sample_info <- as.data.frame(colData(dds))
+pca_data <- merge(pca_data, sample_info, by.x = "sample", by.y = "row.names") # adding metadata
+
+pca_plot <- ggplot(pca_data, aes(x = PC1, y = PC2, color = Month)) + 
+  geom_point(size = 4) +
+  labs(
+    title = "PCA Plot",
+    x = paste("PC1 - ", round(explained_variance[1], 1), "%", sep=""),
+    y = paste("PC2 - ", round(explained_variance[2], 1), "%", sep="")
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"))
+print(pca_plot)
+
+# PC 2 seems to be Month
+# Pc 3 seems to be year
 
 ########################################
 # Investigating the Clone
@@ -345,8 +420,48 @@ head(CTE45xCTE46)
 CTE45xCTE46 <- create_volcano_plot(CTE45xCTE46, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "CTE45 vs CTE46")
 print(CTE45xCTE46)
 
+########################################
+# Creating list of significant genes
+########################################
+find_significance <- function(results, log2FC_threshold = 2, pvalue_threshold = 0.05) {
+  # Ensure the results have the required columns
+  if(!all(c("log2FoldChange", "padj") %in% colnames(results))) {
+    stop("Results must contain 'log2FoldChange' and 'padj' columns.")
+  }
+  
+  # Create a column to indicate significance
+  results$significance <- "Not Significant"
+  results$significance[results$padj < pvalue_threshold & results$log2FoldChange > log2FC_threshold] <- "Significant Upregulated"
+  results$significance[results$padj < pvalue_threshold & results$log2FoldChange < (log2FC_threshold * -1)] <- "Significant Downregulated"
+  return(results)
+  }
+
+# Make a list of datasets we want to analyze.  
+comparison_list <- c("EndoNeg_HeatxControl", "EndoPos_HeatxControl", "EndoPos_HPxControl", "EndoNeg_HPxControl", "EndoPos_HPxHeat", "EndoNeg_HPxHeat", "Control_NegxPos", "Heat_NegxPos", "PxH_NegxPos")
+gene_names <- rownames(dds)
+
+# Creating databale
+significant_table <- data.table(matrix(0, nrow = length(gene_names), ncol = length(comparison_list)))
+setnames(significant_table, comparison_list)
+significant_table <- as.data.frame(significant_table)
+rownames(significant_table) <- gene_names
+head(significant_table)
+
+for (data_set in comparison_list) {
+  significant_ones <- find_significance(data_set)
+  print(data_set)
+}
 
 
 
+############### Comparing 2 datasets using volcano plots #################
+create_volcano_plot_2_dataset(EndoNeg_HeatxControl, Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "HeatxControl data colored by NegativexPositive")
+create_volcano_plot_2_dataset(EndoPos_HeatxControl, Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "HeatxControl data colored by NegativexPositive")
 
+  
+  
+  
+  
+  
+  
 
