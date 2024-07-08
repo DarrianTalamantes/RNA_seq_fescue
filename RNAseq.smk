@@ -77,8 +77,8 @@ rule all:
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
         # gtf=config["scallop"]["output_file"] # Activates scallop2
         # counts = config["directories"]["features"] + "feature_counts.txt" # feature counts
-        config["transdecoder"]["genome_gff3"] # for annotation
-        config["interproscan"]["tsv_output"] # for annotation
+        config["transdecoder"]["genome_gff3"], # for annotation
+        config["interproscan"]["tsv_output"], # for annotation
         config["blast"]["output"] # for annotation
 
 
@@ -123,7 +123,7 @@ rule fastqc:
 # include: "rules/star.smk"
 # include: "rules/scallop.smk"
 # include: "rules/feature_counts.smk"
-include "rules/annotation.smk"
+include: "rules/annotation.smk"
 
 
 

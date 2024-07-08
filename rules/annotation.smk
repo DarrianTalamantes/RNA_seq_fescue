@@ -17,15 +17,15 @@ rule bedtools:
 
 rule transdecoder:
     input:
-        fasta = config["bedtools"]["fasta_output"] 
+        fasta = config["bedtools"]["fasta_output"], 
         gtf = config["scallop"]["output_file"]
     conda:
         "../Conda_Envs/annotation.yaml"
     threads: 24
     output:
-        gff3 = config["transdecoder"]["gff3"] # gtf_to_alignment_gff3.pl makes this
-        long_orfs = ["transdecoder"]["long_orfs"] # longorfs makes this
-        pep_file = ["transdecoder"]["pep"] # predict makes this
+        gff3 = config["transdecoder"]["gff3"], # gtf_to_alignment_gff3.pl makes this
+        long_orfs = ["transdecoder"]["long_orfs"], # longorfs makes this
+        pep_file = ["transdecoder"]["pep"], # predict makes this
         fasta_gff3 = ["transdecoder"]["fasta_gff3"] # predict makes this
     shell:
     """
@@ -37,8 +37,8 @@ rule transdecoder:
 
 rule transdecoder_map_orfs:
     input:
-        fasta_gff3 = ["transdecoder"]["fasta_gff3"]
-        gff3 = config["transdecoder"]["gff3"]
+        fasta_gff3 = ["transdecoder"]["fasta_gff3"],
+        gff3 = config["transdecoder"]["gff3"],
         fasta: config["bedtools"]["fasta_output"]
     output:
         genome_ggf3 = config["transdecoder"]["genome_gff3"]

@@ -54,3 +54,11 @@ transdecoder:
   pep: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder.pep
   fasta_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder.gff3
   genome_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.fasta.transdecoder.genome.gff3
+
+blast:
+    output: /scratch/drt83172/Wallace_lab/RNA_SEQ/Blast/blast_results.txt
+    params:
+        db: "nr"
+        evalue: 1e-5
+        outfmt: 6
+        num_threads: 24
