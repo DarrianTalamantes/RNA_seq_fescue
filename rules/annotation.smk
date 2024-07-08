@@ -12,7 +12,7 @@ rule bedtools:
         fasta = config["bedtools"]["fasta_output"] 
     shell:
         """
-            bedtools getfasta -fi {input.genome} -bed {input.gtf} -fo {output.fasta}
+        bedtools getfasta -fi {input.genome} -bed {input.gtf} -fo {output.fasta}
         """
 
 rule transdecoder:
@@ -29,10 +29,10 @@ rule transdecoder:
         fasta_gff3 = ["transdecoder"]["fasta_gff3"] # predict makes this
     shell:
         """
-            util/gtf_to_alignment_gff3.pl {input.gtf} > {output.gff3}
+        util/gtf_to_alignment_gff3.pl {input.gtf} > {output.gff3}
 
-            TransDecoder.LongOrfs -t {input.fasta}
-            TransDecoder.Predict -t {input.fasta}
+        TransDecoder.LongOrfs -t {input.fasta}
+        TransDecoder.Predict -t {input.fasta}
         """
 
 rule transdecoder_map_orfs:
@@ -44,10 +44,10 @@ rule transdecoder_map_orfs:
         genome_ggf3 = config["transdecoder"]["genome_gff3"]
     shell:
         """
-            util/cdna_alignment_orf_to_genome_orf.pl \
-                {input.fasta_gff3} \
-                {input.gff3} \
-                {input.fasta} > {output.genome_ggf3}    
+        util/cdna_alignment_orf_to_genome_orf.pl \
+            {input.fasta_gff3} \
+            {input.gff3} \
+            {input.fasta} > {output.genome_ggf3}    
         """
 
 rule interproscon:
@@ -60,7 +60,7 @@ rule interproscon:
         interpro_tsv = config["interproscan"]["tsv_output"]
     shell:
         """
-            interproscan.sh -i {input.pep_file} -f tsv -o {output.interpro_tsv}
+        interproscan.sh -i {input.pep_file} -f tsv -o {output.interpro_tsv}
         """
 
 rule run_blast:
@@ -75,5 +75,5 @@ rule run_blast:
         num_threads=config["blast"]["params"]["num_threads"]
     shell:
         """
-            blastp -query {input.pep} -db {params.db} -out {output} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}        """
+        blastp -query {input.pep} -db {params.db} -out {output} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}
         """
