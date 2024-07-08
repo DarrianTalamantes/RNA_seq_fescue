@@ -119,7 +119,8 @@ rule fastqc:
 # include: "rules/trim.smk"
 # include: "rules/star.smk"
 # include: "rules/scallop.smk"
-include: "rules/feature_counts.smk"
+# include: "rules/feature_counts.smk"
+include "rules/annotation.smk"
 
 
 

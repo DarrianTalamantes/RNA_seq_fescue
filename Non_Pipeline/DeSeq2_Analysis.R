@@ -167,7 +167,7 @@ downregulated <- subset(results1, significance == "Significant Downregulated")
 
   # Create the volcano plot
   p <- ggplot() +
-    geom_point(data = not_significant, aes(x = log2FoldChange, y = -log10(padj)), color = "grey", size = 1, alpha = 0.01) +
+    geom_point(data = not_significant, aes(x = log2FoldChange, y = -log10(padj)), color = "grey", size = 1, alpha = 1) +
     geom_point(data = upregulated, aes(x = log2FoldChange, y = -log10(padj)), color = "red", size = 3, alpha = 1) +
     geom_point(data = downregulated, aes(x = log2FoldChange, y = -log10(padj)), color = "blue", size = 3, alpha = 1) +
     geom_vline(xintercept = c(-log2FC_threshold, log2FC_threshold), linetype = "dashed", color = "black") +
@@ -455,10 +455,24 @@ for (data_set in comparison_list) {
 
 
 ############### Comparing 2 datasets using volcano plots #################
-create_volcano_plot_2_dataset(EndoNeg_HeatxControl, Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "HeatxControl data colored by NegativexPositive")
-create_volcano_plot_2_dataset(EndoPos_HeatxControl, Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "HeatxControl data colored by NegativexPositive")
 
-  
+annotate_figure(combined_plot1, top = text_grob("Heat x Control Volcano Plots", face = "bold", size = 14))
+
+create_volcano_plot_2_dataset(EndoNeg_HeatxControl, Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HeatxControl data colored by NegativexPositive")
+create_volcano_plot_2_dataset(Heat_NegxPos, EndoNeg_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HeatxControl data colored by NegativexPositive")
+
+create_volcano_plot_2_dataset(EndoPos_HeatxControl, Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive HeatxControl data colored by NegativexPositive")
+create_volcano_plot_2_dataset(Heat_NegxPos, EndoPos_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive HeatxControl data colored by NegativexPositive")
+
+
+annotate_figure(combined_plot2, top = text_grob("Heat with Percipitation x Control Volcano Plots", face = "bold", size = 14))
+
+create_volcano_plot_2_dataset(EndoNeg_HPxControl, PxH_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HPxControl data colored by NegativexPositive")
+create_volcano_plot_2_dataset(PxH_NegxPos, EndoNeg_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HPxControl data colored by NegativexPositive")
+
+create_volcano_plot_2_dataset(EndoPos_HPxControl, PxH_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive HPxControl data colored by NegativexPositive")
+create_volcano_plot_2_dataset(PxH_NegxPos, EndoPos_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive HPxControl data colored by NegativexPositive")
+
   
   
   
