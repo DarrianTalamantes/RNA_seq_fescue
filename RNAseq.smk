@@ -76,7 +76,10 @@ rule all:
         # config["directories"]["star_bams"] + "SJ.out.tab", # mapping
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
         # gtf=config["scallop"]["output_file"] # Activates scallop2
-        counts = config["directories"]["features"] + "feature_counts.txt" # feature counts
+        # counts = config["directories"]["features"] + "feature_counts.txt" # feature counts
+        config["transdecoder"]["genome_gff3"] # for annotation
+        config["interproscan"]["tsv_output"] # for annotation
+        config["blast"]["output"] # for annotation
 
 
 # This rule runs fastqc on all data fastq files

@@ -11,6 +11,7 @@ directories:
   sep_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/sep_bams/
   features: /scratch/drt83172/Wallace_lab/RNA_SEQ/features/
   log: /scratch/drt83172/Wallace_lab/RNA_SEQ/log
+  transcriptome_dir: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome
 
 lists:
   paired_list_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/paired_list.txt
@@ -40,3 +41,16 @@ star_index_files:
     - "genomeParameters.txt"
 
 use_ignored_rule: false
+
+bedtools:
+  fasta_output: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta
+
+interproscan:
+  tsv_output: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/interproscan_results.tsv
+
+transdecoder:
+  gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.gff3
+  long_orfs: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/longest_orfs.pep
+  pep: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder.pep
+  fasta_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder.gff3
+  genome_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.fasta.transdecoder.genome.gff3
