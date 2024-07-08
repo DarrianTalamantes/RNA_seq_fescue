@@ -12,7 +12,7 @@ rule bedtools:
         fasta = config["bedtools"]["fasta_output"] 
     shell:
         """
-        bedtools getfasta -fi {input.genome} -bed {input.gtf} -fo {output.fasta}
+            bedtools getfasta -fi {input.genome} -bed {input.gtf} -fo {output.fasta}
         """
 
 rule transdecoder:
@@ -28,12 +28,12 @@ rule transdecoder:
         pep_file = ["transdecoder"]["pep"], # predict makes this
         fasta_gff3 = ["transdecoder"]["fasta_gff3"] # predict makes this
     shell:
-    """
-        util/gtf_to_alignment_gff3.pl {input.gtf} > {output.gff3}
+        """
+            util/gtf_to_alignment_gff3.pl {input.gtf} > {output.gff3}
 
-        TransDecoder.LongOrfs -t {input.fasta}
-        TransDecoder.Predict -t {input.fasta}
-    """
+            TransDecoder.LongOrfs -t {input.fasta}
+            TransDecoder.Predict -t {input.fasta}
+        """
 
 rule transdecoder_map_orfs:
     input:
