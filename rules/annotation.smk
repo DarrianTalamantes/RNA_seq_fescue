@@ -59,9 +59,9 @@ rule interproscon:
     output:
         interpro_tsv = config["interproscan"]["tsv_output"]
     shell:
-    """
-        interproscan.sh -i {input.pep_file} -f tsv -o {output.interpro_tsv}
-    """
+        """
+            interproscan.sh -i {input.pep_file} -f tsv -o {output.interpro_tsv}
+        """
 
 rule run_blast:
     input:
@@ -75,5 +75,5 @@ rule run_blast:
         num_threads=config["blast"]["params"]["num_threads"]
     shell:
         """
-        blastp -query {input.pep} -db {params.db} -out {output} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}        """
+            blastp -query {input.pep} -db {params.db} -out {output} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}        """
         """
