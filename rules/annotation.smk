@@ -37,11 +37,12 @@ rule transdecoder:
 
 rule transdecoder_map_orfs:
     input:
-        fasta_gff3 = ["transdecoder"]["fasta_gff3"],
+        fasta_gff3 = config["transdecoder"]["fasta_gff3"],
         gff3 = config["transdecoder"]["gff3"],
         fasta = config["bedtools"]["fasta_output"]
     output:
         genome_ggf3 = config["transdecoder"]["genome_gff3"]
+    threads: 24
     shell:
         """
         util/cdna_alignment_orf_to_genome_orf.pl \
@@ -52,7 +53,7 @@ rule transdecoder_map_orfs:
 
 rule interproscon:
     input:
-        pep_file = ["transdecoder"]["pep"]
+        pep_file = config["transdecoder"]["pep"]
     conda:
         "../Conda_Envs/annotation.yaml"
     threads: 24
@@ -65,15 +66,15 @@ rule interproscon:
 
 rule run_blast:
     input:
-        pep_file = ["transdecoder"]["pep"]    
+        pep_file = config["transdecoder"]["pep"]    
     output:
-        config["blast"]["output"]
+        blast = config["blast"]["output"]
     params:
-        db=config["blast"]["params"]["db"],
-        evalue=config["blast"]["params"]["evalue"],
-        outfmt=config["blast"]["params"]["outfmt"],
-        num_threads=config["blast"]["params"]["num_threads"]
+        db = config["blast"]["params"]["db"],
+        evalue = config["blast"]["params"]["evalue"],
+        outfmt = config["blast"]["params"]["outfmt"],
+        num_threads = config["blast"]["params"]["num_threads"]
     shell:
         """
-        blastp -query {input.pep} -db {params.db} -out {output} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}
+        blastp -query {input.pep} -db {params.db} -out {output.blast} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}
         """
