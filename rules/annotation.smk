@@ -39,7 +39,7 @@ rule transdecoder_map_orfs:
     input:
         fasta_gff3 = ["transdecoder"]["fasta_gff3"],
         gff3 = config["transdecoder"]["gff3"],
-        fasta: config["bedtools"]["fasta_output"]
+        fasta = config["bedtools"]["fasta_output"]
     output:
         genome_ggf3 = config["transdecoder"]["genome_gff3"]
     shell:
