@@ -50,6 +50,7 @@ dependencies:
   - libblas=3.9.0=16_linux64_openblas
   - libcblas=3.9.0=16_linux64_openblas
   - libcurl=7.88.1=h91b91d3_2
+  - libdb=6.2.32=h6a678d5_1
   - libdeflate=1.17=h5eee18b_1
   - libedit=3.1.20230828=h5eee18b_0
   - libev=4.33=h7f8727e_1
@@ -90,10 +91,15 @@ dependencies:
   - pcre2=10.37=he7ceb23_1
   - perl=5.32.1=0_h5eee18b_perl5
   - perl-archive-tar=2.40=pl5321hdfd78af_0
+  - perl-business-isbn=3.007=pl5321hdfd78af_0
+  - perl-business-isbn-data=20210112.006=pl5321hdfd78af_0
   - perl-carp=1.38=pl5321hdfd78af_4
   - perl-common-sense=3.75=pl5321hdfd78af_0
   - perl-compress-raw-bzip2=2.201=pl5321h87f3376_1
   - perl-compress-raw-zlib=2.105=pl5321h87f3376_0
+  - perl-constant=1.33=pl5321hdfd78af_2
+  - perl-data-dumper=2.183=pl5321hec16e2b_1
+  - perl-db-file=1.855=pl5321h779adbc_1
   - perl-encode=3.19=pl5321hec16e2b_1
   - perl-exporter=5.72=pl5321hdfd78af_2
   - perl-exporter-tiny=1.002002=pl5321hdfd78af_0
@@ -105,10 +111,12 @@ dependencies:
   - perl-json-xs=2.34=pl5321h4ac6f70_6
   - perl-list-moreutils=0.430=pl5321hdfd78af_0
   - perl-list-moreutils-xs=0.430=pl5321h031d066_2
+  - perl-mime-base64=3.16=pl5321hec16e2b_2
   - perl-parent=0.236=pl5321hdfd78af_2
   - perl-pathtools=3.75=pl5321hec16e2b_3
   - perl-scalar-list-utils=1.62=pl5321hec16e2b_1
   - perl-types-serialiser=1.01=pl5321hdfd78af_0
+  - perl-uri=5.12=pl5321hdfd78af_0
   - pftools=3.2.12=pl5321r42h179b046_2
   - pip=20.0.2=py36_1
   - pixman=0.40.0=h7f8727e_1
@@ -122,6 +130,7 @@ dependencies:
   - sysroot_linux-64=2.12=he073ed8_17
   - tk=8.6.14=h39e8969_0
   - tktable=2.10=h3d55465_1
+  - transdecoder=5.5.0=0
   - wget=1.21.4=h91b91d3_1
   - wheel=0.37.1=pyhd3eb1b0_0
   - xz=5.4.6=h5eee18b_1
