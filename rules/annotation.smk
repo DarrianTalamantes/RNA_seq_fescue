@@ -29,7 +29,7 @@ rule transdecoder:
         fasta_gff3 = config["transdecoder"]["fasta_gff3"] # predict makes this
     shell:
         """
-        util/gtf_to_alignment_gff3.pl {input.gtf} > {output.gff3}
+        gtf_to_alignment_gff3.pl {input.gtf} > {output.gff3}
 
         TransDecoder.LongOrfs -t {input.fasta}
         TransDecoder.Predict -t {input.fasta}
@@ -45,7 +45,7 @@ rule transdecoder_map_orfs:
     threads: 24
     shell:
         """
-        util/cdna_alignment_orf_to_genome_orf.pl \
+        cdna_alignment_orf_to_genome_orf.pl \
             {input.fasta_gff3} \
             {input.gff3} \
             {input.fasta} > {output.genome_ggf3}    
