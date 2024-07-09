@@ -24,9 +24,9 @@ rule transdecoder:
     threads: 24
     output:
         gff3 = config["transdecoder"]["gff3"], # gtf_to_alignment_gff3.pl makes this
-        long_orfs = ["transdecoder"]["long_orfs"], # longorfs makes this
-        pep_file = ["transdecoder"]["pep"], # predict makes this
-        fasta_gff3 = ["transdecoder"]["fasta_gff3"] # predict makes this
+        long_orfs = config["transdecoder"]["long_orfs"], # longorfs makes this
+        pep_file = config["transdecoder"]["pep"], # predict makes this
+        fasta_gff3 = config["transdecoder"]["fasta_gff3"] # predict makes this
     shell:
         """
         util/gtf_to_alignment_gff3.pl {input.gtf} > {output.gff3}
