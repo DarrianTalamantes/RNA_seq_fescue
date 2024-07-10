@@ -35,11 +35,13 @@ rule transdecoder_longorfs:
     conda:
         "../Conda_Envs/annotation.yaml"
     threads: 24
+    params:
+        output_dir = config["directories"]["transcriptome_dir"]
     output:
         long_orfs = config["transdecoder"]["long_orfs"] # longorfs makes this
     shell:
         """
-        TransDecoder.LongOrfs -t {input.fasta}
+        TransDecoder.LongOrfs -t {input.fasta} -O {params.output_dir}
         """
 
 rule transdecoder_predict:
@@ -49,12 +51,14 @@ rule transdecoder_predict:
     conda:
         "../Conda_Envs/annotation.yaml"
     threads: 24
+    params:
+        output_dir = config["directories"]["transcriptome_dir"]
     output:
         pep_file = config["transdecoder"]["pep"], # predict makes this
         fasta_gff3 = config["transdecoder"]["fasta_gff3"] # predict makes this
     shell:
         """
-        TransDecoder.Predict -t {input.fasta}
+        TransDecoder.Predict -t {input.fasta} -O {params.output_dir}
         """
 
 rule transdecoder_map_orfs:
