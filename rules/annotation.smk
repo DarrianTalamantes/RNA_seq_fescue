@@ -15,7 +15,7 @@ rule bedtools:
         bedtools getfasta -fi {input.genome} -bed {input.gtf} -fo {output.fasta}
         """
 
-rule transdecoder:
+rule transdecoder_gff3:
     input:
         fasta = config["bedtools"]["fasta_output"], 
         gtf = config["scallop"]["output_file"]
@@ -24,14 +24,36 @@ rule transdecoder:
     threads: 24
     output:
         gff3 = config["transdecoder"]["gff3"], # gtf_to_alignment_gff3.pl makes this
-        long_orfs = config["transdecoder"]["long_orfs"], # longorfs makes this
+    shell:
+        """
+        gtf_to_alignment_gff3.pl {input.gtf} > {output.gff3}
+        """
+rule transdecoder_longorfs:
+    input:
+        gff3 = config["transdecoder"]["gff3"],
+        fasta = config["bedtools"]["fasta_output"]
+    conda:
+        "../Conda_Envs/annotation.yaml"
+    threads: 24
+    output:
+        long_orfs = config["transdecoder"]["long_orfs"] # longorfs makes this
+    shell:
+        """
+        TransDecoder.LongOrfs -t {input.fasta}
+        """
+
+rule transdecoder_predict:
+    input:
+        fasta = config["bedtools"]["fasta_output"], 
+        long_orfs = config["transdecoder"]["long_orfs"]
+    conda:
+        "../Conda_Envs/annotation.yaml"
+    threads: 24
+    output:
         pep_file = config["transdecoder"]["pep"], # predict makes this
         fasta_gff3 = config["transdecoder"]["fasta_gff3"] # predict makes this
     shell:
         """
-        gtf_to_alignment_gff3.pl {input.gtf} > {output.gff3}
-
-        TransDecoder.LongOrfs -t {input.fasta}
         TransDecoder.Predict -t {input.fasta}
         """
 
@@ -74,6 +96,7 @@ rule run_blast:
         evalue = config["blast"]["params"]["evalue"],
         outfmt = config["blast"]["params"]["outfmt"],
         num_threads = config["blast"]["params"]["num_threads"]
+    threads: config["blast"]["params"]["num_threads"]
     shell:
         """
         blastp -query {input.pep} -db {params.db} -out {output.blast} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}
