@@ -92,7 +92,7 @@ rule interproscan:
         "../Conda_Envs/annotation.yaml"
     threads: 24
     params:
-        pep_file_clean = config["transdecoder"]["pep_clean"]
+        pep_file_clean = config["transdecoder"]["pep_clean"],
         log_file = config["interproscan"]["inter_log"]
     output:
         interpro_tsv = config["interproscan"]["tsv_output"],
@@ -114,7 +114,7 @@ rule run_blast:
         evalue = config["blast"]["params"]["evalue"],
         outfmt = config["blast"]["params"]["outfmt"],
         num_threads = config["blast"]["params"]["num_threads"],
-        blast_dir = config["directories"]["blast"],
+        blast_dir = config["directories"]["blast"]
     threads: config["blast"]["params"]["num_threads"]
     shell:
         """
