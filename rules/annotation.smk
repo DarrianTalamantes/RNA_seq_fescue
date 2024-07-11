@@ -114,7 +114,7 @@ rule run_blast:
         evalue = config["blast"]["params"]["evalue"],
         outfmt = config["blast"]["params"]["outfmt"],
         num_threads = config["blast"]["params"]["num_threads"],
-        blast_dir = config["directories"]["blast"]
+        blast_dir = config["directories"]["blast"],
     threads: config["blast"]["params"]["num_threads"]
     shell:
         """
