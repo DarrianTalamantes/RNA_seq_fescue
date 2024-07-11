@@ -110,8 +110,12 @@ rule run_blast:
         evalue = config["blast"]["params"]["evalue"],
         outfmt = config["blast"]["params"]["outfmt"],
         num_threads = config["blast"]["params"]["num_threads"]
+        blast_dir = config["directories"]["blast"]
     threads: config["blast"]["params"]["num_threads"]
     shell:
         """
+        if [ ! -d {params.blast_dir} ]; then 
+            mkdir -p {params.blast_dir}; 
+        fi
         blastp -query {input.pep_file} -db {params.db} -out {output.blast} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}
         """
