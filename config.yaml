@@ -52,9 +52,9 @@ interproscan:
 transdecoder:
   gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.gff3
   long_orfs: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/longest_orfs.pep
-  pep: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder.pep
-  fasta_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder.gff3
-  genome_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.fasta.transdecoder.genome.gff3
+  pep: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.transdecoder.pep
+  fasta_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.transdecoder.gff3
+  genome_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/transcripts.fasta.transdecoder.genome.gff3
 
 blast:
     output: /scratch/drt83172/Wallace_lab/RNA_SEQ/Blast/blast_results.txt
