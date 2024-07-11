@@ -113,5 +113,5 @@ rule run_blast:
     threads: config["blast"]["params"]["num_threads"]
     shell:
         """
-        blastp -query {input.pep} -db {params.db} -out {output.blast} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}
+        blastp -query {input.pep_file} -db {params.db} -out {output.blast} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}
         """
