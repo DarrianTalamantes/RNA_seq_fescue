@@ -95,11 +95,10 @@ rule interproscan:
         pep_file_clean = config["transdecoder"]["pep_clean"]
     output:
         interpro_tsv = config["interproscan"]["tsv_output"],
-        interpro_gff3 = config["interproscan"]["gff3"]
     shell:
         """
         sed 's/*//g' {input.pep_file} > {params.pep_file_clean}
-        interproscan.sh -i {params.pep_file_clean} -f tsv -f gff3 -o {output.interpro_tsv}
+        interproscan.sh -i {params.pep_file_clean} -f tsv -o {output.interpro_tsv}
         """
 
 rule run_blast:
