@@ -100,7 +100,9 @@ rule interproscon:
 
 rule run_blast:
     input:
-        pep_file = config["transdecoder"]["pep"]    
+        pep_file = config["transdecoder"]["pep"]   
+    conda:
+        "../Conda_Envs/annotation.yaml" 
     output:
         blast = config["blast"]["output"]
     params:

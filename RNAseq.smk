@@ -54,7 +54,7 @@ SAMPLES = read_sample_names(sample_names_file)
 paired_list_file = config["lists"]["paired_list_file"]
 PAIRS = read_sample_names(paired_list_file)
 
-print("PAIRS:", PAIRS)  # Debugging: print the PAIRS list to verify contents
+# print("PAIRS:", PAIRS)  # Debugging: print the PAIRS list to verify contents
 
 # =================================================================================================
 #    Star Index files
