@@ -36,7 +36,7 @@ rule transdecoder_longorfs:
         "../Conda_Envs/annotation.yaml"
     threads: 24
     params:
-        output_dir = config["directories"]["transcriptome_dir"]
+        output_dir = config["directories"]["transdecoder_dir"]
     output:
         long_orfs = config["transdecoder"]["long_orfs"] # longorfs makes this
     shell:
@@ -52,7 +52,7 @@ rule transdecoder_predict:
         "../Conda_Envs/annotation.yaml"
     threads: 24
     params:
-        output_dir = config["directories"]["transcriptome_dir"]
+        output_dir = config["directories"]["transdecoder_dir"]
     output:
         pep_file = config["transdecoder"]["pep"], # predict makes this
         fasta_gff3 = config["transdecoder"]["fasta_gff3"] # predict makes this

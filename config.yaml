@@ -12,6 +12,7 @@ directories:
   features: /scratch/drt83172/Wallace_lab/RNA_SEQ/features/
   log: /scratch/drt83172/Wallace_lab/RNA_SEQ/log
   transcriptome_dir: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome
+  transdecoder_dir: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir
 
 lists:
   paired_list_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/paired_list.txt
