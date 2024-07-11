@@ -93,12 +93,13 @@ rule interproscan:
     threads: 24
     params:
         pep_file_clean = config["transdecoder"]["pep_clean"]
+        log_file = config["interproscan"]["inter_log"]
     output:
         interpro_tsv = config["interproscan"]["tsv_output"],
     shell:
         """
         sed 's/*//g' {input.pep_file} > {params.pep_file_clean}
-        interproscan.sh -i {params.pep_file_clean} -f tsv -o {output.interpro_tsv}
+        interproscan.sh -i {params.pep_file_clean} -f tsv -o {output.interpro_tsv} -T {params.log_file} -dp
         """
 
 rule run_blast:
