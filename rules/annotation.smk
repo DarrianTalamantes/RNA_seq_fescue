@@ -85,17 +85,21 @@ rule transdecoder_map_orfs:
             {input.fasta} > {output.genome_ggf3}    
         """
 
-rule interproscon:
+rule interproscan:
     input:
         pep_file = config["transdecoder"]["pep"]
     conda:
         "../Conda_Envs/annotation.yaml"
     threads: 24
+    params:
+        pep_file_clean = config["transdecoder"]["pep_clean"]
     output:
-        interpro_tsv = config["interproscan"]["tsv_output"]
+        interpro_tsv = config["interproscan"]["tsv_output"],
+        interpro_gff3 = config["interproscan"]["gff3"]
     shell:
         """
-        interproscan.sh -i {input.pep_file} -f tsv -o {output.interpro_tsv}
+        sed 's/*//g' {input.pep_file} > {params.pep_file_clean}
+        interproscan.sh -i {params.pep_clean} -f tsv -f gff3 -o {output.interpro_tsv}
         """
 
 rule run_blast:

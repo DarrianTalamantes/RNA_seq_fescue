@@ -49,6 +49,7 @@ bedtools:
 
 interproscan:
   tsv_output: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/interproscan_results.tsv
+  gff3: "/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.fasta.transdecoder.pep.gff3"
 
 transdecoder:
   gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.gff3
