@@ -55,14 +55,18 @@ rule transdecoder_predict:
         output_dir = config["directories"]["transdecoder_dir"]
         pep_file_name = "predicted_transcripts.fasta.transdecoder.pep"
         fasta_gff3_name = "predicted_transcripts.fasta.transdecoder.gff3"
+        cds_name = "predicted_transcripts.fasta.transdecoder.cds"
+        bed_name = "predicted_transcripts.fasta.transdecoder.bed"
     output:
         pep_file = config["transdecoder"]["pep"], # predict makes this
         fasta_gff3 = config["transdecoder"]["fasta_gff3"] # predict makes this
     shell:
         """
         TransDecoder.Predict -t {input.fasta} -O {params.output_dir}
-        mv {params.pep_file_name} {output.pep_file}
-        mv {params.fasta_gff3_name} {output.fasta_gff3}
+        mv {params.pep_file_name} {params.output_dir}
+        mv {params.fasta_gff3_name} {params.output_dir}
+        mv {params.cds_name} {params.output_dir}
+        mv {params.bed_name} {params.output_dir}
         """
 
 rule transdecoder_map_orfs:
