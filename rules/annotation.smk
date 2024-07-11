@@ -52,10 +52,10 @@ rule transdecoder_predict:
         "../Conda_Envs/annotation.yaml"
     threads: 24
     params:
-        output_dir = config["directories"]["transdecoder_dir"]
-        pep_file_name = "predicted_transcripts.fasta.transdecoder.pep"
-        fasta_gff3_name = "predicted_transcripts.fasta.transdecoder.gff3"
-        cds_name = "predicted_transcripts.fasta.transdecoder.cds"
+        output_dir = config["directories"]["transdecoder_dir"],
+        pep_file_name = "predicted_transcripts.fasta.transdecoder.pep",
+        fasta_gff3_name = "predicted_transcripts.fasta.transdecoder.gff3",
+        cds_name = "predicted_transcripts.fasta.transdecoder.cds",
         bed_name = "predicted_transcripts.fasta.transdecoder.bed"
     output:
         pep_file = config["transdecoder"]["pep"], # predict makes this
