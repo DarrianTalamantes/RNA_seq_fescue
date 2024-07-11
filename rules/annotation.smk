@@ -99,7 +99,7 @@ rule interproscan:
     shell:
         """
         sed 's/*//g' {input.pep_file} > {params.pep_file_clean}
-        interproscan.sh -i {params.pep_clean} -f tsv -f gff3 -o {output.interpro_tsv}
+        interproscan.sh -i {params.pep_file_clean} -f tsv -f gff3 -o {output.interpro_tsv}
         """
 
 rule run_blast:
