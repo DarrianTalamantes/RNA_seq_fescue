@@ -105,7 +105,7 @@ rule eggnog_mapper:
     output:
         annotations = config["eggnog_mapper"]["output"] 
     params:
-        ann_dir = config["directories"]["annotations"]
+        ann_dir = config["directories"]["annotations"],
         num_threads = config["num_threads"]["eggnog_mapper"]
     conda:
         "../Conda_Envs/annotation.yaml"
