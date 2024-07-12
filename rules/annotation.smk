@@ -101,19 +101,20 @@ rule transdecoder_map_orfs:
 
 rule eggnog_mapper:
     input:
-        clean_pep = config["transdecoder"]["predict"] + "longest_orfs_clean.pep"
+        pep_file_clean = config["transdecoder"]["pep_clean"]
     output:
-        annotations = config["eggnog_mapper"]["output"] + "annotations.emapper.annotations"
+        annotations = config["eggnog_mapper"]["output"] 
+    params:
+        ann_dir = config["directories"]["annotations"]
+        num_threads = config["num_threads"]["eggnog_mapper"]
     conda:
-        "environment.yaml"
-    threads: 24
-    log:
-        stdout = "logs/eggnog_mapper.stdout",
-        stderr = "logs/eggnog_mapper.stderr"
+        "../Conda_Envs/annotation.yaml"
     shell:
         """
-        emapper.py -i {input.clean_pep} --output {wildcards.sample} --cpu {threads} > {log.stdout} 2> {log.stderr}
-        mv {wildcards.sample}.emapper.annotations {output.annotations}
+        if [ ! -d {params.ann_dir} ]; then 
+            mkdir -p {params.ann_dir}; 
+        fi
+        emapper.py -i {input.pep_file_clean} --o {output.annotations} --cpu {threads} 
         """
 
 # Before running this rule you will need to download the interproscan databases with 
