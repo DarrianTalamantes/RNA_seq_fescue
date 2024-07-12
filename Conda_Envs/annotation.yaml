@@ -7,9 +7,11 @@ dependencies:
   - _libgcc_mutex=0.1=conda_forge
   - _openmp_mutex=4.5=2_gnu
   - _r-mutex=1.0.0=anacondar_1
+  - aria2=1.23.0=0
   - bedtools=2.26.0=0
   - binutils_impl_linux-64=2.38=h2a08ee3_1
   - binutils_linux-64=2.38.0=hc2dff05_0
+  - biopython=1.78=py36h7f8727e_0
   - blas=1.0=openblas
   - blast=2.15.0=pl5321h6f7f691_1
   - boost=1.64.0=py36_4
@@ -17,18 +19,22 @@ dependencies:
   - bwidget=1.9.16=h9eba36c_0
   - bzip2=1.0.8=h5eee18b_6
   - c-ares=1.19.1=h5eee18b_0
-  - ca-certificates=2024.3.11=h06a4308_0
+  - ca-certificates=2024.7.2=h06a4308_0
   - cairo=1.16.0=hb05425b_5
   - cath-tools=0.16.5=h78a066a_0
   - certifi=2021.5.30=py36h06a4308_0
   - curl=7.88.1=h37d81fd_2
   - dbus=1.13.18=hb2f20db_0
+  - diamond=2.1.9=h43eeafb_0
+  - easel=0.49=h031d066_0
+  - eggnog-mapper=2.1.5=pyhdfd78af_0
   - emboss=6.6.0=h5a44aac_6
   - entrez-direct=22.1=he881be0_0
   - expat=2.6.2=h6a678d5_0
   - fontconfig=2.14.1=h4c34cd2_2
   - freetype=2.12.1=h4a9f257_0
   - fribidi=1.0.10=h7b6447c_0
+  - gawk=5.1.0=h7b6447c_0
   - gcc_impl_linux-64=11.2.0=h1234567_1
   - gcc_linux-64=11.2.0=h5c386dc_0
   - gfortran_impl_linux-64=11.2.0=h1234567_1
@@ -81,6 +87,7 @@ dependencies:
   - libzlib=1.2.13=h4ab18f5_6
   - lz4-c=1.9.4=h6a678d5_1
   - make=4.2.1=h1bed415_1
+  - mmseqs2=15.6f452=pl5321h6a68c12_3
   - ncbi-vdb=3.1.1=h4ac6f70_0
   - ncurses=6.4=h6a678d5_0
   - numpy=1.19.5=py36hfc0c790_2
@@ -120,6 +127,8 @@ dependencies:
   - pftools=3.2.12=pl5321r42h179b046_2
   - pip=20.0.2=py36_1
   - pixman=0.40.0=h7f8727e_1
+  - prodigal=2.6.3=h031d066_9
+  - psutil=5.8.0=py36h27cfd23_1
   - python=3.6.13=h12debd9_1
   - python_abi=3.6=2_cp36m
   - r-base=4.2.0=h1ae530e_0
