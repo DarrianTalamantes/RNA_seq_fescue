@@ -106,7 +106,7 @@ rule eggnog_mapper:
         annotations = config["eggnog_mapper"]["output"] 
     params:
         ann_dir = config["directories"]["annotations"],
-        num_threads = config["num_threads"]["eggnog_mapper"]
+        num_threads = config["eggnog_mapper"]["num_threads"]
     conda:
         "../Conda_Envs/annotation.yaml"
     shell:
@@ -114,7 +114,7 @@ rule eggnog_mapper:
         if [ ! -d {params.ann_dir} ]; then 
             mkdir -p {params.ann_dir}; 
         fi
-        emapper.py -i {input.pep_file_clean} --o {output.annotations} --cpu {threads} 
+        emapper.py -i {input.pep_file_clean} --o {output.annotations} --cpu {params.num_threads} 
         """
 
 # Before running this rule you will need to download the interproscan databases with 
