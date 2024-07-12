@@ -69,7 +69,21 @@ rule transdecoder_predict:
         mv {params.bed_name} {params.output_dir}
         """
 
+rule clean_pep_file:
+    input:
+        pep_file = config["transdecoder"]["pep"]
+    conda:
+        "../Conda_Envs/annotation.yaml"
+    output:
+        pep_file_clean = config["transdecoder"]["pep_clean"]
+    shell:
+        """
+        sed 's/*//g' {input.pep_file} > {output.pep_file_clean}
+        """
+
 rule transdecoder_map_orfs:
+    conda:
+        "../Conda_Envs/annotation.yaml"
     input:
         fasta_gff3 = config["transdecoder"]["fasta_gff3"],
         gff3 = config["transdecoder"]["gff3"],
@@ -85,41 +99,63 @@ rule transdecoder_map_orfs:
             {input.fasta} > {output.genome_ggf3}    
         """
 
-rule interproscan:
+rule eggnog_mapper:
     input:
-        pep_file = config["transdecoder"]["pep"]
-    conda:
-        "../Conda_Envs/annotation.yaml"
-    threads: 24
-    params:
-        pep_file_clean = config["transdecoder"]["pep_clean"],
-        log_file = config["interproscan"]["inter_log"]
+        clean_pep = config["transdecoder"]["predict"] + "longest_orfs_clean.pep"
     output:
-        interpro_tsv = config["interproscan"]["tsv_output"],
+        annotations = config["eggnog_mapper"]["output"] + "annotations.emapper.annotations"
+    conda:
+        "environment.yaml"
+    threads: 24
+    log:
+        stdout = "logs/eggnog_mapper.stdout",
+        stderr = "logs/eggnog_mapper.stderr"
     shell:
         """
-        sed 's/*//g' {input.pep_file} > {params.pep_file_clean}
-        interproscan.sh -i {params.pep_file_clean} -f tsv -o {output.interpro_tsv} -T {params.log_file} -dp
+        emapper.py -i {input.clean_pep} --output {wildcards.sample} --cpu {threads} > {log.stdout} 2> {log.stderr}
+        mv {wildcards.sample}.emapper.annotations {output.annotations}
         """
 
-rule run_blast:
-    input:
-        pep_file = config["transdecoder"]["pep"]   
-    conda:
-        "../Conda_Envs/annotation.yaml" 
-    output:
-        blast = config["blast"]["output"]
-    params:
-        db = config["blast"]["params"]["db"],
-        evalue = config["blast"]["params"]["evalue"],
-        outfmt = config["blast"]["params"]["outfmt"],
-        num_threads = config["blast"]["params"]["num_threads"],
-        blast_dir = config["directories"]["blast"]
-    threads: config["blast"]["params"]["num_threads"]
-    shell:
-        """
-        if [ ! -d {params.blast_dir} ]; then 
-            mkdir -p {params.blast_dir}; 
-        fi
-        blastp -query {input.pep_file} -db {params.db} -out {output.blast} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}
-        """
+# Before running this rule you will need to download the interproscan databases with 
+# the script interpro_set_up.sh
+# Does not work with conda and cluster combined.
+# rule interproscan:
+#     input:
+#         pep_file = config["transdecoder"]["pep"]
+#     conda:
+#         "../Conda_Envs/annotation.yaml"
+#     threads: 24
+#     params:
+#         pep_file_clean = config["transdecoder"]["pep_clean"],
+#         log_file = config["interproscan"]["inter_log"]
+#     output:
+#         interpro_tsv = config["interproscan"]["tsv_output"],
+#     shell:
+#         """
+#         sed 's/*//g' {input.pep_file} > {params.pep_file_clean}
+#         interproscan.sh -i {params.pep_file_clean} -f tsv -o {output.interpro_tsv} -T {params.log_file} -dp
+#         """
+
+
+# This is blastp
+# rule run_blast:
+#     input:
+#         pep_file = config["transdecoder"]["pep"]   
+#     conda:
+#         "../Conda_Envs/annotation.yaml" 
+#     output:
+#         blast = config["blast"]["output"]
+#     params:
+#         db = config["blast"]["params"]["db"],
+#         evalue = config["blast"]["params"]["evalue"],
+#         outfmt = config["blast"]["params"]["outfmt"],
+#         num_threads = config["blast"]["params"]["num_threads"],
+#         blast_dir = config["directories"]["blast"]
+#     threads: config["blast"]["params"]["num_threads"]
+#     shell:
+#         """
+#         if [ ! -d {params.blast_dir} ]; then 
+#             mkdir -p {params.blast_dir}; 
+#         fi
+#         blastp -query {input.pep_file} -db {params.db} -out {output.blast} -evalue {params.evalue} -outfmt {params.outfmt} -num_threads {params.num_threads}
+#         """
