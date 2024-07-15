@@ -1,6 +1,6 @@
 # Objective: This code will take a gtf file and annotate it
 
-# Extracts a fasta file from a gff or gtf file
+# Extracts a fasta file from a gff or gtf file. (makes fasta file from gtf regions file)
 rule bedtools:
     input:
         genome = config["genome"],
@@ -85,8 +85,8 @@ rule transdecoder_map_orfs:
     conda:
         "../Conda_Envs/annotation.yaml"
     input:
-        fasta_gff3 = config["transdecoder"]["fasta_gff3"],
-        gff3 = config["transdecoder"]["gff3"],
+        fasta_gff3 = config["transdecoder"]["fasta_gff3"], # Should be predicted coding regions based on consenses assembly of merged bam files
+        gff3 = config["transdecoder"]["gff3"], # transcripts 
         fasta = config["bedtools"]["fasta_output"]
     output:
         genome_ggf3 = config["transdecoder"]["genome_gff3"]
@@ -116,6 +116,29 @@ rule eggnog_mapper:
         fi
         emapper.py -i {input.pep_file_clean} --o {output.annotations} --cpu {params.num_threads} 
         """
+
+
+
+# Debugging
+# there is no package called ‘seqLogo’ 
+# there is no package called ‘ggplot2’
+# transdecoder_map_orfs ran but could not map any orf to genome.
+# Need to update python for eggnog (Sorry, Python < 3.7 is not supported)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Before running this rule you will need to download the interproscan databases with 
 # the script interpro_set_up.sh

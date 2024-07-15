@@ -29,7 +29,7 @@ params:
     threads_multi: 10
 
 scallop:
-  output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome_mini.gtf
+  output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf
 
 
 
