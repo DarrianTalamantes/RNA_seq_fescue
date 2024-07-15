@@ -109,6 +109,7 @@ rule eggnog_mapper:
         num_threads = config["eggnog_mapper"]["num_threads"]
     conda:
         "../Conda_Envs/eggnog.yaml"
+    threads: config["eggnog_mapper"]["num_threads"]
     shell:
         """
         if [ ! -d {params.ann_dir} ]; then 
