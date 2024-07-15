@@ -1,0 +1,52 @@
+name: eggnog
+channels:
+  - bioconda
+  - defaults
+  - conda-forge
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - _openmp_mutex=5.1=1_gnu
+  - biopython=1.78=py310h7f8727e_0
+  - blas=1.0=openblas
+  - boost-cpp=1.74.0=h359cf19_6
+  - bzip2=1.0.8=h5eee18b_6
+  - ca-certificates=2024.7.2=h06a4308_0
+  - diamond=2.0.11=hdcc8f71_0
+  - easel=0.48=hec16e2b_1
+  - eggnog-mapper=2.1.12=pyhdfd78af_0
+  - gawk=5.1.0=h7b6447c_0
+  - hmmer=3.3.2=h87f3376_2
+  - icu=69.1=h9c3ff4c_0
+  - ld_impl_linux-64=2.38=h1181459_1
+  - libffi=3.4.4=h6a678d5_1
+  - libgcc-ng=11.2.0=h1234567_1
+  - libgfortran-ng=11.2.0=h00389a5_1
+  - libgfortran5=11.2.0=h1234567_1
+  - libgomp=11.2.0=h1234567_1
+  - libidn2=2.3.4=h5eee18b_0
+  - libopenblas=0.3.21=h043d6bf_0
+  - libstdcxx-ng=11.2.0=h1234567_1
+  - libunistring=0.9.10=h27cfd23_0
+  - libuuid=1.41.5=h5eee18b_0
+  - lz4-c=1.9.4=h6a678d5_1
+  - mmseqs2=13.45111=h95f258a_1
+  - ncurses=6.4=h6a678d5_0
+  - numpy=1.26.4=py310heeff2f4_0
+  - numpy-base=1.26.4=py310h8a23956_0
+  - openssl=3.0.14=h5eee18b_0
+  - pip=24.0=py310h06a4308_0
+  - prodigal=2.6.3=hec16e2b_4
+  - psutil=5.9.0=py310h5eee18b_0
+  - python=3.10.12=h955ad1f_0
+  - readline=8.2=h5eee18b_0
+  - setuptools=69.5.1=py310h06a4308_0
+  - sqlite=3.45.3=h5eee18b_0
+  - tk=8.6.14=h39e8969_0
+  - tzdata=2024a=h04d1e81_0
+  - wget=1.21.4=h251f7ec_1
+  - wheel=0.43.0=py310h06a4308_0
+  - xlsxwriter=3.1.1=py310h06a4308_0
+  - xz=5.4.6=h5eee18b_1
+  - zlib=1.2.13=h5eee18b_1
+  - zstd=1.5.5=hc292b87_2
+prefix: /home/drt83172/.conda/envs/eggnog
