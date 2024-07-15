@@ -108,7 +108,7 @@ rule eggnog_mapper:
         ann_dir = config["directories"]["annotations"],
         num_threads = config["eggnog_mapper"]["num_threads"]
     conda:
-        "../Conda_Envs/annotation.yaml"
+        "../Conda_Envs/eggnog.yaml"
     shell:
         """
         if [ ! -d {params.ann_dir} ]; then 
@@ -120,9 +120,9 @@ rule eggnog_mapper:
 
 
 # Debugging
-# there is no package called ‘seqLogo’ 
-# there is no package called ‘ggplot2’
-# transdecoder_map_orfs ran but could not map any orf to genome.
+# there is no package called ‘seqLogo’  (added to annotation.yaml) fixed
+# there is no package called ‘ggplot2’  (added to annotation.yaml) fixed
+# transdecoder_map_orfs ran but could not map any orf to genome.  (Was not using full genome.) fixed
 # Need to update python for eggnog (Sorry, Python < 3.7 is not supported)
 
 
