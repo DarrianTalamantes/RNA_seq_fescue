@@ -10,7 +10,7 @@ dependencies:
   - blas=1.0=openblas
   - boost-cpp=1.74.0=h359cf19_6
   - bzip2=1.0.8=h5eee18b_6
-  - ca-certificates=2024.7.2=h06a4308_0
+  - ca-certificates=2024.3.11=h06a4308_0
   - diamond=2.0.11=hdcc8f71_0
   - easel=0.48=hec16e2b_1
   - eggnog-mapper=2.1.12=pyhdfd78af_0

@@ -17,7 +17,7 @@ dependencies:
   - bwidget=1.9.16=h9eba36c_0
   - bzip2=1.0.8=h5eee18b_6
   - c-ares=1.19.1=h5eee18b_0
-  - ca-certificates=2024.7.2=h06a4308_0
+  - ca-certificates=2024.3.11=h06a4308_0
   - cairo=1.16.0=hb05425b_5
   - certifi=2021.5.30=py36h06a4308_0
   - curl=7.88.1=h37d81fd_2
