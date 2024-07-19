@@ -80,23 +80,23 @@ rule clean_pep_file:
         """
         sed 's/*//g' {input.pep_file} > {output.pep_file_clean}
         """
-
-rule transdecoder_map_orfs:
-    conda:
-        "../Conda_Envs/annotation.yaml"
-    input:
-        fasta_gff3 = config["transdecoder"]["fasta_gff3"], # Should be predicted coding regions based on consenses assembly of merged bam files
-        gff3 = config["transdecoder"]["gff3"], # transcripts 
-        fasta = config["bedtools"]["fasta_output"]
-    output:
-        genome_ggf3 = config["transdecoder"]["genome_gff3"]
-    threads: 24
-    shell:
-        """
-        cdna_alignment_orf_to_genome_orf.pl \
-            {input.fasta_gff3} \
-            {input.gff3} \
-            {input.fasta} > {output.genome_ggf3}    
+## This is deactivated cause, 1 it can not match positions properly and i think its useless.
+# rule transdecoder_map_orfs:
+#     conda:
+#         "../Conda_Envs/annotation.yaml"
+#     input:
+#         fasta_gff3 = config["transdecoder"]["fasta_gff3"], # Should be predicted coding regions based on consenses assembly of merged bam files
+#         gff3 = config["transdecoder"]["gff3"], # transcripts 
+#         fasta = config["bedtools"]["fasta_output"]
+#     output:
+#         genome_ggf3 = config["transdecoder"]["genome_gff3"]
+#     threads: 24
+#     shell:
+#         """
+#         cdna_alignment_orf_to_genome_orf.pl \
+#             {input.fasta_gff3} \
+#             {input.gff3} \
+#             {input.fasta} > {output.genome_ggf3}    
         """
 
 rule eggnog_mapper:
