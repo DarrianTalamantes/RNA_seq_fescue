@@ -97,7 +97,7 @@ rule clean_pep_file:
 #             {input.fasta_gff3} \
 #             {input.gff3} \
 #             {input.fasta} > {output.genome_ggf3}    
-        """
+#        """
 
 rule eggnog_mapper:
     input:
