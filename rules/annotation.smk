@@ -110,11 +110,11 @@ rule eggnog_mapper:
     conda:
         "../Conda_Envs/eggnog.yaml"
     threads: config["eggnog_mapper"]["num_threads"]
+    # COuld not get the directory made for some reason. Has to be manual.
+    #        if [ ! -d {params.ann_dir} ]; then; mkdir -p {params.ann_dir}; fi
+        
     shell:
         """
-        if [ ! -d {params.ann_dir} ]; then 
-        mkdir -p {params.ann_dir}; fi
-        
         emapper.py -i {input.pep_file_clean} --output {output.annotations} --cpu {params.num_threads} 
         """
 
