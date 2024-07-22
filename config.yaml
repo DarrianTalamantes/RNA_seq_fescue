@@ -49,9 +49,9 @@ bedtools:
   fasta_output: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta
 
 interproscan:
-  tsv_output: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/interproscan_results.tsv
+  tsv_output: /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_results.tsv
   gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.fasta.transdecoder.pep.gff3
-  inter_log: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/interproscan_temp
+  inter_log: /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_temp
 
 transdecoder:
   gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.gff3

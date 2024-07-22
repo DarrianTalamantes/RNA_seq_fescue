@@ -1,4 +1,5 @@
-# Objective: This code will take a gtf file and annotate it
+# Objective: This code will take a gtf file and annotate it.
+# Could not get annotations working in snakemake, output must be used with annotations_script.sh
 
 # Extracts a fasta file from a gff or gtf file. (makes fasta file from gtf regions file)
 rule bedtools:
@@ -80,6 +81,13 @@ rule clean_pep_file:
         """
         sed 's/*//g' {input.pep_file} > {output.pep_file_clean}
         """
+
+
+
+
+
+
+
 ## This is deactivated cause, 1 it can not match positions properly and i think its useless.
 # rule transdecoder_map_orfs:
 #     conda:
@@ -99,24 +107,26 @@ rule clean_pep_file:
 #             {input.fasta} > {output.genome_ggf3}    
 #        """
 
-rule eggnog_mapper:
-    input:
-        pep_file_clean = config["transdecoder"]["pep_clean"]
-    output:
-        annotations = config["eggnog_mapper"]["output"] 
-    params:
-        ann_dir = config["directories"]["annotations"],
-        num_threads = config["eggnog_mapper"]["num_threads"]
-    conda:
-        "../Conda_Envs/eggnog.yaml"
-    threads: config["eggnog_mapper"]["num_threads"]
-    # COuld not get the directory made for some reason. Has to be manual.
-    #        if [ ! -d {params.ann_dir} ]; then; mkdir -p {params.ann_dir}; fi
-        
-    shell:
-        """
-        emapper.py -i {input.pep_file_clean} --output {output.annotations} --cpu {params.num_threads} 
-        """
+
+# This is deactivated because I can not get it to work in snakemake. You now must run annotations_script.sh
+
+# rule eggnog_mapper:
+#     input:
+#         pep_file_clean = config["transdecoder"]["pep_clean"]
+#     output:
+#         annotations = config["eggnog_mapper"]["output"] 
+#     params:
+#         ann_dir = config["directories"]["annotations"],
+#         num_threads = config["eggnog_mapper"]["num_threads"]
+#     conda:
+#         "../Conda_Envs/eggnog.yaml"
+#     threads: config["eggnog_mapper"]["num_threads"]
+#     shell:
+#         """
+#         if [ ! -d {params.ann_dir} ]; then
+#         mkdir -p {params.ann_dir}; fi
+#         emapper.py -i {input.pep_file_clean} --output {output.annotations} --cpu {params.num_threads} 
+#         """
 
 
 
