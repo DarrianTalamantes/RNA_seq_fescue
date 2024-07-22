@@ -113,8 +113,8 @@ rule eggnog_mapper:
     shell:
         """
         if [ ! -d {params.ann_dir} ]; then 
-            mkdir -p {params.ann_dir}; 
-        fi
+        mkdir -p {params.ann_dir}; fi
+        
         emapper.py -i {input.pep_file_clean} --output {output.annotations} --cpu {params.num_threads} 
         """
 
