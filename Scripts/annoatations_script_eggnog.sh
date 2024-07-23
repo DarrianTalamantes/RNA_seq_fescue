@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J RNA_Seq
 #SBATCH -p batch
-#SBATCH --ntasks=24
-#SBATCH --mem 120gb
+#SBATCH --ntasks=12
+#SBATCH --mem 40gb
 #SBATCH -t 40:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.err
