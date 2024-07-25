@@ -31,4 +31,4 @@ module load InterProScan/5.68-100.0-foss-2022a
         if [ ! -d /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation ]; then 
             mkdir -p /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation; 
         fi
-sh interproscan.sh -i /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.clean.transdecoder_subset.pep -f tsv -o /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_results.tsv -T /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_temp -cpu 12 -dp
+sh interproscan.sh -i /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.clean.transdecoder.pep -f tsv -o /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_results.tsv -T /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_temp -cpu 24 -dp
