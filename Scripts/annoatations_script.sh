@@ -3,7 +3,7 @@
 #SBATCH -p batch
 #SBATCH --ntasks=24
 #SBATCH --mem 60gb
-#SBATCH -t 20:00:00
+#SBATCH -t 8:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.err
 #SBATCH --mail-type=FAIL,END
