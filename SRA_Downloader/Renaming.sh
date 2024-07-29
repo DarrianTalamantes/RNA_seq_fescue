@@ -2,8 +2,8 @@
 # Goal: rename the downloaded SRA's to the important name
 
 
-data_folder="/media/darrian/CTE_RNAseq/Extra_Seq"
-List="/home/darrian/Desktop/UGA/Wallace_Lab/RNA_seq_fescue/Lists/SRA_List.txt"
+data_folder="/scratch/drt83172/Wallace_lab/RNA_SEQ/Data"
+List="/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/Lists/SRA_List.txt"
 
 
 while IFS=, read -r SRA NAME
