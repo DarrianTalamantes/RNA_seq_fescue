@@ -10,8 +10,8 @@ while IFS=, read -r SRA NAME
 do
     echo "Processing $data_folder/${SRA} with additional value $data_folder/${NAME}"
 
-#    mv $data_folder/${SRA} $data_folder/${NAME}
-#    mv $data_folder/${SRA} $data_folder/${NAME}
+    mv $data_folder/${SRA} $data_folder/${NAME}
+    mv $data_folder/${SRA} $data_folder/${NAME}
         
 done < "$List"
 
