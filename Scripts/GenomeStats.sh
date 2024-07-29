@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -J RNA_Seq
 #SBATCH -p batch
-#SBATCH --ntasks=24
+#SBATCH --ntasks=12
 #SBATCH --mem 60gb
-#SBATCH -t 8:00:00
+#SBATCH -t 5:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.err
 #SBATCH --mail-type=FAIL,END
@@ -24,14 +24,7 @@ export LANG=en_SG.utf8
 # Objective: Take the output of tule annotation.smk and work with it.
 
 # Loading Modules
-module load InterProScan/5.68-100.0-foss-2022a
+module load BBMap/39.01-GCC-12.2.0
 
 
-
-if [ ! -d /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation ]; then 
-    mkdir -p /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation; 
-fi
-
-interproscan.sh -cpu 24 -f TSV,GFF3 -goterms -b /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_results -i /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.clean.transdecoder_subset.pep -T /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_temp
-
-
+stats.sh /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/tall_fescuev0.1.fa
