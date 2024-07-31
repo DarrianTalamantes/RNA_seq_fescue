@@ -371,6 +371,39 @@ combined_plot4 <- ggarrange(volcano_plot_Heat_NegxPos, separator, volcano_plot_H
 annotate_figure(combined_plot4, top = text_grob("Treatments by Endophyte Status", face = "bold", size = 14))
 
 
+
+#######################################
+# PCA Plots function
+#######################################
+make_PCA <- function(dds, PCx = "PC1", PCy = "PC2", colors = "Treatment" ){
+
+vsd <- vst(dds, blind = FALSE)
+# Doing a regular PCA without auto making it via DeSeq2
+vst_data <- assay(vsd) # creates an expression matrix
+pca_result <- prcomp(t(vst_data), center = TRUE, scale. = TRUE) # does PCA
+explained_variance <- summary(pca_result)$importance[2, 1:100] * 100 # extracting explained variance
+pca_data <- as.data.frame(pca_result$x) #savong as data frame
+pca_data$sample <- rownames(pca_data)
+sample_info <- as.data.frame(colData(dds))
+pca_data <- merge(pca_data, sample_info, by.x = "sample", by.y = "row.names") # adding metadata
+
+PCx_sym <- sym(PCx)
+PCy_sym <- sym(PCy)
+colors_sym <- sym(colors)
+
+pca_plot <- ggplot(pca_data, aes(x = !!PCx_sym, y = !!PCy_sym, color = !!colors_sym)) + 
+  geom_point(size = 4) +
+  labs(
+    title = "PCA Plot",
+    x = paste(PCx, " - ", round(explained_variance[1], 1), "%", sep=""),
+    y = paste(PCy, " - ", round(explained_variance[2], 1), "%", sep="")
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"))
+
+return(pca_plot)
+}
+
 #######################################
 # PCA Plots
 #######################################
@@ -387,7 +420,7 @@ pca_data$sample <- rownames(pca_data)
 sample_info <- as.data.frame(colData(dds))
 pca_data <- merge(pca_data, sample_info, by.x = "sample", by.y = "row.names") # adding metadata
 
-pca_plot <- ggplot(pca_data, aes(x = PC1, y = PC2, color = Month)) + 
+pca_plot <- ggplot(pca_data, aes(x = PC1, y = PC2, color = Treatment)) + 
   geom_point(size = 4) +
   labs(
     title = "PCA Plot",
@@ -400,6 +433,30 @@ print(pca_plot)
 
 # PC 2 seems to be Month
 # Pc 3 seems to be year
+
+#### I think we can investigate more. We have to remove CTE25 and CTE31. This will allow us to better see differences since those are missing months in the data
+#### This analysis data with CTE25 and 31 removed ####
+# making filtered dds data
+MetaData_filtered <- subset(MetaData, (Clone %in% c("CTE25", "CTE31")))
+names_to_remove <- MetaData_filtered$Sample
+MetaData_filtered <- subset(MetaData, !(Clone %in% c("CTE25", "CTE31")))
+# Remove columns in df2 that match the names in df1
+Featurecount_filtered <- Featurecount[, !(colnames(Featurecount) %in% names_to_remove)]
+
+dds_filtered <- DESeqDataSetFromMatrix(countData = Featurecount_filtered,
+                              colData = MetaData_filtered,
+                              design= ~ Month + Clone + Year + Endophyte + Treatment, tidy = TRUE)
+# filter for genes that have 10 occurrences in 1/4 the samples
+keep <- rowSums(counts(dds_filtered) >= 5) >= (ncol(dds_filtered) / 4)
+dds_filtered <- dds_filtered[keep, ]
+#PCA Make 
+# Proves Cone is PC1
+PCA_filtered <- make_PCA(dds_filtered,"PC1","PC2","Clone")
+print(PCA_filtered)
+# Proves PC2 and PC3 are the year and Month
+PCA_filtered <- make_PCA(dds_filtered,"PC2","PC3","Time")
+print(PCA_filtered)
+
 
 ########################################
 # Investigating the Clone
