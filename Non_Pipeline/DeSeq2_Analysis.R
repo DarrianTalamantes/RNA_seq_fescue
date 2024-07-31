@@ -7,6 +7,7 @@
 # Install Bioconductor if not already installed
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
+# BiocManager::install("DESeq2")
 
 library(DESeq2)
 library(ggplot2)
@@ -17,8 +18,11 @@ library(grid)
 library(data.table)
 
 # File locations
-MetaData_loc <- "/home/drt06/Documents/Tall_fescue/RNA_seq_fescue/Non_Pipeline/Meta_Data.csv"
-Featurecount_loc <- "/home/drt06/Documents/Tall_fescue/Plant_Info/RNA_SEQ_backup_Data/feature_counts_namefix.txt"
+MetaData_loc <- "/home/darrian/Desktop/UGA/Wallace_Lab/RNA_seq_fescue/Non_Pipeline/Meta_Data.csv"
+Featurecount_loc <- "/home/darrian/Desktop/UGA/Wallace_Lab/Plant_Info/RNA_SEQ_backup_Data/feature_counts_namefix.txt"
+
+# MetaData_loc <- "/home/drt06/Documents/Tall_fescue/RNA_seq_fescue/Non_Pipeline/Meta_Data.csv"
+# Featurecount_loc <- "/home/drt06/Documents/Tall_fescue/Plant_Info/RNA_SEQ_backup_Data/feature_counts_namefix.txt"
 
 ###############################
 # loading data
@@ -473,9 +477,6 @@ create_volcano_plot_2_dataset(PxH_NegxPos, EndoNeg_HPxControl, log2FC_threshold 
 create_volcano_plot_2_dataset(EndoPos_HPxControl, PxH_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive HPxControl data colored by NegativexPositive")
 create_volcano_plot_2_dataset(PxH_NegxPos, EndoPos_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive HPxControl data colored by NegativexPositive")
 
-  
-  
-  
   
   
 
