@@ -86,6 +86,8 @@ rule clean_pep_file:
 
 
 
+# Transdecoder is a little difficult maybe this program could be better
+# https://github.com/Gaius-Augustus/BRAKER
 
 
 ## This is deactivated cause, 1 it can not match positions properly and i think its useless.
