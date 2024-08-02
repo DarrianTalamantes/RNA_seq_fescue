@@ -26,16 +26,11 @@ p442 = ??
 
 
 
+/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf
+My idea to fix this situation is to switch the column 3 that contains "exon" and "transcript" with the gene ID. this will then allow bed tools to keep the geneID going fowrd. 
+
+#I used the python script gtf_col3_switch.py to make column 3 into the gene.
 
 
-awk 'BEGIN {OFS="\t"} $3 == "gene" {
-    split($9, a, ";");
-    for (i in a) {
-        split(a[i], b, " ");
-        if (b[1] == "gene_id") {
-            gene_id = b[2];
-            gsub(/"/, "", gene_id);  # Remove quotes
-            print $1, $4-1, $5, gene_id, ".", $7;
-        }
-    }
-}' Fescue_transcriptome.gtf > output.bed
+
+  

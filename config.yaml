@@ -29,7 +29,7 @@ params:
     threads_multi: 10
 
 scallop:
-  output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf
+  output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome_col3swap.gtf
 
 
 
@@ -46,20 +46,23 @@ star_index_files:
 use_ignored_rule: false
 
 bedtools:
-  fasta_output: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta
+  fasta_output: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts_col3swap.fasta
+
+transdecoder:
+  gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts_col3swap.gff3
+  long_orfs: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/longest_orfs_col3swap.pep
+  pep: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.transdecoder_col3swap.pep
+  pep_clean: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.clean.transdecoder_col3swap.pep
+  fasta_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.transdecoder_col3swap.gff3
+  genome_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/transcripts.fasta.transdecoder.genome_col3swap.gff3
 
 interproscan:
   tsv_output: /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_results.tsv
   gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.fasta.transdecoder.pep.gff3
   inter_log: /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_temp
 
-transdecoder:
-  gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.gff3
-  long_orfs: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/longest_orfs.pep
-  pep: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.transdecoder.pep
-  pep_clean: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.clean.transdecoder.pep
-  fasta_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.transdecoder.gff3
-  genome_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/transcripts.fasta.transdecoder.genome.gff3
+
+
 
 blast:
     output: /scratch/drt83172/Wallace_lab/RNA_SEQ/Blast/blast_results.txt
