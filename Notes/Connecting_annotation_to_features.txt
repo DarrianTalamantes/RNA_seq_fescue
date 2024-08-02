@@ -1,0 +1,41 @@
+# Objective: I can not connect the output of interproscan to feature counts.
+
+# Interproscan and transdecoder can connect.
+# Feature counts can connect to scallop2 output
+# between scallop2 and transdecoder is bedtools, this is most likely were the renaming of geneIDs comes into play
+# Lets see how we can fix that        
+        
+        
+        
+        
+bedtools getfasta -fullHeader -fi /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/tall_fescuev0.1.fa -bed /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf -fo /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts_practice.fasta
+        
+        # The -name did not add the geneID, it kinda just added "exon" or "transcript"
+        
+        
+        
+# Interpro scan name breakdown
+ptg000001l:11633099-11936801.p442
+ptg000001l = contig
+11633099 = start position if you add +1
+11936801 = end position
+p442 = ??
+
+
+
+
+
+
+
+
+awk 'BEGIN {OFS="\t"} $3 == "gene" {
+    split($9, a, ";");
+    for (i in a) {
+        split(a[i], b, " ");
+        if (b[1] == "gene_id") {
+            gene_id = b[2];
+            gsub(/"/, "", gene_id);  # Remove quotes
+            print $1, $4-1, $5, gene_id, ".", $7;
+        }
+    }
+}' Fescue_transcriptome.gtf > output.bed
