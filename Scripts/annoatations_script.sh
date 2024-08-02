@@ -32,6 +32,6 @@ if [ ! -d /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation ]; then
     mkdir -p /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation; 
 fi
 
-interproscan.sh -Xmx60g -cpu 24 -f TSV,GFF3 -goterms -b /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_results -i /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.clean.transdecoder.pep -T /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_temp
+interproscan.sh -Xmx50g -cpu 24 -f TSV,GFF3 -goterms -b /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_results -i /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.clean.transdecoder.pep -T /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_temp
 
 
