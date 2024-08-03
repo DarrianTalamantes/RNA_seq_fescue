@@ -77,9 +77,10 @@ rule all:
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
         # gtf=config["scallop"]["output_file"] # Activates scallop2
         # counts = config["directories"]["features"] + "feature_counts.txt" # feature counts
-        config["transdecoder"]["genome_gff3"], # for annotation
-        config["eggnog_mapper"]["output"] #for annotaion
-        
+        pep_file = config["transdecoder"]["pep"], # predict makes this
+        fasta_gff3 = config["transdecoder"]["fasta_gff3"] # predict makes this     
+        pep_file_clean = config["transdecoder"]["pep_clean"]
+   
 
 
 # This rule runs fastqc on all data fastq files
