@@ -78,7 +78,7 @@ rule all:
         # gtf=config["scallop"]["output_file"] # Activates scallop2
         # counts = config["directories"]["features"] + "feature_counts.txt" # feature counts
         pep_file = config["transdecoder"]["pep"], # predict makes this
-        fasta_gff3 = config["transdecoder"]["fasta_gff3"] # predict makes this     
+        fasta_gff3 = config["transdecoder"]["fasta_gff3"], # predict makes this     
         pep_file_clean = config["transdecoder"]["pep_clean"]
    
 
