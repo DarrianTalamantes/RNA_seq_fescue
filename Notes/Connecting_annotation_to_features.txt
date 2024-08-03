@@ -31,6 +31,10 @@ My idea to fix this situation is to switch the column 3 that contains "exon" and
 
 #I used the python script gtf_col3_switch.py to make column 3 into the gene.
 
+#Edited config file by adding _col3switch
+
+# dag map maker
+snakemake --dag --use-conda --cores 2  -s RNAseq.smk --verbose | dot -Tpdf > dag.pdf
 
 
   
