@@ -37,4 +37,10 @@ My idea to fix this situation is to switch the column 3 that contains "exon" and
 snakemake --dag --use-conda --cores 2  -s RNAseq.smk --verbose | dot -Tpdf > dag.pdf
 
 
-  
+Maybe it is best if I convert the interproscan gff3 to a gtf file. Then run featurecounts with that gtf file instead of the scallop output
+gffread my.gff3 -T -o my.gtf
+
+gffread did not work for gff3. Using AGAT/1.1.0.
+agat_convert_sp_gff2gtf.pl --gff interproscan_Practice_results.gff3 -o interproscan_Practice_results.gtf 
+
+# gffread did not work, agat did not work.
