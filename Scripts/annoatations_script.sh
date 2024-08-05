@@ -4,8 +4,8 @@
 #SBATCH --ntasks=24
 #SBATCH --mem 60gb
 #SBATCH -t 100:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/Interpro/Scripts/outfiles/RNAseq.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/Interpro/Scripts/outfiles/RNAseq.%j.err
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Interpro.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Interpro.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
