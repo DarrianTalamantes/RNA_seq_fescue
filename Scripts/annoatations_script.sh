@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH -J RNA_Seq
+#SBATCH -J Interpro
 #SBATCH -p batch
 #SBATCH --ntasks=24
 #SBATCH --mem 60gb
 #SBATCH -t 8:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/RNAseq.%j.err
+#SBATCH --output=/scratch/drt83172/Wallace_lab/Interpro/Scripts/outfiles/RNAseq.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/Interpro/Scripts/outfiles/RNAseq.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
