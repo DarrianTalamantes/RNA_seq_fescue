@@ -16,6 +16,10 @@ library(ggpubr)
 library(tidyverse)
 library(grid)
 library(data.table)
+library(unix)
+
+# Increase memory of R to 12 GB
+rlimit_as(1e12)
 
 # File locations
 MetaData_loc <- "/home/darrian/Desktop/UGA/Wallace_Lab/RNA_seq_fescue/Non_Pipeline/Meta_Data.csv"
@@ -51,6 +55,7 @@ dds <- DESeqDataSetFromMatrix(countData = Featurecount,
 dds_og <- DESeq(dds)
  dds <- dds_og
 
+ 
 # filter for genes that have 10 occurrences in 1/4 the samples
 keep <- rowSums(counts(dds) >= 5) >= (ncol(dds) / 4)
 dds <- dds[keep, ]
@@ -239,9 +244,9 @@ print(heatmap)
 
 
 
-#########################################
+################################################################################
 # DeSeq2 function interaction method
-#########################################
+################################################################################
 # remaking og dds file
 dds <- dds_og
 # Grouping our treatment groups
@@ -462,56 +467,132 @@ print(PCA_filtered)
 # Investigating the Clone
 ########################################
 
-# remaking og dds file
-dds_clone <- dds_og
-
-#Run DeSeq function, 
-dds_clone <- DESeq(dds_clone)
-
-# filter for genes that have 10 occurrences in 1/4 the samples
-keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
-dds_clone <- dds_clone[keep, ]
-results(dds_clone)
-# Clone 
-CTE45xCTE46 <- get_results(dds,"Clone","CTE45","CTE46")
-summary(CTE45xCTE46)
-CTE45xCTE46 <- CTE45xCTE46[order(CTE45xCTE46$pvalue),]
-head(CTE45xCTE46)
-
-CTE45xCTE46 <- create_volcano_plot(CTE45xCTE46, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "CTE45 vs CTE46")
-print(CTE45xCTE46)
+# # remaking og dds file
+# dds_clone <- dds_og
+# 
+# #Run DeSeq function, 
+# dds_clone <- DESeq(dds_clone)
+# 
+# # filter for genes that have 10 occurrences in 1/4 the samples
+# keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
+# dds_clone <- dds_clone[keep, ]
+# results(dds_clone)
+# # Clone 
+# CTE45xCTE46 <- get_results(dds,"Clone","CTE45","CTE46")
+# summary(CTE45xCTE46)
+# CTE45xCTE46 <- CTE45xCTE46[order(CTE45xCTE46$pvalue),]
+# head(CTE45xCTE46)
+# 
+# CTE45xCTE46 <- create_volcano_plot(CTE45xCTE46, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "CTE45 vs CTE46")
+# print(CTE45xCTE46)
 
 ########################################
 # Creating list of significant genes
 ########################################
-find_significance <- function(results, log2FC_threshold = 2, pvalue_threshold = 0.05) {
-  # Ensure the results have the required columns
+
+# Please run lines 267 - 328 before this to make the data
+####### Function to get a significance table #########
+find_significance <- function(results, significant_table, log2FC_threshold = 2, pvalue_threshold = 0.05) {
+ 
+   # Ensure the results have the required columns
   if(!all(c("log2FoldChange", "padj") %in% colnames(results))) {
     stop("Results must contain 'log2FoldChange' and 'padj' columns.")
   }
   
-  # Create a column to indicate significance
+  # getting the name of the dataframe as a string
+  name <- deparse(substitute(results))
+  
   results$significance <- "Not Significant"
   results$significance[results$padj < pvalue_threshold & results$log2FoldChange > log2FC_threshold] <- "Significant Upregulated"
   results$significance[results$padj < pvalue_threshold & results$log2FoldChange < (log2FC_threshold * -1)] <- "Significant Downregulated"
-  return(results)
+  
+  
+  df_subset <- results["significance"]
+  df_subset$Gene <- rownames(df_subset)
+  df_subset <- as.data.frame(df_subset)
+  merged_df <- merge(significant_table, df_subset, by = "Gene", all = TRUE)
+  # Here we would save the name of the datatable we are using as a string to be used in the next command.
+  colnames(merged_df)[colnames(merged_df) == "significance"] <- name
+  
+  return(merged_df)
   }
 
-# Make a list of datasets we want to analyze.  
+
+########## preparing to run significance function ###########
+#Make a list of datasets we want to analyze.  
 comparison_list <- c("EndoNeg_HeatxControl", "EndoPos_HeatxControl", "EndoPos_HPxControl", "EndoNeg_HPxControl", "EndoPos_HPxHeat", "EndoNeg_HPxHeat", "Control_NegxPos", "Heat_NegxPos", "PxH_NegxPos")
 gene_names <- rownames(dds)
 
-# Creating databale
-significant_table <- data.table(matrix(0, nrow = length(gene_names), ncol = length(comparison_list)))
-setnames(significant_table, comparison_list)
+# Creating blank data table to fill in with values
+significant_table <- data.table(matrix(0, nrow = length(gene_names), ncol = 1))
 significant_table <- as.data.frame(significant_table)
 rownames(significant_table) <- gene_names
+significant_table$Gene <- rownames(significant_table)
 head(significant_table)
 
+######## Running significance function ###########
 for (data_set in comparison_list) {
-  significant_ones <- find_significance(data_set)
   print(data_set)
+  data_frame <- get(data_set)
+  significant_table2 <- find_significance(data_frame, significant_table, 2, 0.05)
+  significant_table <- significant_table2
+  head(significant_table)
 }
+colnames(significant_table)[3:ncol(significant_table)] <- comparison_list
+head(significant_table)
+
+
+################################################################################
+
+################################################################################
+EndoNeg_HeatxControl2 <- EndoNeg_HeatxControl
+
+
+EndoNeg_HeatxControl2$significance <- "Not Significant"
+EndoNeg_HeatxControl2$significance[EndoNeg_HeatxControl2$padj < .05 & EndoNeg_HeatxControl2$log2FoldChange > 2] <- "Significant Upregulated"
+EndoNeg_HeatxControl2$significance[EndoNeg_HeatxControl2$padj < .05 & EndoNeg_HeatxControl2$log2FoldChange < (2 * -1)] <- "Significant Downregulated"
+
+
+df_subset <- EndoNeg_HeatxControl2["significance"]
+df_subset$Gene <- rownames(df_subset)
+df_subset <- as.data.frame(df_subset)
+merged_df <- merge(significant_table, df_subset, by = "Gene", all = TRUE)
+# Here we would save the name of the datatable we are using as a string to be used in the next command.
+colnames(merged_df)[colnames(merged_df) == "significance"] <- "name1"
+
+
+significant_table2 <- find_significance(EndoNeg_HeatxControl, significant_table, 2, 0.05)
+significant_table <- significant_table2
+
+significant_table2 <- find_significance(EndoPos_HeatxControl, significant_table, 2, 0.05)
+significant_table <- significant_table2
+
+
+head(significant_table)
+
+class(data_name)
+head(data_name)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
