@@ -425,7 +425,7 @@ pca_data$sample <- rownames(pca_data)
 sample_info <- as.data.frame(colData(dds))
 pca_data <- merge(pca_data, sample_info, by.x = "sample", by.y = "row.names") # adding metadata
 
-pca_plot <- ggplot(pca_data, aes(x = PC1, y = PC2, color = Treatment)) + 
+pca_plot <- ggplot(pca_data, aes(x = PC1, y = PC2, color = Time )) + 
   geom_point(size = 4) +
   labs(
     title = "PCA Plot",
@@ -540,6 +540,7 @@ for (data_set in comparison_list) {
 }
 colnames(significant_table)[3:ncol(significant_table)] <- comparison_list
 head(significant_table)
+write.csv(significant_table, file = "significant_table.csv", row.names = FALSE)
 
 
 ################################################################################
