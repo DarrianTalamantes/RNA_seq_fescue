@@ -5,7 +5,7 @@ bedtools_dir="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/bedtools"
 transdecoder="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/transdecoder"
 
 
-for file in $(ls $small_gtf_dir); do
+for file in $(ls $small_gtf_dir | grep -v "dupped"); do
     base_name=$(basename "$file" | sed 's/\.[^.]*$//')
     echo $base_name
     # # Run bed tools (gtf to fasta)
