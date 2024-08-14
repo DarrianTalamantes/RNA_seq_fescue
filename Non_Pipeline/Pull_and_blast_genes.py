@@ -20,7 +20,6 @@ def main():
 
     # While loop to iterate over the file list
     file_list = list_files(dir_of_sig_files)
-    print(file_list)
 
     index = 0
     while index < len(file_list):
@@ -32,6 +31,17 @@ def main():
         print("making the file ", gtf_file)
         filter_gtf('/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf', current_list, current_gtf_file)
         index += 1
+    
+    file_list = list_files(dir_of_gtfs)
+    index = 0
+    while index < len(file_list):
+        current_file = file_list[index]
+        current_file2 = "dupped_" + current_file
+        gtf_dup_remover(current_file,current_file2 )
+        index += 1
+
+
+
 
 def filter_gtf(gtf_file, strings_file, output_file):
     # Read the list of strings from the file
@@ -47,6 +57,27 @@ def filter_gtf(gtf_file, strings_file, output_file):
                 # Check if the third column is 'transcript'
                 if len(columns) > 2 and columns[2] == 'transcript':
                     outfile.write(line)
+
+# This takes a gtf file as an input and then removes the duplicated gene ids.
+def gtf_dup_remover(input_file, output_file):
+    # Read the data from the file
+    df = pd.read_csv(input_file, sep="\t", header=None, engine='python')
+
+    # Extract the gene_id from the last column
+    df['gene_id'] = df[7].apply(lambda x: re.search(r'gene_id "([^"]+)"', x).group(1) if re.search(r'gene_id "([^"]+)"', x) else None)
+
+    # Calculate the difference between column 5 and column 4
+    df['difference'] = df[4] - df[3]
+
+    # Drop duplicates based on gene_id, keeping the row with the maximum difference
+    result = df.loc[df.groupby('gene_id')['difference'].idxmax()]
+
+    # Drop unnecessary columns and keep the required ones
+    result = result[[0, 1, 2, 3, 4, 5, 6, 'gene_id', 'difference']]
+
+    # Save the processed DataFrame to a new file
+    result.to_csv(output_file, sep="\t", header=False, index=False)
+
 
 # This function takes the significance table I made in the R file DeSeq2_Analysis.R and splits it into many smaller files.
 def split_downregulated_genes(input_file, output_dir):
