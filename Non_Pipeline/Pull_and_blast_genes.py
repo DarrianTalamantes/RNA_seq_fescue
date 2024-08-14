@@ -33,7 +33,20 @@ def main():
         filter_gtf('/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf', current_list, current_gtf_file)
         index += 1
 
+def filter_gtf(gtf_file, strings_file, output_file):
+    # Read the list of strings from the file
+    with open(strings_file, 'r') as f:
+        strings = set(line.strip() for line in f)
 
+    # Open the GTF file and the output file
+    with open(gtf_file, 'r') as infile, open(output_file, 'w') as outfile:
+        for line in infile:
+            # Check if the line contains any of the strings
+            if any(s in line for s in strings):
+                columns = line.split('\t')
+                # Check if the third column is 'transcript'
+                if len(columns) > 2 and columns[2] == 'transcript':
+                    outfile.write(line)
 
 # This function takes the significance table I made in the R file DeSeq2_Analysis.R and splits it into many smaller files.
 def split_downregulated_genes(input_file, output_dir):
@@ -51,6 +64,9 @@ def split_downregulated_genes(input_file, output_dir):
         # Define the output file name
         output_file = os.path.join(output_dir, f"{column}_significantly_downregulated.txt")
         
+        # Only keep the first column (index or identifier) and drop the second column
+        downregulated = downregulated.iloc[:, [0]]
+
         # Save the filtered data to a new file
         downregulated[[column]].to_csv(output_file, sep="\t", index=True)
 
@@ -72,22 +88,6 @@ def split_upregulated_genes(input_file, output_dir):
         
         # Save the filtered data to a new file
         downregulated[[column]].to_csv(output_file, sep="\t", index=True)
-
-
-def filter_gtf(gtf_file, strings_file, output_file):
-    # Read the list of strings from the file
-    with open(strings_file, 'r') as f:
-        strings = set(line.strip() for line in f)
-
-    # Open the GTF file and the output file
-    with open(gtf_file, 'r') as infile, open(output_file, 'w') as outfile:
-        for line in infile:
-            # Check if the line contains any of the strings
-            if any(s in line for s in strings):
-                columns = line.split('\t')
-                # Check if the third column is 'transcript'
-                if len(columns) > 2 and columns[2] == 'transcript':
-                    outfile.write(line)
 
 # smal function to list everything in a directory
 def list_files(directory):
