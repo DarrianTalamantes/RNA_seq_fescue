@@ -17,7 +17,7 @@ def main():
     split_upregulated_genes(significance_table, dir_of_sig_files)
     print("Splitting upregulated")
 
-
+"""
     # While loop to iterate over the file list
     file_list = list_files(dir_of_sig_files)
     index = 0
@@ -29,17 +29,17 @@ def main():
         current_gtf_file = dir_of_gtfs + '/' + gtf_file
         filter_gtf('/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf', current_list, current_gtf_file)
 
-
+"""
 # This function takes the significance table I made in the R file DeSeq2_Analysis.R and splits it into many smaller files.
 def split_downregulated_genes(input_file, output_dir):
     # Read the data from the file
-    df = pd.read_csv(input_file, sep="\t", index_col=0)  # Adjust separator if needed
+    df = pd.read_csv(input_file, sep=",", index_col=0)  # Adjust separator if needed
 
     # Ensure the output directory exists
     os.makedirs(output_dir, exist_ok=True)
 
     # Iterate over each condition column (excluding the first column which is likely an index or identifier)
-    for column in df.columns[1:]:
+    for column in df.columns[2:]:
         # Filter for significantly downregulated genes
         downregulated = df[df[column].str.contains("Significant Downregulated", na=False)]
         
@@ -52,13 +52,13 @@ def split_downregulated_genes(input_file, output_dir):
 # This function takes the significance table I made in the R file DeSeq2_Analysis.R and splits it into many smaller files.
 def split_upregulated_genes(input_file, output_dir):
     # Read the data from the file
-    df = pd.read_csv(input_file, sep="\t", index_col=0)  # Adjust separator if needed
+    df = pd.read_csv(input_file, sep=",", index_col=0)  # Adjust separator if needed
 
     # Ensure the output directory exists
     os.makedirs(output_dir, exist_ok=True)
 
     # Iterate over each condition column (excluding the first column which is likely an index or identifier)
-    for column in df.columns[1:]:
+    for column in df.columns[2:]:
         # Filter for significantly downregulated genes
         downregulated = df[df[column].str.contains("Significant Upregulated", na=False)]
         
