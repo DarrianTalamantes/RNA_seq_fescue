@@ -7,7 +7,7 @@ transdecoder="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/transdecod
 
 for file in $(ls $small_gtf_dir); do
     base_name=$(basename "$file" | sed 's/\.[^.]*$//')
-    print($base_name)
+    echo $base_name
     # # Run bed tools (gtf to fasta)
     # bedtools getfasta -fi {input.genome} -bed config["scallop"]["output_file"] -fo config["bedtools"]["fasta_output"]
 
