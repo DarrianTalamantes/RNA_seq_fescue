@@ -26,8 +26,11 @@ for file in $(ls $small_gtf_dir | grep "dupped" | grep "PxH_NegxPos"); do
     TransDecoder.LongOrfs -t $bedtools_dir/$base_name.fa -O $transdecoder
     
     TransDecoder.Predict -t $bedtools_dir/$base_name.fa -O $transdecoder
-    mv $base_name.fa.transdecoder.* $transdecoder_output
-
+    mv $base_name.fa.transdecoder.pep $transdecoder_output
+    mv $base_name.fa.transdecoder.gff3 $transdecoder_output
+    mv $base_name.fa.transdecoder.cds $transdecoder_output
+    mv $base_name.fa.transdecoder.bed $transdecoder_output
+    
     # clean the pepfile
     sed 's/*//g' $transdecoder_output/$base_name.fa.transdecoder.pep > $transdecoder_output/$base_name.fa.transdecoder_clean.pep
     export JAVA_OPTS="-Xmx6G"
