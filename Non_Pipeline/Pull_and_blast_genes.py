@@ -17,7 +17,7 @@ def main():
     split_upregulated_genes(significance_table, dir_of_sig_files)
     print("Splitting upregulated")
 
-"""
+
     # While loop to iterate over the file list
     file_list = list_files(dir_of_sig_files)
     index = 0
@@ -29,7 +29,7 @@ def main():
         current_gtf_file = dir_of_gtfs + '/' + gtf_file
         filter_gtf('/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf', current_list, current_gtf_file)
 
-"""
+
 # This function takes the significance table I made in the R file DeSeq2_Analysis.R and splits it into many smaller files.
 def split_downregulated_genes(input_file, output_dir):
     # Read the data from the file
