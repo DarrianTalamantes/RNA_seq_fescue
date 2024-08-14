@@ -20,6 +20,8 @@ def main():
 
     # While loop to iterate over the file list
     file_list = list_files(dir_of_sig_files)
+    print(file_list)
+
     index = 0
     while index < len(file_list):
         # Get the current file
@@ -29,6 +31,8 @@ def main():
         current_gtf_file = dir_of_gtfs + '/' + gtf_file
         print("making the file ", gtf_file)
         filter_gtf('/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf', current_list, current_gtf_file)
+        index += 1
+
 
 
 # This function takes the significance table I made in the R file DeSeq2_Analysis.R and splits it into many smaller files.
@@ -77,6 +81,7 @@ def filter_gtf(gtf_file, strings_file, output_file):
 
     # Dictionary to store lines by string
     string_lines = {s: [] for s in strings}
+    
 
     # Open the GTF file and store lines that match
     with open(gtf_file, 'r') as infile:
