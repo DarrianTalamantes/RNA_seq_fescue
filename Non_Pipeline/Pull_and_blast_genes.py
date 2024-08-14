@@ -27,6 +27,7 @@ def main():
         gtf_file = change_extension_to_gtf(current_file)
         current_list = dir_of_sig_files + '/' + current_file
         current_gtf_file = dir_of_gtfs + '/' + gtf_file
+        print("making the file ", gtf_file)
         filter_gtf('/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf', current_list, current_gtf_file)
 
 
