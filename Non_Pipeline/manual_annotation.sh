@@ -1,9 +1,17 @@
+# ml TransDecoder/5.7.0-GCC-11.3.0
+# ml BEDTools/2.30.0-GCC-12.2.0
+# ml InterProScan/5.68-100.0-foss-2022a
+
+
 # setting variables
 genome="/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/tall_fescuev0.1.fa"
 small_gtf_dir="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/small_gtfs"
 bedtools_dir="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/bedtools"
 gff3_dir="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/gff3"
 transdecoder="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/transdecoder"
+transdecoder_output="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/transdecoder_output"
+interpro="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/interpro"
+interpro_temp="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/interpro_temp"
 
 
 for file in $(ls $small_gtf_dir | grep "dupped" | grep "PxH_NegxPos"); do
@@ -18,12 +26,15 @@ for file in $(ls $small_gtf_dir | grep "dupped" | grep "PxH_NegxPos"); do
     TransDecoder.LongOrfs -t $bedtools_dir/$base_name.fa -O $transdecoder
     
     TransDecoder.Predict -t $bedtools_dir/$base_name.fa -O $transdecoder
-    # mv {params.pep_file_name} {params.output_dir}
-    # mv {params.fasta_gff3_name} {params.output_dir}
-    # mv {params.cds_name} {params.output_dir}
-    # mv {params.bed_name} {params.output_dir}
+    mv $base_name.fa.transdecoder.* $transdecoder_output
 
+    # clean the pepfile
+    sed 's/*//g' $transdecoder_output/$base_name.fa.transdecoder.pep > $transdecoder_output/$base_name.fa.transdecoder_clean.pep
+    export JAVA_OPTS="-Xmx6G"
+    interproscan.sh -cpu 1 -f TSV,GFF3 -goterms -b $interpro -i $transdecoder_output/$base_name.fa.transdecoder_clean.pep -T $interpro_temp
 
 done
+
+
 
 
