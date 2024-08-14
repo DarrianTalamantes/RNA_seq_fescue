@@ -36,8 +36,9 @@ def main():
     index = 0
     while index < len(file_list):
         current_file = file_list[index]
-        current_file2 = "dupped_" + current_file
-        gtf_dup_remover(current_file,current_file2 )
+        dir_and_current_file = dir_of_gtfs + '/' + current_file
+        current_file2 = dir_of_gtfs + "/dupped_" + current_file
+        gtf_dup_remover(dir_and_current_file,current_file2 )
         index += 1
 
 
