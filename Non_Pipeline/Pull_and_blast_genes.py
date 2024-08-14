@@ -5,19 +5,21 @@
 import pandas as pd
 import os
 import glob
-
+import re
 
 def main():
     # Take out all downregulated genes and signigficantly upregulated genes then put them into their ownfile
     significance_table = '/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/Non_Pipeline/significant_table.csv'  # Replace with the path to your input file
     dir_of_sig_files = '/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/significant_lists'   
     dir_of_gtfs = '/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/small_gtfs'
+    
+    '''
     split_downregulated_genes(significance_table, dir_of_sig_files)
     print("Splitting downregulated")
     split_upregulated_genes(significance_table, dir_of_sig_files)
     print("Splitting upregulated")
 
-    '''
+    
     # While loop to iterate over the file list
     file_list = list_files(dir_of_sig_files)
 
