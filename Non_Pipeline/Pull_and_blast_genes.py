@@ -13,7 +13,10 @@ def main():
     dir_of_sig_files = '/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/significant_lists'   
     dir_of_gtfs = '/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/small_gtfs'
     split_downregulated_genes(significance_table, dir_of_sig_files)
+    print("Splitting downregulated")
     split_upregulated_genes(significance_table, dir_of_sig_files)
+    print("Splitting upregulated")
+
 
     # While loop to iterate over the file list
     file_list = list_files(dir_of_sig_files)
