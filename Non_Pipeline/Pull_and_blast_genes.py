@@ -17,7 +17,7 @@ def main():
     split_upregulated_genes(significance_table, dir_of_sig_files)
     print("Splitting upregulated")
 
-
+    '''
     # While loop to iterate over the file list
     file_list = list_files(dir_of_sig_files)
 
@@ -31,7 +31,7 @@ def main():
         print("making the file ", gtf_file)
         filter_gtf('/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf', current_list, current_gtf_file)
         index += 1
-    
+    '''
     file_list = list_files(dir_of_gtfs)
     index = 0
     while index < len(file_list):
