@@ -65,10 +65,10 @@ def split_downregulated_genes(input_file, output_dir):
         output_file = os.path.join(output_dir, f"{column}_significantly_downregulated.txt")
         
         # Only keep the first column (index or identifier) and drop the second column
-        downregulated = downregulated.iloc[:, [0]]
+        downregulated_genes = downregulated.index
 
         # Save the filtered data to a new file
-        downregulated[[column]].to_csv(output_file, sep="\t", index=True)
+        pd.DataFrame(downregulated_genes, columns=['Gene']).to_csv(output_file, sep="\t", index=False)
 
 # This function takes the significance table I made in the R file DeSeq2_Analysis.R and splits it into many smaller files.
 def split_upregulated_genes(input_file, output_dir):
@@ -85,9 +85,12 @@ def split_upregulated_genes(input_file, output_dir):
         
         # Define the output file name
         output_file = os.path.join(output_dir, f"{column}_significantly_upregulated.txt")
-        
+       
+        # Only keep the first column (index or identifier) and drop the second column
+        downregulated_genes = downregulated.index
+
         # Save the filtered data to a new file
-        downregulated[[column]].to_csv(output_file, sep="\t", index=True)
+        pd.DataFrame(downregulated_genes, columns=['Gene']).to_csv(output_file, sep="\t", index=False)
 
 # smal function to list everything in a directory
 def list_files(directory):
