@@ -79,39 +79,15 @@ def filter_gtf(gtf_file, strings_file, output_file):
     with open(strings_file, 'r') as f:
         strings = set(line.strip() for line in f)
 
-    # Dictionary to store lines by string
-    string_lines = {s: [] for s in strings}
-    
-
-    # Open the GTF file and store lines that match
-    with open(gtf_file, 'r') as infile:
+    # Open the GTF file and the output file
+    with open(gtf_file, 'r') as infile, open(output_file, 'w') as outfile:
         for line in infile:
+            # Check if the line contains any of the strings
             if any(s in line for s in strings):
                 columns = line.split('\t')
-                if len(columns) > 4 and columns[2] == 'transcript':
-                    for s in strings:
-                        if s in line:
-                            string_lines[s].append(line)
-                            break
-
-    # Process each group of lines for each string
-    with open(output_file, 'w') as outfile:
-        for s, lines in string_lines.items():
-            max_diff = None
-            best_line = None
-            
-            for line in lines:
-                columns = line.split('\t')
-                start = int(columns[3])
-                end = int(columns[4])
-                diff = end - start
-
-                if max_diff is None or diff > max_diff:
-                    max_diff = diff
-                    best_line = line
-
-            if best_line:
-                outfile.write(best_line)
+                # Check if the third column is 'transcript'
+                if len(columns) > 2 and columns[2] == 'transcript':
+                    outfile.write(line)
 
 # smal function to list everything in a directory
 def list_files(directory):
