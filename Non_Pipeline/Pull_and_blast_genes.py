@@ -38,6 +38,7 @@ def main():
     index = 0
     while index < len(file_list):
         current_file = file_list[index]
+        print("processing " + current_file)
         dir_and_current_file = dir_of_gtfs + '/' + current_file
         current_file2 = dir_of_gtfs + "/dupped_" + current_file
         gtf_dup_remover(dir_and_current_file,current_file2 )
@@ -67,7 +68,7 @@ def gtf_dup_remover(input_file, output_file):
     df = pd.read_csv(input_file, sep="\t", header=None, engine='python')
 
     # Extract the gene_id from the last column
-    df['gene_id'] = df[7].apply(lambda x: re.search(r'gene_id "([^"]+)"', x).group(1) if re.search(r'gene_id "([^"]+)"', x) else None)
+    df['gene_id'] = df[8].apply(lambda x: re.search(r'gene_id "([^"]+)"', x).group(1) if re.search(r'gene_id "([^"]+)"', x) else None)
 
     # Calculate the difference between column 5 and column 4
     df['difference'] = df[4] - df[3]
