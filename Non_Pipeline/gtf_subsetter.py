@@ -21,6 +21,7 @@ def main():
 
     
     # While loop to iterate over the file list
+    # This while loop subsets the big gtf file to smaller ones based on the significance lists
     file_list = list_files(dir_of_sig_files)
 
     index = 0
@@ -34,6 +35,9 @@ def main():
         filter_gtf('/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf', current_list, current_gtf_file)
         index += 1
     '''
+
+    '''
+    # This function iterates through all the small gtf files and removes duplicate genes from them.
     file_list = list_files(dir_of_gtfs)
     index = 0
     while index < len(file_list):
@@ -43,10 +47,10 @@ def main():
         current_file2 = dir_of_gtfs + "/dupped_" + current_file
         gtf_dup_remover(dir_and_current_file,current_file2 )
         index += 1
+    '''
 
 
-
-
+# searches for genes in big gtf file and subsets to make a small one of chosen genes from strings_file
 def filter_gtf(gtf_file, strings_file, output_file):
     # Read the list of strings from the file
     with open(strings_file, 'r') as f:
