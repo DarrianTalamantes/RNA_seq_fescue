@@ -1,25 +1,3 @@
-#!/bin/bash
-#SBATCH -J small_gtf_ann
-#SBATCH -p batch
-#SBATCH --ntasks=8
-#SBATCH --mem 40gb
-#SBATCH -t 20:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/small_gtf_ann.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/small_gtf_ann.%j.err
-#SBATCH --mail-type=FAIL,END
-#SBATCH --mail-user drt83172@uga.edu
-
-echo "This JobID for this job is ${SLURM_JOB_ID}."
-sleep 5
-echo "Done."
-
-sacct -j $SLURM_JOB_ID --format=JobID,JobName,AllocCPUS,Elapsed,ExitCode,State,MaxRSS,TotalCPU
-
-ml TransDecoder/5.7.0-GCC-11.3.0
-ml BEDTools/2.30.0-GCC-12.2.0
-ml InterProScan/5.68-100.0-foss-2022a
-
-
 # setting variables
 genome="/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/tall_fescuev0.1.fa"
 small_gtf_dir="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/small_gtfs"
