@@ -36,8 +36,7 @@ for file in $(ls $small_gtf_dir | grep "dupped" | grep "PxH_NegxPos"); do
     # clean the pepfile
     sed 's/*//g' $transdecoder_output/$base_name.fa.transdecoder.pep > $transdecoder_output/$base_name.fa.transdecoder_clean.pep
     export JAVA_OPTS="-Xmx6G"
-    interproscan.sh -cpu 1 -f TSV,GFF3 -goterms -b $interpro -i $transdecoder_output/$base_name.fa.transdecoder_clean.pep -T $interpro_temp
-
+    interproscan.sh -cpu 2 -f TSV,GFF3 -goterms -b $interpro/$base_name -i $transdecoder_output/$base_name.fa.transdecoder_clean.pep -T $interpro_temp
 done
 
 
