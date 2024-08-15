@@ -14,7 +14,7 @@ interpro="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/interpro"
 interpro_temp="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/interpro_temp"
 
 
-for file in $(ls $small_gtf_dir | grep "dupped" | grep "PxH_NegxPos"); do
+for file in $(ls $small_gtf_dir | grep "dupped"); do
     base_name=$(basename "$file" | sed 's/\.[^.]*$//')
     echo $base_name
     # # Run bed tools (gtf to fasta)
