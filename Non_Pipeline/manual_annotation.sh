@@ -8,13 +8,23 @@ transdecoder_output="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/tra
 interpro="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/interpro"
 interpro_temp="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/interpro_temp"
 
+# ml TransDecoder/5.7.0-GCC-11.3.0
+# ml BEDTools/2.30.0-GCC-12.2.0
+# ml InterProScan/5.68-100.0-foss-2022a
+
+
+
 > deebugger.log
+> inter_cmds.txt
+
 for file in $(ls $small_gtf_dir | grep "dupped"); do
     base_name=$(basename "$file" | sed 's/\.[^.]*$//')
     echo $base_name
     # # Run bed tools (gtf to fasta)
     bedtools getfasta -fi $genome -bed $small_gtf_dir/$base_name.gtf -fo $bedtools_dir/$base_name.fa
     echo "getfasta -fi $genome -bed $small_gtf_dir/$base_name.gtf -fo $bedtools_dir/$base_name.fa" >> deebugger.log
+    echo
+    echo
     # #transdecoder shit
     gtf_to_alignment_gff3.pl $small_gtf_dir/$base_name.gtf  > $gff3_dir/$base_name.gff3
     
@@ -23,6 +33,7 @@ for file in $(ls $small_gtf_dir | grep "dupped"); do
     TransDecoder.LongOrfs -t $bedtools_dir/$base_name.fa -O $transdecoder/$base_name
     
     TransDecoder.Predict -t $bedtools_dir/$base_name.fa -O $transdecoder/$base_name
+    echo "TransDecoder.Predict -t $bedtools_dir/$base_name.fa -O $transdecoder/$base_name" >> deebugger.log
     mv $base_name.fa.transdecoder.pep $transdecoder_output
     mv $base_name.fa.transdecoder.gff3 $transdecoder_output
     mv $base_name.fa.transdecoder.cds $transdecoder_output
@@ -31,9 +42,10 @@ for file in $(ls $small_gtf_dir | grep "dupped"); do
     # clean the pepfile
     sed 's/*//g' $transdecoder_output/$base_name.fa.transdecoder.pep > $transdecoder_output/$base_name.fa.transdecoder_clean.pep
     export JAVA_OPTS="-Xmx10G"
-    interproscan.sh -cpu 8 -f TSV,GFF3 -goterms -b $interpro/$base_name -i $transdecoder_output/$base_name.fa.transdecoder_clean.pep -T $interpro_temp
+    echo "interproscan.sh -cpu 2 -f TSV,GFF3 -goterms -b $interpro/$base_name -i $transdecoder_output/$base_name.fa.transdecoder_clean.pep -T $interpro_temp" >> inter_cmds.txt
 done
 
+parallel --jobs 2 --progress < inter_cmds.txt
 
 
 
