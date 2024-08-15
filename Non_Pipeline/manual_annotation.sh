@@ -22,10 +22,12 @@ for file in $(ls $small_gtf_dir | grep "dupped" | grep "PxH_NegxPos"); do
 
     # #transdecoder shit
     gtf_to_alignment_gff3.pl $small_gtf_dir/$base_name.gtf  > $gff3_dir/$base_name.gff3
-
-    TransDecoder.LongOrfs -t $bedtools_dir/$base_name.fa -O $transdecoder
     
-    TransDecoder.Predict -t $bedtools_dir/$base_name.fa -O $transdecoder
+    # Make directory for transdecoder to work
+    mkdir $transdecoder/$base_name
+    TransDecoder.LongOrfs -t $bedtools_dir/$base_name.fa -O $transdecoder/$base_name
+    
+    TransDecoder.Predict -t $bedtools_dir/$base_name.fa -O $transdecoder/$base_name
     mv $base_name.fa.transdecoder.pep $transdecoder_output
     mv $base_name.fa.transdecoder.gff3 $transdecoder_output
     mv $base_name.fa.transdecoder.cds $transdecoder_output
