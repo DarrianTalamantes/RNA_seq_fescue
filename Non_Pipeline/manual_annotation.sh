@@ -8,13 +8,13 @@ transdecoder_output="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/tra
 interpro="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/interpro"
 interpro_temp="/scratch/drt83172/Wallace_lab/RNA_SEQ/manual_annotation/interpro_temp"
 
-
+> deebugger.log
 for file in $(ls $small_gtf_dir | grep "dupped"); do
     base_name=$(basename "$file" | sed 's/\.[^.]*$//')
     echo $base_name
     # # Run bed tools (gtf to fasta)
     bedtools getfasta -fi $genome -bed $small_gtf_dir/$base_name.gtf -fo $bedtools_dir/$base_name.fa
-
+    echo "getfasta -fi $genome -bed $small_gtf_dir/$base_name.gtf -fo $bedtools_dir/$base_name.fa" >> deebugger.log
     # #transdecoder shit
     gtf_to_alignment_gff3.pl $small_gtf_dir/$base_name.gtf  > $gff3_dir/$base_name.gff3
     
