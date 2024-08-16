@@ -333,20 +333,20 @@ head(PxH_NegxPos)
 separator <- ggplot() + theme_void() + 
   theme(panel.background = element_rect(fill = "black", colour = "black"))
 # Heat x Control
-volcano_plot_EndoNeg_HeatxControl <- create_volcano_plot(EndoNeg_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "EndoNeg vs HeatxControl")
+volcano_plot_EndoNeg_HeatxControl <- create_volcano_plot(EndoNeg_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative,  HeatxControl")
 print(volcano_plot_EndoNeg_HeatxControl)
 
-volcano_plot_EndoPos_HeatxControl <- create_volcano_plot(EndoPos_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "EndoPos vs HeatxControl")
+volcano_plot_EndoPos_HeatxControl <- create_volcano_plot(EndoPos_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive,  HeatxControl")
 print(volcano_plot_EndoPos_HeatxControl)
 
 combined_plot1 <- ggarrange(volcano_plot_EndoNeg_HeatxControl, separator, volcano_plot_EndoPos_HeatxControl, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
 annotate_figure(combined_plot1, top = text_grob("Heat x Control Volcano Plots", face = "bold", size = 14))
 
 # HeatxPresipitation x control
-volcano_plot_EndoPos_HPxControl <- create_volcano_plot(EndoPos_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Posititve, Heat x Control")
+volcano_plot_EndoPos_HPxControl <- create_volcano_plot(EndoPos_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Posititve, Heat with Percipitation x Control")
 print(volcano_plot_EndoPos_HPxControl)
 
-volcano_plot_EndoNeg_HPxControl <- create_volcano_plot(EndoNeg_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Negative, Heat x Control")
+volcano_plot_EndoNeg_HPxControl <- create_volcano_plot(EndoNeg_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Negative, Heat with Percipitation x Control")
 print(volcano_plot_EndoNeg_HPxControl)
 
 combined_plot2 <- ggarrange(volcano_plot_EndoNeg_HPxControl, separator, volcano_plot_EndoPos_HPxControl, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
