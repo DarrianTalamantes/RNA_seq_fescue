@@ -69,6 +69,10 @@ star_index_files = config["star_index_files"]
 
 rule all:
     input:
+        fasta_fwd=trimmed + "/{pairs}R1.fq.gz",
+        report_fwd=trimmed + "/{pairs}R1_trimming_report.txt",
+        fasta_rev=trimmed + "/{pairs}R2.fq.gz",
+        report_rev=trimmed + "/{pairs}R2_trimming_report.txt"
         # expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
         # config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
         # config["directories"]["star_bams"] + "Log.out", # mapping
@@ -77,9 +81,9 @@ rule all:
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
         # gtf=config["scallop"]["output_file"] # Activates scallop2
         # counts = config["directories"]["features"] + "feature_counts.txt" # feature counts
-        pep_file = config["transdecoder"]["pep"], # predict makes this
-        fasta_gff3 = config["transdecoder"]["fasta_gff3"], # predict makes this     
-        pep_file_clean = config["transdecoder"]["pep_clean"]
+        # pep_file = config["transdecoder"]["pep"], # predict makes this
+        # fasta_gff3 = config["transdecoder"]["fasta_gff3"], # predict makes this     
+        # pep_file_clean = config["transdecoder"]["pep_clean"]
    
 
 
