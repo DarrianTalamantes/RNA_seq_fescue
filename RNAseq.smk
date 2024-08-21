@@ -69,10 +69,10 @@ star_index_files = config["star_index_files"]
 
 rule all:
     input:
-        fasta_fwd=trimmed + "/{pairs}R1.fq.gz",
-        report_fwd=trimmed + "/{pairs}R1_trimming_report.txt",
-        fasta_rev=trimmed + "/{pairs}R2.fq.gz",
-        report_rev=trimmed + "/{pairs}R2_trimming_report.txt"
+        expand(fasta_fwd=trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS),
+        expand(report_fwd=trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
+        expand(fasta_rev=trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS),
+        expand(report_rev=trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
         # expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
         # config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
         # config["directories"]["star_bams"] + "Log.out", # mapping
