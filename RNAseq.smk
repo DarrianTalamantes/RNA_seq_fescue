@@ -69,16 +69,16 @@ star_index_files = config["star_index_files"]
 
 rule all:
     input:
-        expand(fasta_fwd=trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS),
-        expand(report_fwd=trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
-        expand(fasta_rev=trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS),
-        expand(report_rev=trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
+        expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS),
+        expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
+        expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS),
+        expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
         # expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
         # config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
         # config["directories"]["star_bams"] + "Log.out", # mapping
         # config["directories"]["star_bams"] + "Log.final.out", # mapping
         # config["directories"]["star_bams"] + "SJ.out.tab", # mapping
-        # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
+        expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
         # gtf=config["scallop"]["output_file"] # Activates scallop2
         # counts = config["directories"]["features"] + "feature_counts.txt" # feature counts
         # pep_file = config["transdecoder"]["pep"], # predict makes this
