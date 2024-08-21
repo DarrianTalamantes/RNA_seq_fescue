@@ -124,11 +124,11 @@ rule fastqc:
 
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
-# include: "rules/trim.smk"
+include: "rules/trim.smk"
 # include: "rules/star.smk"
 # include: "rules/scallop.smk"
 # include: "rules/feature_counts.smk"
-include: "rules/annotation.smk"
+# include: "rules/annotation.smk"
 
 
 
