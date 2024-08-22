@@ -127,6 +127,7 @@ rule fastqc:
 include: "rules/trim.smk"
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads.
 
+# include: "rules/kraken.smk"
 # include: "rules/star.smk"
 # include: "rules/Fungal_removal.smk"
 # include: "rules/scallop.smk"

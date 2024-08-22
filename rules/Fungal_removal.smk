@@ -19,43 +19,15 @@ rule grepper_big:
 
 rule grepper_sep:
     input:
-        sep_bams = bam = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam"
+        sep_bams = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam"
     conda:
         "../Conda_Envs/samtools.yaml"
     threads: 8
     output:
-        filtered_bam = expand(config["directories"]["filtered_bams"] + "/Aligned.sortedByCoord_filtered.out.bam")
+        filtered_bams = expand(config["directories"]["filtered_bams"] + "/Aligned.sortedByCoord_filtered.out.bam")
     shell:
         """
-        grep -v "JAFEMN" {input.sep_bams} > {output.filtered_bam}
+        grep -v "JAFEMN" {input.sep_bams} > {output.filtered_bams}
         """
-
-rule kraken2_big:
-    input:
-        sep_bams = bam = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam"
-    conda:
-        "../Conda_Envs/samtools.yaml"
-    threads: 8
-    output:
-        filtered_bam = expand(config["directories"]["filtered_bams"] + "/Aligned.sortedByCoord_filtered.out.bam")
-    shell:
-        """
-        grep -v "JAFEMN" {input.sep_bams} > {output.filtered_bam}
-        """
-
-rule kraken_sep:
-    input:
-        sep_bams = bam = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam"
-    conda:
-        "../Conda_Envs/samtools.yaml"
-    threads: 8
-    output:
-        filtered_bam = expand(config["directories"]["filtered_bams"] + "/Aligned.sortedByCoord_filtered.out.bam")
-    shell:
-        """
-        grep -v "JAFEMN" {input.sep_bams} > {output.filtered_bam}
-        """
-
-
 
 

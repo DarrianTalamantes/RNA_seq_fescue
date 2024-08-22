@@ -17,8 +17,8 @@ directories:
   annotations: /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotations
   filtered_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/sep
   filtered_bam_big: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/big
-  kraken_big: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/big
-  kraken_sep: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/sep
+  kraken: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken
+  kraken_db: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken_db
 
 
 
@@ -33,6 +33,9 @@ params:
     log: /scratch/drt83172/Wallace_lab/RNA_SEQ/log/samtoolsview_log.txt
     threads: 32
     threads_multi: 10
+  
+kraken:
+  db_name: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken_db/fungi_db
 
 scallop:
   output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome_col3swap.gtf

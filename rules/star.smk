@@ -2,6 +2,7 @@
 #     Assembling Transcriptome
 # =================================================================================================
 
+# This should go after kraken
 # index genome with STAR
 # align reads to genome with STAR
 # put bam file into trinity guided approuch 
