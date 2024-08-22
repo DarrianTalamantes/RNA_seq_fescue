@@ -125,7 +125,10 @@ rule fastqc:
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
 include: "rules/trim.smk"
+# # Here we run fastqc and multiqc manually. I will trim any samples with too many reads.
+
 # include: "rules/star.smk"
+# include: "rules/Fungal_removal.smk"
 # include: "rules/scallop.smk"
 # include: "rules/feature_counts.smk"
 # include: "rules/annotation.smk"

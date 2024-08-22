@@ -15,6 +15,12 @@ directories:
   transdecoder_dir: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir_col3swap
   blast: /scratch/drt83172/Wallace_lab/RNA_SEQ/Blast/
   annotations: /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotations
+  filtered_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/sep
+  filtered_bam_big: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/big
+  kraken_big: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/big
+  kraken_sep: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/sep
+
+
 
 lists:
   paired_list_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/paired_list.txt
