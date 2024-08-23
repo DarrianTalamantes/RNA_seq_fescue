@@ -29,17 +29,21 @@ rule kraken:
         "../Conda_Envs/kraken.yaml"
     params:
         cores = "8"
+        db = config["kraken"]["db_name"]
     threads: 8
     output:
-        classified = ""
-        unclassified = ""
+        classified1 = config["kraken"]["classified"] + "/krakened_{pairs}R1.fq.gz"
+        classified2 = config["kraken"]["classified"] + "/krakened_{pairs}R2.fq.gz"
+        unclassified1 = config["kraken"]["unclassified"] + "/krakened_{pairs}R1.fq.gz"
+        unclassified2 = config["kraken"]["unclassified"] + "/krakened_{pairs}R2.fq.gz"
+
     shell:
         """
         kraken2 --paired -gziped-compressed --threads {params.cores} \
-                --db \
-                --classified-out {output.}\
-                --unclassified-out {output.}\
-                {input}
+                --db {params.db}\
+                --classified-out {output.classified}/\
+                --unclassified-out {output.unclassified}\
+                {input.fasta_fwd} {input.fasta_rev}
         """
 
 # Example command needed

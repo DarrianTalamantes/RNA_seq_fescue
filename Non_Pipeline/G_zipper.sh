@@ -4,8 +4,8 @@
 #SBATCH --ntasks=32
 #SBATCH --mem 120gb
 #SBATCH -t 140:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/G_zipper/Scripts/outfiles/RNAseq.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/G_zipper/Scripts/outfiles/RNAseq.%j.err
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/G_zipper.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/G_zipper.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
@@ -18,7 +18,7 @@ sacct -j $SLURM_JOB_ID --format=JobID,JobName,AllocCPUS,Elapsed,ExitCode,State,M
 
 
 
-parallel/20230722-GCCcore-12.2.0
+ml parallel/20230722-GCCcore-12.2.0
 
 >commands.txt
 while IFS= read -r file; do
