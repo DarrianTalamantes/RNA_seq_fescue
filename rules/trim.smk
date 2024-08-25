@@ -12,7 +12,7 @@ rule trim_galore_pe:
         report_fwd=trimmed + "/{pairs}R1_trimming_report.txt",
         fasta_rev=trimmed + "/{pairs}R2.fq.gz",
         report_rev=trimmed + "/{pairs}R2_trimming_report.txt"
-    threads: 16
+    threads: 6
     params:
         extra="--illumina -q 20"
     wrapper:
