@@ -77,7 +77,7 @@ rule all:
         expand(config["kraken"]["classified"] + "/krakened_{pairs}R1.fq.gz", pairs=PAIRS),
         expand(config["kraken"]["classified"] + "/krakened_{pairs}R2.fq.gz", pairs=PAIRS),
         expand(config["kraken"]["unclassified"] + "/krakened_{pairs}R1.fq.gz", pairs=PAIRS),
-        expand(config["kraken"]["unclassified"] + "/krakened_{pairs}R2.fq.gz", pairs=PAIRS) # Outputs for kraken
+        expand(config["kraken"]["unclassified"] + "/krakened_{pairs}R2.fq.gz", pairs=PAIRS), # Outputs for kraken
 
         # expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
         # config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
