@@ -69,10 +69,16 @@ star_index_files = config["star_index_files"]
 
 rule all:
     input:
-        expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS),
-        expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
-        expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS),
-        expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
+        # expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS),
+        # expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
+        # expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS),
+        # expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
+
+        expand(config["kraken"]["classified"] + "/krakened_{pairs}R1.fq.gz", pairs=PAIRS)
+        expand(config["kraken"]["classified"] + "/krakened_{pairs}R2.fq.gz", pairs=PAIRS)
+        expand(config["kraken"]["unclassified"] + "/krakened_{pairs}R1.fq.gz", pairs=PAIRS)
+        expand(config["kraken"]["unclassified"] + "/krakened_{pairs}R2.fq.gz", pairs=PAIRS) # Outputs for kraken
+
         # expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
         # config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
         # config["directories"]["star_bams"] + "Log.out", # mapping
@@ -127,7 +133,7 @@ rule fastqc:
 include: "rules/trim.smk"
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads.
 
-# include: "rules/kraken.smk"
+include: "rules/kraken.smk"
 # include: "rules/star.smk"
 # include: "rules/Fungal_removal.smk"
 # include: "rules/scallop.smk"

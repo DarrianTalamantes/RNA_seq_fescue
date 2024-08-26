@@ -28,11 +28,11 @@ rule kraken:
     conda:
         "../Conda_Envs/kraken.yaml"
     params:
-        cores = "8"
+        cores = "5"
         db = config["kraken"]["db_name"]
         classified_base = config["kraken"]["classified"] + "/krakened_{pairs}",
         unclassified_base = config["kraken"]["unclassified"] + "/krakened_{pairs}"
-    threads: 8
+    threads: 5
     output:
         classified1 = config["kraken"]["classified"] + "/krakened_{pairs}R1.fq.gz"
         classified2 = config["kraken"]["classified"] + "/krakened_{pairs}R2.fq.gz"
