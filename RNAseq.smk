@@ -77,7 +77,7 @@ rule all:
         expand(config["kraken"]["classified"] + "/krakened_{pairs}R1.fq.gz", pairs=PAIRS),
         expand(config["kraken"]["classified"] + "/krakened_{pairs}R2.fq.gz", pairs=PAIRS),
         expand(config["kraken"]["unclassified"] + "/krakened_{pairs}R1.fq.gz", pairs=PAIRS),
-        expand(config["kraken"]["unclassified"] + "/krakened_{pairs}R2.fq.gz", pairs=PAIRS), # Kraken
+        expand(config["kraken"]["unclassified"] + "/krakened_{pairs}R2.fq.gz", pairs=PAIRS),
         config["kraken"]["db_name"] + "/hash.k2d"  # Ensure the database is built before running Kraken
 
 
@@ -132,7 +132,7 @@ rule fastqc:
 
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
-include: "rules/trim.smk"
+# include: "rules/trim.smk"
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads.
 
 include: "rules/kraken.smk"
