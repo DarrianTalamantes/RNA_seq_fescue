@@ -10,7 +10,7 @@ rule build_db:
         db_complete = config["kraken"]["db_name"] + "/hash.k2d"
     shell:
     """
-    if [ ! -d {params.db_dir} ]; then \
+    if [ ! -d {params.db_dir} ]; then 
         mkdir -p {params.log_dir}; fi
 
     kraken2-build --download-taxonomy --db {params.db}
@@ -34,14 +34,14 @@ rule kraken:
         unclassified_base = config["kraken"]["unclassified"] + "/krakened_{pairs}"
     threads: 5
     output:
-        classified1 = config["kraken"]["classified"] + "/krakened_{pairs}R1.fq.gz"
-        classified2 = config["kraken"]["classified"] + "/krakened_{pairs}R2.fq.gz"
-        unclassified1 = config["kraken"]["unclassified"] + "/krakened_{pairs}R1.fq.gz"
+        classified1 = config["kraken"]["classified"] + "/krakened_{pairs}R1.fq.gz",
+        classified2 = config["kraken"]["classified"] + "/krakened_{pairs}R2.fq.gz",
+        unclassified1 = config["kraken"]["unclassified"] + "/krakened_{pairs}R1.fq.gz",
         unclassified2 = config["kraken"]["unclassified"] + "/krakened_{pairs}R2.fq.gz"
     shell:
         """
         kraken2 --paired -gziped-compressed --threads {params.cores} \
-                --db {params.db}\
+                --db {params.db} \
                 --classified-out {params.classified_base}#.fq.gz \
                 --unclassified-out {params.unclassified_base}#.fq.gz \
                 {input.fasta_fwd} {input.fasta_rev}
