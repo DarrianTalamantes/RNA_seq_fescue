@@ -73,13 +73,13 @@ rule all:
         # expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
         # expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS),
         # expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
+        
+        expand(config["kraken"]["classified"] + "/krakened_{pairs}R1.fq.gz", pairs=PAIRS),
+        expand(config["kraken"]["classified"] + "/krakened_{pairs}R2.fq.gz", pairs=PAIRS),
+        expand(config["kraken"]["unclassified"] + "/krakened_{pairs}R1.fq.gz", pairs=PAIRS),
+        expand(config["kraken"]["unclassified"] + "/krakened_{pairs}R2.fq.gz", pairs=PAIRS), # Kraken
+        config["kraken"]["db_name"] + "/hash.k2d"  # Ensure the database is built before running Kraken
 
-        expand([
-            config["kraken"]["classified"] + "/krakened_{pairs}R1.fq.gz",
-            config["kraken"]["classified"] + "/krakened_{pairs}R2.fq.gz",
-            config["kraken"]["unclassified"] + "/krakened_{pairs}R1.fq.gz",
-            config["kraken"]["unclassified"] + "/krakened_{pairs}R2.fq.gz"
-        ], pairs=PAIRS) # Outputs for kraken
 
         # expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
         # config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
