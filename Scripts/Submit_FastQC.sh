@@ -2,7 +2,7 @@
 #SBATCH -J FastQC
 #SBATCH -p batch
 #SBATCH --ntasks=12
-#SBATCH --mem 40gb
+#SBATCH --mem 50gb
 #SBATCH -t 140:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FastQC.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FastQC.%j.err
@@ -16,5 +16,6 @@ echo "Done."
 sacct -j $SLURM_JOB_ID --format=JobID,JobName,AllocCPUS,Elapsed,ExitCode,State,MaxRSS,TotalCPU
 
 module load FastQC/0.11.9-Java-11
+module load parallel/20230722-GCCcore-12.2.0
 
 ./RunFastQC.sh /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed

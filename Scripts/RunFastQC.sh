@@ -17,14 +17,16 @@ OUTPUT_DIR="${DIR}/fastqc_results"
 mkdir -p $OUTPUT_DIR
 
 # Run FastQC on all fastq files in the specified directory
+>commands.txt
 for file in "$DIR"/*.fq.gz; do
   if [ -f "$file" ]; then
     echo "Running FastQC on $file"
-    fastqc -o $OUTPUT_DIR "$file"
+    echo "fastqc -o $OUTPUT_DIR $file" >> commands.txt 
   else
     echo "No FASTQ files found in $DIR"
     exit 1
   fi
 done
 
+parallel --jobs 12 < commands.txt
 echo "FastQC analysis complete. Results are in $OUTPUT_DIR"
