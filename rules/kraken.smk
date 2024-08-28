@@ -5,7 +5,7 @@ rule build_db:
         "../Conda_Envs/kraken.yaml"
     params:
         db_dir = config["directories"]["kraken_db"],
-        db_name = config["kraken"]["db_name"]
+        db_name = config["kraken"]["db_name"],
         threads = config["kraken"]["threads"]
     threads: config["kraken"]["threads"]
     output:
