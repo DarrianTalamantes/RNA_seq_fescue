@@ -15,9 +15,9 @@ rule build_db:
         if [ ! -d {params.db_dir} ]; then
             mkdir -p {params.db_dir}; 
         fi
-
-        kraken2-build --download-library PlusPFP --db {params.db_name} --threads {params.threads}
+        
         kraken2-build --download-taxonomy --db {params.db_dir} --threads {params.threads}
+        kraken2-build --download-library PlusPFP --db {params.db_name} --threads {params.threads}
         kraken2-build --build --db {params.db_dir} --threads {params.threads}
         """
 
