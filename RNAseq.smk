@@ -72,12 +72,7 @@ rule all:
         # expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS), # Trimming
         # expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS), # Trimming
         # expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS) # Trimming
-        expand([
-            config["kraken"]["classified"] + "/krakened_{pairs}R1.fq.gz",
-            config["kraken"]["classified"] + "/krakened_{pairs}R2.fq.gz",
-            config["kraken"]["unclassified"] + "/krakened_{pairs}R1.fq.gz",
-            config["kraken"]["unclassified"] + "/krakened_{pairs}R2.fq.gz"
-        ], pairs=PAIRS),
+        expand([config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"], pairs=PAIRS),
         config["kraken"]["db_name"] + "/hash.k2d"  # Ensure the database is built before running Kraken
 
 
