@@ -31,10 +31,10 @@ rule copy_db_to_memory:
         db_in_memory = "/dev/shm/fungi_db/hash.k2d"
     shell:
     """
-        # Copy the database to shared memory if it's not already there
-        if [ ! -d {params.db_mem} ]; then
-            cp -r {params.db_name} {params.db_mem};
-        fi
+    # Copy the database to shared memory if it's not already there
+    if [ ! -d {params.db_mem} ]; then
+        cp -r {params.db_name} {params.db_mem};
+    fi
     """
 
 # This rule runs kraken
