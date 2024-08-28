@@ -13,7 +13,8 @@ rule build_db:
     shell:
         """
         if [ ! -d {params.db_dir} ]; then
-            mkdir -p {params.db_dir}; fi
+            mkdir -p {params.db_dir}; 
+        fi
 
         kraken2-build --download-library PlusPFP --db {params.db_name} --threads {params.threads}
         kraken2-build --download-taxonomy --db {params.db_dir} --threads {params.threads}
@@ -30,12 +31,12 @@ rule copy_db_to_memory:
     output:
         db_in_memory = "/dev/shm/fungi_db/hash.k2d"
     shell:
-    """
-    # Copy the database to shared memory if it's not already there
-    if [ ! -d {params.db_mem} ]; then
-        cp -r {params.db_name} {params.db_mem};
-    fi
-    """
+        """
+        # Copy the database to shared memory if it's not already there
+        if [ ! -d {params.db_mem} ]; then
+            cp -r {params.db_name} {params.db_mem};
+        fi
+        """
 
 # This rule runs kraken
 rule kraken:
