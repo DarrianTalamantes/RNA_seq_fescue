@@ -48,9 +48,8 @@ def read_sample_names(file_path):
 # =================================================================================================
 
 # Listing Progeny Files
-sample_names_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/samples_list.txt"
-SAMPLES = read_sample_names(sample_names_file)
 
+#This is the base name of all the files without R1 and R2
 paired_list_file = config["lists"]["paired_list_file"]
 PAIRS = read_sample_names(paired_list_file)
 
@@ -110,31 +109,12 @@ rule fastqc:
         fastqc  -o {qcdir} {input.fastq} 
         """
 
-#################################
-# Multiqc (could not get multiqc installed in conda)
-#################################
-# rule multiqc:
-#     input:
-#         expand(qcdir + "/{sample}_fastqc.html", sample=SAMPLES),
-#     output:
-#         mqcdir + "/multiqc_report.html",
-#         mqcdir + "/multiqc_report.zip",
-#     params:
-#         extra= "--verbose",
-#     conda:
-#         "Conda_Envs/multiqc.yaml"
-#     wrapper:
-#         "v3.9.0/bio/multiqc"
-####
-# Code below was ran instead of the multiqc rule
-# multiqc . 
-###
 
 
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
 # include: "rules/trim.smk"
-# # Here we run fastqc and multiqc manually. I will trim any samples with too many reads.
+# # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
 
 include: "rules/kraken.smk"
 # include: "rules/star.smk"
