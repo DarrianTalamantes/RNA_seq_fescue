@@ -42,7 +42,6 @@ rule kraken:
     input:
         fasta_fwd = trimmed + "/{pairs}R1.fq.gz",
         fasta_rev = trimmed + "/{pairs}R2.fq.gz",
-        db_complete = "/dev/shm/fungi_db/hash.k2d"  
         db_in_memory = rules.copy_db_to_memory.output.db_in_memory
 
     conda:
