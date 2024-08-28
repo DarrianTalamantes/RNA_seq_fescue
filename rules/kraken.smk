@@ -21,30 +21,26 @@ rule build_db:
         kraken2-build --build --db {params.db_dir} --threads {params.threads}
         """
 
-# This rule preloads the db into memory so we dont have      
+# Rule to copy the Kraken database to shared memory
 rule copy_db_to_memory:
     input:
-        db_complete = "/dev/shm/fungi_db/hash.k2d"  
-    params:
-        db_mem = "/dev/shm/fungi_db",
-        db_name = config["kraken"]["db_name"]
+        db_complete = config["kraken"]["db_name"] + "/hash.k2d"
     output:
-        db_in_memory = "/dev/shm/fungi_db/hash.k2d"
+        db_in_memory = config["kraken"]["db_in_memory"]
     shell:
         """
         # Copy the database to shared memory if it's not already there
-        if [ ! -d {params.db_mem} ]; then
-            cp -r {params.db_name} {params.db_mem};
+        if [ ! -d "/dev/shm/fungi_db" ]; then
+            cp -r {input.db_complete} /dev/shm/fungi_db;
         fi
         """
 
-# This rule runs kraken
+# Rule to run Kraken using the database in memory
 rule kraken:
     input:
         fasta_fwd = trimmed + "/{pairs}R1.fq.gz",
         fasta_rev = trimmed + "/{pairs}R2.fq.gz",
-        db_in_memory = rules.copy_db_to_memory.output.db_in_memory
-
+        db_in_memory = config["kraken"]["db_in_memory"]  # Directly point to the shared memory copy
     conda:
         "../Conda_Envs/kraken.yaml"
     params:

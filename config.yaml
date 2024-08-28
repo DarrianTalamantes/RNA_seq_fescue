@@ -39,6 +39,7 @@ kraken:
   classified: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/classified
   unclassified: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/unclassified
   threads: 32
+  db_in_memory: /dev/shm/fungi_db/hash.k2d
 
 scallop:
   output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome_col3swap.gtf
