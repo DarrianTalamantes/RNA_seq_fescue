@@ -31,7 +31,6 @@ align = config["directories"]["align"]
 sep_bams = config["directories"]["sep_bams"]
 # Files
 genome = config["genome"]
-star_manifest = config["star_manifest"]
 
 # =================================================================================================
 #   Functions
@@ -76,11 +75,17 @@ rule all:
         config["kraken"]["db_name"] + "/hash.k2d"  # Ensure the database is built before running Kraken
 
 
-        # expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
-        # config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam", # mapping
-        # config["directories"]["star_bams"] + "Log.out", # mapping
-        # config["directories"]["star_bams"] + "Log.final.out", # mapping
-        # config["directories"]["star_bams"] + "SJ.out.tab", # mapping
+        expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
+        config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
+        config["directories"]["star_bams"] + "Log.out",
+        config["directories"]["star_bams"] + "Log.final.out",
+        config["directories"]["star_bams"] + "SJ.out.tab"
+
+        expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam"),
+        expand(config["directories"]["sep_bams"] + "{pairs}Log.out"),
+        expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out"),
+        expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab")
+
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
         # gtf=config["scallop"]["output_file"] # Activates scallop2
         # counts = config["directories"]["features"] + "feature_counts.txt" # feature counts
@@ -90,21 +95,6 @@ rule all:
    
 
 
-# This rule runs fastqc on all data fastq files
-rule fastqc:
-    input:
-        fastq = datadir + "/{sample}.fastq.gz"
-    output:
-        html = qcdir + "/{sample}_fastqc.html",
-        zip = qcdir + "/{sample}_fastqc.zip"   
-    conda:
-        "Conda_Envs/multiqc.yaml"
-    shell:
-        """
-        fastqc  -o {qcdir} {input.fastq} 
-        """
-
-
 
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
@@ -112,7 +102,7 @@ rule fastqc:
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
 
 include: "rules/kraken.smk"
-# include: "rules/star.smk"
+include: "rules/star.smk"
 # include: "rules/Fungal_removal.smk"
 # include: "rules/scallop.smk"
 # include: "rules/feature_counts.smk"
