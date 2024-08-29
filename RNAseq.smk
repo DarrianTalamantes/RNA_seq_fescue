@@ -66,21 +66,27 @@ star_index_files = config["star_index_files"]
 
 
 rule all:
-    input:   
-        # expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS), # Trimming
-        # expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS), # Trimming
-        # expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS), # Trimming
-        # expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS) # Trimming
+    input:
+        # # Trimming   
+        # expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS), 
+        # expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
+        # expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS), 
+        # expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
+
+        # # Kraken 
         expand([config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"], pairs=PAIRS),
-        config["kraken"]["db_name"] + "/hash.k2d"  # Ensure the database is built before running Kraken
+        config["kraken"]["db_name"] + "/hash.k2d",  # Ensure the database is built before running Kraken
+        expand(config["kraken"]["fungal"] + "/{pairs}R1.fq"),
+        expand(config["kraken"]["fungal"] + "/{pairs}R2.fq"),
+        expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq"),
+        expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq"),
 
-
+        # # Star 
         expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
         config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
         config["directories"]["star_bams"] + "Log.out",
         config["directories"]["star_bams"] + "Log.final.out",
-        config["directories"]["star_bams"] + "SJ.out.tab"
-
+        config["directories"]["star_bams"] + "SJ.out.tab",
         expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam"),
         expand(config["directories"]["sep_bams"] + "{pairs}Log.out"),
         expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out"),
