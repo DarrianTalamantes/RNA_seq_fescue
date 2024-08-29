@@ -69,7 +69,7 @@ rule kraken:
 ####
 
 # This rule takes the fasta files and removes the fungal reads
-rule filter_reads:
+rule filter_reads_excluder:
     input:
         fasta_fwd = trimmed + "/{pairs}R1.fq.gz",
         fasta_rev = trimmed + "/{pairs}R2.fq.gz",
@@ -88,7 +88,7 @@ rule filter_reads:
             -o {output.extracted_fwd} -o2 {output.extracted_rev}
         """
 
-rule filter_reads:
+rule filter_reads_keeper:
     input:
         fasta_fwd = trimmed + "/{pairs}R1.fq.gz",
         fasta_rev = trimmed + "/{pairs}R2.fq.gz",
