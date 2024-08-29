@@ -74,22 +74,22 @@ rule all:
         # expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
 
         # # Kraken 
-        expand(config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz", pairs=PAIRS) +
+        expand(config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz", pairs=PAIRS),
         config["kraken"]["db_name"] + "/hash.k2d",  # Ensure the database is built before running Kraken
-        expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS) +
-        expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS) +
-        expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS) +
-        expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq", pairs=PAIRS) +
+        expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+        expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
+        expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+        expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
 
-        # # Star 
-        expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files) + # For indexing genome
-        config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam" +
-        config["directories"]["star_bams"] + "Log.out" +
-        config["directories"]["star_bams"] + "Log.final.out" +
-        config["directories"]["star_bams"] + "SJ.out.tab" +
-        expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS) +
-        expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS) +
-        expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS) +
+        # STAR outputs
+        expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
+        config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
+        config["directories"]["star_bams"] + "Log.out",
+        config["directories"]["star_bams"] + "Log.final.out",
+        config["directories"]["star_bams"] + "SJ.out.tab",
+        expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
+        expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
+        expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
         expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS)
 
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
