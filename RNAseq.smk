@@ -83,10 +83,10 @@ rule all:
 
         # # Star 
         expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
-        config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
-        config["directories"]["star_bams"] + "Log.out",
-        config["directories"]["star_bams"] + "Log.final.out",
-        config["directories"]["star_bams"] + "SJ.out.tab",
+        expand(config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam"),
+        expand(config["directories"]["star_bams"] + "Log.out"),
+        expand(config["directories"]["star_bams"] + "Log.final.out"),
+        expand(config["directories"]["star_bams"] + "SJ.out.tab"),
         expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
         expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
         expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
