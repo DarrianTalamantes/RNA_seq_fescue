@@ -26,13 +26,13 @@ lists:
   paired_list_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/paired_list.txt
 
 genome: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/tall_fescuev0.1.fa
-star_manifest: manifest.tsv
 
-params:
-  star_mapping:
+star_mapping:
     log: /scratch/drt83172/Wallace_lab/RNA_SEQ/log/samtoolsview_log.txt
     threads: 32
     threads_multi: 10
+    star_manifest: manifest.tsv
+
   
 kraken:
   db_name: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken_db

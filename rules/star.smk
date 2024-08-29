@@ -37,12 +37,13 @@ rule star_index:
 if config["use_ignored_rule"]:
     rule star_mapping:
         input:
-            manifest = star_manifest,
             genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
         params:
-            threads = config["params"]["star_mapping"]["threads"],
+            threads = config["star_mapping"]["threads"],
             prefix = config["directories"]["star_bams"],
-            genome_dir = config["directories"]["genome_idx"]
+            genome_dir = config["directories"]["genome_idx"],
+            manifest = config["star_mapping"]["star_manifest"]
+
         conda:
             "../Conda_Envs/transcriptome.yaml"
         threads: 32
@@ -52,11 +53,12 @@ if config["use_ignored_rule"]:
             log_final = config["directories"]["star_bams"] + "Log.final.out",
             sj_out = config["directories"]["star_bams"] + "SJ.out.tab"
         shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 100GB
-            """        
+            """ 
+            ls        
             STAR --runThreadN {params.threads} \
                 --genomeDir {params.genome_dir} \
                 --readFilesCommand zcat \
-                --readFilesManifest {input.manifest} \
+                --readFilesManifest {params.manifest} \
                 --outFileNamePrefix {params.prefix} \
                 --limitBAMsortRAM 107089370995 \
                 --outSAMtype BAM SortedByCoordinate
