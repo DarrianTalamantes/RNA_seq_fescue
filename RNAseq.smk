@@ -64,7 +64,7 @@ star_index_files = config["star_index_files"]
 #    Rules
 # =================================================================================================
 
-
+# You can not have anymore that one commented out line when defining your inputs here
 rule all:
     input:
         # # Kraken outputs
