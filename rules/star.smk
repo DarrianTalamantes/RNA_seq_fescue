@@ -26,7 +26,27 @@ rule star_index:
             --genomeFastaFiles {input}
         """
 
+rule create_star_manifest:
+    input:
+        # Using the outputs from the Kraken rule
+        fwd_files = expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=SAMPLES),
+        rev_files = expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=SAMPLES)
+    output:
+        manifest = config["star_mapping"]["star_manifest"]
+    run:
+        import os
 
+        # Create a list to hold lines of the manifest
+        manifest_lines = []
+
+        # Iterate over each pair of forward and reverse FASTQ files
+        for fwd, rev in zip(input.fwd_files, input.rev_files):
+            sample_name = os.path.basename(fwd).replace("_R1.fq", "")
+            manifest_lines.append(f"{fwd}\t{rev}\t{sample_name}\n")
+
+        # Write the lines to the manifest file
+        with open(output.manifest, "w") as manifest_file:
+            manifest_file.writelines(manifest_lines)
 
 
 
@@ -37,16 +57,16 @@ rule star_index:
 if config["use_ignored_rule"]:
     rule star_mapping:
         input:
-            genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
+            genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files),
+            manifest = config["star_mapping"]["star_manifest"]
         params:
             threads = config["star_mapping"]["threads"],
             prefix = config["directories"]["star_bams"],
-            genome_dir = config["directories"]["genome_idx"],
-            manifest = config["star_mapping"]["star_manifest"]
+            genome_dir = config["directories"]["genome_idx"]
 
         conda:
             "../Conda_Envs/transcriptome.yaml"
-        threads: 32
+        threads: config["star_mapping"]["threads"]
         output:
             bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
             log_out = config["directories"]["star_bams"] + "Log.out",
@@ -54,39 +74,27 @@ if config["use_ignored_rule"]:
             sj_out = config["directories"]["star_bams"] + "SJ.out.tab"
         shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 100GB
             """ 
-            ls        
             STAR --runThreadN {params.threads} \
                 --genomeDir {params.genome_dir} \
-                --readFilesCommand zcat \
-                --readFilesManifest {params.manifest} \
+                --readFilesManifest {input.manifest} \
                 --outFileNamePrefix {params.prefix} \
                 --limitBAMsortRAM 107089370995 \
                 --outSAMtype BAM SortedByCoordinate
             """
 
-
-
-
-
-
-
-
-
-
-
 # This rule maps all the files seperatly with many different output files.
 rule star_mapping_seperate:
     input:
-        fasta_fwd=trimmed + "/{pairs}R1.fq.gz",
-        fasta_rev=trimmed + "/{pairs}R2.fq.gz",
+        extracted_fwd = config["kraken"]["fungal"] + "/{pairs}R1.fq",
+        extracted_rev = config["kraken"]["fungal"] + "/{pairs}R2.fq",
         genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
     params:
-        threads = config["params"]["star_mapping"]["threads"],
+        threads = config["star_mapping"]["threads_sep"],
         prefix = config["directories"]["sep_bams"] + "{pairs}",
         genome_dir = config["directories"]["genome_idx"]
     conda:
         "../Conda_Envs/transcriptome.yaml"
-    threads: 32
+    threads: config["star_mapping"]["threads_sep"]
     output:
         bam = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam",
         log = config["directories"]["sep_bams"] + "{pairs}Log.out",
@@ -96,30 +104,8 @@ rule star_mapping_seperate:
         """        
         STAR --runThreadN {params.threads} \
             --genomeDir {params.genome_dir} \
-            --readFilesCommand zcat \
             --readFilesIn {input.fasta_fwd} {input.fasta_rev} \
             --outFileNamePrefix {params.prefix} \
             --limitBAMsortRAM 15000000000 \
             --outSAMtype BAM SortedByCoordinate
-        """
-######## This is a a rough draft of the new version of this rule
-rule star_mapping:
-    input:
-        krakened_fq = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz",
-        star_index = config["star"]["index"]  # Path to the STAR index
-    output:
-        aligned_bam = config["star"]["output"] + "/{pairs}.Aligned.sortedByCoord.out.bam"
-    params:
-        threads = config["star"]["threads"],
-        out_prefix = config["star"]["output"] + "/{pairs}."  # Prefix for STAR output files
-    conda:
-        "../Conda_Envs/star.yaml"
-    shell:
-        """
-        STAR --runThreadN {params.threads} \
-             --genomeDir {input.star_index} \
-             --readFilesIn {input.krakened_fq} \
-             --readFilesCommand zcat \
-             --outFileNamePrefix {params.out_prefix} \
-             --outSAMtype BAM SortedByCoordinate
         """

@@ -88,6 +88,25 @@ rule filter_reads:
             -o {output.extracted_fwd} -o2 {output.extracted_rev}
         """
 
+rule filter_reads:
+    input:
+        fasta_fwd = trimmed + "/{pairs}R1.fq.gz",
+        fasta_rev = trimmed + "/{pairs}R2.fq.gz",
+        krakened = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"
+    conda:
+        "../Conda_Envs/kraken_tools.yaml"
+    params:
+        taxid_fungi = "4751"
+    output:
+        extracted_fwd = config["kraken"]["fungal"] + "/{pairs}R1.fq",
+        extracted_rev = config["kraken"]["fungal"] + "/{pairs}R2.fq"
+    shell:
+        """
+        extract_kraken_reads.py -k input.krakened -s1 input.fasta_fwd -s2 {input.fasta_rev} \
+            --include-children --taxid {params.taxid_fungi} \
+            -o {output.extracted_fwd} -o2 {output.extracted_rev}
+        """
+
 
 # This kraken rule uses unclassified and classified parameters to seperate stuff.
 # I like this, Wallace didnt.

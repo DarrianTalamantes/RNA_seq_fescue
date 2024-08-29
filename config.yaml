@@ -32,6 +32,7 @@ star_mapping:
     threads: 32
     threads_multi: 10
     star_manifest: manifest.tsv
+    threads_sep: 8
 
   
 kraken:
@@ -40,6 +41,8 @@ kraken:
   unclassified: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/unclassified
   threads: 32
   db_in_memory: /dev/shm/kraken_db
+  non_fungal: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/non_fungal
+  fungal: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/fungal
 
 scallop:
   output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome_col3swap.gtf
