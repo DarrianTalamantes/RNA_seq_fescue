@@ -76,10 +76,10 @@ rule all:
         # # Kraken 
         expand([config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"], pairs=PAIRS),
         config["kraken"]["db_name"] + "/hash.k2d",  # Ensure the database is built before running Kraken
-        expand(config["kraken"]["fungal"] + "/{pairs}R1.fq"),
-        expand(config["kraken"]["fungal"] + "/{pairs}R2.fq"),
-        expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq"),
-        expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq"),
+        expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+        expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
+        expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+        expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
 
         # # Star 
         expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files), # For indexing genome
@@ -87,10 +87,10 @@ rule all:
         config["directories"]["star_bams"] + "Log.out",
         config["directories"]["star_bams"] + "Log.final.out",
         config["directories"]["star_bams"] + "SJ.out.tab",
-        expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam"),
-        expand(config["directories"]["sep_bams"] + "{pairs}Log.out"),
-        expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out"),
-        expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab")
+        expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
+        expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
+        expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
+        expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS)
 
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
         # gtf=config["scallop"]["output_file"] # Activates scallop2
