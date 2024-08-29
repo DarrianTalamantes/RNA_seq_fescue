@@ -26,6 +26,14 @@ rule star_index:
             --genomeFastaFiles {input}
         """
 
+
+
+
+
+
+
+# This uses a manifest file to list everything that should be mapped into the one big file
+#Note: This manifest file has to change to the new kraken stuff.
 if config["use_ignored_rule"]:
     rule star_mapping:
         input:
@@ -55,6 +63,16 @@ if config["use_ignored_rule"]:
             """
 
 
+
+
+
+
+
+
+
+
+
+# This rule maps all the files seperatly with many different output files.
 rule star_mapping_seperate:
     input:
         fasta_fwd=trimmed + "/{pairs}R1.fq.gz",
@@ -82,4 +100,24 @@ rule star_mapping_seperate:
             --limitBAMsortRAM 15000000000 \
             --outSAMtype BAM SortedByCoordinate
         """
-
+######## This is a a rough draft of the new version of this rule
+rule star_mapping:
+    input:
+        krakened_fq = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz",
+        star_index = config["star"]["index"]  # Path to the STAR index
+    output:
+        aligned_bam = config["star"]["output"] + "/{pairs}.Aligned.sortedByCoord.out.bam"
+    params:
+        threads = config["star"]["threads"],
+        out_prefix = config["star"]["output"] + "/{pairs}."  # Prefix for STAR output files
+    conda:
+        "../Conda_Envs/star.yaml"
+    shell:
+        """
+        STAR --runThreadN {params.threads} \
+             --genomeDir {input.star_index} \
+             --readFilesIn {input.krakened_fq} \
+             --readFilesCommand zcat \
+             --outFileNamePrefix {params.out_prefix} \
+             --outSAMtype BAM SortedByCoordinate
+        """

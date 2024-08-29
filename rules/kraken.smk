@@ -15,23 +15,28 @@ rule build_db:
         if [ ! -d {params.db_dir} ]; then
             mkdir -p {params.db_dir}; 
         fi
-        
+
         kraken2-build --download-taxonomy --db {params.db_dir} --threads {params.threads}
         kraken2-build --download-library PlusPFP --db {params.db_name} --threads {params.threads}
         kraken2-build --build --db {params.db_dir} --threads {params.threads}
         """
+#####################
+# You might have to run this to get the database
+# wget https://genome-idx.s3.amazonaws.com/kraken/k2_pluspfp_20240605.tar.gz
+# Then tar the file
+##################
 
 # Rule to copy the Kraken database to shared memory
 rule copy_db_to_memory:
     input:
-        db_complete = config["kraken"]["db_name"] + "/hash.k2d"
+        db_complete = config["kraken"]["db_name"]
     output:
-        db_in_memory = config["kraken"]["db_in_memory"]
+        db_in_memory = directory(config["kraken"]["db_in_memory"])
     shell:
         """
         # Copy the database to shared memory if it's not already there
-        if [ ! -d "/dev/shm/fungi_db" ]; then
-            cp -r {input.db_complete} /dev/shm/fungi_db;
+        if [ ! -d {output.db_in_memory} ]; then
+            cp -r {input.db_complete} {output.db_in_memory};
         fi
         """
 
@@ -40,19 +45,18 @@ rule kraken:
     input:
         fasta_fwd = trimmed + "/{pairs}R1.fq.gz",
         fasta_rev = trimmed + "/{pairs}R2.fq.gz",
-        db_in_memory = config["kraken"]["db_in_memory"]  # Directly point to the shared memory copy
+        db_in_memory = rules.copy_db_to_memory.output.db_in_memory
     conda:
         "../Conda_Envs/kraken.yaml"
     params:
         threads = config["kraken"]["threads"],
-        db_mem = "/dev/shm/fungi_db"  # Path to the copied DB in shared memory
     threads: config["kraken"]["threads"]
     output:
         krakened = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"
     shell:
         """
         kraken2 --paired --gzip-compressed --threads {params.threads} \
-                --db {params.db_mem} \
+                --db {input.db_in_memory} \
                 --memory-mapping \
                 --output {output.krakened} \
                 {input.fasta_fwd} {input.fasta_rev}
