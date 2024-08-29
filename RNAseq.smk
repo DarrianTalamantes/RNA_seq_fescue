@@ -67,12 +67,6 @@ star_index_files = config["star_index_files"]
 
 rule all:
     input:
-        # # Trimming   
-        # expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS), 
-        # expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
-        # expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS), 
-        # expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
-
         # # Kraken outputs
         config["kraken"]["db_name"] + "/hash.k2d",        
         expand(config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz", pairs=PAIRS)
@@ -99,6 +93,13 @@ rule all:
         # pep_file = config["transdecoder"]["pep"], # predict makes this
         # fasta_gff3 = config["transdecoder"]["fasta_gff3"], # predict makes this     
         # pep_file_clean = config["transdecoder"]["pep_clean"]
+
+        # # Trimming   
+        # expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS), 
+        # expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
+        # expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS), 
+        # expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
+
    
 
 
