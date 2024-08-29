@@ -29,8 +29,8 @@ rule star_index:
 rule create_star_manifest:
     input:
         # Using the outputs from the Kraken rule
-        fwd_files = expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=SAMPLES),
-        rev_files = expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=SAMPLES)
+        fwd_files = expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+        rev_files = expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS)
     output:
         manifest = config["star_mapping"]["star_manifest"]
     run:
