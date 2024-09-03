@@ -104,7 +104,7 @@ rule star_mapping_seperate:
         """        
         STAR --runThreadN {params.threads} \
             --genomeDir {params.genome_dir} \
-            --readFilesIn {input.fasta_fwd} {input.fasta_rev} \
+            --readFilesIn {input.extracted_fwd} {input.extracted_rev} \
             --outFileNamePrefix {params.prefix} \
             --limitBAMsortRAM 15000000000 \
             --outSAMtype BAM SortedByCoordinate
