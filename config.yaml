@@ -40,6 +40,7 @@ kraken:
   classified: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/classified
   unclassified: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/unclassified
   threads: 32
+  tools_threads: 4
   db_in_memory: /dev/shm/kraken_db
   non_fungal: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/non_fungal
   fungal: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/fungal

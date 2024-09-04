@@ -77,14 +77,16 @@ rule filter_reads_excluder:
     conda:
         "../Conda_Envs/kraken.yaml"
     params:
-        taxid_fungi = "4751"
+        taxid_fungi = "4751",
+        threads = config["kraken"]["tools_threads"]
+    threads: config["kraken"]["tools_threads"]
     output:
         extracted_fwd = config["kraken"]["non_fungal"] + "/{pairs}R1.fq",
         extracted_rev = config["kraken"]["non_fungal"] + "/{pairs}R2.fq"
     shell:
         """
-        extract_kraken_reads.py -k input.krakened -s1 input.fasta_fwd -s2 {input.fasta_rev} \
-            --exclude --include-children --taxid {params.taxid_fungi} \
+        extract_kraken_reads.py -k {input.krakened} -s1 {input.fasta_fwd} -s2 {input.fasta_rev} \
+            --exclude --include-children --taxid {params.taxid_fungi} --threads {params.threads} \
             -o {output.extracted_fwd} -o2 {output.extracted_rev}
         """
 
@@ -96,14 +98,16 @@ rule filter_reads_keeper:
     conda:
         "../Conda_Envs/kraken.yaml"
     params:
-        taxid_fungi = "4751"
+        taxid_fungi = "4751",
+        threads = config["kraken"]["tools_threads"]
+    threads: config["kraken"]["tools_threads"]
     output:
         extracted_fwd = config["kraken"]["fungal"] + "/{pairs}R1.fq",
         extracted_rev = config["kraken"]["fungal"] + "/{pairs}R2.fq"
     shell:
         """
-        extract_kraken_reads.py -k input.krakened -s1 input.fasta_fwd -s2 {input.fasta_rev} \
-            --include-children --taxid {params.taxid_fungi} \
+        extract_kraken_reads.py -k {input.krakened} -s1 {input.fasta_fwd} -s2 {input.fasta_rev} \
+            --include-children --taxid {params.taxid_fungi} --threads {params.threads} \
             -o {output.extracted_fwd} -o2 {output.extracted_rev}
         """
 

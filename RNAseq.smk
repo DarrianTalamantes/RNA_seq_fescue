@@ -110,7 +110,7 @@ rule all:
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
 
 include: "rules/kraken.smk"
-include: "rules/star.smk"
+# include: "rules/star.smk"
 # include: "rules/Fungal_removal.smk"
 # include: "rules/scallop.smk"
 # include: "rules/feature_counts.smk"
