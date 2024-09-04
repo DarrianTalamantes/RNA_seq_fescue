@@ -52,7 +52,7 @@ rule kraken:
         threads = config["kraken"]["threads"],
     threads: config["kraken"]["threads"]
     output:
-        krakened = config["kraken"]["classified"] + "/krakened_{pairs}.txt"
+        krakened = config["kraken"]["classified"] + "/krakened_{pairs}.txt",
         report = config["kraken"]["classified"] + "/report_{pairs}.txt"
     shell:
         """
@@ -75,7 +75,7 @@ rule filter_reads_excluder:
     input:
         fasta_fwd = trimmed + "/{pairs}R1.fq.gz",
         fasta_rev = trimmed + "/{pairs}R2.fq.gz",
-        krakened = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"
+        krakened = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz",
         report = config["kraken"]["classified"] + "/report_{pairs}.txt"
     conda:
         "../Conda_Envs/krakentools_env.yaml"
@@ -97,7 +97,7 @@ rule filter_reads_keeper:
     input:
         fasta_fwd = trimmed + "/{pairs}R1.fq.gz",
         fasta_rev = trimmed + "/{pairs}R2.fq.gz",
-        krakened = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"
+        krakened = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz",
         report = config["kraken"]["classified"] + "/report_{pairs}.txt"
     conda:
         "../Conda_Envs/krakentools_env.yaml"
