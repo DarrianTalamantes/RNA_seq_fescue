@@ -1,16 +1,19 @@
 name: kraken
 channels:
+  - anaconda
   - bioconda
   - defaults
   - conda-forge
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
   - _openmp_mutex=4.5=2_kmp_llvm
+  - blas=1.0=mkl
   - blast=2.5.0=hc0b0e79_3
   - boost=1.82.0=py39h06a4308_2
   - bzip2=1.0.8=h5eee18b_6
   - ca-certificates=2024.7.2=h06a4308_0
   - icu=73.1=h6a678d5_0
+  - intel-openmp=2023.1.0=hdb19cb5_46306
   - kraken2=2.1.3=pl5321hdcf5f25_1
   - ld_impl_linux-64=2.38=h1181459_1
   - libboost=1.82.0=h109eef0_2
@@ -24,7 +27,10 @@ dependencies:
   - libzlib=1.2.13=h4ab18f5_6
   - llvm-openmp=14.0.6=h9e868ea_0
   - lz4-c=1.9.4=h6a678d5_1
+  - mkl=2023.1.0=h213fc3f_46344
+  - mkl-service=2.4.0=py39h5eee18b_1
   - ncurses=6.4=h6a678d5_0
+  - numpy-base=1.26.4=py39hb5e798b_0
   - openssl=3.0.14=h5eee18b_0
   - perl=5.32.1=0_h5eee18b_perl5
   - pip=24.2=py39h06a4308_0
@@ -36,6 +42,7 @@ dependencies:
   - setuptools=72.1.0=py39h06a4308_0
   - sqlite=3.45.3=h5eee18b_0
   - tar=1.34=ha1f6473_0
+  - tbb=2021.8.0=hdb19cb5_0
   - tk=8.6.14=h39e8969_0
   - tzdata=2024a=h04d1e81_0
   - wget=1.24.5=h251f7ec_0
