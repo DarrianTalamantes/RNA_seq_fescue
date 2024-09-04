@@ -1,5 +1,6 @@
 name: kraken
 channels:
+  - anaconda
   - bioconda
   - defaults
   - conda-forge
