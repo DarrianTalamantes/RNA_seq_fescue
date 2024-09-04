@@ -75,7 +75,7 @@ rule filter_reads_excluder:
         fasta_rev = trimmed + "/{pairs}R2.fq.gz",
         krakened = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"
     conda:
-        "../Conda_Envs/krakentools.yaml"
+        "../Conda_Envs/kraken.yaml"
     params:
         taxid_fungi = "4751",
         threads = config["kraken"]["tools_threads"]
@@ -97,7 +97,7 @@ rule filter_reads_keeper:
         fasta_rev = trimmed + "/{pairs}R2.fq.gz",
         krakened = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"
     conda:
-        "../Conda_Envs/krakentools.yaml"
+        "../Conda_Envs/kraken.yaml"
     params:
         taxid_fungi = "4751",
         threads = config["kraken"]["tools_threads"]
