@@ -52,13 +52,15 @@ rule kraken:
         threads = config["kraken"]["threads"],
     threads: config["kraken"]["threads"]
     output:
-        krakened = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"
+        krakened = config["kraken"]["classified"] + "/krakened_{pairs}.txt"
+        report = config["kraken"]["classified"] + "/report_{pairs}.txt"
     shell:
         """
         kraken2 --paired --gzip-compressed --threads {params.threads} \
                 --db {input.db_in_memory} \
                 --memory-mapping \
                 --output {output.krakened} \
+                --report {output.report}\
                 {input.fasta_fwd} {input.fasta_rev}
         """
 
@@ -74,8 +76,9 @@ rule filter_reads_excluder:
         fasta_fwd = trimmed + "/{pairs}R1.fq.gz",
         fasta_rev = trimmed + "/{pairs}R2.fq.gz",
         krakened = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"
+        report = config["kraken"]["classified"] + "/report_{pairs}.txt"
     conda:
-        "../Conda_Envs/kraken.yaml"
+        "../Conda_Envs/krakentools_env.yaml"
     params:
         taxid_fungi = "4751",
         threads = config["kraken"]["tools_threads"]
@@ -86,7 +89,7 @@ rule filter_reads_excluder:
     shell:
         """
         python /KrakenTools-master/extract_kraken_reads.py -k {input.krakened} -s1 {input.fasta_fwd} -s2 {input.fasta_rev} \
-            --exclude --include-children --taxid {params.taxid_fungi} --threads {params.threads} \
+            --exclude --include-children --taxid {params.taxid_fungi} --report {input.report} \
             -o {output.extracted_fwd} -o2 {output.extracted_rev}
         """
 
@@ -95,8 +98,9 @@ rule filter_reads_keeper:
         fasta_fwd = trimmed + "/{pairs}R1.fq.gz",
         fasta_rev = trimmed + "/{pairs}R2.fq.gz",
         krakened = config["kraken"]["classified"] + "/krakened_{pairs}.fq.gz"
+        report = config["kraken"]["classified"] + "/report_{pairs}.txt"
     conda:
-        "../Conda_Envs/kraken.yaml"
+        "../Conda_Envs/krakentools_env.yaml"
     params:
         taxid_fungi = "4751",
         threads = config["kraken"]["tools_threads"]
@@ -107,7 +111,7 @@ rule filter_reads_keeper:
     shell:
         """
         python KrakenTools-master/extract_kraken_reads.py -k {input.krakened} -s1 {input.fasta_fwd} -s2 {input.fasta_rev} \
-            --include-children --taxid {params.taxid_fungi} --threads {params.threads} \
+            --include-children --taxid {params.taxid_fungi} --report {input.report} \
             -o {output.extracted_fwd} -o2 {output.extracted_rev}
         """
 
