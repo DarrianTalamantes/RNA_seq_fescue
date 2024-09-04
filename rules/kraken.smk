@@ -85,8 +85,7 @@ rule filter_reads_excluder:
         extracted_rev = config["kraken"]["non_fungal"] + "/{pairs}R2.fq"
     shell:
         """
-        pip install biopython
-        extract_kraken_reads.py -k {input.krakened} -s1 {input.fasta_fwd} -s2 {input.fasta_rev} \
+        python /KrakenTools-master/extract_kraken_reads.py -k {input.krakened} -s1 {input.fasta_fwd} -s2 {input.fasta_rev} \
             --exclude --include-children --taxid {params.taxid_fungi} --threads {params.threads} \
             -o {output.extracted_fwd} -o2 {output.extracted_rev}
         """
@@ -107,8 +106,7 @@ rule filter_reads_keeper:
         extracted_rev = config["kraken"]["fungal"] + "/{pairs}R2.fq"
     shell:
         """
-        pip install biopython
-        extract_kraken_reads.py -k {input.krakened} -s1 {input.fasta_fwd} -s2 {input.fasta_rev} \
+        python KrakenTools-master/extract_kraken_reads.py -k {input.krakened} -s1 {input.fasta_fwd} -s2 {input.fasta_rev} \
             --include-children --taxid {params.taxid_fungi} --threads {params.threads} \
             -o {output.extracted_fwd} -o2 {output.extracted_rev}
         """
