@@ -54,58 +54,58 @@ rule create_star_manifest:
 
 # This uses a manifest file to list everything that should be mapped into the one big file
 #Note: This manifest file has to change to the new kraken stuff.
-# if config["use_ignored_rule"]:
-#     rule star_mapping:
-#         input:
-#             genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files),
-#             manifest = config["star_mapping"]["star_manifest"]
-#         params:
-#             threads = config["star_mapping"]["threads"],
-#             prefix = config["directories"]["star_bams"],
-#             genome_dir = config["directories"]["genome_idx"]
+if config["use_ignored_rule"]:
+    rule star_mapping:
+        input:
+            genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files),
+            manifest = config["star_mapping"]["star_manifest"]
+        params:
+            threads = config["star_mapping"]["threads"],
+            prefix = config["directories"]["star_bams"],
+            genome_dir = config["directories"]["genome_idx"]
 
-#         conda:
-#             "../Conda_Envs/transcriptome.yaml"
-#         threads: config["star_mapping"]["threads"]
-#         output:
-#             bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
-#             log_out = config["directories"]["star_bams"] + "Log.out",
-#             log_final = config["directories"]["star_bams"] + "Log.final.out",
-#             sj_out = config["directories"]["star_bams"] + "SJ.out.tab"
-#         shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 100GB
-#             """ 
-#             STAR --runThreadN {params.threads} \
-#                 --genomeDir {params.genome_dir} \
-#                 --readFilesManifest {input.manifest} \
-#                 --outFileNamePrefix {params.prefix} \
-#                 --limitBAMsortRAM 107089370995 \
-#                 --outSAMtype BAM SortedByCoordinate
-#             """
+        conda:
+            "../Conda_Envs/transcriptome.yaml"
+        threads: config["star_mapping"]["threads"]
+        output:
+            bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
+            log_out = config["directories"]["star_bams"] + "Log.out",
+            log_final = config["directories"]["star_bams"] + "Log.final.out",
+            sj_out = config["directories"]["star_bams"] + "SJ.out.tab"
+        shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 100GB
+            """ 
+            STAR --runThreadN {params.threads} \
+                --genomeDir {params.genome_dir} \
+                --readFilesManifest {input.manifest} \
+                --outFileNamePrefix {params.prefix} \
+                --limitBAMsortRAM 107089370995 \
+                --outSAMtype BAM SortedByCoordinate
+            """
 
 # This rule maps all the files seperatly with many different output files.
-rule star_mapping_seperate:
-    input:
-        extracted_fwd = config["kraken"]["non_fungal"] + "/{pairs}R1.fq",
-        extracted_rev = config["kraken"]["non_fungal"] + "/{pairs}R2.fq",
-        genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
-    params:
-        threads = config["star_mapping"]["threads_sep"],
-        prefix = config["directories"]["sep_bams"] + "{pairs}",
-        genome_dir = config["directories"]["genome_idx"]
-    conda:
-        "../Conda_Envs/transcriptome.yaml"
-    threads: config["star_mapping"]["threads_sep"]
-    output:
-        bam = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam",
-        log = config["directories"]["sep_bams"] + "{pairs}Log.out",
-        log_final = config["directories"]["sep_bams"] + "{pairs}Log.final.out",
-        sj = config["directories"]["sep_bams"] + "{pairs}SJ.out.tab"
-    shell:
-        """        
-        STAR --runThreadN {params.threads} \
-            --genomeDir {params.genome_dir} \
-            --readFilesIn {input.extracted_fwd} {input.extracted_rev} \
-            --outFileNamePrefix {params.prefix} \
-            --limitBAMsortRAM 15000000000 \
-            --outSAMtype BAM SortedByCoordinate
-        """
+# rule star_mapping_seperate:
+#     input:
+#         extracted_fwd = config["kraken"]["non_fungal"] + "/{pairs}R1.fq",
+#         extracted_rev = config["kraken"]["non_fungal"] + "/{pairs}R2.fq",
+#         genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
+#     params:
+#         threads = config["star_mapping"]["threads_sep"],
+#         prefix = config["directories"]["sep_bams"] + "{pairs}",
+#         genome_dir = config["directories"]["genome_idx"]
+#     conda:
+#         "../Conda_Envs/transcriptome.yaml"
+#     threads: config["star_mapping"]["threads_sep"]
+#     output:
+#         bam = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam",
+#         log = config["directories"]["sep_bams"] + "{pairs}Log.out",
+#         log_final = config["directories"]["sep_bams"] + "{pairs}Log.final.out",
+#         sj = config["directories"]["sep_bams"] + "{pairs}SJ.out.tab"
+#     shell:
+#         """        
+#         STAR --runThreadN {params.threads} \
+#             --genomeDir {params.genome_dir} \
+#             --readFilesIn {input.extracted_fwd} {input.extracted_rev} \
+#             --outFileNamePrefix {params.prefix} \
+#             --limitBAMsortRAM 15000000000 \
+#             --outSAMtype BAM SortedByCoordinate
+#         """

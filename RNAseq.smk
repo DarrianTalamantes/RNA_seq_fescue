@@ -70,16 +70,18 @@ rule all:
         # # STAR outputs
         expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
 
-        expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
-        expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
-        expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
-        expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS)
+        config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
+        config["directories"]["star_bams"] + "Log.out",
+        config["directories"]["star_bams"] + "Log.final.out",
+        config["directories"]["star_bams"] + "SJ.out.tab",
 
-        # config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
-        # config["directories"]["star_bams"] + "Log.out",
-        # config["directories"]["star_bams"] + "Log.final.out",
-        # config["directories"]["star_bams"] + "SJ.out.tab",
-        
+        # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS)
+
+
+
 
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
         # gtf=config["scallop"]["output_file"] # Activates scallop2
