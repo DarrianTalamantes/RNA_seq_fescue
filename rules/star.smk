@@ -9,7 +9,7 @@
 
 rule star_index:
     input:
-        fasta = config["genome"],
+        fasta = config["combined_genome"],
     params:
         threads = config["star_mapping"]["threads"],
         genome_dir = config["directories"]["genome_idx"]
@@ -29,8 +29,8 @@ rule star_index:
 rule create_star_manifest:
     input:
         # Using the outputs from the Kraken rule
-        fwd_files = expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
-        rev_files = expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS)
+        fwd_files = expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+        rev_files = expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq", pairs=PAIRS)
     output:
         manifest = config["star_mapping"]["star_manifest"]
     run:
@@ -54,39 +54,39 @@ rule create_star_manifest:
 
 # This uses a manifest file to list everything that should be mapped into the one big file
 #Note: This manifest file has to change to the new kraken stuff.
-if config["use_ignored_rule"]:
-    rule star_mapping:
-        input:
-            genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files),
-            manifest = config["star_mapping"]["star_manifest"]
-        params:
-            threads = config["star_mapping"]["threads"],
-            prefix = config["directories"]["star_bams"],
-            genome_dir = config["directories"]["genome_idx"]
+# if config["use_ignored_rule"]:
+#     rule star_mapping:
+#         input:
+#             genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files),
+#             manifest = config["star_mapping"]["star_manifest"]
+#         params:
+#             threads = config["star_mapping"]["threads"],
+#             prefix = config["directories"]["star_bams"],
+#             genome_dir = config["directories"]["genome_idx"]
 
-        conda:
-            "../Conda_Envs/transcriptome.yaml"
-        threads: config["star_mapping"]["threads"]
-        output:
-            bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
-            log_out = config["directories"]["star_bams"] + "Log.out",
-            log_final = config["directories"]["star_bams"] + "Log.final.out",
-            sj_out = config["directories"]["star_bams"] + "SJ.out.tab"
-        shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 100GB
-            """ 
-            STAR --runThreadN {params.threads} \
-                --genomeDir {params.genome_dir} \
-                --readFilesManifest {input.manifest} \
-                --outFileNamePrefix {params.prefix} \
-                --limitBAMsortRAM 107089370995 \
-                --outSAMtype BAM SortedByCoordinate
-            """
+#         conda:
+#             "../Conda_Envs/transcriptome.yaml"
+#         threads: config["star_mapping"]["threads"]
+#         output:
+#             bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
+#             log_out = config["directories"]["star_bams"] + "Log.out",
+#             log_final = config["directories"]["star_bams"] + "Log.final.out",
+#             sj_out = config["directories"]["star_bams"] + "SJ.out.tab"
+#         shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 100GB
+#             """ 
+#             STAR --runThreadN {params.threads} \
+#                 --genomeDir {params.genome_dir} \
+#                 --readFilesManifest {input.manifest} \
+#                 --outFileNamePrefix {params.prefix} \
+#                 --limitBAMsortRAM 107089370995 \
+#                 --outSAMtype BAM SortedByCoordinate
+#             """
 
 # This rule maps all the files seperatly with many different output files.
 rule star_mapping_seperate:
     input:
-        extracted_fwd = config["kraken"]["fungal"] + "/{pairs}R1.fq",
-        extracted_rev = config["kraken"]["fungal"] + "/{pairs}R2.fq",
+        extracted_fwd = config["kraken"]["non_fungal"] + "/{pairs}R1.fq",
+        extracted_rev = config["kraken"]["non_fungal"] + "/{pairs}R2.fq",
         genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
     params:
         threads = config["star_mapping"]["threads_sep"],
