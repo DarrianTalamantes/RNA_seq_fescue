@@ -72,7 +72,7 @@ if config["use_ignored_rule"]:
             log_out = config["directories"]["big_bam"] + "Log.out",
             log_final = config["directories"]["big_bam"] + "Log.final.out",
             sj_out = config["directories"]["big_bam"] + "SJ.out.tab"
-        shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 100GB
+        shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 300GB
             """ 
         if [ ! -d {params.prefix} ]; then
             mkdir -p {params.prefix}; 
@@ -81,7 +81,7 @@ if config["use_ignored_rule"]:
                 --genomeDir {params.genome_dir} \
                 --readFilesManifest {input.manifest} \
                 --outFileNamePrefix {params.prefix} \
-                --limitBAMsortRAM 107089370995 \
+                --limitBAMsortRAM 307089370995 \
                 --outSAMtype BAM SortedByCoordinate
             """
 

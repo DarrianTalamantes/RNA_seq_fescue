@@ -33,7 +33,7 @@ star_mapping:
     threads: 32
     threads_multi: 10
     star_manifest: manifest.tsv
-    threads_sep: 8
+    threads_sep: 32
 
   
 kraken:
