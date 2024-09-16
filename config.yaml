@@ -7,7 +7,7 @@ directories:
   trimmed: /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed
   genome_idx: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome_idx
   align: /scratch/drt83172/Wallace_lab/RNA_SEQ/Alignment
-  star_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/star_bams/
+  big_bam: /scratch/drt83172/Wallace_lab/RNA_SEQ/big_bam/
   sep_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/sep_bams/
   features: /scratch/drt83172/Wallace_lab/RNA_SEQ/features/
   log: /scratch/drt83172/Wallace_lab/RNA_SEQ/log

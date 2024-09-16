@@ -61,19 +61,22 @@ if config["use_ignored_rule"]:
             manifest = config["star_mapping"]["star_manifest"]
         params:
             threads = config["star_mapping"]["threads"],
-            prefix = config["directories"]["star_bams"],
+            prefix = config["directories"]["big_bam"],
             genome_dir = config["directories"]["genome_idx"]
 
         conda:
             "../Conda_Envs/transcriptome.yaml"
         threads: config["star_mapping"]["threads"]
         output:
-            bam = config["directories"]["star_bams"] + "Aligned.sortedByCoord.out.bam",
-            log_out = config["directories"]["star_bams"] + "Log.out",
-            log_final = config["directories"]["star_bams"] + "Log.final.out",
-            sj_out = config["directories"]["star_bams"] + "SJ.out.tab"
+            bam = config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
+            log_out = config["directories"]["big_bam"] + "Log.out",
+            log_final = config["directories"]["big_bam"] + "Log.final.out",
+            sj_out = config["directories"]["big_bam"] + "SJ.out.tab"
         shell: #ToDO: make the limitBAMsorRAM into a parameter. Right now its set to 100GB
             """ 
+        if [ ! -d {params.prefix} ]; then
+            mkdir -p {params.prefix}; 
+        fi
             STAR --runThreadN {params.threads} \
                 --genomeDir {params.genome_dir} \
                 --readFilesManifest {input.manifest} \
