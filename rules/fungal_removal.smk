@@ -29,7 +29,7 @@ rule grepper_big:
 
 rule grepper_sep:
     input:
-        sep_bams = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam"
+        sep_bams = expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS)
     conda:
         "../Conda_Envs/samtools.yaml"
     params:
