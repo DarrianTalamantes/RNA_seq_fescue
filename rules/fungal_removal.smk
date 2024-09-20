@@ -11,7 +11,7 @@ rule grepper_big:
         "../Conda_Envs/samtools.yaml"
     params:
         output_dir= config["directories"]["filtered_bam_big"],
-        chunk= config["fungal_removal"]["chunk"]
+        chunk= config["fungal_removal"]["chunk"],
         filtered_sam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.sam"
     threads: 32
     output:
@@ -36,7 +36,7 @@ rule grepper_sep:
     conda:
         "../Conda_Envs/samtools.yaml"
     params:
-        output_dir = config["directories"]["filtered_bams"]
+        output_dir = config["directories"]["filtered_bams"],
         filtered_sam = config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.sam"
     threads: 8
     output:
