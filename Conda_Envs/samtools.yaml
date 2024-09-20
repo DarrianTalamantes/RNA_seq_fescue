@@ -8,7 +8,8 @@ dependencies:
   - _openmp_mutex=4.5=2_gnu
   - bzip2=1.0.8=h5eee18b_6
   - c-ares=1.19.1=h5eee18b_0
-  - ca-certificates=2024.3.11=h06a4308_0
+  - ca-certificates=2024.7.2=h06a4308_0
+  - gdbm=1.18=hd4cb3f1_4
   - htslib=1.20=h81da01d_0
   - krb5=1.20.1=h143b758_1
   - libcurl=8.7.1=h251f7ec_0
@@ -23,6 +24,9 @@ dependencies:
   - libzlib=1.2.13=hd590300_5
   - ncurses=6.5=h59595ed_0
   - openssl=3.3.0=h4ab18f5_3
+  - parallel=20240722=ha770c72_0
+  - perl=5.34.0=h5eee18b_2
+  - readline=8.2=h5eee18b_0
   - samtools=1.20=h50ea8bc_0
   - xz=5.4.6=h5eee18b_1
   - zlib=1.2.13=hd590300_5
