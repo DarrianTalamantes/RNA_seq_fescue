@@ -69,14 +69,17 @@ rule grepper_sep:
         fi
 
         # Step 1: Convert BAM to SAM and check if it's successful
-        samtools view -@ {threads} {input.sep_bams} > {params.output_dir}/{wildcards.pairs}.tmp.sam 2>> {log}
+        samtools view -h -@ {threads} {input.sep_bams} > {params.output_dir}/{wildcards.pairs}.tmp.sam 2>> {log}
         if [ $? -ne 0 ]; then
             echo "Error in converting BAM to SAM" >> {log}
             exit 1
         fi
 
-        # Step 2: Filter SAM using grep and check if it produces any output
-        grep -v "JAFEMN" {params.output_dir}/{wildcards.pairs}.tmp.sam > {params.output_dir}/{wildcards.pairs}.filtered.sam 2>> {log}
+        # Step 2: Preserve the header and filter the SAM using grep (only for alignments)
+        grep "^@" {params.output_dir}/{wildcards.pairs}.tmp.sam > {params.output_dir}/{wildcards.pairs}.header.sam
+        grep -v "JAFEMN" {params.output_dir}/{wildcards.pairs}.tmp.sam | grep -v "^@" >> {params.output_dir}/{wildcards.pairs}.header.sam
+        mv {params.output_dir}/{wildcards.pairs}.header.sam {params.output_dir}/{wildcards.pairs}.filtered.sam
+
         if [ $? -ne 0 ] || [ ! -s {params.output_dir}/{wildcards.pairs}.filtered.sam ]; then
             echo "Error in filtering SAM or no output generated" >> {log}
             exit 1
@@ -92,6 +95,7 @@ rule grepper_sep:
         # Clean up temporary files
         rm {params.output_dir}/{wildcards.pairs}.tmp.sam {params.output_dir}/{wildcards.pairs}.filtered.sam
         """
+
 
 
 
