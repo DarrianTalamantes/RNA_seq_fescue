@@ -47,9 +47,9 @@ kraken:
   fungal: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/fungal
 
 fungal_removal:
-  chunk: /scratch/drt83172/Wallace_lab/RNA_SEQ/big_bam//chunk_
+  chunk: /scratch/drt83172/Wallace_lab/RNA_SEQ/big_bam/chunk_
 
-  
+
 scallop:
   output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome_col3swap.gtf
 

@@ -22,10 +22,10 @@ rule grepper_big:
             mkdir -p {params.output_dir}; 
         fi
 
-        samtools view {input.big_bam} | split -l 10000000 chunk_
-        ls chunk_* | parallel -j 8 "grep -v 'JAFEMN' {{}} > {{}}.out"
-        cat chunk_*.out > {params.filtered_sam}
-        rm chunk_*
+        samtools view {input.big_bam} | split -l 10000000 {params.chunk}
+        ls {params.chunk}* | parallel -j 8 "grep -v 'JAFEMN' {params.output_dir}/{{}} > {params.output_dir}/{{}}.out"
+        cat {params.chunk}*.out > {params.filtered_sam}
+        rm {params.chunk}*
         samtools view -b {params.filtered_sam} > {output.filtered_bam}
         rm {params.filtered_sam}
         """
