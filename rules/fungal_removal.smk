@@ -48,7 +48,7 @@ rule grepper_big:
         rm {params.inter_sam}
         """
 
-        
+
 rule grepper_sep:
     input:
         sep_bams = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam"
@@ -59,6 +59,8 @@ rule grepper_sep:
     threads: 8
     output:
         filtered_bams = config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam"
+    log:
+        temp("logs/{pairs}_grepper.log")
     shell:
         """
         # Create output directory if it doesn't exist
@@ -66,9 +68,31 @@ rule grepper_sep:
             mkdir -p {params.output_dir}
         fi
 
-        # Convert BAM to SAM, filter with grep, and save the filtered SAM
-        samtools view -@ {threads} {input.sep_bams} | grep -v "JAFEMN" | samtools view -b -@ {threads} - > {output.filtered_bams}
+        # Step 1: Convert BAM to SAM and check if it's successful
+        samtools view -@ {threads} {input.sep_bams} > {params.output_dir}/{wildcards.pairs}.tmp.sam 2>> {log}
+        if [ $? -ne 0 ]; then
+            echo "Error in converting BAM to SAM" >> {log}
+            exit 1
+        fi
+
+        # Step 2: Filter SAM using grep and check if it produces any output
+        grep -v "JAFEMN" {params.output_dir}/{wildcards.pairs}.tmp.sam > {params.output_dir}/{wildcards.pairs}.filtered.sam 2>> {log}
+        if [ $? -ne 0 ] || [ ! -s {params.output_dir}/{wildcards.pairs}.filtered.sam ]; then
+            echo "Error in filtering SAM or no output generated" >> {log}
+            exit 1
+        fi
+
+        # Step 3: Convert filtered SAM back to BAM
+        samtools view -b -@ {threads} {params.output_dir}/{wildcards.pairs}.filtered.sam > {output.filtered_bams} 2>> {log}
+        if [ $? -ne 0 ]; then
+            echo "Error in converting filtered SAM to BAM" >> {log}
+            exit 1
+        fi
+
+        # Clean up temporary files
+        rm {params.output_dir}/{wildcards.pairs}.tmp.sam {params.output_dir}/{wildcards.pairs}.filtered.sam
         """
+
 
 
 

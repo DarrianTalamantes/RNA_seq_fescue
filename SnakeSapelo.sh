@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH -J fungiSep
-#SBATCH -p batch
+#SBATCH -J FungalSep
+#SBATCH -p highmem_p
 #SBATCH --ntasks=32
-#SBATCH --mem 120gb
+#SBATCH --mem 500gb
 #SBATCH -t 150:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/fungiSep.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/fungiSep.%j.err
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FungalSep.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FungalSep.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
