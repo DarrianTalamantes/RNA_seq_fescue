@@ -67,6 +67,10 @@ star_index_files = config["star_index_files"]
 # You can not have anymore that one commented out line when defining your inputs here
 rule all:
     input:
+        expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
+        expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
+        expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
+        expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS),
         config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
 
         # # Star big bam
@@ -87,10 +91,7 @@ rule all:
         
 
         # # Star sep bams
-        # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
-        # expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
-        # expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
-        # expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS)
+
 
 
 
@@ -125,8 +126,8 @@ rule all:
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
 
 # include: "rules/kraken.smk"
-# include: "rules/star.smk"
 
+include: "rules/star.smk"
 include: "rules/fungal_removal.smk"
 
 # include: "rules/scallop.smk"

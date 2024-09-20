@@ -87,28 +87,28 @@ if config["use_ignored_rule"]:
 
 # This rule maps all the files seperatly with many different output files.
 # rule star_mapping_seperate:
-#     input:
-#         extracted_fwd = config["kraken"]["non_fungal"] + "/{pairs}R1.fq",
-#         extracted_rev = config["kraken"]["non_fungal"] + "/{pairs}R2.fq",
-#         genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
-#     params:
-#         threads = config["star_mapping"]["threads_sep"],
-#         prefix = config["directories"]["sep_bams"] + "{pairs}",
-#         genome_dir = config["directories"]["genome_idx"]
-#     conda:
-#         "../Conda_Envs/transcriptome.yaml"
-#     threads: config["star_mapping"]["threads_sep"]
-#     output:
-#         bam = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam",
-#         log = config["directories"]["sep_bams"] + "{pairs}Log.out",
-#         log_final = config["directories"]["sep_bams"] + "{pairs}Log.final.out",
-#         sj = config["directories"]["sep_bams"] + "{pairs}SJ.out.tab"
-#     shell:
-#         """        
-#         STAR --runThreadN {params.threads} \
-#             --genomeDir {params.genome_dir} \
-#             --readFilesIn {input.extracted_fwd} {input.extracted_rev} \
-#             --outFileNamePrefix {params.prefix} \
-#             --limitBAMsortRAM 15000000000 \
-#             --outSAMtype BAM SortedByCoordinate
-#         """
+    input:
+        extracted_fwd = config["kraken"]["non_fungal"] + "/{pairs}R1.fq",
+        extracted_rev = config["kraken"]["non_fungal"] + "/{pairs}R2.fq",
+        genome_files = expand(config["directories"]["genome_idx"] + "/" + "{file}", file=star_index_files)
+    params:
+        threads = config["star_mapping"]["threads_sep"],
+        prefix = config["directories"]["sep_bams"] + "{pairs}",
+        genome_dir = config["directories"]["genome_idx"]
+    conda:
+        "../Conda_Envs/transcriptome.yaml"
+    threads: config["star_mapping"]["threads_sep"]
+    output:
+        bam = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam",
+        log = config["directories"]["sep_bams"] + "{pairs}Log.out",
+        log_final = config["directories"]["sep_bams"] + "{pairs}Log.final.out",
+        sj = config["directories"]["sep_bams"] + "{pairs}SJ.out.tab"
+    shell:
+        """        
+        STAR --runThreadN {params.threads} \
+            --genomeDir {params.genome_dir} \
+            --readFilesIn {input.extracted_fwd} {input.extracted_rev} \
+            --outFileNamePrefix {params.prefix} \
+            --limitBAMsortRAM 15000000000 \
+            --outSAMtype BAM SortedByCoordinate
+        """
