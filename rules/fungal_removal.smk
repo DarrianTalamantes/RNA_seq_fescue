@@ -12,7 +12,7 @@ rule grepper_big:
     params:
         output_dir= config["directories"]["filtered_bam_big"],
         chunk= config["fungal_removal"]["chunk"],
-        filtered_sam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.sam"
+        filtered_sam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.sam",
         inter_sam = config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam"
     threads: 32
     output:
