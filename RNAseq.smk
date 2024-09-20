@@ -67,7 +67,7 @@ star_index_files = config["star_index_files"]
 # You can not have anymore that one commented out line when defining your inputs here
 rule all:
     input:
-        expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
+        config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
 
         # # Star big bam
         # expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
@@ -77,7 +77,8 @@ rule all:
         # config["directories"]["big_bam"] + "SJ.out.tab",
 
         # # Fungal Filtering
-        # config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
+        # expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
+
 
   
      

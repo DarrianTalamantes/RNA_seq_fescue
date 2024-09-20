@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH -J FungalSep
+#SBATCH -J FungalBig
 #SBATCH -p batch
 #SBATCH --ntasks=32
 #SBATCH --mem 120gb
 #SBATCH -t 150:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FungalSep.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FungalSep.%j.err
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FungalBig.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FungalBig.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
