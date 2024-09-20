@@ -47,7 +47,7 @@ kraken:
   fungal: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/fungal
 
 fungal_removal:
-  chunk: /scratch/drt83172/Wallace_lab/RNA_SEQ/big_bam/chunk_
+  chunk: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/big/chunk_
 
 
 scallop:
