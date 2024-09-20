@@ -22,7 +22,7 @@ rule grepper_big:
         fi
 
         split -l 10000000 {input.big_bam}  chunk_
-        ls chunk_* | parallel -j 8 "grep -v 'JAFEMN' {} > {}.out"
+        ls chunk_* | parallel -j 8 "grep -v 'JAFEMN' {{}} > {{}}.out"
         cat chunk_*.out > {output.filtered_bam}
         rm chunk_*
         """
