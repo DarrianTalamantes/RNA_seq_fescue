@@ -12,19 +12,22 @@ rule grepper_big:
     params:
         output_dir= config["directories"]["filtered_bam_big"],
         chunk= config["fungal_removal"]["chunk"]
+        filtered_sam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.sam"
     threads: 32
     output:
-        filtered_bam = expand(config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam")
+        filtered_bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
     shell:
         """
         if [ ! -d {params.output_dir} ]; then
             mkdir -p {params.output_dir}; 
         fi
 
-        split -l 10000000 {input.big_bam}  chunk_
+        samtools view {input.big_bam} | split -l 10000000 chunk_
         ls chunk_* | parallel -j 8 "grep -v 'JAFEMN' {{}} > {{}}.out"
-        cat chunk_*.out > {output.filtered_bam}
+        cat chunk_*.out > {params.filtered_sam}
         rm chunk_*
+        samtools view -b {params.filtered_sam} > {output.filtered_bam}
+        rm {params.filtered_sam}
         """
 
 rule grepper_sep:
@@ -34,6 +37,7 @@ rule grepper_sep:
         "../Conda_Envs/samtools.yaml"
     params:
         output_dir = config["directories"]["filtered_bams"]
+        filtered_sam = config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.sam"
     threads: 8
     output:
         filtered_bams = config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam"
@@ -42,7 +46,10 @@ rule grepper_sep:
         if [ ! -d {params.output_dir} ]; then
             mkdir -p {params.output_dir}; 
         fi
-        grep -v "JAFEMN" {input.sep_bams} > {output.filtered_bams}
+
+        samtools view {input.sep_bams} | grep -v "JAFEMN" > {params.filtered_sam}
+        samtools view -b {params.filtered_sam} > {output.filtered_bams}
+        rm {params.filtered_sam} 
         """
 
 
