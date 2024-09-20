@@ -54,14 +54,22 @@ rule grepper_big:
         fi
         echo "Split SAM file into chunks successfully" >> {log}
 
+        # Check if any chunks were created
+        if [ -z "$(ls {params.chunk_prefix}*)" ]; then
+            echo "No chunks were created during splitting" >> {log}
+            exit 1
+        fi
+
         # Step 4: Use parallel to grep and filter each chunk
+        echo "Filtering chunks..." >> {log}
         ls {params.chunk_prefix}* | parallel -j {threads} "grep -v 'JAFEMN' {{}} > {{}}.out"
-        
+
         # Check if the filtered chunks are generated
-        if [ ! -s {params.chunk_prefix}*.out ]; then
+        if [ -z "$(ls {params.chunk_prefix}*.out)" ]; then
             echo "No filtered chunks generated" >> {log}
             exit 1
         fi
+        echo "Filtered chunks generated successfully" >> {log}
 
         # Step 5: Concatenate the header and filtered chunks into a single SAM file
         cat {params.output_dir}/sam_header.sam {params.chunk_prefix}*.out > {params.filtered_sam}
@@ -84,6 +92,7 @@ rule grepper_big:
         rm {params.filtered_sam} {params.inter_sam} {params.output_dir}/sam_header.sam
         echo "Cleaned up temporary files" >> {log}
         """
+
 
 
 
