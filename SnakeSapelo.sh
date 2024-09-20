@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J fungisep
-#SBATCH -p highmem_p
+#SBATCH -p batch
 #SBATCH --ntasks=32
-#SBATCH --mem 400gb
+#SBATCH --mem 120gb
 #SBATCH -t 150:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/fungisep.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/fungisep.%j.err
