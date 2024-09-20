@@ -29,14 +29,14 @@ rule grepper_big:
 
 rule grepper_sep:
     input:
-        sep_bams = expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS)
+        sep_bams = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam"
     conda:
         "../Conda_Envs/samtools.yaml"
     params:
         output_dir = config["directories"]["filtered_bams"]
     threads: 8
     output:
-        filtered_bams = expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam")
+        filtered_bams = config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam"
     shell:
         """
         if [ ! -d {params.output_dir} ]; then
