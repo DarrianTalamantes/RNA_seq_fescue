@@ -86,7 +86,7 @@ if config["use_ignored_rule"]:
             """
 
 # This rule maps all the files seperatly with many different output files.
-# rule star_mapping_seperate:
+rule star_mapping_seperate:
     input:
         extracted_fwd = config["kraken"]["non_fungal"] + "/{pairs}R1.fq",
         extracted_rev = config["kraken"]["non_fungal"] + "/{pairs}R2.fq",
