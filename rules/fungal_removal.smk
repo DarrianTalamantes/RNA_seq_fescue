@@ -10,7 +10,7 @@ rule grepper_big:
     conda:
         "../Conda_Envs/samtools.yaml"
     params:
-        output_dir= config["directories"]["filtered_bam_big"]
+        output_dir= config["directories"]["filtered_bam_big"],
         chunk= config["fungal_removal"]["chunk"]
     threads: 32
     output:
@@ -25,11 +25,6 @@ rule grepper_big:
         ls chunk_* | parallel -j 8 "grep -v 'JAFEMN' {} > {}.out"
         cat chunk_*.out > {output.filtered_bam}
         rm chunk_*
-
-
-
-
-        grep -v "JAFEMN" {input.big_bam} > {output.filtered_bam}
         """
 
 rule grepper_sep:
@@ -41,7 +36,7 @@ rule grepper_sep:
         output_dir = config["directories"]["filtered_bams"]
     threads: 8
     output:
-        filtered_bams = expand(config["directories"]["filtered_bams"] + "/Aligned.sortedByCoord_filtered.out.bam")
+        filtered_bams = expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam")
     shell:
         """
         if [ ! -d {params.output_dir} ]; then
