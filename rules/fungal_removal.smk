@@ -22,42 +22,67 @@ rule grepper_big:
         temp("logs/grepper_big.log")
     shell:
         """
+        echo "Starting grepper_big rule" >> {log}
+        
         # Create output directory if it doesn't exist
         if [ ! -d {params.output_dir} ]; then
             mkdir -p {params.output_dir}
+            echo "Created output directory: {params.output_dir}" >> {log}
         fi
 
-        # Step 1: Convert BAM to SAM with header (-h) and check if it succeeds
+        # Step 1: Convert BAM to SAM with header (-h)
         samtools view -h {input.big_bam} > {params.inter_sam} 2>> {log}
         if [ $? -ne 0 ]; then
             echo "Error in converting BAM to SAM" >> {log}
             exit 1
         fi
+        echo "Converted BAM to SAM successfully" >> {log}
 
-        # Step 2: Extract the SAM header separately
+        # Step 2: Extract the SAM header
         grep "^@" {params.inter_sam} > {params.output_dir}/sam_header.sam
+        if [ $? -ne 0 ]; then
+            echo "Error extracting SAM header" >> {log}
+            exit 1
+        fi
+        echo "Extracted SAM header successfully" >> {log}
 
         # Step 3: Split the SAM file (without the header) into chunks
         grep -v "^@" {params.inter_sam} | split -l {params.lines_per_chunk} - {params.chunk_prefix}
+        if [ $? -ne 0 ]; then
+            echo "Error splitting SAM file" >> {log}
+            exit 1
+        fi
+        echo "Split SAM file into chunks successfully" >> {log}
 
-        # Step 4: Use parallel to grep and filter each chunk, skipping the header
+        # Step 4: Use parallel to grep and filter each chunk
         ls {params.chunk_prefix}* | parallel -j {threads} "grep -v 'JAFEMN' {{}} > {{}}.out"
+        
+        # Check if the filtered chunks are generated
+        if [ ! -s {params.chunk_prefix}*.out ]; then
+            echo "No filtered chunks generated" >> {log}
+            exit 1
+        fi
 
         # Step 5: Concatenate the header and filtered chunks into a single SAM file
         cat {params.output_dir}/sam_header.sam {params.chunk_prefix}*.out > {params.filtered_sam}
+        if [ $? -ne 0 ]; then
+            echo "Error concatenating SAM files" >> {log}
+            exit 1
+        fi
+        echo "Concatenated SAM files successfully" >> {log}
 
-        # Step 6: Clean up intermediate chunk files
-        rm {params.chunk_prefix}*
-
-        # Step 7: Convert filtered SAM back to BAM
+        # Step 6: Convert filtered SAM back to BAM
         samtools view -b {params.filtered_sam} > {output.filtered_bam} 2>> {log}
         if [ $? -ne 0 ]; then
             echo "Error in converting filtered SAM to BAM" >> {log}
             exit 1
         fi
+        echo "Converted filtered SAM to BAM successfully" >> {log}
 
-        # Step 8: Remove intermediate SAM files
+        # Clean up temporary files
+        rm {params.chunk_prefix}*
         rm {params.filtered_sam} {params.inter_sam} {params.output_dir}/sam_header.sam
+        echo "Cleaned up temporary files" >> {log}
         """
 
 
