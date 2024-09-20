@@ -67,14 +67,18 @@ star_index_files = config["star_index_files"]
 # You can not have anymore that one commented out line when defining your inputs here
 rule all:
     input:
-        # # STAR outputs
-        expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
-
-        config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
-        config["directories"]["big_bam"] + "Log.out",
-        config["directories"]["big_bam"] + "Log.final.out",
-        config["directories"]["big_bam"] + "SJ.out.tab",
-
+        expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
+        expand(config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam")        
+        
+        
+        
+        # # Star big bam
+        # expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
+        # config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
+        # config["directories"]["big_bam"] + "Log.out",
+        # config["directories"]["big_bam"] + "Log.final.out",
+        # config["directories"]["big_bam"] + "SJ.out.tab",
+        # # Star sep bams
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
         # expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
         # expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
@@ -82,8 +86,7 @@ rule all:
 
 
 
-
-        # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS), # mapping 2
+        # Stuff I have not totally labeled yet
         # gtf=config["scallop"]["output_file"] # Activates scallop2
         # counts = config["directories"]["features"] + "feature_counts.txt" # feature counts
         # pep_file = config["transdecoder"]["pep"], # predict makes this
@@ -99,7 +102,6 @@ rule all:
         # # Kraken outputs
         # config["kraken"]["db_name"] + "/hash.k2d",        
         # expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS),
-
         # expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
         # expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
         # expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
@@ -115,8 +117,10 @@ rule all:
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
 
 # include: "rules/kraken.smk"
-include: "rules/star.smk"
-# include: "rules/Fungal_removal.smk"
+# include: "rules/star.smk"
+
+include: "rules/fungal_removal.smk"
+
 # include: "rules/scallop.smk"
 # include: "rules/feature_counts.smk"
 # include: "rules/annotation.smk"

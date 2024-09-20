@@ -66,10 +66,6 @@ rule kraken:
 
 
 
-#####
-# must update the conda env with conda install bioconda::krakentools
-####
-
 # This rule takes the fasta files and removes the fungal reads
 rule filter_reads_excluder:
     input:

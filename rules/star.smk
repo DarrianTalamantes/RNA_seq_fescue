@@ -5,7 +5,7 @@
 # This should go after kraken
 # index genome with STAR
 # align reads to genome with STAR
-# put bam file into trinity guided approuch 
+# In this usaage I have combined the epi and Fescue genome and align the reads to both (will be seperated later) 
 
 rule star_index:
     input:
