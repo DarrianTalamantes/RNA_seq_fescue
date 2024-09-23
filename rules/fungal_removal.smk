@@ -13,7 +13,7 @@ rule split_and_filter_big:
         output_dir = config["directories"]["filtered_bam_big"],
         chunk_prefix = config["directories"]["filtered_bam_big"] + "/chunk_",
         inter_sam = config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.sam",
-        lines_per_chunk = config["fungal_removal"]["chunk"]
+        lines_per_chunk = config["fungal_removal"]["lines_per_chunk"]
     threads: 32
     output:
         chunked_outs = directory(config["directories"]["filtered_bam_big"])  # Use directory output
