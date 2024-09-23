@@ -4,7 +4,7 @@
 # Getting rid of fungus
 ##################################################
 
-rule grepper_big:
+rule split_and_filter_big:
     input:
         big_bam = config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam"
     conda:
@@ -12,86 +12,76 @@ rule grepper_big:
     params:
         output_dir = config["directories"]["filtered_bam_big"],
         chunk_prefix = config["directories"]["filtered_bam_big"] + "/chunk_",
-        filtered_sam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.sam",
         inter_sam = config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.sam",
-        lines_per_chunk = config["fungal_removal"]["lines_per_chunk"]
+        lines_per_chunk = config["fungal_removal"]["chunk"]
     threads: 32
     output:
-        filtered_bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
+        chunked_outs = directory(config["directories"]["filtered_bam_big"])  # Use directory output
     log:
-        temp("logs/grepper_big.log")
+        "logs/split_and_filter_big.log"
     shell:
         """
-        echo "Starting grepper_big rule" >> {log}
-        
-        # Create output directory if it doesn't exist
-        if [ ! -d {params.output_dir} ]; then
-            mkdir -p {params.output_dir}
-            echo "Created output directory: {params.output_dir}" >> {log}
-        fi
+        echo "Starting split_and_filter_big rule" >> {log}
 
-        # Step 1: Convert BAM to SAM with header (-h)
+        # Step 1: Convert BAM to SAM
         samtools view -h {input.big_bam} > {params.inter_sam} 2>> {log}
-        if [ $? -ne 0 ]; then
-            echo "Error in converting BAM to SAM" >> {log}
-            exit 1
-        fi
         echo "Converted BAM to SAM successfully" >> {log}
 
         # Step 2: Extract the SAM header
-        grep "^@" {params.inter_sam} > {params.output_dir}/sam_header.sam
-        if [ $? -ne 0 ]; then
-            echo "Error extracting SAM header" >> {log}
-            exit 1
-        fi
+        grep "^@" {params.inter_sam} > {params.output_dir}/sam_header.sam 2>> {log}
         echo "Extracted SAM header successfully" >> {log}
 
-        # Step 3: Split the SAM file (without the header) into chunks
-        grep -v "^@" {params.inter_sam} | split -l {params.lines_per_chunk} - {params.chunk_prefix}
-        if [ $? -ne 0 ]; then
-            echo "Error splitting SAM file" >> {log}
-            exit 1
-        fi
+        # Step 3: Split the SAM file into chunks
+        grep -v "^@" {params.inter_sam} > temp_sam_no_header.sam
+        split -l {params.lines_per_chunk} temp_sam_no_header.sam {params.chunk_prefix} 2>> {log}
         echo "Split SAM file into chunks successfully" >> {log}
 
-        # Check if any chunks were created
-        if [ -z "$(ls {params.chunk_prefix}*)" ]; then
-            echo "No chunks were created during splitting" >> {log}
-            exit 1
-        fi
-
         # Step 4: Use parallel to grep and filter each chunk
-        echo "Filtering chunks..." >> {log}
-        ls {params.chunk_prefix}* | parallel -j {threads} "grep -v 'JAFEMN' {{}} > {{}}.out"
+        ls {params.chunk_prefix}* | parallel -j {threads} "grep -v 'JAFEMN' {{}} > {{}}.out" 2>> {log}
+        echo "Filtered chunks successfully" >> {log}
 
-        # Check if the filtered chunks are generated
-        if [ -z "$(ls {params.chunk_prefix}*.out)" ]; then
-            echo "No filtered chunks generated" >> {log}
-            exit 1
-        fi
-        echo "Filtered chunks generated successfully" >> {log}
+        # Clean up intermediate files
+        rm temp_sam_no_header.sam {params.inter_sam}
+        echo "Cleaned up intermediate files" >> {log}
+        """
 
-        # Step 5: Concatenate the header and filtered chunks into a single SAM file
-        cat {params.output_dir}/sam_header.sam {params.chunk_prefix}*.out > {params.filtered_sam}
+wildcards_dict = glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out")
+chunk_count = len(wildcards_dict.i)
+
+rule concatenate_and_convert_big:
+    input:
+        filtered_chunks = expand(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out", i=wildcards_dict.i),
+        header = config["directories"]["filtered_bam_big"] + "/sam_header.sam"
+    conda:
+        "../Conda_Envs/samtools.yaml"
+    params:
+        filtered_sam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.sam"
+    output:
+        filtered_bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
+    log:
+        "logs/concatenate_and_convert_big.log"
+    shell:
+        """
+        echo "Starting concatenate_and_convert_big rule" >> {log}
+
+        # Step 5: Concatenate filtered chunks
+        echo "Concatenating filtered chunks..." >> {log}
+        cat {input.header} {input.filtered_chunks} > {params.filtered_sam} 2>> {log}
         if [ $? -ne 0 ]; then
-            echo "Error concatenating SAM files" >> {log}
+            echo "Error during concatenation" >> {log}
             exit 1
         fi
-        echo "Concatenated SAM files successfully" >> {log}
+        echo "Concatenated filtered chunks successfully" >> {log}
 
-        # Step 6: Convert filtered SAM back to BAM
+        # Step 6: Convert filtered SAM to BAM
         samtools view -b {params.filtered_sam} > {output.filtered_bam} 2>> {log}
-        if [ $? -ne 0 ]; then
-            echo "Error in converting filtered SAM to BAM" >> {log}
-            exit 1
-        fi
         echo "Converted filtered SAM to BAM successfully" >> {log}
 
-        # Clean up temporary files
-        rm {params.chunk_prefix}*
-        rm {params.filtered_sam} {params.inter_sam} {params.output_dir}/sam_header.sam
+        # Step 7: Clean up intermediate files
+        rm {params.filtered_sam}
         echo "Cleaned up temporary files" >> {log}
         """
+
 
 
 
