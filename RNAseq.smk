@@ -67,7 +67,6 @@ star_index_files = config["star_index_files"]
 # You can not have anymore that one commented out line when defining your inputs here
 rule all:
     input:
-
         config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam
 
         # # Star big bam
