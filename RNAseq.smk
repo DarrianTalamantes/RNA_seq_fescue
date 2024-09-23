@@ -67,11 +67,8 @@ star_index_files = config["star_index_files"]
 # You can not have anymore that one commented out line when defining your inputs here
 rule all:
     input:
-        expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
-        expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
-        expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
-        expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS),
-        config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
+
+        config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam
 
         # # Star big bam
         # expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
@@ -91,6 +88,10 @@ rule all:
         
 
         # # Star sep bams
+        # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS),
 
 
 
@@ -127,7 +128,7 @@ rule all:
 
 # include: "rules/kraken.smk"
 
-include: "rules/star.smk"
+# include: "rules/star.smk"
 include: "rules/fungal_removal.smk"
 
 # include: "rules/scallop.smk"
