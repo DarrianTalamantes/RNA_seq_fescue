@@ -69,6 +69,7 @@ rule all:
     input:
         # # Scallop
         config["scallop"]["output_file"]
+        config["directories"]["features"] + "feature_counts.txt"
 
         # # Star big bam
         # expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
@@ -127,8 +128,8 @@ rule all:
 # include: "rules/fungal_removal.smk"
 
 include: "rules/scallop.smk"
+include: "rules/feature_counts.smk"
 
-# include: "rules/feature_counts.smk"
 # include: "rules/annotation.smk"
 
 

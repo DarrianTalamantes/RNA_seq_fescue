@@ -4,7 +4,7 @@
 rule feature_counts:
     input:
         gtf = config["scallop"]["output_file"],
-        bams = expand(sep_bams + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS)
+        bams = config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam"
     output:
         counts = config["directories"]["features"] + "feature_counts.txt"
     params:
