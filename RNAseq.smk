@@ -68,7 +68,7 @@ star_index_files = config["star_index_files"]
 rule all:
     input:
         # # Scallop
-        config["scallop"]["output_file"]
+        config["scallop"]["output_file"],
         config["directories"]["features"] + "feature_counts.txt"
 
         # # Star big bam
