@@ -67,7 +67,8 @@ star_index_files = config["star_index_files"]
 # You can not have anymore that one commented out line when defining your inputs here
 rule all:
     input:
-        config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
+        # # Scallop
+        config["scallop"]["output_file"]
 
         # # Star big bam
         # expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
@@ -78,12 +79,8 @@ rule all:
 
         # # Fungal Filtering
         # expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
+        # config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
 
-
-  
-     
-        
-        
         
 
         # # Star sep bams
@@ -126,11 +123,11 @@ rule all:
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
 
 # include: "rules/kraken.smk"
-
 # include: "rules/star.smk"
-include: "rules/fungal_removal.smk"
+# include: "rules/fungal_removal.smk"
 
-# include: "rules/scallop.smk"
+include: "rules/scallop.smk"
+
 # include: "rules/feature_counts.smk"
 # include: "rules/annotation.smk"
 
