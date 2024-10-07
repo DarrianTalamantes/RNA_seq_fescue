@@ -3,11 +3,13 @@ rule scallop2:
         bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
     conda:
         "../Conda_Envs/scallop2.yaml"
+    params:
+        threads = config["scallop"]["threads"]
     output:
         gtf = config["scallop"]["output_file"]
     shell:
         """
-        scallop2 -i {input.bam} -o {output.gtf}
+        scallop2 --num-threads {params.threads} -i {input.bam} -o {output.gtf}
         """
 
 

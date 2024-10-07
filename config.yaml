@@ -52,6 +52,7 @@ fungal_removal:
 
 scallop:
   output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome_col3swap.gtf
+  threads: 32
 
 
 
