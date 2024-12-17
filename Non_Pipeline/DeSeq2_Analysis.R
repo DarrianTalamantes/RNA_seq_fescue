@@ -61,9 +61,8 @@ keep <- rowSums(counts(dds) >= 5) >= (ncol(dds) / 4)
 dds <- dds[keep, ]
 
 ####################################
-# Getting many comparisons
-####################################
 # Function to get results.
+####################################
 get_results <- function(DeSeqData,column,t1,t2){
   if(!is.character(column) || !is.character(t1) || !is.character(t2)) {
     stop("The column and treatment levels (t1, t2) must be provided as strings.")
@@ -73,7 +72,9 @@ get_results <- function(DeSeqData,column,t1,t2){
   return(output)
 }
 
-
+####################################
+# Getting many comparisons
+####################################
 # Control vs Heat
 Control_vs_Heat <- get_results(dds,"Treatment","Control","Heat")
 summary(Control_vs_Heat)
@@ -131,16 +132,19 @@ create_volcano_plot <- function(results, log2FC_threshold = 2, pvalue_threshold 
   
   # Create the volcano plot
   p <- ggplot(results, aes(x = log2FoldChange, y = -log10(padj))) +
-    geom_point(aes(color = significance), alpha = 0.9) +
+    geom_point(aes(color = significance), alpha = 0.9, size = 3) +
     scale_color_manual(values = c("Significant Upregulated" = "red", "Not Significant" = "grey", "Significant Downregulated" = "blue")) +
     geom_vline(xintercept = c(-log2FC_threshold, log2FC_threshold), linetype = "dashed", color = "black") +
     geom_hline(yintercept = -log10(pvalue_threshold), linetype = "dashed", color = "black") +
     labs(x = "Log2 Fold Change", y = "-log10 Adjusted P-value") +
     ggtitle(title) +
     theme_minimal() + 
-    theme(plot.title = element_text(hjust = .5, size = 14)) 
-    
-  
+    theme(
+      plot.title = element_text(hjust = 0.5, size = 23),  # Increased title size
+      axis.title = element_text(size = 21),               # Increased axis title size
+      axis.text = element_text(size = 19),                # Increased axis label size
+      legend.text = element_text(size = 19),              # Increased legend text size
+      legend.title = element_text(size = 21))              # Increased legend title size 
   return(p)
 }
 #######################
@@ -184,9 +188,11 @@ downregulated <- subset(results1, significance == "Significant Downregulated")
     labs(x = "Log2 Fold Change", y = "-log10 Adjusted P-value") +
     ggtitle(title) +
     theme_minimal() + 
-    theme(plot.title = element_text(hjust = .5, size = 14)) 
-  
-  
+    theme(      plot.title = element_text(hjust = 0.5, size = 23),  # Increased title size
+                axis.title = element_text(size = 21),               # Increased axis title size
+                axis.text = element_text(size = 19),                # Increased axis label size
+                legend.text = element_text(size = 19),              # Increased legend text size
+                legend.title = element_text(size = 21))              # Increased legend title size )
   return(p)
 }
 
@@ -209,7 +215,7 @@ volcano_plot_EvNE <- create_volcano_plot(Endo_vs_No_Edno, log2FC_threshold = 2, 
 print(volcano_plot_EvNE)
 
 ###################################
-# Heat map
+# Heat map (Doesnt seem to work now)
 ###################################
 # Check what comparison the data is doing. Seems like id have to rerun the data everytime for heatmaps. 
 # I probably 
@@ -333,47 +339,47 @@ head(PxH_NegxPos)
 separator <- ggplot() + theme_void() + 
   theme(panel.background = element_rect(fill = "black", colour = "black"))
 # Heat x Control
-volcano_plot_EndoNeg_HeatxControl <- create_volcano_plot(EndoNeg_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative,  HeatxControl")
+volcano_plot_EndoNeg_HeatxControl <- create_volcano_plot(EndoNeg_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E-,  Heat x Control")
 print(volcano_plot_EndoNeg_HeatxControl)
 
-volcano_plot_EndoPos_HeatxControl <- create_volcano_plot(EndoPos_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive,  HeatxControl")
+volcano_plot_EndoPos_HeatxControl <- create_volcano_plot(EndoPos_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E+,  Heat x Control")
 print(volcano_plot_EndoPos_HeatxControl)
 
 combined_plot1 <- ggarrange(volcano_plot_EndoNeg_HeatxControl, separator, volcano_plot_EndoPos_HeatxControl, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
-annotate_figure(combined_plot1, top = text_grob("Heat x Control Volcano Plots", face = "bold", size = 14))
+annotate_figure(combined_plot1, top = text_grob("Heat x Control Volcano Plots", face = "bold", size = 24))
 
 # HeatxPresipitation x control
-volcano_plot_EndoPos_HPxControl <- create_volcano_plot(EndoPos_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Posititve, Heat with Percipitation x Control")
+volcano_plot_EndoPos_HPxControl <- create_volcano_plot(EndoPos_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E+, Heat with Percipitation x Control")
 print(volcano_plot_EndoPos_HPxControl)
 
-volcano_plot_EndoNeg_HPxControl <- create_volcano_plot(EndoNeg_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Negative, Heat with Percipitation x Control")
+volcano_plot_EndoNeg_HPxControl <- create_volcano_plot(EndoNeg_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E-, Heat with Percipitation x Control")
 print(volcano_plot_EndoNeg_HPxControl)
 
 combined_plot2 <- ggarrange(volcano_plot_EndoNeg_HPxControl, separator, volcano_plot_EndoPos_HPxControl, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
-annotate_figure(combined_plot2, top = text_grob("Heat with Percipitation x Control Volcano Plots", face = "bold", size = 14))
+annotate_figure(combined_plot2, top = text_grob("Heat with Percipitation x Control Volcano Plots", face = "bold", size = 24))
 
 # HeatxPresipitation x Heat
-volcano_plot_EndoPos_HPxHeat <- create_volcano_plot(EndoPos_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Positive, Heat with Percipitation x Heat")
+volcano_plot_EndoPos_HPxHeat <- create_volcano_plot(EndoPos_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E+, Heat with Percipitation x Heat")
 print(volcano_plot_EndoPos_HPxHeat)
 
-volcano_plot_EndoNeg_HPxHeat <- create_volcano_plot(EndoNeg_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endophyte Negative, Heat with Percipitation x Heat")
+volcano_plot_EndoNeg_HPxHeat <- create_volcano_plot(EndoNeg_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E-, Heat with Percipitation x Heat")
 print(volcano_plot_EndoNeg_HPxHeat)
 
 combined_plot3 <- ggarrange(volcano_plot_EndoNeg_HPxHeat, separator, volcano_plot_EndoPos_HPxHeat, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
-annotate_figure(combined_plot3, top = text_grob("Heat with Percipitation x Heat Volcano Plots", face = "bold", size = 14))
+annotate_figure(combined_plot3, top = text_grob("Heat with Percipitation x Heat Volcano Plots", face = "bold", size = 24))
 
 # Treatments, Negative x Positive
-volcano_plot_Heat_NegxPos <- create_volcano_plot(Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Heat treatment, Endo Negative x Positive")
+volcano_plot_Heat_NegxPos <- create_volcano_plot(Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Heat treatment, E- x E+")
 print(volcano_plot_Heat_NegxPos)
 
-volcano_plot_HP_NegxPos <- create_volcano_plot(PxH_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Heat with Percipitation, Endo Negactive x Positive")
+volcano_plot_HP_NegxPos <- create_volcano_plot(PxH_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Heat with Percipitation, E- x E+")
 print(volcano_plot_HP_NegxPos)
 
 volcano_plot_Control_NegxPos <- create_volcano_plot(Control_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Control, Endo Negactive x Positive")
 print(volcano_plot_Control_NegxPos)
 
 combined_plot4 <- ggarrange(volcano_plot_Heat_NegxPos, separator, volcano_plot_HP_NegxPos, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
-annotate_figure(combined_plot4, top = text_grob("Treatments by Endophyte Status", face = "bold", size = 14))
+annotate_figure(combined_plot4, top = text_grob("Treatments by Endophyte Status", face = "bold", size = 24))
 
 
 
@@ -599,7 +605,7 @@ head(data_name)
 
 ############### Comparing 2 datasets using volcano plots #################
 
-annotate_figure(combined_plot1, top = text_grob("Heat x Control Volcano Plots", face = "bold", size = 14))
+annotate_figure(combined_plot1, top = text_grob("Heat x Control Volcano Plots", face = "bold", size = 19))
 
 create_volcano_plot_2_dataset(EndoNeg_HeatxControl, Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HeatxControl data colored by NegativexPositive")
 create_volcano_plot_2_dataset(Heat_NegxPos, EndoNeg_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HeatxControl data colored by NegativexPositive")
@@ -608,7 +614,7 @@ create_volcano_plot_2_dataset(EndoPos_HeatxControl, Heat_NegxPos, log2FC_thresho
 create_volcano_plot_2_dataset(Heat_NegxPos, EndoPos_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive HeatxControl data colored by NegativexPositive")
 
 
-annotate_figure(combined_plot2, top = text_grob("Heat with Percipitation x Control Volcano Plots", face = "bold", size = 14))
+annotate_figure(combined_plot2, top = text_grob("Heat with Percipitation x Control Volcano Plots", face = "bold", size = 19))
 
 create_volcano_plot_2_dataset(EndoNeg_HPxControl, PxH_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HPxControl data colored by NegativexPositive")
 create_volcano_plot_2_dataset(PxH_NegxPos, EndoNeg_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HPxControl data colored by NegativexPositive")
