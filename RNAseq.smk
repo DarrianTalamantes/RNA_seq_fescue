@@ -2,6 +2,8 @@
 # Affiliation: University of Georgia
 
 
+# To use this id suggest doing one step at a time. The rule all has code seperated into blocks and below it you can include the rules
+# you want to use
 
 # 1. Use fastqc and multiqc before running this. I could not get multiqc to work.
 # 2. trim: This will use trimgalore to trim the reads.
@@ -67,9 +69,12 @@ star_index_files = config["star_index_files"]
 # You can not have anymore that one commented out line when defining your inputs here
 rule all:
     input:
-        # # Scallop
-        config["scallop"]["output_file"],
-        config["directories"]["features"] + "feature_counts.txt"
+        # # Trimming   
+        expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS), 
+        expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
+        expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS), 
+        expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
+
 
         # # Star big bam
         # expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
@@ -90,7 +95,9 @@ rule all:
         # expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
         # expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS),
 
-
+        # # Scallop
+        # config["scallop"]["output_file"],
+        # config["directories"]["features"] + "feature_counts.txt"
 
 
         # Stuff I have not totally labeled yet
@@ -100,11 +107,7 @@ rule all:
         # fasta_gff3 = config["transdecoder"]["fasta_gff3"], # predict makes this     
         # pep_file_clean = config["transdecoder"]["pep_clean"]
 
-        # # Trimming   
-        # expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS), 
-        # expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
-        # expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS), 
-        # expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
+
 
         # # Kraken outputs
         # config["kraken"]["db_name"] + "/hash.k2d",        
@@ -120,6 +123,7 @@ rule all:
 
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
+# This is the order in which we use the programs.
 # include: "rules/trim.smk"
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
 
@@ -127,8 +131,8 @@ rule all:
 # include: "rules/star.smk"
 # include: "rules/fungal_removal.smk"
 
-include: "rules/scallop.smk"
-include: "rules/feature_counts.smk"
+# include: "rules/scallop.smk"
+# include: "rules/feature_counts.smk"
 
 # include: "rules/annotation.smk"
 
