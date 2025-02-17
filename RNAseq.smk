@@ -124,7 +124,7 @@ rule all:
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
 # This is the order in which we use the programs.
-# include: "rules/trim.smk"
+include: "rules/trim.smk"
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
 
 # include: "rules/kraken.smk"
