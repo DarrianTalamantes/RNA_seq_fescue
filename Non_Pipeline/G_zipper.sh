@@ -22,6 +22,6 @@ ml parallel/20230722-GCCcore-12.2.0
 
 >commands.txt
 while IFS= read -r file; do
-    echo "gzip /scratch/drt83172/Wallace_lab/RNA_SEQ/Data/$file" >>  commands.txt
+    echo "gzip /scratch/drt83172/Wallace_lab/RNA_SEQ/Data/Extra_Seq/$file" >>  commands.txt
 done < /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/Lists/zipme.txt
 parallel --jobs 8 < commands.txt
