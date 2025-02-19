@@ -126,6 +126,7 @@ rule all:
 # This is the order in which we use the programs.
 include: "rules/trim.smk"
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
+# # The file name is RunFastQC.sh then multiqc to see what needs to be cut down to length 
 
 # include: "rules/kraken.smk"
 # include: "rules/star.smk"
