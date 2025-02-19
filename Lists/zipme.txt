@@ -1,2 +1,1 @@
-CTE25P_O16_HP3_R2.fastq
 CTE31P_O16_HP3_R2.fastq
