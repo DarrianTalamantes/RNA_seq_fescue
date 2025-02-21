@@ -1,0 +1,11 @@
+# Purpose: This file explains what I did to cut the files that had too many sequences
+
+1. Run RunFastQC.sh 
+2. Run multiQC . on the fastqc directory 
+3. Found out that CTE46N_J16_HP2_V176_RX has double the sequences as any other file
+4. Cut the file to 42569817 sequences
+5. Code below to do so
+
+seqtk seq -A /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP2_V176_R1.fq.gz | head -n 170279268  | seqtk seq -F '#' -A > /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP2_V176_R1_trimmed.fq.gz
+seqtk seq -A /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP2_V176_R2.fq.gz | head -n 170279268  | seqtk seq -F '#' -A > /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed/CTE46N_J16_HP2_V176_R2_trimmed.fq.gz
+

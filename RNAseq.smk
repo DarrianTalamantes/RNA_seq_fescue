@@ -69,11 +69,15 @@ star_index_files = config["star_index_files"]
 # You can not have anymore that one commented out line when defining your inputs here
 rule all:
     input:
-        # # Trimming   
-        expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS), 
-        expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
-        expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS), 
-        expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
+
+        # # Kraken outputs
+        config["kraken"]["db_name"] + "/hash.k2d",        
+        expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS),
+        expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+        expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
+        expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+        expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq", pairs=PAIRS)
+
 
 
         # # Star big bam
@@ -107,15 +111,12 @@ rule all:
         # fasta_gff3 = config["transdecoder"]["fasta_gff3"], # predict makes this     
         # pep_file_clean = config["transdecoder"]["pep_clean"]
 
+        # # Trimming   
+        # expand(trimmed + "/{pairs}R1.fq.gz", pairs=PAIRS), 
+        # expand(trimmed + "/{pairs}R1_trimming_report.txt", pairs=PAIRS),
+        # expand(trimmed + "/{pairs}R2.fq.gz", pairs=PAIRS), 
+        # expand(trimmed + "/{pairs}R2_trimming_report.txt", pairs=PAIRS)
 
-
-        # # Kraken outputs
-        # config["kraken"]["db_name"] + "/hash.k2d",        
-        # expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS),
-        # expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
-        # expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
-        # expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
-        # expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
 
    
 
@@ -124,11 +125,11 @@ rule all:
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
 # This is the order in which we use the programs.
-include: "rules/trim.smk"
+# include: "rules/trim.smk"
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
 # # The file name is RunFastQC.sh then multiqc to see what needs to be cut down to length 
 
-# include: "rules/kraken.smk"
+include: "rules/kraken.smk"
 # include: "rules/star.smk"
 # include: "rules/fungal_removal.smk"
 
