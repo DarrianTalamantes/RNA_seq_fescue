@@ -24,6 +24,7 @@ rule build_db:
 # You might have to run this to get the database
 # wget https://genome-idx.s3.amazonaws.com/kraken/k2_pluspfp_20240605.tar.gz
 # Then tar the file
+# If you do this rule build_db does not have to run. (I had to do this, that rule never worked)
 ##################
 
 # Rule to copy the Kraken database to shared memory
