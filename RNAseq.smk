@@ -72,7 +72,7 @@ rule all:
     input:
 
         # # Kraken outputs
-        expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS),
+        expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS)
         # expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
         # expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
         # expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
