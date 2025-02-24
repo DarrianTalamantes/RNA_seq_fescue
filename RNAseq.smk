@@ -71,12 +71,12 @@ rule all:
     input:
 
         # # Kraken outputs
-        config["kraken"]["db_name"] + "/hash.k2d",        
         expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS),
         expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
         expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
         expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
         expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq", pairs=PAIRS)
+        # config["kraken"]["db_name"] + "/hash.k2d",   # This line is probs useless if you download the db     
 
 
 
