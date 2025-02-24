@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J Kraken
-#SBATCH -p batch
-#SBATCH --ntasks=16
-#SBATCH --mem 60gb
+#SBATCH -p highmem_p
+#SBATCH --ntasks=32
+#SBATCH --mem 500 gb
 #SBATCH -t 160:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Kraken.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Kraken.%j.err
