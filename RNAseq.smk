@@ -70,7 +70,6 @@ star_index_files = config["star_index_files"]
 # You can not have anymore that one commented out line when defining your inputs here
 rule all:
     input:
-
         # # Kraken outputs
         [config["kraken"]["classified"] + f"/krakened_{pair}.txt" for pair in PAIRS]
         # expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
