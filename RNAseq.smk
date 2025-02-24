@@ -66,20 +66,20 @@ star_index_files = config["star_index_files"]
 # =================================================================================================
 #    Rules
 # =================================================================================================
+print(expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS))
 
 # You can not have anymore that one commented out line when defining your inputs here
-rule all:
-    input:[
+# rule all:
+#     input:
 
-        # # Kraken outputs
-        expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS),
-        expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
-        expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
-        expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
-        expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq", pairs=PAIRS)
+#         # # Kraken outputs
+#         expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS),
+#         expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+#         expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
+#         expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+#         expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq", pairs=PAIRS)
         # config["kraken"]["db_name"] + "/hash.k2d",   # This line is probs useless if you download the db     
 
-    ]
 
         # # Star big bam
         # expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
