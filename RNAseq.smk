@@ -80,11 +80,7 @@ rule all:
         config["directories"]["big_bam"] + "Log.final.out",
         config["directories"]["big_bam"] + "SJ.out.tab"
 
-        # # Star sep bams
-        # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
-        # expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
-        # expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
-        # expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS),
+
 
         # # Kraken outputs
         # expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS),
