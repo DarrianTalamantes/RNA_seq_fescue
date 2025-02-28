@@ -70,21 +70,29 @@ star_index_files = config["star_index_files"]
 # You can not have anymore that one commented out line when defining your inputs here, There can not be blank line after input.
 rule all:
     input:
+
+         # # Star big bam
+        expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
+        config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
+        config["directories"]["big_bam"] + "Log.out",
+        config["directories"]["big_bam"] + "Log.final.out",
+        config["directories"]["big_bam"] + "SJ.out.tab",
+
+        # # Star sep bams
+        # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS),
+
         # # Kraken outputs
-        expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS),
-        expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
-        expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
-        expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
-        expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
+        # expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS),
+        # expand(config["kraken"]["fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+        # expand(config["kraken"]["fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
+        # expand(config["kraken"]["non_fungal"] + "/{pairs}R1.fq", pairs=PAIRS),
+        # expand(config["kraken"]["non_fungal"] + "/{pairs}R2.fq", pairs=PAIRS),
         # config["kraken"]["db_name"] + "/hash.k2d"   # This line is probs useless if you download the db     
 
 
-        # # Star big bam
-        # expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
-        # config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
-        # config["directories"]["big_bam"] + "Log.out",
-        # config["directories"]["big_bam"] + "Log.final.out",
-        # config["directories"]["big_bam"] + "SJ.out.tab",
 
         # # Fungal Filtering
         # expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
@@ -92,11 +100,7 @@ rule all:
 
         
 
-        # # Star sep bams
-        # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
-        # expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
-        # expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
-        # expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS),
+
 
         # # Scallop
         # config["scallop"]["output_file"],
@@ -128,8 +132,8 @@ rule all:
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
 # # The file name is RunFastQC.sh then multiqc to see what needs to be cut down to length 
 
-include: "rules/kraken.smk"
-# include: "rules/star.smk"
+# include: "rules/kraken.smk"
+include: "rules/star.smk"
 # include: "rules/fungal_removal.smk"
 
 # include: "rules/scallop.smk"
