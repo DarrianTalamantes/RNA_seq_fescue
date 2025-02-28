@@ -3,7 +3,7 @@
 #SBATCH -p highmem_p
 #SBATCH --ntasks=64
 #SBATCH --mem 500gb
-#SBATCH -t 260:00:00
+#SBATCH -t 160:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/StarSmall.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/StarSmall.%j.err
 #SBATCH --mail-type=FAIL,END
