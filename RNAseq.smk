@@ -62,6 +62,8 @@ PAIRS = read_sample_names(paired_list_file)
 # =================================================================================================
 
 star_index_files = config["star_index_files"]
+star_index_files = list(star_index_files)  # Ensure it's a list
+
 
 # =================================================================================================
 #    Rules
@@ -72,7 +74,7 @@ print(expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_fi
 rule all:
     input:
          # # Star big bam
-        [config["directories"]["genome_idx"] + "/" + f for f in star_index_files],
+        expand(config["directories"]["genome_idx"] + "/{file}", file=list(star_index_files)),  # Ensure a proper list
         config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
         config["directories"]["big_bam"] + "Log.out",
         config["directories"]["big_bam"] + "Log.final.out",

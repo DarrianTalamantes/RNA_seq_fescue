@@ -17,8 +17,7 @@ rule star_index:
         "../Conda_Envs/transcriptome.yaml"
     threads: 32
     output:
-        [config["directories"]["genome_idx"] + "/" + f for f in star_index_files]
-
+        expand(config["directories"]["genome_idx"] + "/{file}", file=list(star_index_files))  # Ensure a proper list
     shell:
         """
         STAR --runThreadN {params.threads} \
