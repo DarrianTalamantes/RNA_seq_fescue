@@ -70,7 +70,6 @@ star_index_files = config["star_index_files"]
 # You can not have anymore that one commented out line when defining your inputs here, There can not be blank line after input.
 rule all:
     input:
-
          # # Star big bam
         expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
         config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
