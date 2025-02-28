@@ -130,12 +130,12 @@ rule all:
 ## Look at the multiqc file and drop any that dont look good, then run the rest of the rules
 
 # This is the order in which we use the programs.
-# include: "rules/trim.smk"
+# include: "rules/trim.smk" # I used snakemake version: snakemake/6.9.1-Mamba-4.11.0-4 
 # # Here we run fastqc and multiqc manually. I will trim any samples with too many reads by just cutting them to a length of the next largest file
 # # The file name is RunFastQC.sh then multiqc to see what needs to be cut down to length 
 
-# include: "rules/kraken.smk"
-include: "rules/star.smk"
+# include: "rules/kraken.smk" # this rule only works with snakemake version: snakemake/6.9.1-Mamba-4.11.0-4
+include: "rules/star.smk" # Switch to snakemake version: snakemake/8.16.0-foss-2023a
 # include: "rules/fungal_removal.smk"
 
 # include: "rules/scallop.smk"
