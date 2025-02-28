@@ -75,7 +75,7 @@ rule all:
         config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
         config["directories"]["big_bam"] + "Log.out",
         config["directories"]["big_bam"] + "Log.final.out",
-        config["directories"]["big_bam"] + "SJ.out.tab",
+        config["directories"]["big_bam"] + "SJ.out.tab"
 
         # # Star sep bams
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
