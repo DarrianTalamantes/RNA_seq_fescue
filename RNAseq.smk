@@ -72,7 +72,7 @@ print(expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_fi
 rule all:
     input:
          # # Star big bam
-        expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files),
+        [config["directories"]["genome_idx"] + "/" + f for f in star_index_files],
         config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
         config["directories"]["big_bam"] + "Log.out",
         config["directories"]["big_bam"] + "Log.final.out",
