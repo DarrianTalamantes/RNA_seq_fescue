@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH -J StarBig
-#SBATCH -p highmem_p
-#SBATCH --ntasks=64
-#SBATCH --mem 500gb
+#SBATCH -p highmem_30d_p
+#SBATCH --ntasks=32
+#SBATCH --mem 900gb
 #SBATCH -t 160:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/StarSmall.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/StarSmall.%j.err
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/#SBATCH -J StarBig.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/#SBATCH -J StarBig.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
@@ -16,7 +16,7 @@ echo "Done."
 sacct -j $SLURM_JOB_ID --format=JobID,JobName,AllocCPUS,Elapsed,ExitCode,State,MaxRSS,TotalCPU
 
 module load Anaconda3/2022.10
-module load snakemake/8.16.0-foss-2023a
+module load snakemake/6.9.1-Mamba-4.11.0-4
 source activate snakemake
 
 export LC_ALL=en_SG.utf8
