@@ -73,8 +73,8 @@ print(expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_fi
 # You can not have anymore that one commented out line when defining your inputs here, There can not be blank line after input.
 rule all:
     input:
-        # # Star big bam
-        expand(config["directories"]["genome_idx"] + "/{file}", file=list(star_index_files)),  # Ensure a proper list
+        # STAR big bam
+        expand(config["directories"]["genome_idx"] + "/{file}", file=list(star_index_files))  # Ensure a proper list
         # config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
         # config["directories"]["big_bam"] + "Log.out",
         # config["directories"]["big_bam"] + "Log.final.out",

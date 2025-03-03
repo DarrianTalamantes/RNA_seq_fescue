@@ -23,7 +23,7 @@ rule star_index:
         STAR --runThreadN {params.threads} \
             --runMode genomeGenerate \
             --genomeDir {params.genome_dir} \
-            --genomeFastaFiles {input}
+            --genomeFastaFiles {input.fasta}
         """
 
 rule create_star_manifest:
