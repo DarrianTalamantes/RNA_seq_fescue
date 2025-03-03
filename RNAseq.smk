@@ -74,11 +74,11 @@ print(expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_fi
 rule all:
     input:
         # STAR big bam
-        expand(config["directories"]["genome_idx"] + "/{file}", file=list(star_index_files))  # Ensure a proper list
-        # config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
-        # config["directories"]["big_bam"] + "Log.out",
-        # config["directories"]["big_bam"] + "Log.final.out",
-        # config["directories"]["big_bam"] + "SJ.out.tab"
+        expand(config["directories"]["genome_idx"] + "/{file}", file=list(star_index_files)),  # Ensure a proper list
+        config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam",
+        config["directories"]["big_bam"] + "Log.out",
+        config["directories"]["big_bam"] + "Log.final.out",
+        config["directories"]["big_bam"] + "SJ.out.tab"
 
         # # Star sep bams
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
@@ -136,7 +136,7 @@ rule all:
 # # The file name is RunFastQC.sh then multiqc to see what needs to be cut down to length 
 
 # include: "rules/kraken.smk" # this rule only works with snakemake version: snakemake/6.9.1-Mamba-4.11.0-4
-include: "rules/star.smk" # Switch to snakemake version: snakemake/8.16.0-foss-2023a
+include: "rules/star.smk" # Switch to snakemake version: snakemake/7.22.0-foss-2022a
 # include: "rules/fungal_removal.smk"
 
 # include: "rules/scallop.smk"

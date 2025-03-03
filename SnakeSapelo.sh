@@ -16,7 +16,7 @@ echo "Done."
 sacct -j $SLURM_JOB_ID --format=JobID,JobName,AllocCPUS,Elapsed,ExitCode,State,MaxRSS,TotalCPU
 
 module load Anaconda3/2022.10
-module load snakemake/6.9.1-Mamba-4.11.0-4
+module load snakemake/7.22.0-foss-2022a
 source activate snakemake
 
 export LC_ALL=en_SG.utf8
