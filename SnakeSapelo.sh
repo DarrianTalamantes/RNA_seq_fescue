@@ -3,7 +3,7 @@
 #SBATCH -p batch
 #SBATCH --ntasks=4
 #SBATCH --mem=10gb
-#SBATCH -t 260:00:00
+#SBATCH -t 160:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/#SBATCH -J StarBig.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/#SBATCH -J StarBig.%j.err
 #SBATCH --mail-type=FAIL,END
