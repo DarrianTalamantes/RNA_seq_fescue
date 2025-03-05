@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J StarSmall
-#SBATCH -p batch_30d
+#SBATCH -p highmem_30d_p
 #SBATCH --ntasks=32
-#SBATCH --mem=120GB
+#SBATCH --mem=900GB
 #SBATCH -t 260:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/StarSmall.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/StarSmall.%j.err
@@ -22,7 +22,7 @@ source activate snakemake
 export LC_ALL=en_SG.utf8
 export LANG=en_SG.utf8
 
-snakemake --use-conda --cores 32 -s RNAseq.smk --verbose 
+snakemake --use-conda --cores 32 -s RNAseq.smk --verbose --rerun-incomplete
 
 #--rerun-triggers mtime 
 # --rerun-incomplete

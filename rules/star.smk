@@ -109,6 +109,6 @@ rule star_mapping_seperate:
             --genomeDir {params.genome_dir} \
             --readFilesIn {input.extracted_fwd} {input.extracted_rev} \
             --outFileNamePrefix {params.prefix} \
-            --limitBAMsortRAM 15000000000 \
+            --limitBAMsortRAM 30000000000 \
             --outSAMtype BAM SortedByCoordinate
         """
