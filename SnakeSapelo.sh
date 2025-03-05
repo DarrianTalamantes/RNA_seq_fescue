@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH -J StarBig
-#SBATCH -p highmem_30d_p
+#SBATCH -J StarSmall
+#SBATCH -p batch_30d
 #SBATCH --ntasks=32
-#SBATCH --mem=900gb
+#SBATCH --mem=120GB
 #SBATCH -t 260:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/StarBig.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/StarBig.%j.err
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/StarSmall.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/StarSmall.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
