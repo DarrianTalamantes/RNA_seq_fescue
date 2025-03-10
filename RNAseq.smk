@@ -73,11 +73,15 @@ print(expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_fi
 # You can not have anymore that one commented out line when defining your inputs here, There can not be blank line after input.
 rule all:
     input:
+        # # Fungal Filtering
+        expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
+        config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
+
         # # Star sep bams
-        expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
-        expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
-        expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
-        expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS)
+        # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}Log.out", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}Log.final.out", pairs=PAIRS),
+        # expand(config["directories"]["sep_bams"] + "{pairs}SJ.out.tab", pairs=PAIRS)
 
         # # Kraken outputs
         # expand(config["kraken"]["classified"] + "/krakened_{pairs}.txt", pairs=PAIRS),
@@ -95,9 +99,7 @@ rule all:
         # config["directories"]["big_bam"] + "SJ.out.tab"
 
 
-        # # Fungal Filtering
-        # expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
-        # config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
+
 
         
 
@@ -134,8 +136,8 @@ rule all:
 # # The file name is RunFastQC.sh then multiqc to see what needs to be cut down to length 
 
 # include: "rules/kraken.smk" # this rule only works with snakemake version: snakemake/6.9.1-Mamba-4.11.0-4
-include: "rules/star.smk" # Switch to snakemake version: snakemake/7.22.0-foss-2022a
-# include: "rules/fungal_removal.smk"
+# include: "rules/star.smk" # Switch to snakemake version: snakemake/7.22.0-foss-2022a
+include: "rules/fungal_removal.smk"
 
 # include: "rules/scallop.smk"
 # include: "rules/feature_counts.smk"
