@@ -138,6 +138,7 @@ rule all:
 
 # include: "rules/kraken.smk" # this rule only works with snakemake version: snakemake/6.9.1-Mamba-4.11.0-4
 # include: "rules/star.smk" # Switch to snakemake version: snakemake/7.22.0-foss-2022a
+
 include: "rules/fungal_removal.smk"
 
 # include: "rules/scallop.smk"
