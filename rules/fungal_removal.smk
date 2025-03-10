@@ -17,6 +17,7 @@ rule split_and_filter_big:
     threads: 32
     output:
         chunked_outs = directory(config["directories"]["filtered_bam_big"])  # Use directory output
+        header = config["directories"]["filtered_bam_big"] + "/sam_header.sam"  # Ensure header is created
     log:
         "logs/split_and_filter_big.log"
     shell:
