@@ -74,7 +74,7 @@ print(expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_fi
 rule all:
     input:
         # # Fungal Filtering
-        expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
+        expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS),
         config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
 
         # # Star sep bams
