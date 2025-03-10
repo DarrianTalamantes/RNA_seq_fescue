@@ -18,6 +18,7 @@ rule split_and_filter_big:
     output:
         chunked_outs = directory(config["directories"]["filtered_bam_big"]),  # Use directory output
         header = config["directories"]["filtered_bam_big"] + "/sam_header.sam"  # Ensure header is created
+
     log:
         "logs/split_and_filter_big.log"
     shell:
@@ -51,11 +52,8 @@ chunk_count = len(wildcards_dict.i)
 
 rule concatenate_and_convert_big:
     input:
-        filtered_chunks=lambda wildcards: expand(
-            config["directories"]["filtered_bam_big"] + "/chunk_{i}.out", 
-            i=glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out").i
-        ),
-        header=lambda wildcards: config["directories"]["filtered_bam_big"] + "/sam_header.sam"
+        filtered_chunks=glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_*.out").chunk_,
+        header=config["directories"]["filtered_bam_big"] + "/sam_header.sam"
     conda:
         "../Conda_Envs/samtools.yaml"
     params:
