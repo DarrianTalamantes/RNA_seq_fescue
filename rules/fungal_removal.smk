@@ -52,7 +52,7 @@ chunk_count = len(wildcards_dict.i)
 
 rule concatenate_and_convert_big:
     input:
-        filtered_chunks=glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_*.out").chunk_,
+        filtered_chunks=glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_*.out").chunk,
         header=config["directories"]["filtered_bam_big"] + "/sam_header.sam"
     conda:
         "../Conda_Envs/samtools.yaml"
