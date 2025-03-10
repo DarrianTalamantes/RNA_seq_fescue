@@ -48,10 +48,6 @@ rule split_and_filter_big:
 wildcards_dict = glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out")
 chunk_count = len(wildcards_dict.i)
 
-def get_chunks(wildcards):
-    return glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out").i
-
-
 rule concatenate_and_convert_big:
     input:
         filtered_chunks = expand(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out", i=wildcards_dict.i),
