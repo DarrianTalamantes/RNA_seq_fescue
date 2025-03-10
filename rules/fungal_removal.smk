@@ -52,14 +52,18 @@ chunk_count = len(wildcards_dict.i)
 
 rule concatenate_and_convert_big:
     input:
-        filtered_chunks=glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_*.out").chunk,
+        # Dynamically fetch all chunk files based on the count of chunks
+        filtered_chunks = lambda wildcards: expand(
+            config["directories"]["filtered_bam_big"] + "/chunk_{i}.out", 
+            i=range(len(glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out").i))
+        ),
         header=config["directories"]["filtered_bam_big"] + "/sam_header.sam"
     conda:
         "../Conda_Envs/samtools.yaml"
     params:
         filtered_sam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.sam"
     output:
-        filtered_bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
+        filtered_bam = config["directories"]["filtered_bams"] + "/big/Aligned.sortedByCoord_filtered.out.bam"
     log:
         "logs/concatenate_and_convert_big.log"
     shell:
