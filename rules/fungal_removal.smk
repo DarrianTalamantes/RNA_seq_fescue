@@ -16,7 +16,7 @@ rule split_and_filter_big:
         lines_per_chunk = config["fungal_removal"]["lines_per_chunk"]
     threads: 32
     output:
-        chunked_outs = directory(config["directories"]["filtered_bam_big"])  # Use directory output
+        chunked_outs = directory(config["directories"]["filtered_bam_big"]),  # Use directory output
         header = config["directories"]["filtered_bam_big"] + "/sam_header.sam"  # Ensure header is created
     log:
         "logs/split_and_filter_big.log"
