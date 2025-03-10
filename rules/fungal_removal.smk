@@ -50,7 +50,6 @@ chunk_count = len(wildcards_dict.i)
 
 rule concatenate_and_convert_big:
     input:
-    input:
         filtered_chunks=lambda wildcards: expand(
             config["directories"]["filtered_bam_big"] + "/chunk_{i}.out", 
             i=glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out").i
