@@ -75,8 +75,7 @@ rule all:
     input:
         # # Fungal Filtering
         config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam",
-        expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", 
-               pairs=config["pairs"])
+        expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
 
         # # Star sep bams
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
