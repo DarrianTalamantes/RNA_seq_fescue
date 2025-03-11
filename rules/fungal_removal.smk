@@ -8,12 +8,12 @@ rule split_and_filter_big:
     input:
         big_bam=config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam"
     output:
-        chunked_outs=directory(config["directories"]["filtered_bam_big"]),
-        chunks=expand(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out", i=range(100)),  # Change 100 to an estimate
-        header=config["directories"]["filtered_bam_big"] + "/sam_header.sam"
+        chunked_outs=directory(config["directories"]["chunked_bam"]),
+        chunks=expand(config["directories"]["chunked_bam"] + "/chunk_{i}.out", i=range(100)),  # Change 100 to an estimate
+        header=config["directories"]["chunked_bam"] + "/sam_header.sam"
     params:
-        output_dir=config["directories"]["filtered_bam_big"],
-        chunk_prefix=config["directories"]["filtered_bam_big"] + "/chunk_",
+        output_dir=config["directories"]["chunked_bam"],
+        chunk_prefix=config["directories"]["chunked_bam"] + "/chunk_",
         inter_sam=config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.sam",
         lines_per_chunk=config["fungal_removal"]["lines_per_chunk"]
     log:
@@ -46,16 +46,16 @@ rule split_and_filter_big:
         echo "Cleaned up intermediate files" >> {log}
         """
 
-wildcards_dict = glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out")
+wildcards_dict = glob_wildcards(config["directories"]["chunked_bam"] + "/chunk_{i}.out")
 chunk_count = len(wildcards_dict.i)
 
 rule concatenate_and_convert_big:
     input:
         filtered_chunks=expand(
-            config["directories"]["filtered_bam_big"] + "/chunk_{i}.out",
-            i=glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out").i
+            config["directories"]["chunked_bam"] + "/chunk_{i}.out",
+            i=glob_wildcards(config["directories"]["chunked_bam"] + "/chunk_{i}.out").i
         ),
-        header=config["directories"]["filtered_bam_big"] + "/sam_header.sam"
+        header=config["directories"]["chunked_bam"] + "/sam_header.sam"
     output:
         filtered_bam=config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
     params:

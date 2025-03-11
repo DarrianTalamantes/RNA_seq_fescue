@@ -17,6 +17,7 @@ directories:
   annotations: /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotations
   filtered_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/sep
   filtered_bam_big: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/big
+  chunked_bam:  /scratch/drt83172/Wallace_lab/RNA_SEQ/chunked_bam
   kraken: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken
   kraken_db: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken_db
 
