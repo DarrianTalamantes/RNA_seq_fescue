@@ -6,21 +6,20 @@
 
 rule split_and_filter_big:
     input:
-        big_bam = config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam"
-    conda:
-        "../Conda_Envs/samtools.yaml"
-    params:
-        output_dir = config["directories"]["filtered_bam_big"],
-        chunk_prefix = config["directories"]["filtered_bam_big"] + "/chunk_",
-        inter_sam = config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.sam",
-        lines_per_chunk = config["fungal_removal"]["lines_per_chunk"]
-    threads: 32
+        big_bam=config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam"
     output:
-        chunked_outs = directory(config["directories"]["filtered_bam_big"]),  # Use directory output
-        header = config["directories"]["filtered_bam_big"] + "/sam_header.sam"  # Ensure header is created
-
+        chunked_outs=directory(config["directories"]["filtered_bam_big"]),
+        chunks=expand(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out", i=range(100)),  # Change 100 to an estimate
+        header=config["directories"]["filtered_bam_big"] + "/sam_header.sam"
+    params:
+        output_dir=config["directories"]["filtered_bam_big"],
+        chunk_prefix=config["directories"]["filtered_bam_big"] + "/chunk_",
+        inter_sam=config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.sam",
+        lines_per_chunk=config["fungal_removal"]["lines_per_chunk"]
     log:
         "logs/split_and_filter_big.log"
+    conda:
+        "../Conda_Envs/samtools.yaml"
     shell:
         """
         echo "Starting split_and_filter_big rule" >> {log}
@@ -52,20 +51,20 @@ chunk_count = len(wildcards_dict.i)
 
 rule concatenate_and_convert_big:
     input:
-        # Dynamically fetch all chunk files based on the count of chunks
-        filtered_chunks = lambda wildcards: expand(
-            config["directories"]["filtered_bam_big"] + "/chunk_{i}.out", 
-            i=range(len(glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out").i))
+        filtered_chunks=expand(
+            config["directories"]["filtered_bam_big"] + "/chunk_{i}.out",
+            i=glob_wildcards(config["directories"]["filtered_bam_big"] + "/chunk_{i}.out").i
         ),
         header=config["directories"]["filtered_bam_big"] + "/sam_header.sam"
-    conda:
-        "../Conda_Envs/samtools.yaml"
-    params:
-        filtered_sam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.sam"
     output:
-        filtered_bam = config["directories"]["filtered_bams"] + "/big/Aligned.sortedByCoord_filtered.out.bam"
+        filtered_bam=config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
+    params:
+        filtered_sam=config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.sam"
     log:
         "logs/concatenate_and_convert_big.log"
+    conda:
+        "../Conda_Envs/samtools.yaml"
+
     shell:
         """
         echo "Starting concatenate_and_convert_big rule" >> {log}

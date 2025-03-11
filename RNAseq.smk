@@ -74,7 +74,6 @@ print(expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_fi
 rule all:
     input:
         # # Fungal Filtering
-        config["directories"]["filtered_bam_big"] + "/sam_header.sam",
         config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam",
         expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
 
@@ -139,7 +138,7 @@ rule all:
 # include: "rules/kraken.smk" # this rule only works with snakemake version: snakemake/6.9.1-Mamba-4.11.0-4
 # include: "rules/star.smk" # Switch to snakemake version: snakemake/7.22.0-foss-2022a
 
-include: "rules/fungal_removal.smk"
+include: "rules/fungal_removal.smk" # Dry runs may show that concatenate_and_convert_big will not work. It will
 
 # include: "rules/scallop.smk"
 # include: "rules/feature_counts.smk"
