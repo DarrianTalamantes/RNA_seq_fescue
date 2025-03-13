@@ -23,6 +23,9 @@ rule split_and_filter_big:
     shell:
         """
         echo "Starting split_and_filter_big rule" >> {log}
+        
+        # Ensure output directory exists
+        mkdir -p {params.output_dir}
 
         # Step 1: Convert BAM to SAM
         samtools view -h {input.big_bam} > {params.inter_sam} 2>> {log}
