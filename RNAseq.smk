@@ -35,6 +35,10 @@ sep_bams = config["directories"]["sep_bams"]
 # Files
 genome = config["genome"]
 
+for path in config["directories"].values():
+    os.makedirs(path, exist_ok=True)
+
+
 # =================================================================================================
 #   Functions
 # =================================================================================================
