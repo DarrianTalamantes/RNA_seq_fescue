@@ -33,8 +33,8 @@ rule split_and_filter_big:
         echo "Extracted SAM header successfully" >> {log}
 
         # Step 3: Split the SAM file into chunks
-        grep -v "^@" {params.inter_sam} > temp_sam_no_header.sam
-        split -l {params.lines_per_chunk} temp_sam_no_header.sam {params.chunk_prefix} 2>> {log}
+        # grep -v "^@" {params.inter_sam} > temp_sam_no_header.sam
+        split -l {params.lines_per_chunk} temp_sam_no_header_practice.sam {params.chunk_prefix} 2>> {log}
         echo "Split SAM file into chunks successfully" >> {log}
 
         # Step 4: Use parallel to grep and filter each chunk

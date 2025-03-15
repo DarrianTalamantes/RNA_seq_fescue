@@ -48,7 +48,7 @@ kraken:
   fungal: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/fungal
 
 fungal_removal:
-  lines_per_chunk: 10000000
+  lines_per_chunk: 5000000
 
 
 scallop:

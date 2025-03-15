@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J FungiRemoval2
 #SBATCH -p batch
-#SBATCH --ntasks=32
-#SBATCH --mem=120GB
+#SBATCH --ntasks=4
+#SBATCH --mem=24GB
 #SBATCH -t 160:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FungiRemoval2.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FungiRemoval2.%j.err
@@ -22,7 +22,7 @@ source activate snakemake
 export LC_ALL=en_SG.utf8
 export LANG=en_SG.utf8
 
-snakemake --use-conda --cores 32 -s RNAseq.smk --verbose --rerun-incomplete
+snakemake --use-conda --cores 4 -s RNAseq.smk --verbose --rerun-incomplete
 
 #--rerun-triggers mtime 
 # --rerun-incomplete
