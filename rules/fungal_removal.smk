@@ -42,7 +42,7 @@ rule split_and_filter_big:
         echo "Filtered chunks successfully" >> {log}
 
         # Clean up intermediate files
-        rm temp_sam_no_header.sam {params.inter_sam}
+        rm temp_sam_no_header_practice.sam {params.inter_sam}
         echo "Cleaned up intermediate files" >> {log}
         """
 
