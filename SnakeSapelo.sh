@@ -2,7 +2,7 @@
 #SBATCH -J FungiRemoval2
 #SBATCH -p batch
 #SBATCH --ntasks=4
-#SBATCH --mem=24GB
+#SBATCH --mem=50GB
 #SBATCH -t 160:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FungiRemoval2.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/FungiRemoval2.%j.err
