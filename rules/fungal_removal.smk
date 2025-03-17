@@ -22,6 +22,8 @@ rule split_and_filter_big:
         "../Conda_Envs/samtools.yaml"
     shell:
         """
+        echo "chunk_prefix: {params.chunk_prefix}" >> {log}
+        echo "threads: {params.threads}" >> {log}
         echo "Starting split_and_filter_big rule" >> {log}
 
         # Step 1: Convert BAM to SAM
