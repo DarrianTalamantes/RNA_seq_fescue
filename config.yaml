@@ -49,6 +49,7 @@ kraken:
 
 fungal_removal:
   lines_per_chunk: 5000000
+  threads: 16
 
 
 scallop:

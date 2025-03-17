@@ -15,6 +15,7 @@ rule split_and_filter_big:
         chunk_prefix=config["directories"]["chunked_bam"] + "/chunk_",
         inter_sam=config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.sam",
         lines_per_chunk=config["fungal_removal"]["lines_per_chunk"]
+        threads=["fungal_removal"]["threads"]
     log:
         "logs/split_and_filter_big.log"
     conda:
@@ -37,7 +38,7 @@ rule split_and_filter_big:
         echo "Split SAM file into chunks successfully" >> {log}
 
         # Step 4: Use parallel to grep and filter each chunk
-        ls {params.chunk_prefix}* | parallel -j {threads} "grep -v 'JAFEMN' {{}} > {{}}.out" 2>> {log}
+        ls {params.chunk_prefix}* | parallel -j {params.threads} "grep -v 'JAFEMN' {{}} > {{}}.out" 2>> {log}
         echo "Filtered chunks successfully" >> {log}
 
         # Clean up intermediate files
