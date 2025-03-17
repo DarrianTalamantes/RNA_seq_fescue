@@ -16,7 +16,7 @@ rule filter_epichloe_out:
         samtools view -H {input.big_bam} | grep "^@RG" | grep -v "JAFEMN" | cut -f 2 | sed 's/ID://g' > keep_rg.txt
 
         # Filter the BAM file to include only the relevant read groups
-        samtools view --threads {threads} -b -h -r $(cat keep_rg.txt) {input.big_bam} > {output.filtered_bam}
+        samtools view --threads {threads} -b -h $(cat keep_rg.txt | xargs -I {} echo -r {}) {input.big_bam} > {output.filtered_bam}
         """
 
 # rule split_and_filter_big:
