@@ -15,15 +15,14 @@ rule split_and_filter_big:
         chunk_prefix=config["directories"]["chunked_bam"] + "/chunk_",
         inter_sam=config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.sam",
         lines_per_chunk=config["fungal_removal"]["lines_per_chunk"],
-        cores=config["fungal_removal"]["threads"]
     log:
         "logs/split_and_filter_big.log"
+    threads: config["fungal_removal"]["threads"]
     conda:
         "../Conda_Envs/samtools.yaml"
     shell:
         """
         echo "chunk_prefix: {params.chunk_prefix}" >> {log}
-        echo "threads: {params.cores}" >> {log}
         echo "Starting split_and_filter_big rule" >> {log}
 
         # Step 1: Convert BAM to SAM
@@ -43,8 +42,7 @@ rule split_and_filter_big:
         echo "Chunks created: $(ls {params.chunk_prefix}*)" >> {log}
 
         # Step 4: Use parallel to grep and filter each chunk
-        echo "Using {params.cores} cores for parallel" >> {log}
-        ls {params.chunk_prefix}* | parallel -j {params.cores} "echo Processing {}; grep -v 'JAFEMN' {} > {}.out" 2>> {log}
+        ls {params.chunk_prefix}* | parallel -j {threads} "echo Processing {}; grep -v 'JAFEMN' {} > {}.out" 2>> {log}
         echo "Filtered chunks successfully" >> {log}
 
         # Clean up intermediate files
