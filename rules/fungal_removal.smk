@@ -15,7 +15,7 @@ rule split_and_filter_big:
         chunk_prefix=config["directories"]["chunked_bam"] + "/chunk_",
         inter_sam=config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.sam",
         lines_per_chunk=config["fungal_removal"]["lines_per_chunk"],
-        threads=["fungal_removal"]["threads"]
+        threads=config["fungal_removal"]["threads"]
     log:
         "logs/split_and_filter_big.log"
     conda:
