@@ -8,7 +8,7 @@ rule filter_epichloe_out:
     input:
         big_bam=config["directories"]["big_bam"] + "tester.bam"
     output:
-        filtered_bam=config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.bam"
+        filtered_bam=config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
     threads: config["fungal_removal"]["threads"]
     shell:
         """
