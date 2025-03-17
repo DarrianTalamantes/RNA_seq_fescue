@@ -37,8 +37,11 @@ rule split_and_filter_big:
         split -l {params.lines_per_chunk} temp_sam_no_header_practice.sam {params.chunk_prefix} 2>> {log}
         echo "Split SAM file into chunks successfully" >> {log}
 
+        # Check if files were split
+        echo "Chunks created: $(ls {params.chunk_prefix}*)" >> {log}
+        
         # Step 4: Use parallel to grep and filter each chunk
-        ls {params.chunk_prefix}* | parallel -j {params.threads} "grep -v 'JAFEMN' {{}} > {{}}.out" 2>> {log}
+        ls {params.chunk_prefix}* | parallel -j {params.threads} "echo Processing {}; grep -v 'JAFEMN' {} > {}.out" 2>> {log}
         echo "Filtered chunks successfully" >> {log}
 
         # Clean up intermediate files
