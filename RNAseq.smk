@@ -74,6 +74,10 @@ star_index_files = list(star_index_files)  # Ensure it's a list
 # =================================================================================================
 print(expand(config["directories"]["genome_idx"] + "/{file}", file=star_index_files))
 
+print(config["directories"]["big_bam"])
+print(config["directories"]["filtered_bam_big"])
+print(config["fungal_removal"]["threads"])
+
 # You can not have anymore that one commented out line when defining your inputs here, There can not be blank line after input.
 rule all:
     input:
