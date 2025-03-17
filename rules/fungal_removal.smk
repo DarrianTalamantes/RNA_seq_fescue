@@ -9,14 +9,14 @@ rule filter_epichloe_out:
         big_bam=config["directories"]["big_bam"] + "tester.bam"
     output:
         filtered_bam=config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
-    threads: config["fungal_removal"]["threads"]
+    threads: int(config["fungal_removal"]["threads"])
     shell:
         """
         # Extract the @RG lines and filter out those related to JAFEMN
         samtools view -H {input.big_bam} | grep "^@RG" | grep -v "JAFEMN" | cut -f 2 | sed 's/ID://g' > keep_rg.txt
 
         # Filter the BAM file to include only the relevant read groups
-        samtools view --threads {threads} -b -h $(cat keep_rg.txt | xargs -I {} echo -r {}) {input.big_bam} > {output.filtered_bam}
+        samtools view --threads {threads} -b -h -r $(cat keep_rg.txt | xargs) {input.big_bam} > {output.filtered_bam}
         """
 
 # rule split_and_filter_big:
