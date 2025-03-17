@@ -9,7 +9,6 @@ rule split_and_filter_big:
         big_bam=config["directories"]["big_bam"] + "Aligned.sortedByCoord.out.bam"
     output:
         chunked_outs=directory(config["directories"]["chunked_bam"]),
-        chunks=expand(config["directories"]["chunked_bam"] + "/chunk_{i}.out", i=range(100)),  # Change 100 to an estimate
         header=config["directories"]["chunked_bam"] + "/sam_header.sam"
     params:
         output_dir=config["directories"]["chunked_bam"],
