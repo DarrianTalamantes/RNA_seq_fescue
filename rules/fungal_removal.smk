@@ -28,8 +28,8 @@ rule split_and_filter_big:
         # echo "Converted BAM to SAM successfully" >> {log}
 
         # Step 2: Extract the SAM header
-        grep "^@" {params.inter_sam} > {params.output_dir}/sam_header.sam 2>> {log}
-        echo "Extracted SAM header successfully" >> {log}
+        # grep "^@" {params.inter_sam} > {params.output_dir}/sam_header.sam 2>> {log}
+        # echo "Extracted SAM header successfully" >> {log}
 
         # Step 3: Split the SAM file into chunks
         # grep -v "^@" {params.inter_sam} > temp_sam_no_header.sam
