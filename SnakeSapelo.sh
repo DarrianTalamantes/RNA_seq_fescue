@@ -4,8 +4,8 @@
 #SBATCH --ntasks=16
 #SBATCH --mem=400GB
 #SBATCH -t 160:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/#SBATCH -J Scallop_Feature.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/#SBATCH -J Scallop_Feature.%j.err
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Feature.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Feature.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
@@ -22,7 +22,7 @@ source activate snakemake
 export LC_ALL=en_SG.utf8
 export LANG=en_SG.utf8
 
-snakemake --use-conda --cores 4 -s RNAseq.smk --verbose --rerun-incomplete
+snakemake --use-conda --cores 16 -s RNAseq.smk --verbose --rerun-incomplete
 
 #--rerun-triggers mtime 
 # --rerun-incomplete
