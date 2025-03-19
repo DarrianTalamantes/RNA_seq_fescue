@@ -81,7 +81,7 @@ print(config["fungal_removal"]["threads"])
 # You can not have anymore that one commented out line when defining your inputs here, There can not be blank line after input.
 rule all:
     input:
-        # # Scallop
+        # # Scallop and feature counts
         config["scallop"]["output_file"],
         config["directories"]["features"] + "feature_counts.txt"
 
@@ -147,10 +147,10 @@ rule all:
 # include: "rules/kraken.smk" # this rule only works with snakemake version: snakemake/6.9.1-Mamba-4.11.0-4
 # include: "rules/star.smk" # Switch to snakemake version: snakemake/7.22.0-foss-2022a
 
-include: "rules/fungal_removal.smk" # Dry runs may show that concatenate_and_convert_big will not work. It will
+# include: "rules/fungal_removal.smk" # Dry runs may show that concatenate_and_convert_big will not work. It will
 
-# include: "rules/scallop.smk"
-# include: "rules/feature_counts.smk"
+include: "rules/scallop.smk"
+include: "rules/feature_counts.smk"
 
 # include: "rules/annotation.smk"
 
