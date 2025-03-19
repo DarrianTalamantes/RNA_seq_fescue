@@ -81,9 +81,9 @@ print(config["fungal_removal"]["threads"])
 # You can not have anymore that one commented out line when defining your inputs here, There can not be blank line after input.
 rule all:
     input:
-        # # Fungal Filtering
-        config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam",
-        # expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
+        # # Scallop
+        config["scallop"]["output_file"],
+        config["directories"]["features"] + "feature_counts.txt"
 
         # # Star sep bams
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
@@ -106,6 +106,9 @@ rule all:
         # config["directories"]["big_bam"] + "Log.final.out",
         # config["directories"]["big_bam"] + "SJ.out.tab"
 
+        # # Fungal Filtering
+        # config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam",
+        # expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
 
 
 
@@ -113,9 +116,7 @@ rule all:
 
 
 
-        # # Scallop
-        # config["scallop"]["output_file"],
-        # config["directories"]["features"] + "feature_counts.txt"
+
 
 
         # Stuff I have not totally labeled yet
