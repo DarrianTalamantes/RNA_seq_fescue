@@ -5,6 +5,7 @@ rule scallop2:
         "../Conda_Envs/scallop2.yaml"
     params:
         threads = config["scallop"]["threads"]
+    threads: config["scallop"]["threads"]
     output:
         gtf = config["scallop"]["output_file"]
     shell:
