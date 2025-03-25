@@ -61,25 +61,28 @@ def get_chromosomes(wildcards):
     chroms = [os.path.basename(f).replace(".bam", "") for f in bam_files]  # Extract chromosome names
     return chroms
 
-rule scallop2:
+checkpoint scallop2:
     input:
-        bam = lambda wildcards: expand(config["directories"]["big_bam_chrom"] + "/{chrom}.bam", chrom=get_chromosomes(wildcards))
+        bam = lambda wildcards: f"{config['directories']['big_bam_chrom']}/{wildcards.chrom}.bam"
     output:
-        gtf = config["directories"]["scallop_out"] + "/{chrom}.gtf"
+        gtf = config["directories"]["scallop_out"] + "/{chrom}.gtf"  
     conda:
         "../Conda_Envs/scallop2.yaml"
+    params:
+        directory = config["directories"]["scallop_out"]  
     log:
         "logs/scallop2_{chrom}.log"
     shell:
         """
+        mkdir -p {params.directory}
         scallop2 --num-threads {threads} -i {input.bam} -o {output.gtf} 2> {log}
         """
 
 
 def get_gtf_files(wildcards):
-    chroms = get_chromosomes(wildcards)  # Get chromosome list
-    return expand(config["directories"]["scallop_out"] + "/{chrom}.gtf", chrom=chroms)
-
+    checkpoint_output = checkpoints.split_bam_by_chr.get(**wildcards).output[0]  # Get output dir
+    chroms = [os.path.basename(f).replace(".bam", "") for f in glob.glob(f"{checkpoint_output}/*.bam")]  # Extract chromosome names
+    return [config["directories"]["scallop_out"] + f"/{chrom}.gtf" for chrom in chroms]  # Create list of GTF files
 
 
 # merge the gtf files into one file
