@@ -6,12 +6,12 @@
 # Recreates the header and adds it to the .bam file
 rule fix_bam_header:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam",
+        bam = config["directories"]["filtered_bam_big"] + "/test.out.bam",
         ref = config["genome"]
     output:
-        bam_fixed = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam"
+        bam_fixed = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam"
     conda:
-        "../Conda_Envs/smatools.yaml"
+        "../Conda_Envs/samtools.yaml"
     log:
         "logs/fix_bam_header.log"
     shell:
@@ -24,11 +24,11 @@ rule fix_bam_header:
 # Indexes the new bam file
 rule index_bam:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam"
+        bam = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam"
     output:
-        bai = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam.bai"
+        bai = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam.bai"
     conda:
-        "../Conda_Envs/smatools.yaml"
+        "../Conda_Envs/samtools.yaml"
     log:
         "logs/index_bam.log"
     shell:
@@ -39,12 +39,12 @@ rule index_bam:
 # Splits the bam file by chromosome
 checkpoint split_bam_by_chr:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam",
-        bai = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam.bai"
+        bam = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam",
+        bai = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam.bai"
     output:
         chrom = config["directories"]["big_bam_chrom"]
     conda:
-        "../Conda_Envs/smatools.yaml"
+        "../Conda_Envs/samtools.yaml"
     log:
         "logs/split_bam_by_chr.log"
     shell:
@@ -111,3 +111,6 @@ rule merge_gtfs:
 #         """
 #         scallop2 --num-threads {params.threads} -i {input.bam} -o {output.gtf} 2> {log}
 #         """
+
+
+# Change this Aligned.sortedByCoord_filtered to test for testing.
