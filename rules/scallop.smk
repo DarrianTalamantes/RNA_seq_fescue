@@ -51,8 +51,8 @@ checkpoint split_bam_by_chr:
         """
         mkdir -p {output.chrom}
         samtools idxstats {input.bam} | cut -f1 | grep -v '*' | while read chr; do
-            # Split the BAM file by chromosome, keep header, sort by query name (-n), and index
-            samtools view -b -h {input.bam} $chr | samtools sort -n -o {output.chrom}/${{chr}}.bam
+            # Split the BAM file by chromosome, keep header, and sort by reference position (-o)
+            samtools view -b -h {input.bam} $chr | samtools sort -o {output.chrom}/${{chr}}.bam
             samtools index {output.chrom}/${{chr}}.bam
         done 2> {log}
         """
