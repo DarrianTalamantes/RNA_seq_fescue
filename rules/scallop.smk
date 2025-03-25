@@ -60,10 +60,9 @@ def get_bam_files(wildcards):
     return bam_files
 
 
-# Runs scallop2
 checkpoint scallop2:
     input:
-        bam = get_bam_files
+        bam = get_bam_files  # Get the BAM files from the previous rule
     output:
         gtf = config["directories"]["scallop_out"] + "/{chrom}.gtf"  # Chromosome-specific output file
     params:
