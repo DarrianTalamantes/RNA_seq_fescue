@@ -22,7 +22,7 @@ directories:
   kraken: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken
   kraken_db: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken_db
   scallop_out: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome
-  
+  transcriptome: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final
 
 
 
@@ -55,7 +55,7 @@ fungal_removal:
 
 
 scallop:
-  output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf
+  output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final/Fescue_transcriptome.gtf
   threads: 16
 
 
