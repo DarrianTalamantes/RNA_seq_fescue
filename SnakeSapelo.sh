@@ -22,7 +22,7 @@ source activate snakemake
 export LC_ALL=en_SG.utf8
 export LANG=en_SG.utf8
 
-snakemake --use-conda --cores 16 -s RNAseq.smk --verbose --rerun-incomplete
+snakemake --use-conda --cores 24 -s RNAseq.smk --verbose --rerun-incomplete
 
 #--rerun-triggers mtime 
 # --rerun-incomplete

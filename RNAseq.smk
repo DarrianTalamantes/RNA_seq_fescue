@@ -5,6 +5,7 @@
 # To use this id suggest doing one step at a time. The rule all has code seperated into blocks and below it you can include the rules
 # you want to use
 
+# 0. Ensure that you have added all necessary files, so raw data fasta, tall fescue genome
 # 1. Use fastqc and multiqc before running this. I could not get multiqc to work.
 # 2. trim: This will use trimgalore to trim the reads.
 # 3. make_transcriptome: Uses STAR to index and align reads to genome. It then makes lots of small bam files from the large one

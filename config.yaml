@@ -18,15 +18,18 @@ directories:
   filtered_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/sep
   filtered_bam_big: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/big
   chunked_bam:  /scratch/drt83172/Wallace_lab/RNA_SEQ/chunked_bam
+  big_bam_chrom: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/big/split
   kraken: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken
   kraken_db: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken_db
+  scallop_out: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome
+  
 
 
 
 lists:
   paired_list_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/paired_list.txt
 
-genome: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/tall_fescuev0.1.fa
+genome: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Tall_fescue/tall_fescue_pv1.1.fasta
 combined_genome: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Epi_Fesc_genome_combined.fa
 
 star_mapping:
@@ -48,11 +51,11 @@ kraken:
   fungal: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/fungal
 
 fungal_removal:
-  threads: 16
+  threads: 8
 
 
 scallop:
-  output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome_col3swap.gtf
+  output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/Fescue_transcriptome.gtf
   threads: 16
 
 
