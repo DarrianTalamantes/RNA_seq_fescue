@@ -60,35 +60,32 @@ def get_bam_files(wildcards):
     return bam_files
 
 
-
-# Runs scallop2 on all chromosome files
-rule scallop2:
+# Runs scallop2
+checkpoint scallop2:
     input:
         bam = get_bam_files
-    conda:
-        "../Conda_Envs/scallop2.yaml"
-    threads: config["scallop"]["threads"]
     output:
-        gtf = config["directories"]["scallop_out"] + "/{chrom}.gtf"
-    log:
-        "logs/scallop2_{chrom}.log"
+        directory(config["directories"]["scallop_out"])
     shell:
         """
         mkdir -p scallop2_output
-        scallop2 --num-threads {threads} -i {input.bam} -o {output.gtf} 2> {log}
+        scallop2 --num-threads {threads} -i {input.bam} -o {output.directory}/{chrom}.gtf 2> logs/scallop2_{chrom}.log
         """
 
-# merges the gtf chromosome files into one file, this may produce a huuuge log file. Its not helpfull other than knowing scallop is running
+def get_gtf_files(wildcards):
+    checkpoint_output = checkpoints.scallop2.get(**wildcards).output[0]
+    return glob.glob(f"{checkpoint_output}/*.gtf")
+
+# merge the gtf files into one file
 rule merge_gtfs:
     input:
-        gtfs = lambda wildcards: glob.glob(config["directories"]["scallop_out"] + "/*.gtf")
+        gtfs = get_gtf_files
     output:
-         gtf = config["scallop"]["output_file"]
+        gtf = config["scallop"]["output_file"]
     shell:
         """
         cat {input.gtfs} | grep -v '^#' | sort -k1,1 -k4,4n > {output.gtf}
         """
-
 
 ########################################################
 # Old rule: This works but takes suuuper long.
