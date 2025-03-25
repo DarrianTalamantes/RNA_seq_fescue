@@ -62,22 +62,25 @@ checkpoint split_bam_by_chr:
 
 checkpoint scallop2:
     input:
-        bam = config["directories"]["big_bam_chrom"] + "/{chrom}.bam"  # Track each chromosome's BAM
+        bam = config["directories"]["big_bam_chrom"] + "/{chrom}.bam"  # Ensure wildcard is used
     output:
-        gtf = config["directories"]["scallop_out"] + "/{chrom}.gtf"
+        gtf = config["directories"]["scallop_out"] + "/{chrom}.gtf"  # Ensure wildcard is used
     conda:
         "../Conda_Envs/scallop2.yaml"
+    params:
+        directory = config["directories"]["scallop_out"]
     log:
         "logs/scallop2_{chrom}.log"
     shell:
         """
-        mkdir -p {config["directories"]["scallop_out"]}
+        mkdir -p {params.directory}
         scallop2 --num-threads {threads} -i {input.bam} -o {output.gtf} 2> {log}
         """
 
+
 def get_gtf_files(wildcards):
-    checkpoint_output = checkpoints.scallop2.get(**wildcards).output
-    return glob.glob(f"{checkpoint_output.rstrip('/')}/" + "*.gtf")
+    checkpoint_output = checkpoints.scallop2.get(**wildcards).output  # Collects all outputs
+    return checkpoint_output  # Directly return the list of GTFs
 
 
 # merge the gtf files into one file
