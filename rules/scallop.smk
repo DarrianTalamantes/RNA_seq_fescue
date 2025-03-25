@@ -37,7 +37,7 @@ rule index_bam:
         """
 
 # Splits the bam file by chromosome
-rule split_bam_by_chr:
+checkpoint split_bam_by_chr:
     input:
         bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam",
         bai = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam.bai"
