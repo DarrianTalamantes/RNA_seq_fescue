@@ -42,7 +42,7 @@ checkpoint split_bam_by_chr:
         bam = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam",
         bai = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam.bai"
     output:
-        chrom = config["directories"]["big_bam_chrom"]
+        chrom = directory(config["directories"]["big_bam_chrom"])
     conda:
         "../Conda_Envs/samtools.yaml"
     log:
