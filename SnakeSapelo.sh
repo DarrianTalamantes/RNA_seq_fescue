@@ -2,7 +2,7 @@
 #SBATCH -J Scallop_Feature
 #SBATCH -p batch	
 #SBATCH --ntasks=24
-#SBATCH --mem= 60GB
+#SBATCH --mem=60GB
 #SBATCH -t 160:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Feature.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Feature.%j.err
