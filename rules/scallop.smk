@@ -78,8 +78,10 @@ checkpoint scallop2:
         """
 
 def get_gtf_files(wildcards):
-    checkpoint_output = checkpoints.scallop2.get(**wildcards).output[0]
-    return glob.glob(f"{checkpoint_output}/{wildcards.chrom}.gtf")
+    # Get the directory from the scallop2 output
+    output_directory = config["directories"]["scallop_out"]
+    # Return the specific GTF file for the given chromosome
+    return [f"{output_directory}/{wildcards.chrom}.gtf"]
 
 
 # merge the gtf files into one file
