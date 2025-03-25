@@ -54,11 +54,17 @@ rule split_bam_by_chr:
             samtools view -b {input.bam} $chr > {output.chrom}/${{chr}}.bam
         done 2> {log}
         """
+def get_bam_files(wildcards):
+    checkpoint_output = checkpoints.split_bam_by_chr.get(**wildcards).output[0]
+    bam_files = glob.glob(f"{checkpoint_output}/*.bam")
+    return bam_files
+
+
 
 # Runs scallop2 on all chromosome files
 rule scallop2:
     input:
-        bam = config["directories"]["big_bam_chrom"] + "/{chrom}.bam"
+        bam = get_bam_files
     conda:
         "../Conda_Envs/scallop2.yaml"
     threads: config["scallop"]["threads"]

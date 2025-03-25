@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -J Scallop_Feature
-#SBATCH -p highmem_p
-#SBATCH --ntasks=16
+#SBATCH -p highmem_30d_p	
+#SBATCH --ntasks=24
 #SBATCH --mem=400GB
-#SBATCH -t 160:00:00
+#SBATCH -t 260:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Feature.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Feature.%j.err
 #SBATCH --mail-type=FAIL,END
