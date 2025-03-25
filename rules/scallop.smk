@@ -55,25 +55,23 @@ checkpoint split_bam_by_chr:
         done 2> {log}
         """
 
-def get_bam_files(wildcards):
-    checkpoint_output = checkpoints.split_bam_by_chr.get(**wildcards).output[0]  # Get the output directory of split_bam_by_chr
-    bam_files = glob.glob(f"{checkpoint_output}/{wildcards.chrom}.bam")  # Make sure to include the chrom wildcard in the path
-    return bam_files
+# def get_bam_files(wildcards):
+#     checkpoint_output = checkpoints.split_bam_by_chr.get(**wildcards).output[0]  # Get the output directory of split_bam_by_chr
+#     bam_files = glob.glob(f"{checkpoint_output}/{wildcards.chrom}.bam")  # Make sure to include the chrom wildcard in the path
+#     return bam_files
 
 checkpoint scallop2:
     input:
-        bam = get_bam_files  # Get the BAM files from the previous rule (split by chromosome)
+        bam = config["directories"]["big_bam_chrom"] + "/{chrom}.bam"  # Track each chromosome's BAM
     output:
-        gtf = config["directories"]["scallop_out"] + "/{chrom}.gtf"  # Chromosome-specific output file
+        gtf = config["directories"]["scallop_out"] + "/{chrom}.gtf"
     conda:
         "../Conda_Envs/scallop2.yaml"
-    params:
-        directory = config["directories"]["scallop_out"]  # Directory for the output files
     log:
-        "logs/scallop2_{chrom}.log"  # Log with the chrom wildcard
+        "logs/scallop2_{chrom}.log"
     shell:
         """
-        mkdir -p {params.directory}  # Ensure the directory exists
+        mkdir -p {config["directories"]["scallop_out"]}
         scallop2 --num-threads {threads} -i {input.bam} -o {output.gtf} 2> {log}
         """
 
