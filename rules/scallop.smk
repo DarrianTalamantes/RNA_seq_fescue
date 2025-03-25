@@ -54,17 +54,19 @@ checkpoint split_bam_by_chr:
             samtools view -b {input.bam} $chr > {output.chrom}/${{chr}}.bam
         done 2> {log}
         """
-def get_bam_files(wildcards):
-    checkpoint_output = checkpoints.split_bam_by_chr.get(**wildcards).output[0]
-    bam_files = glob.glob(f"{checkpoint_output}/*.bam")
-    return bam_files
 
+def get_bam_files(wildcards):
+    checkpoint_output = checkpoints.split_bam_by_chr.get(**wildcards).output[0]  # Get the output directory of split_bam_by_chr
+    bam_files = glob.glob(f"{checkpoint_output}/{wildcards.chrom}.bam")  # Make sure to include the chrom wildcard in the path
+    return bam_files
 
 checkpoint scallop2:
     input:
-        bam = get_bam_files  # Get the BAM files from the previous rule
+        bam = get_bam_files  # Get the BAM files from the previous rule (split by chromosome)
     output:
         gtf = config["directories"]["scallop_out"] + "/{chrom}.gtf"  # Chromosome-specific output file
+    conda:
+        "../Conda_Envs/scallop2.yaml"
     params:
         directory = config["directories"]["scallop_out"]  # Directory for the output files
     log:
