@@ -79,7 +79,8 @@ checkpoint scallop2:
 
 def get_gtf_files(wildcards):
     checkpoint_output = checkpoints.scallop2.get(**wildcards).output[0]
-    return glob.glob(f"{checkpoint_output}/*.gtf")
+    return glob.glob(f"{checkpoint_output}/{wildcards.chrom}.gtf")
+
 
 # merge the gtf files into one file
 rule merge_gtfs:
