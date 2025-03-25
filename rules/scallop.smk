@@ -65,13 +65,14 @@ checkpoint scallop2:
     input:
         bam = get_bam_files
     output:
-        directory = directory(config["directories"]["scallop_out"]),
-        gtf = config["directories"]["scallop_out"] + "/{chrom}.gtf"  # Ensure chrom is used here too
+        gtf = config["directories"]["scallop_out"] + "/{chrom}.gtf"  # Chromosome-specific output file
+    params:
+        directory = config["directories"]["scallop_out"]  # Directory for the output files
     log:
-        "logs/scallop2_{chrom}.log"  # Use the same wildcard in log file
+        "logs/scallop2_{chrom}.log"  # Log with the chrom wildcard
     shell:
         """
-        mkdir -p {output.directory}
+        mkdir -p {params.directory}  # Ensure the directory exists
         scallop2 --num-threads {threads} -i {input.bam} -o {output.gtf} 2> {log}
         """
 
