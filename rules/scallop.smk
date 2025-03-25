@@ -84,8 +84,6 @@ rule merge_gtfs:
         gtfs = lambda wildcards: glob.glob(config["directories"]["scallop_out"] + "/*.gtf")
     output:
          gtf = config["scallop"]["output_file"]
-    conda:
-       "../Conda_Envs/gtftools.yaml"
     shell:
         """
         cat {input.gtfs} | grep -v '^#' | sort -k1,1 -k4,4n > {output.gtf}
