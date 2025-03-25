@@ -6,7 +6,7 @@
 # Recreates the header and adds it to the .bam file
 rule fix_bam_header:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/test.out.bam",
+        bam = config["directories"]["filtered_bam_big"] + "/ test_out_header.bam",
         ref = config["genome"]
     output:
         bam_fixed = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam"
@@ -49,9 +49,11 @@ checkpoint split_bam_by_chr:
         "logs/split_bam_by_chr.log"
     shell:
         """
-        mkdir -p {output}
+        mkdir -p {output.chrom}
         samtools idxstats {input.bam} | cut -f1 | grep -v '*' | while read chr; do
-            samtools view -b {input.bam} $chr > {output.chrom}/${{chr}}.bam
+            # Split the BAM file by chromosome, keep header, sort by query name (-n), and index
+            samtools view -b -h {input.bam} $chr | samtools sort -n -o {output.chrom}/${{chr}}.bam
+            samtools index {output.chrom}/${{chr}}.bam
         done 2> {log}
         """
 
