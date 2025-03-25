@@ -65,7 +65,7 @@ checkpoint scallop2:
     input:
         bam = get_bam_files
     output:
-        directory(config["directories"]["scallop_out"])
+        directory = directory(config["directories"]["scallop_out"])
     shell:
         """
         mkdir -p scallop2_output
