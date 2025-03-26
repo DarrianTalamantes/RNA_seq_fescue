@@ -64,7 +64,7 @@ def get_chromosomes(wildcards):
     return [os.path.basename(f).replace(".bam", "") for f in bam_files]
 
 
-checkpoint scallop2:
+rule scallop2:
     input:
         bam = lambda wildcards: f"{config['directories']['big_bam_chrom']}/{wildcards.chrom}.bam"
     output:
@@ -83,10 +83,8 @@ checkpoint scallop2:
         """
 
 def get_gtf_files(wildcards):
-    checkpoint_data = checkpoints.split_bam_by_chr.get(**wildcards)  # Ensure checkpoint completes
-    checkpoint_output = checkpoint_data.output.chrom
-    chroms = [os.path.basename(f).replace(".bam", "") for f in glob.glob(f"{checkpoint_output}/*.bam")]
-    return [config["directories"]["scallop_out"] + f"/{chrom}.gtf" for chrom in chroms]
+    chromosomes = get_chromosomes(wildcards)  # Get the chromosome names
+    return [config["directories"]["scallop_out"] + f"/{chrom}.gtf" for chrom in chromosomes]
 
 # merge the gtf files into one file
 rule merge_gtfs:
