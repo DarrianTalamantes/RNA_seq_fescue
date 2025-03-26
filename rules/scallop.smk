@@ -105,7 +105,7 @@ rule sort_bam_by_coord:
     input:
         bam = config["directories"]["filtered_bam_big"] + "/test_out.bam"
     output:
-        bam_sorted = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam"
+        bam_sorted = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam",
         bai = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam.bai"
     conda:
         "../Conda_Envs/samtools.yaml"
