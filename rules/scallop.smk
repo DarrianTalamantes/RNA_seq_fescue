@@ -63,6 +63,7 @@ def get_chromosomes(wildcards):
     chroms = [os.path.basename(f).replace(".bam", "") for f in bam_files]  # Extract chromosome names
     return chroms
 
+
 checkpoint scallop2:
     input:
         bam = lambda wildcards: f"{config['directories']['big_bam_chrom']}/{wildcards.chrom}.bam"
@@ -72,6 +73,7 @@ checkpoint scallop2:
         "../Conda_Envs/scallop2.yaml"
     params:
         directory = config["directories"]["scallop_out"]  
+    threads: config["scallop"]["threads"]
     log:
         "logs/scallop2_{chrom}.log"
     shell:
