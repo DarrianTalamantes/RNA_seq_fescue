@@ -82,12 +82,11 @@ checkpoint scallop2:
         scallop2 --num-threads {threads} -i {input.bam} -o {output.gtf} 2> {log}
         """
 
-
 def get_gtf_files(wildcards):
-    checkpoint_output = checkpoints.split_bam_by_chr.get(**wildcards).output[0]  # Get output dir
-    chroms = [os.path.basename(f).replace(".bam", "") for f in glob.glob(f"{checkpoint_output}/*.bam")]  # Extract chromosome names
-    return [config["directories"]["scallop_out"] + f"/{chrom}.gtf" for chrom in chroms]  # Create list of GTF files
-
+    checkpoint_data = checkpoints.split_bam_by_chr.get(**wildcards)  # Ensure checkpoint completes
+    checkpoint_output = checkpoint_data.output.chrom
+    chroms = [os.path.basename(f).replace(".bam", "") for f in glob.glob(f"{checkpoint_output}/*.bam")]
+    return [config["directories"]["scallop_out"] + f"/{chrom}.gtf" for chrom in chroms]
 
 # merge the gtf files into one file
 rule merge_gtfs:
