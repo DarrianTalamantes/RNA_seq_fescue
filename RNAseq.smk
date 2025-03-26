@@ -84,7 +84,7 @@ print(config["fungal_removal"]["threads"])
 rule all:
     input:
         # # Scallop and feature counts
-        config["scallop"]["output_file_big"], # For big Scallop Run
+        config["scallop"]["output_file"], 
 
         # # Star sep bams
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
