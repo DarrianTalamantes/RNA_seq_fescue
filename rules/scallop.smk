@@ -82,10 +82,21 @@ rule scallop2:
         scallop2 --num-threads {threads} -i {input.bam} -o {output.gtf} 2> {log}
         """
 
-def get_gtf_files(wildcards):
-    chromosomes = get_chromosomes(wildcards)  # Get the chromosome names
-    return [config["directories"]["scallop_out"] + f"/{chrom}.gtf" for chrom in chromosomes]
+# **Checkpoint to wait for scallop2 completion**
+checkpoint scallop2_checkpoint:
+    input:
+        expand(config["directories"]["scallop_out"] + "/{chrom}.gtf", chrom=get_chromosomes)
+    output:
+        gtfs = directory(config["directories"]["scallop_out"])
+    shell:
+        "echo 'Scallop2 processing complete' > {output.gtfs}/scallop_done.txt"
 
+# Function to retrieve GTF files *after* scallop2 has run
+def get_gtf_files(wildcards):
+    checkpoint_data = checkpoints.scallop2_checkpoint.get(**wildcards)  # Wait for scallop2
+    gtf_dir = checkpoint_data.output.gtfs  # Get directory
+    return sorted(glob.glob(f"{gtf_dir}/*.gtf"))  # List GTF files
+    
 # merge the gtf files into one file
 rule merge_gtfs:
     input:
