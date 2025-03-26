@@ -33,7 +33,7 @@ rule index_bam:
         "logs/index_bam.log"
     shell:
         """
-        samtools index {input.bam} 2> {log}
+        samtools index -c {input.bam} 2> {log}
         """
 
 # Splits the bam file by chromosome
@@ -53,7 +53,7 @@ checkpoint split_bam_by_chr:
         samtools idxstats {input.bam} | cut -f1 | grep -v '*' | while read chr; do
             # Split the BAM file by chromosome, keep header, and sort by reference position (-o)
             samtools view -b -h {input.bam} $chr | samtools sort -o {output.chrom}/${{chr}}.bam
-            samtools index {output.chrom}/${{chr}}.bam
+            samtools index -c {output.chrom}/${{chr}}.bam
         done 2> {log}
         """
 
@@ -103,10 +103,10 @@ rule merge_gtfs:
 ########################################################
 rule sort_bam_by_coord:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/test_out.bam"
+        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
     output:
-        bam_sorted = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam",
-        bai = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam.bai"
+        bam_sorted = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam"
+        bai = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam.bai"
     conda:
         "../Conda_Envs/samtools.yaml"
     log:
@@ -115,14 +115,14 @@ rule sort_bam_by_coord:
     shell:
         """
         samtools sort -@ {threads} -o {output.bam_sorted} {input.bam} 2> {log}
-        samtools index {output.bam_sorted} 2>> {log}
+        samtools index -c {output.bam_sorted} 2>> {log}
         """
 
 
 rule scallop2_big:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam",
-        bai = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam.bai"
+        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam",
+        bai = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam.bai"
     output:
         gtf = config["scallop"]["output_file_big"]
     conda:
@@ -137,11 +137,7 @@ rule scallop2_big:
 
 
 
-    #     bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
-    # output:
-    #     bam_sorted = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam"
-    #     bai = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam.bai"
 
-        # bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam",
-        # bai = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam.bai"
+
+
 # Change this Aligned.sortedByCoord_filtered to test for testing.

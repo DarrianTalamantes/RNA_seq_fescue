@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -J Scallop_Big
-#SBATCH -p batch	
-#SBATCH --ntasks=24
-#SBATCH --mem=40GB
-#SBATCH -t 68:00:00
+#SBATCH -p highmem_30d_p	
+#SBATCH --ntasks=32
+#SBATCH --mem=500GB
+#SBATCH -t 580:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Big.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Big.%j.err
 #SBATCH --mail-type=FAIL,END
@@ -22,7 +22,7 @@ source activate snakemake
 export LC_ALL=en_SG.utf8
 export LANG=en_SG.utf8
 
-snakemake --use-conda --cores 24 -s RNAseq.smk --verbose --rerun-incomplete 
+snakemake --use-conda --cores 32 -s RNAseq.smk --verbose --rerun-incomplete 
 
 #--rerun-triggers mtime 
 # --rerun-incomplete
