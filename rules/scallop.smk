@@ -64,6 +64,14 @@ def get_chromosomes(wildcards):
     return [os.path.basename(f).replace(".bam", "") for f in bam_files]
 
 
+# Get chromosome names from the split BAM checkpoint
+def get_chromosomes(wildcards):
+    checkpoint_data = checkpoints.split_bam_by_chr.get(**wildcards)  # Ensure BAMs are split
+    checkpoint_output = checkpoint_data.output.chrom  # Get directory with split BAMs
+    bam_files = glob.glob(f"{checkpoint_output}/*.bam")  # List BAM files
+    return [os.path.basename(f).replace(".bam", "") for f in bam_files]  # Extract chromosome names
+
+# Rule for transcript assembly with Scallop2
 rule scallop2:
     input:
         bam = lambda wildcards: f"{config['directories']['big_bam_chrom']}/{wildcards.chrom}.bam"
@@ -82,25 +90,10 @@ rule scallop2:
         scallop2 --num-threads {threads} -i {input.bam} -o {output.gtf} 2> {log}
         """
 
-# **Checkpoint to wait for scallop2 completion**
-checkpoint scallop2_checkpoint:
-    input:
-        expand(config["directories"]["scallop_out"] + "/{chrom}.gtf", chrom=get_chromosomes)
-    output:
-        gtfs = directory(config["directories"]["scallop_out"])
-    shell:
-        "echo 'Scallop2 processing complete' > {output.gtfs}/scallop_done.txt"
-
-# Function to retrieve GTF files *after* scallop2 has run
-def get_gtf_files(wildcards):
-    checkpoint_data = checkpoints.scallop2_checkpoint.get(**wildcards)  # Wait for scallop2
-    gtf_dir = checkpoint_data.output.gtfs  # Get directory
-    return sorted(glob.glob(f"{gtf_dir}/*.gtf"))  # List GTF files
-    
-# merge the gtf files into one file
+# **Make merge_gtfs explicitly depend on scallop2 output**
 rule merge_gtfs:
     input:
-        gtfs = get_gtf_files
+        gtfs = expand(config["directories"]["scallop_out"] + "/{chrom}.gtf", chrom=get_chromosomes)
     output:
         gtf = config["scallop"]["output_file"]
     shell:
