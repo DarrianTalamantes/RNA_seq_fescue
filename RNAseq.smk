@@ -151,7 +151,7 @@ rule all:
 
 # include: "rules/fungal_removal.smk" # Dry runs may show that concatenate_and_convert_big will not work. It will
 
-include: "rules/scallop.smk" 
+include: "rules/scallop.smk"
 
 # include: "rules/feature_counts.smk"
 
