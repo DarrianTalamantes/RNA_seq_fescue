@@ -6,7 +6,7 @@
 # Recreates the header and adds it to the .bam file
 rule fix_bam_header:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_out.bam",
+        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam",
         ref = config["genome"]
     output:
         bam_fixed = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam"
