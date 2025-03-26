@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH -J Scallop_Split
-#SBATCH -p highmem_p	
+#SBATCH -J Scallop_Big
+#SBATCH -p highmem_30d_p	
 #SBATCH --ntasks=24
 #SBATCH --mem=400GB
-#SBATCH -t 168:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Split.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Split.%j.err
+#SBATCH -t 368:00:00
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Big.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Big.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
@@ -22,7 +22,7 @@ source activate snakemake
 export LC_ALL=en_SG.utf8
 export LANG=en_SG.utf8
 
-snakemake --use-conda --cores 24 -s RNAseq.smk --verbose --rerun-incomplete --forcerun fix_bam_header
+snakemake --use-conda --cores 24 -s RNAseq.smk --verbose --rerun-incomplete 
 
 #--rerun-triggers mtime 
 # --rerun-incomplete

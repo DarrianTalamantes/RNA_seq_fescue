@@ -101,22 +101,47 @@ rule merge_gtfs:
 ########################################################
 # Old rule: This works but takes suuuper long.
 ########################################################
-# rule scallop2:
-#     input:
-#         bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
-#     conda:
-#         "../Conda_Envs/scallop2.yaml"
-#     log:
-#         "logs/scallop2_{chrom}.log"
-#     params:
-#         threads = config["scallop"]["threads"]
-#     threads: config["scallop"]["threads"]
-#     output:
-#         gtf = config["scallop"]["output_file"]
-#     shell:
-#         """
-#         scallop2 --num-threads {params.threads} -i {input.bam} -o {output.gtf} 2> {log}
-#         """
+# rule sort_bam_by_coord:
+    input:
+        bam = config["directories"]["filtered_bam_big"] + "/test_out.bam"
+    output:
+        bam_sorted = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam"
+        bai = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam.bai"
+    conda:
+        "../Conda_Envs/samtools.yaml"
+    log:
+        "logs/sort_bam_by_coord_big.log"
+    threads: config["scallop"]["threads"]
+    shell:
+        """
+        samtools sort -@ {threads} -o {output.bam_sorted} {input.bam} 2> {log}
+        samtools index {output.bam_sorted} 2>> {log}
+        """
 
 
+rule scallop2:
+    input:
+        bam = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam",
+        bai = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam.bai"
+    output:
+        gtf = config["scallop"]["output_file_big"]
+    conda:
+        "../Conda_Envs/scallop2.yaml"
+    log:
+        "logs/scallop2_Big.log"
+    threads: config["scallop"]["threads"]
+    shell:
+        """
+        scallop2 --num-threads {threads} -i {input.bam} -o {output.gtf} > {log}
+        """
+
+
+
+    #     bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
+    # output:
+    #     bam_sorted = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam"
+    #     bai = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam.bai"
+
+        # bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam",
+        # bai = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam.bai"
 # Change this Aligned.sortedByCoord_filtered to test for testing.
