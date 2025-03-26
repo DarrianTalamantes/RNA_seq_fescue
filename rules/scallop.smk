@@ -119,7 +119,7 @@ rule sort_bam_by_coord:
         """
 
 
-rule scallop2:
+rule scallop2_big:
     input:
         bam = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam",
         bai = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam.bai"
