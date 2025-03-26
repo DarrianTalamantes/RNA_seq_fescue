@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -J Scallop_Split
-#SBATCH -p batch	
-#SBATCH --ntasks=16
-#SBATCH --mem=30GB
-#SBATCH -t 60:00:00
+#SBATCH -p highmem_p	
+#SBATCH --ntasks=32
+#SBATCH --mem=500GB
+#SBATCH -t 160:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Split.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Split.%j.err
 #SBATCH --mail-type=FAIL,END
@@ -45,18 +45,18 @@ echo "Fixing BAM header..."
 cd "$FILTERED_BAM_DIR"
 samtools faidx "$GENOME"
 cut -f1,2 "${GENOME}.fai" | awk '{print "@SQ\tSN:"$1"\tLN:"$2}' > new_header.sam
-samtools reheader new_header.sam test_out.bam > test_out_fixed.out.bam
+samtools reheader new_header.sam Aligned.sortedByCoord_filtered.out.bam  > Aligned.sortedByCoord_filtered_fixed.out.bam
 
 # 2️⃣ **Index the Fixed BAM**
 echo "Indexing BAM..."
-samtools index -c test_out_fixed.out.bam
+samtools index -c Aligned.sortedByCoord_filtered_fixed.out.bam
 
 # 3️⃣ **Split BAM by Chromosome**
 echo "Splitting BAM by chromosome..."
 mkdir -p "$BIG_BAM_CHROM"
-samtools idxstats test_out_fixed.out.bam | cut -f1 | grep -v '*' | while read -r chr; do
+samtools idxstats Aligned.sortedByCoord_filtered_fixed.out.bam | cut -f1 | grep -v '*' | while read -r chr; do
     echo "Processing chromosome: $chr"
-    samtools view -b -h test_out_fixed.out.bam "$chr" | samtools sort -o "$BIG_BAM_CHROM/${chr}.bam"
+    samtools view -b -h Aligned.sortedByCoord_filtered_fixed.out.bam "$chr" | samtools sort -o "$BIG_BAM_CHROM/${chr}.bam"
     samtools index -c "$BIG_BAM_CHROM/${chr}.bam"
 done
 
@@ -71,7 +71,7 @@ parallel --jobs 8 --halt now,fail=1 '
     chrom=$(basename {} .bam) &&
     echo "Assembling transcripts for $chrom..." &&
     scallop2 --num-threads 8 -i {} -o "$SCALLOP_OUT/${chrom}.gtf" &&
-    source deactivate
+    conda deactivate
 ' ::: "$BIG_BAM_CHROM"/*.bam
 
 # 5️⃣ **Merge GTF Files**
