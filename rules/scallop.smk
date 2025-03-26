@@ -6,10 +6,10 @@
 # Recreates the header and adds it to the .bam file
 rule fix_bam_header:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/test_out.bam",
+        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_out.bam",
         ref = config["genome"]
     output:
-        bam_fixed = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam"
+        bam_fixed = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam"
     conda:
         "../Conda_Envs/samtools.yaml"
     log:
@@ -24,9 +24,9 @@ rule fix_bam_header:
 # Indexes the new bam file
 rule index_bam:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam"
+        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam"
     output:
-        bai = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam.bai"
+        bai = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam.bai"
     conda:
         "../Conda_Envs/samtools.yaml"
     log:
@@ -39,8 +39,8 @@ rule index_bam:
 # Splits the bam file by chromosome
 checkpoint split_bam_by_chr:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam",
-        bai = config["directories"]["filtered_bam_big"] + "/test_fixed.out.bam.bai"
+        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam",
+        bai = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_fixed.out.bam.bai"
     output:
         chrom = directory(config["directories"]["big_bam_chrom"])
     conda:

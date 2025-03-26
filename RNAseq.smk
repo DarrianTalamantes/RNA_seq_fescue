@@ -85,7 +85,6 @@ rule all:
     input:
         # # Scallop and feature counts
         config["scallop"]["output_file"],
-        config["directories"]["features"] + "feature_counts.txt"
 
         # # Star sep bams
         # expand(config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam", pairs=PAIRS),
@@ -112,7 +111,8 @@ rule all:
         # config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam",
         # expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
 
-
+        # Feature counts
+        # config["directories"]["features"] + "feature_counts.txt"
 
         
 
@@ -151,8 +151,9 @@ rule all:
 
 # include: "rules/fungal_removal.smk" # Dry runs may show that concatenate_and_convert_big will not work. It will
 
-include: "rules/scallop.smk" # You can run this with feature counts
-include: "rules/feature_counts.smk"
+include: "rules/scallop.smk" 
+
+# include: "rules/feature_counts.smk"
 
 # include: "rules/annotation.smk"
 

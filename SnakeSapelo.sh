@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH -J Scallop_Feature
-#SBATCH -p batch	
+#SBATCH -J Scallop_Split
+#SBATCH -p highmem_p	
 #SBATCH --ntasks=24
-#SBATCH --mem=60GB
-#SBATCH -t 160:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Feature.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Feature.%j.err
+#SBATCH --mem=400GB
+#SBATCH -t 168:00:00
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Split.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/Scallop_Split.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
