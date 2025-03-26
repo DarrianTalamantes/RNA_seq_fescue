@@ -58,10 +58,10 @@ checkpoint split_bam_by_chr:
         """
 
 def get_chromosomes(wildcards):
-    checkpoint_output = checkpoints.split_bam_by_chr.get(**wildcards).output.chrom  # Get the directory
-    bam_files = glob.glob(f"{checkpoint_output}/*.bam")  # List all BAM files
-    chroms = [os.path.basename(f).replace(".bam", "") for f in bam_files]  # Extract chromosome names
-    return chroms
+    checkpoint_data = checkpoints.split_bam_by_chr.get(**wildcards)  # Wait for checkpoint
+    checkpoint_output = checkpoint_data.output.chrom
+    bam_files = glob.glob(f"{checkpoint_output}/*.bam")
+    return [os.path.basename(f).replace(".bam", "") for f in bam_files]
 
 
 checkpoint scallop2:
@@ -84,7 +84,7 @@ checkpoint scallop2:
 
 
 def get_gtf_files(wildcards):
-    checkpoint_output = checkpoints.scallop2.get(**wildcards).output[0]  # Get output dir
+    checkpoint_output = checkpoints.split_bam_by_chr.get(**wildcards).output[0]  # Get output dir
     chroms = [os.path.basename(f).replace(".bam", "") for f in glob.glob(f"{checkpoint_output}/*.bam")]  # Extract chromosome names
     return [config["directories"]["scallop_out"] + f"/{chrom}.gtf" for chrom in chroms]  # Create list of GTF files
 
