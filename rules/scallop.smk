@@ -101,7 +101,7 @@ rule merge_gtfs:
 ########################################################
 # Old rule: This works but takes suuuper long.
 ########################################################
-# rule sort_bam_by_coord:
+rule sort_bam_by_coord:
     input:
         bam = config["directories"]["filtered_bam_big"] + "/test_out.bam"
     output:
