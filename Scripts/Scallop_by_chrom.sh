@@ -45,7 +45,7 @@ echo "Fixing BAM header..."
 cd "$FILTERED_BAM_DIR"
 samtools faidx "$GENOME"
 cut -f1,2 "${GENOME}.fai" | awk '{print "@SQ\tSN:"$1"\tLN:"$2}' > new_header.sam
-samtools reheader new_header.sam test_out.out.bam > test_out_fixed.out.bam
+samtools reheader new_header.sam test_out.bam > test_out_fixed.out.bam
 
 # 2️⃣ **Index the Fixed BAM**
 echo "Indexing BAM..."
