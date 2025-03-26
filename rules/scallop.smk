@@ -84,7 +84,7 @@ checkpoint scallop2:
 
 
 def get_gtf_files(wildcards):
-    checkpoint_output = checkpoints.split_bam_by_chr.get(**wildcards).output[0]  # Get output dir
+    checkpoint_output = checkpoints.scallop2.get(**wildcards).output[0]  # Get output dir
     chroms = [os.path.basename(f).replace(".bam", "") for f in glob.glob(f"{checkpoint_output}/*.bam")]  # Extract chromosome names
     return [config["directories"]["scallop_out"] + f"/{chrom}.gtf" for chrom in chroms]  # Create list of GTF files
 
