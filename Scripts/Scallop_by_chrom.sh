@@ -39,26 +39,29 @@ FILTERED_BAM_DIR="/scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/big"
 BIG_BAM_CHROM="/scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/big/split"
 SCALLOP_OUT="/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome"
 FINAL_GTF="/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final/Fescue_transcriptome.gtf"
+THREADS=32  # Adjust based on available CPU cores
 
-# 1️⃣ **Fix BAM Header**
-echo "Fixing BAM header..."
 cd "$FILTERED_BAM_DIR"
+
+# 1️⃣ **Fix BAM Header (Avoid large temporary files)**
+echo "Fixing BAM header..."
 samtools faidx "$GENOME"
 cut -f1,2 "${GENOME}.fai" | awk '{print "@SQ\tSN:"$1"\tLN:"$2}' > new_header.sam
-samtools reheader new_header.sam Aligned.sortedByCoord_filtered.out.bam  > Aligned.sortedByCoord_filtered_fixed.out.bam
+samtools reheader new_header.sam Aligned.sortedByCoord_filtered.out.bam | samtools view -b -o Aligned.sortedByCoord_filtered_fixed.out.bam
 
-# 2️⃣ **Index the Fixed BAM**
+# 2️⃣ **Index the Fixed BAM (Use CSI for large files)**
 echo "Indexing BAM..."
-samtools index -c Aligned.sortedByCoord_filtered_fixed.out.bam
+samtools index -@ "$THREADS" -c Aligned.sortedByCoord_filtered_fixed.out.bam
 
-# 3️⃣ **Split BAM by Chromosome**
+# 3️⃣ **Split BAM by Chromosome Using GNU Parallel**
 echo "Splitting BAM by chromosome..."
 mkdir -p "$BIG_BAM_CHROM"
-samtools idxstats Aligned.sortedByCoord_filtered_fixed.out.bam | cut -f1 | grep -v '*' | while read -r chr; do
-    echo "Processing chromosome: $chr"
-    samtools view -b -h Aligned.sortedByCoord_filtered_fixed.out.bam "$chr" | samtools sort -o "$BIG_BAM_CHROM/${chr}.bam"
-    samtools index -c "$BIG_BAM_CHROM/${chr}.bam"
-done
+
+samtools idxstats Aligned.sortedByCoord_filtered_fixed.out.bam | cut -f1 | grep -v '*' | parallel -j "$THREADS" "
+    echo 'Processing chromosome: {}'
+    samtools view -b -h Aligned.sortedByCoord_filtered_fixed.out.bam {} | samtools sort -@ 2 -o '$BIG_BAM_CHROM/{}.bam'
+    samtools index -c '$BIG_BAM_CHROM/{}.bam'
+"
 
 # 4️⃣ **Run Scallop2 in Parallel**
 echo "Running Scallop2 in parallel..."
@@ -66,7 +69,7 @@ mkdir -p "$SCALLOP_OUT"
 
 export SCALLOP_OUT  # Ensure the variable is available for parallel
 
-parallel --jobs 8 --halt now,fail=1 '
+parallel --jobs 4 --halt now,fail=1 '
     source activate scallop2 &&
     chrom=$(basename {} .bam) &&
     echo "Assembling transcripts for $chrom..." &&
