@@ -24,6 +24,7 @@ directories:
   scallop_out: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome
   transcriptome: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final
   transcriptome_big: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/big
+  bam_backup: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/big/backup
 
 
 

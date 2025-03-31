@@ -111,12 +111,15 @@ rule sort_bam_by_coord:
         bam_sorted = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam"
     conda:
         "../Conda_Envs/samtools.yaml"
+    params:
+        backups = config["directories"]["bam_backup"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam"
     log:
         "logs/sort_bam_by_coord_big.log"
     threads: config["scallop"]["threads"]
     shell:
         """
         samtools sort -@ {threads} -o {output.bam_sorted} {input.bam} 2> {log}
+        cp {output.bam_sorted} {params.backups}
         """
 
 rule index_bam:
