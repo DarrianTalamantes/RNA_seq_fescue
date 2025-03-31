@@ -47,7 +47,7 @@ cd "$FILTERED_BAM_DIR"
 echo "Fixing BAM header..."
 samtools faidx "$GENOME"
 cut -f1,2 "${GENOME}.fai" | awk '{print "@SQ\tSN:"$1"\tLN:"$2}' > new_header.sam
-samtools reheader new_header.sam Aligned.sortedByCoord_filtered.out.bam | samtools view -b -o Aligned.sortedByCoord_filtered_fixed.out.bam
+samtools reheader new_header.sam Aligned.sortedByCoord_filtered.out.bam   # SHould not use reheader while another file is running
 
 # 2️⃣ **Index the Fixed BAM (Use CSI for large files)**
 echo "Indexing BAM..."
