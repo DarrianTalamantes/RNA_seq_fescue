@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J Scallop_Big
-#SBATCH -p batch	
+#SBATCH -p highmem_30d_p	
 #SBATCH --ntasks=32
 #SBATCH --mem=500GB
 #SBATCH -t 600:00:00
