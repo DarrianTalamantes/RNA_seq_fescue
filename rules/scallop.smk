@@ -106,9 +106,9 @@
 ########################################################
 rule sort_bam_by_coord:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/test_out.bam"
+        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
     output:
-        bam_sorted = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam"
+        bam_sorted = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam"
     conda:
         "../Conda_Envs/samtools.yaml"
     log:
@@ -121,9 +121,9 @@ rule sort_bam_by_coord:
 
 rule index_bam:
     input:
-        bam_sorted = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam"
+        bam_sorted = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam"
     output:
-        csi = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam.csi"
+        csi = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam.csi"
     conda:
         "../Conda_Envs/samtools.yaml"
     log:
@@ -137,8 +137,8 @@ rule index_bam:
 
 rule scallop2_big:
     input:
-        bam = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam",
-        csi = config["directories"]["filtered_bam_big"] + "/test_out_sorted.bam.csi"
+        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam",
+        csi = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam.csi"
     output:
         gtf = config["scallop"]["output_file_big"]
     conda:
