@@ -104,22 +104,35 @@
 ########################################################
 # Old rule: This works but takes suuuper long.
 ########################################################
-# rule sort_bam_by_coord:
-#     input:
-#         bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
-#     output:
-#         bam_sorted = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam",
-#         csi = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam.csi"
-#     conda:
-#         "../Conda_Envs/samtools.yaml"
-#     log:
-#         "logs/sort_bam_by_coord_big.log"
-#     threads: config["scallop"]["threads"]
-#     shell:
-#         """
-#         samtools sort -@ {threads} -o {output.bam_sorted} {input.bam} 2> {log}
-#         samtools index -c {output.bam_sorted} 2>> {log}
-#         """
+rule sort_bam_by_coord:
+    input:
+        bam = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam"
+    output:
+        bam_sorted = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam"
+    conda:
+        "../Conda_Envs/samtools.yaml"
+    log:
+        "logs/sort_bam_by_coord_big.log"
+    threads: config["scallop"]["threads"]
+    shell:
+        """
+        samtools sort -@ {threads} -o {output.bam_sorted} {input.bam} 2> {log}
+        """
+
+rule index_bam:
+    input:
+        bam_sorted = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam"
+    output:
+        csi = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam.csi"
+    conda:
+        "../Conda_Envs/samtools.yaml"
+    log:
+        "logs/index_bam_big.log"
+    threads: config["scallop"]["threads"]
+    shell:
+        """
+        samtools index -c {input.bam_sorted} 2> {log}
+        """
 
 
 rule scallop2_big:
