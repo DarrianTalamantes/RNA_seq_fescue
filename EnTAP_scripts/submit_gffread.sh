@@ -22,4 +22,4 @@ ml gffread/0.12.7-GCCcore-11.3.0
 scallop_output="/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/big/Fescue_transcriptome.gtf"
 genome="/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Tall_fescue/tall_fescue_pv1.1.fasta"
 transcripts="/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/Transcripts/fescue_transcripts.fasta"
-gffread $scallop_output -g $genome -w $transcripts
+gffread $scallop_output -g $genome -w $transcripts -F 
