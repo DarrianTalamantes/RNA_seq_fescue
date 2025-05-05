@@ -10,7 +10,7 @@
 #-------------------------------
 #Specify the output directory you would like the data produced by EnTAP to be saved to.
 #type:string
-out-dir=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/Test_output
+out-dir=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/output
 #Select this option if you would like to overwrite files from a previous execution of EnTAP. This will supercede the 'resume' flag which enables you to continue an annotation from where you left off before. Refer to the documentation for more information.
 #type:boolean (true/false)
 overwrite=false
@@ -28,7 +28,8 @@ input=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/Test_Data/nucleotide_trinity.f
 #    - Alternatively, you can provide the type of protein database you'd like EnTAP to download and configure for you. Simply add any of the following to download/configure for DIAMOND the appropriate database: refseq_archaea, refseq_bacteria, refseq_complete, refseq_fungi, refseq_invertebrate, refseq_other, refseq_plant, refseq_protozoa, refseq_vertebrate_mammalian, refseq_vertebrate_other, ncbi_nr, uniprot_sprot, uniprot_trembl
 #Note: if your databases do not have the typical NCBI or UniProt header format, taxonomic  information and filtering may not be utilized. Refer to the documentation to see how to properly format any data.
 #type:list (string)
-database=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/Test_Data/uniprot_sprot.dmnd
+databases:
+  - refseq_plant
 #By default, EnTAP will trim the sequence ID to the nearest space to help with compatibility across software. This command will instead remove the spaces in a sequence ID rather than trimming.
 #'>TRINITY_231.1 Protein Information' will become...
 #'>TRINITY_231.1ProteinInformation' 
