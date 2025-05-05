@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J feature
 #SBATCH -p batch	
-#SBATCH --ntasks=32
-#SBATCH --mem=120GB
+#SBATCH --ntasks=8
+#SBATCH --mem=32GB
 #SBATCH -t 150:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/feature.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/feature.%j.err
