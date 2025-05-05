@@ -9,7 +9,7 @@ rule feature_counts:
     output:
         counts = config["directories"]["features"] + "feature_counts.txt"
     params:
-        outpath = config["directories"]["features"]
+        outpath = config["directories"]["features"],
         gtf_2 = config["scallop"]["output_file_big_filtered"]
 
     conda:
