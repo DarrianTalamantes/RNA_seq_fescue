@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J feature
-#SBATCH -p batch_p	
+#SBATCH -p batch	
 #SBATCH --ntasks=32
 #SBATCH --mem=120GB
 #SBATCH -t 600:00:00
