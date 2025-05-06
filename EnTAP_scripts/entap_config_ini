@@ -71,10 +71,10 @@ diamond-exe=diamond
 eggnog-map-exe=emapper.py
 #Path to the EggNOG SQL database that was downloaded during the Configuration stage.
 #type:string
-eggnog-map-data=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/Test_output/databases
+eggnog-map-data=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/output/databases
 #Path to EggNOG DIAMOND configured database that was generated during the Configuration stage.
 #type:stringeggnog-map-dmnd=/bin/eggnog_proteins.dmnd
-eggnog-map-dmnd=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/Test_output/bin/eggnog_proteins.dmnd
+eggnog-map-dmnd=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/output/bin/eggnog_proteins.dmnd
 #-------------------------------
 # [ontology-interproscan]
 #-------------------------------
