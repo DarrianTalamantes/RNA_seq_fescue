@@ -36,7 +36,7 @@ database=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/output/bin/refseq_plant.dmn
 no-trim=false
 #Specify the number of threads that will be used throughout EnTAP execution
 #type:integer
-threads=4
+threads=16
 #Specify the output format for the processed alignments. EnTAP will generally try to output these unless the data is unavailable. Multiple flags can be specified:
 #    1. TSV Format (default)
 #    2. CSV Format

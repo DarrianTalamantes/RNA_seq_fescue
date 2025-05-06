@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -J EnTAP
 #SBATCH -p batch
-#SBATCH --ntasks=12
-#SBATCH --mem 60gb
-#SBATCH -t 30:00:00
+#SBATCH --ntasks=16
+#SBATCH --mem 80gb
+#SBATCH -t 160:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/slurm_outputs/EnTAP.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/slurm_outputs/EnTAP.%j.err
 #SBATCH --mail-type=FAIL,END
