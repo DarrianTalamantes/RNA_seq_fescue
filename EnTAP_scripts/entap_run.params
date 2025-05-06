@@ -19,7 +19,7 @@ overwrite=false
 resume=false
 #Path to the input transcriptome file
 #type:string
-input=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/Test_Data/nucleotide_trinity.fnn
+input=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/Transcripts/fescue_transcripts.fasta
 #Provide the paths to the databases you would like to use for either 'run' or 'configuration'.
 #For running/execution:
 #    - Ensure the databases selected are in a DIAMOND configured format with an extension of .dmnd
