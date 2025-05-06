@@ -28,7 +28,7 @@ input=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/Transcripts/fescue_transcripts
 #    - Alternatively, you can provide the type of protein database you'd like EnTAP to download and configure for you. Simply add any of the following to download/configure for DIAMOND the appropriate database: refseq_archaea, refseq_bacteria, refseq_complete, refseq_fungi, refseq_invertebrate, refseq_other, refseq_plant, refseq_protozoa, refseq_vertebrate_mammalian, refseq_vertebrate_other, ncbi_nr, uniprot_sprot, uniprot_trembl
 #Note: if your databases do not have the typical NCBI or UniProt header format, taxonomic  information and filtering may not be utilized. Refer to the documentation to see how to properly format any data.
 #type:list (string)
-databases=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/databases/EnTAPdata.fasta, refseq_plant, ncbi_nr
+database=refseq_plant
 #By default, EnTAP will trim the sequence ID to the nearest space to help with compatibility across software. This command will instead remove the spaces in a sequence ID rather than trimming.
 #'>TRINITY_231.1 Protein Information' will become...
 #'>TRINITY_231.1ProteinInformation' 
