@@ -94,7 +94,7 @@ tcoverage=50
 #Specify the contaminants you would like to flag for similarity searching. Contaminants can be selected by species or through a specific taxon (insecta) from the NCBI Taxonomy Database. If your taxon is more than one word just replace the spaces with underscores (_).
 #Note: since hits are based upon a multitude of factors, a contaminant might end up being the best hit for an alignment. In this scenario, EnTAP will flag the contaminant and it can be removed if you would like.
 #type:list (string)
-contam=
+contam=fungi,bacteria
 #Specify the E-Value that will be used as a cutoff during similarity searching.
 #type:decimal
 e-value=1e-05
