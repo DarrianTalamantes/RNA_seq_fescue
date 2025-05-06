@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -J EnTAP
 #SBATCH -p batch
-#SBATCH --ntasks=4
+#SBATCH --ntasks=12
 #SBATCH --mem 60gb
 #SBATCH -t 30:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/slurm_outputs/EnTAP.%j.out
