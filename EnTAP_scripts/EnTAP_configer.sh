@@ -16,6 +16,6 @@ sacct -j $SLURM_JOB_ID --format=JobID,JobName,AllocCPUS,Elapsed,ExitCode,State,M
 ml EnTAP/2.2.0-GCCcore-11.3.0
 
 # Code to be Ran
-
+entap --configure -d eggnog
 EnTAP --run --run-ini /scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/Params/entap_run.params --entap-ini /scratch/drt83172/Wallace_lab/RNA_SEQ/EnTAP/Params/entap_config_ini
 
