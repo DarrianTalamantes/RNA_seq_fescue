@@ -16,40 +16,37 @@ library(ggpubr)
 library(tidyverse)
 library(grid)
 library(data.table)
-install.packages("unix")
+# install.packages("unix")
 
 # Increase memory of R to 12 GB
-rlimit_as(1e12)
+memory.limit(size=12000)  #Might not need. Memory should not be capped in newer R versions
 
 # File locations
 data_folder <- "/home/darrian/Documents/RNA_seq_fescue/r_data"
-MetaData_loc <- paste0(data_folder, "/Meta_Data.csv")
 Featurecount_loc <- paste0(data_folder, "/feature_counts_name_fixed.txt")
 
 ###############################
 # loading data
 ###############################
-MetaData <- read.table(MetaData_loc, header = TRUE, sep = "," )
 Featurecount <- read.table(Featurecount_loc, header = TRUE)
 
 ###############################
 # Fixing data
 ###############################
-Featurecount$feature <- rownames(Featurecount)
-# Move the new column to the first position
-Featurecount <- Featurecount[, c("feature", setdiff(names(Featurecount), "feature"))]
+# Featurecount$feature <- rownames(Featurecount)
+# # Move the new column to the first position
+# Featurecount <- Featurecount[, c("feature", setdiff(names(Featurecount), "feature"))]
 
 # Creating the MetaData
-ncol(Featurecount)
-nrow(MetaData)
 IDs <- colnames(Featurecount)
-IDs <- as.data.frame(killme)
+IDs <- as.data.frame(IDs)
 IDs <- IDs[-1, ]
-write.csv(IDs,"featurenames.txt",row.names = FALSE)
+# write.csv(IDs,"featurenames.txt",row.names = FALSE)
 
 
 metadata <- data.frame(SampleName = IDs) %>%
   mutate(
+    Clone = str_extract(SampleName, "CTE\\d+"),
     Endophyte = str_extract(SampleName, "CTE\\d+(N|P)"),
     Endophyte = str_sub(Endophyte, -1),
     
@@ -85,16 +82,22 @@ metadata$Endophyte <- str_replace_all(metadata$Endophyte, rep_str)
 
 rep_str2 = c('HP'='HeatxPercipitation','H'='Heat', 'C' = 'Control')
 metadata$Treatment <- str_replace_all(metadata$Treatment, rep_str2)
+rep_str3 = c('Heateat'='Heat')
+metadata$Treatment <- str_replace_all(metadata$Treatment, rep_str3)
 metadata <- subset(metadata, select = -c(HarvestCode))
 
 
+Featurecount <- Featurecount[, colnames(Featurecount) %in% metadata$SampleName]
+
+ncol(Featurecount)
+nrow(metadata)
 ###############################
 # Running DeSeq2 
 ###############################
 #Makes DeSeq data set
 dds <- DESeqDataSetFromMatrix(countData = Featurecount,
-                              colData = MetaData,
-                              design= ~ Month + Clone + Year + Endophyte + Treatment, tidy = TRUE)
+                              colData = metadata,
+                              design= ~ Clone + Month + Year + Endophyte + Treatment)
 
 #Run DeSeq function, 
 dds_og <- DESeq(dds)
@@ -127,7 +130,7 @@ Control_vs_Heat <- Control_vs_Heat[order(Control_vs_Heat$pvalue),]
 head(Control_vs_Heat)
 
 # Control vs HeatxPercipitation
-Control_vs_HxP <- get_results(dds,"Treatment","Control","HeatxPercipitation")
+Control_vs_HxP <- get_results(dds,"Treatment","HeatxPercipitation","Control")
 summary(Control_vs_HxP)
 Control_vs_HxP <- Control_vs_HxP[order(Control_vs_HxP$pvalue),]
 head(Control_vs_HxP)
@@ -262,38 +265,32 @@ print(volcano_plot_EvNE)
 ###################################
 # Heat map (Doesnt seem to work now)
 ###################################
-# Check what comparison the data is doing. Seems like id have to rerun the data everytime for heatmaps. 
-# I probably 
-results(dds)
+# 1. Extracting noramlized counts
+vsd <- vst(dds, blind = FALSE)  # already done
+vsd_mat <- assay(vsd)           # matrix: genes x samples
 
-vsd <- vst(dds, blind = FALSE)
-vsd_data <- assay(vsd)
-# Select highly expressed genes
-select <- order(rowMeans(counts(dds, normalized = TRUE)), decreasing = TRUE)[1:100]
-top200_data <- vsd_data[select, ]
-# Convert the matrix to a long format for ggplot2
-top200_long <- as.data.frame(top200_data) %>%
-  rownames_to_column(var = "gene") %>%
-  pivot_longer(cols = -gene, names_to = "sample", values_to = "expression")
-# Add sample information
-sample_info <- as.data.frame(colData(dds))
-top200_long <- top200_long %>%
-  left_join(sample_info, by = c("sample" = "Sample"))
+# 2. Filtering for significant genes
+# Gets any gene in selected comparison with padj of .01 of lower
+# and must have a log fold change absalute value of 1.5
+sig_genes <- rownames(Heat_vs_HxP[which(Heat_vs_HxP$padj < 0.01 & abs(Heat_vs_HxP$log2FoldChange) > 1.5), ])
+vsd_sub <- vsd_mat[sig_genes, ]
 
-# Create the heatmap ()
-heatmap <- ggplot(Heat_vs_HxP, aes(x = sample, y = gene, fill = log2FoldChange)) +
+# 3. COnvert to long data frame
+vsd_df <- as.data.frame(vsd_sub) %>%
+  rownames_to_column("Gene") %>%
+  pivot_longer(-Gene, names_to = "SampleID", values_to = "Expression")
+vsd_df <- left_join(vsd_df, metadata, by = c("SampleID" = "SampleName"))
+
+# Filter out treatment not used
+df_filtered <- vsd_df[vsd_df$Treatment != "Control", ]
+
+ggplot(df_filtered, aes(x = SampleID, y = Gene, fill = Expression)) +
   geom_tile() +
-  scale_fill_viridis_c(option = "viridis") +
-  theme_minimal() + 
-  theme(axis.text.x = element_blank(),  # Remove x-axis labels
-        axis.text.y = element_blank(),  # Remove y-axis labels
-        panel.grid = element_blank()) +  # Remove grid lines
-  labs(x = "Sample", y = "Gene", title = "Heatmap of Top 100 Gene Expression") +
-  facet_grid(~ Treatment, scales = "free_x", space = "free_x") 
-print(heatmap)
-
-
-
+  facet_grid(. ~ Treatment, scales = "free_x", space = "free") +  # separate by condition
+  scale_fill_viridis_c() +
+  theme_minimal(base_size = 10) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  labs(title = "DEG Expression Heatmap", fill = "Normalized Expression")
 
 ################################################################################
 # DeSeq2 function interaction method
