@@ -99,7 +99,7 @@ nrow(metadata)
 
 
 ################################################################################
-# Function that partitions data
+# Function that partitions data by Endophtye and Clone
 ################################################################################
 
 # partitions the data by CLone and Endophyte and returns deseq object
@@ -117,7 +117,7 @@ dds_by_CloneXEndo <- function(CountsData, Metadata, CloneName, EndoStatus){
   # Now create dds for that subset
   dds_clone <- DESeqDataSetFromMatrix(countData = counts,
                                        colData = meta_clone_endo,
-                                       design = ~ Treatment)  # or other factors
+                                       design = ~ Month + Year + Treatment)  # or other factors
   dds_clone <- DESeq(dds_clone)
   
   # filter for genes that have 10 occurrences in 1/4 the samples
@@ -126,6 +126,10 @@ dds_by_CloneXEndo <- function(CountsData, Metadata, CloneName, EndoStatus){
   
   return(dds_clone)
 }
+
+################################################################################
+# Function that partitions data by CLone only
+################################################################################
 
 # make deseq object that is based only on Clone name
 dds_by_Clone <-  function(CountsData, Metadata, CloneName) {
@@ -142,11 +146,70 @@ dds_by_Clone <-  function(CountsData, Metadata, CloneName) {
   # Create DESeq2 object
   dds_clone <- DESeqDataSetFromMatrix(countData = counts,
                                       colData = meta_clone,
-                                      design = ~ Treatment)  # or include other factors if needed
+                                      design = ~ Month + Year + Endophyte + Treatment)  # or include other factors if needed
   
   dds_clone <- DESeq(dds_clone)
   
   # Filter for genes with counts >=5 in at least 1/4 of samples
+  keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
+  dds_clone <- dds_clone[keep, ]
+  
+  return(dds_clone)
+}
+
+
+################################################################################
+# Function that partitions data by Clone and Month
+################################################################################
+
+# partitions the data by CLone and Month and returns deseq object
+dds_by_CloneXMonth <- function(CountsData, Metadata, CloneName, month){
+  
+  # Subset metadata for one Clone (e.g., Clone1)
+  meta_clone <- Metadata[Metadata$Clone == CloneName, ]
+  meta_clone_endo <- meta_clone[meta_clone$Month == month,]
+  
+  # Subset counts to only include samples that are in the meta_clone_endo dataset
+  counts <- CountsData[, colnames(CountsData) %in% meta_clone_endo$SampleName]
+  
+  # Reorder columns of counts to match row order of metadata
+  counts <- counts[, match(meta_clone_endo$SampleName, colnames(counts))]
+  # Now create dds for that subset
+  dds_clone <- DESeqDataSetFromMatrix(countData = counts,
+                                      colData = meta_clone_endo,
+                                      design = ~ Year + Endophyte + Treatment)  # or other factors
+  dds_clone <- DESeq(dds_clone)
+  
+  # filter for genes that have 10 occurrences in 1/4 the samples
+  keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
+  dds_clone <- dds_clone[keep, ]
+  
+  return(dds_clone)
+}
+
+################################################################################
+# Function that partitions data by Clone and HarvestTime
+################################################################################
+
+# partitions the data by CLone and Month and returns deseq object
+dds_by_CloneXHT <- function(CountsData, Metadata, CloneName, HT){
+  
+  # Subset metadata for one Clone (e.g., Clone1)
+  meta_clone <- Metadata[Metadata$Clone == CloneName, ]
+  meta_clone_endo <- meta_clone[meta_clone$HarvestTime == HT,]
+  
+  # Subset counts to only include samples that are in the meta_clone_endo dataset
+  counts <- CountsData[, colnames(CountsData) %in% meta_clone_endo$SampleName]
+  
+  # Reorder columns of counts to match row order of metadata
+  counts <- counts[, match(meta_clone_endo$SampleName, colnames(counts))]
+  # Now create dds for that subset
+  dds_clone <- DESeqDataSetFromMatrix(countData = counts,
+                                      colData = meta_clone_endo,
+                                      design = ~ Endophyte + Treatment)  # or other factors
+  dds_clone <- DESeq(dds_clone)
+  
+  # filter for genes that have 10 occurrences in 1/4 the samples
   keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
   dds_clone <- dds_clone[keep, ]
   
@@ -164,7 +227,7 @@ combos <- expand.grid(Clone = unique(metadata$Clone),
                       stringsAsFactors = FALSE)
 
 # 2. Loop over each combination and run the function
-results_list <- list()
+results_list_CloneXEndo <- list()
 
 for (clone_name in unique(metadata$Clone)) {
   for (endo_status in unique(metadata$Endophyte)) {
@@ -173,16 +236,76 @@ for (clone_name in unique(metadata$Clone)) {
     
     tryCatch({
       res <- dds_by_CloneXEndo(Featurecount, metadata, clone_name, endo_status)
-      results_list[[result_key]] <- res
+      results_list_CloneXEndo[[result_key]] <- res
       message("Successfully processed: ", result_key)
     }, error = function(e) {
       message("Error in: ", result_key, " - ", e$message)
     })
   }
 }
-results(results_list$CTE25_Negative)
-results(results_list$CTE46_Positive)
+results(results_list_CloneXEndo$CTE25_Negative)
+results(results_list_CloneXEndo$CTE46_Positive)
 
+
+################################################################################
+# Using the function to create datasets seperated by Clone and Month
+################################################################################
+
+
+# 1. Get all unique combinations of Clone and Month
+combos <- expand.grid(Clone = unique(metadata$Clone),
+                      Endophyte = unique(metadata$Month),
+                      stringsAsFactors = FALSE)
+
+# 2. Loop over each combination and run the function
+results_list_by_ClonexMonth <- list()
+
+for (clone_name in unique(metadata$Clone)) {
+  for (month in unique(metadata$Month)) {
+    
+    result_key <- paste0(clone_name, "_", month)
+    
+    tryCatch({
+      res <- dds_by_CloneXMonth(Featurecount, metadata, clone_name, month)
+      results_list_by_ClonexMonth[[result_key]] <- res
+      message("Successfully processed: ", result_key)
+    }, error = function(e) {
+      message("Error in: ", result_key, " - ", e$message)
+    })
+  }
+}
+results(results_list_by_ClonexMonth$CTE25_June)
+results(results_list_by_ClonexMonth$CTE46_October)
+
+################################################################################
+# Using the function to create datasets seperated by Clone and HarvestTime
+################################################################################
+
+
+# 1. Get all unique combinations of Clone and Harvest Time
+combos <- expand.grid(Clone = unique(metadata$Clone),
+                      Endophyte = unique(metadata$HarvestTime),
+                      stringsAsFactors = FALSE)
+
+# 2. Loop over each combination and run the function
+results_list_by_ClonexHT <- list()
+
+for (clone_name in unique(metadata$Clone)) {
+  for (HT in unique(metadata$HarvestTime)) {
+    
+    result_key <- paste0(clone_name, "_", HT)
+    
+    tryCatch({
+      res <- dds_by_CloneXHT(Featurecount, metadata, clone_name, HT)
+      results_list_by_ClonexHT[[result_key]] <- res
+      message("Successfully processed: ", result_key)
+    }, error = function(e) {
+      message("Error in: ", result_key, " - ", e$message)
+    })
+  }
+}
+results(results_list_by_ClonexHT$CTE46_October_2017)
+results(results_list_by_ClonexHT$CTE46_June_2016)
 
 ################################################################################
 # Using the function to create datasets separated only by clone
@@ -202,7 +325,7 @@ results(results_list_by_clone$CTE25)
 results(results_list_by_clone$CTE46)
 
 ################################################################################
-# Create heatmap for data that is split by endophyte and genotype
+# Create heatmap for data that is split by comparison and dendrogram seperaator
 ################################################################################
 
 generate_heatmap_pheatmap <- function(comparison_name = "CTE25_Negative", results_list, metadata, seperator = "Treatment") {
@@ -245,23 +368,28 @@ generate_heatmap_pheatmap <- function(comparison_name = "CTE25_Negative", result
 # generating final phenotypes
 ################################################################################
 colnames(metadata)
-names(results_list)
+names(results_list_CloneXEndo)
 names(results_list_by_clone)
+names(results_list_by_ClonexMonth)
 
-generate_heatmap_pheatmap("CTE25_Negative",results_list,metadata,"HarvestTime")
-generate_heatmap_pheatmap("CTE25_Positive",results_list,metadata,"HarvestTime")
-generate_heatmap_pheatmap("CTE25",results_list_by_clone,metadata,"Endophyte")
+generate_heatmap_pheatmap("CTE25_Negative",results_list,metadata,"Month")
+generate_heatmap_pheatmap("CTE25_Positive",results_list,metadata,"Month")
+generate_heatmap_pheatmap("CTE25",results_list_by_clone,metadata,"Month")
 
 generate_heatmap_pheatmap("CTE45_Negative",results_list,metadata,"HarvestTime")
 generate_heatmap_pheatmap("CTE45_Positive",results_list,metadata,"HarvestTime")
 generate_heatmap_pheatmap("CTE45",results_list_by_clone,metadata,"HarvestTime")
 
+generate_heatmap_pheatmap("CTE45_June",results_list_by_ClonexMonth,metadata,"Endophyte")
+generate_heatmap_pheatmap("CTE45_October",results_list_by_ClonexMonth,metadata,"Treatment")
+generate_heatmap_pheatmap("CTE25_June",results_list_by_ClonexMonth,metadata,"HarvestTime")
+generate_heatmap_pheatmap("CTE25_October",results_list_by_ClonexMonth,metadata,"HarvestTime")
 
 
 
 
 
-colnames(metadata)
+0colnames(metadata)
 
 
 
