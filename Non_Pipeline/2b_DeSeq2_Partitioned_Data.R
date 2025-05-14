@@ -369,15 +369,16 @@ generate_heatmap_pheatmap <- function(comparison_name = "CTE25_Negative", result
 ################################################################################
 colnames(metadata)
 names(results_list_CloneXEndo)
-names(results_list_by_clone)
-names(results_list_by_ClonexMonth)
+names(results_list_by_clone) #4 datasets
+names(results_list_by_ClonexMonth) #8 datasets
+names(results_list_by_ClonexHT) #16 datasets
 
-generate_heatmap_pheatmap("CTE25_Negative",results_list,metadata,"Month")
-generate_heatmap_pheatmap("CTE25_Positive",results_list,metadata,"Month")
+generate_heatmap_pheatmap("CTE25_Negative",results_list_CloneXEndo,metadata,"Month")
+generate_heatmap_pheatmap("CTE25_Positive",results_list_CloneXEndo,metadata,"Month")
 generate_heatmap_pheatmap("CTE25",results_list_by_clone,metadata,"Month")
 
-generate_heatmap_pheatmap("CTE45_Negative",results_list,metadata,"HarvestTime")
-generate_heatmap_pheatmap("CTE45_Positive",results_list,metadata,"HarvestTime")
+generate_heatmap_pheatmap("CTE45_Negative",results_list_CloneXEndo,metadata,"HarvestTime")
+generate_heatmap_pheatmap("CTE45_Positive",results_list_CloneXEndo,metadata,"HarvestTime")
 generate_heatmap_pheatmap("CTE45",results_list_by_clone,metadata,"HarvestTime")
 
 generate_heatmap_pheatmap("CTE45_June",results_list_by_ClonexMonth,metadata,"Endophyte")
@@ -385,11 +386,19 @@ generate_heatmap_pheatmap("CTE45_October",results_list_by_ClonexMonth,metadata,"
 generate_heatmap_pheatmap("CTE25_June",results_list_by_ClonexMonth,metadata,"HarvestTime")
 generate_heatmap_pheatmap("CTE25_October",results_list_by_ClonexMonth,metadata,"HarvestTime")
 
+generate_heatmap_pheatmap("CTE25_October_2017",results_list_by_ClonexHT,metadata,"Treatment")
+generate_heatmap_pheatmap("CTE25_October_2016",results_list_by_ClonexHT,metadata,"Treatment")
 
+generate_heatmap_pheatmap("CTE45_June_2016",results_list_by_ClonexHT,metadata,"Treatment")
+generate_heatmap_pheatmap("CTE45_October_2016",results_list_by_ClonexHT,metadata,"Treatment")  #Amazing seperation
+generate_heatmap_pheatmap("CTE45_October_2017",results_list_by_ClonexHT,metadata,"Treatment")
+generate_heatmap_pheatmap("CTE45_June_2017",results_list_by_ClonexHT,metadata,"Treatment")
 
+generate_heatmap_pheatmap("CTE31_October_2016",results_list_by_ClonexHT,metadata,"Treatment") #Amazing Seperation
+generate_heatmap_pheatmap("CTE31_October_2017",results_list_by_ClonexHT,metadata,"Treatment") 
+generate_heatmap_pheatmap("CTE31_June_2017",results_list_by_ClonexHT,metadata,"Treatment")
 
-
-0colnames(metadata)
+colnames(metadata)
 
 
 
