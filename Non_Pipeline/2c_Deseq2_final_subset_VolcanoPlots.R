@@ -159,22 +159,11 @@ results(results_list_by_ClonexHT$CTE46_June_2016)
 # Function Creating Volcano Plots 
 ################################################################################
 
-resultsNames(results_list_by_ClonexHT$CTE25_October_2017)
 
-
-results_list_by_ClonexHT$CTE25_October_2017
-
-
-results(results_list_by_ClonexHT$CTE25_October_2017, contrast = c("Treatment", "Heat", "HeatxPercipitation"))
-levels(colData(results_list_by_ClonexHT$CTE25_October_2017)$Treatment)
-
-
-
-
-
+# Basic Volcano plot display function
 plot_volcano <- function(res, title) {
   res_df <- as.data.frame(res)
-  res_df$significant <- with(res_df, padj < 0.05 & abs(log2FoldChange) > 1)
+  res_df$significant <- with(res_df, padj < 0.05 & abs(log2FoldChange) > 1)  # SHould this really only be one? I think 1.5 maybe
   
   ggplot(res_df, aes(x = log2FoldChange, y = -log10(padj))) +
     geom_point(aes(color = significant), alpha = 0.6) +
