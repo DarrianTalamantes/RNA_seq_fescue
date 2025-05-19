@@ -1,5 +1,4 @@
-# This is R script partitions the data by clone and endophyte status then runs DeSeq2
-# Author: Darrian Talamantes
+# This is R script uses the best partitioned data and makes volcano plots
 
 # Notes:
 # Before starting this script I deleted the suffix within the feature counts table
@@ -96,97 +95,6 @@ nrow(metadata)
 
 
 
-
-
-################################################################################
-# Function that partitions data by Endophtye and Clone
-################################################################################
-
-# partitions the data by CLone and Endophyte and returns deseq object
-dds_by_CloneXEndo <- function(CountsData, Metadata, CloneName, EndoStatus){
-  
-  # Subset metadata for one Clone (e.g., Clone1)
-  meta_clone <- Metadata[Metadata$Clone == CloneName, ]
-  meta_clone_endo <- meta_clone[meta_clone$Endophyte == EndoStatus,]
-  
-  # Subset counts to only include samples that are in the meta_clone_endo dataset
-  counts <- CountsData[, colnames(CountsData) %in% meta_clone_endo$SampleName]
-  
-  # Reorder columns of counts to match row order of metadata
-  counts <- counts[, match(meta_clone_endo$SampleName, colnames(counts))]
-  # Now create dds for that subset
-  dds_clone <- DESeqDataSetFromMatrix(countData = counts,
-                                       colData = meta_clone_endo,
-                                       design = ~ Month + Year + Treatment)  # or other factors
-  dds_clone <- DESeq(dds_clone)
-  
-  # filter for genes that have 10 occurrences in 1/4 the samples
-  keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
-  dds_clone <- dds_clone[keep, ]
-  
-  return(dds_clone)
-}
-
-################################################################################
-# Function that partitions data by CLone only
-################################################################################
-
-# make deseq object that is based only on Clone name
-dds_by_Clone <-  function(CountsData, Metadata, CloneName) {
-  
-  # Subset metadata for one Clone (e.g., Clone1)
-  meta_clone <- Metadata[Metadata$Clone == CloneName, ]
-  
-  # Subset counts to only include samples that are in the meta_clone dataset
-  counts <- CountsData[, colnames(CountsData) %in% meta_clone$SampleName]
-  
-  # Reorder columns of counts to match row order of metadata
-  counts <- counts[, match(meta_clone$SampleName, colnames(counts))]
-  
-  # Create DESeq2 object
-  dds_clone <- DESeqDataSetFromMatrix(countData = counts,
-                                      colData = meta_clone,
-                                      design = ~ Month + Year + Endophyte + Treatment)  # or include other factors if needed
-  
-  dds_clone <- DESeq(dds_clone)
-  
-  # Filter for genes with counts >=5 in at least 1/4 of samples
-  keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
-  dds_clone <- dds_clone[keep, ]
-  
-  return(dds_clone)
-}
-
-
-################################################################################
-# Function that partitions data by Clone and Month
-################################################################################
-
-# partitions the data by CLone and Month and returns deseq object
-dds_by_CloneXMonth <- function(CountsData, Metadata, CloneName, month){
-  
-  # Subset metadata for one Clone (e.g., Clone1)
-  meta_clone <- Metadata[Metadata$Clone == CloneName, ]
-  meta_clone_endo <- meta_clone[meta_clone$Month == month,]
-  
-  # Subset counts to only include samples that are in the meta_clone_endo dataset
-  counts <- CountsData[, colnames(CountsData) %in% meta_clone_endo$SampleName]
-  
-  # Reorder columns of counts to match row order of metadata
-  counts <- counts[, match(meta_clone_endo$SampleName, colnames(counts))]
-  # Now create dds for that subset
-  dds_clone <- DESeqDataSetFromMatrix(countData = counts,
-                                      colData = meta_clone_endo,
-                                      design = ~ Year + Endophyte + Treatment)  # or other factors
-  dds_clone <- DESeq(dds_clone)
-  
-  # filter for genes that have 10 occurrences in 1/4 the samples
-  keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
-  dds_clone <- dds_clone[keep, ]
-  
-  return(dds_clone)
-}
-
 ################################################################################
 # Function that partitions data by Clone and HarvestTime
 ################################################################################
@@ -215,133 +123,6 @@ dds_by_CloneXHT <- function(CountsData, Metadata, CloneName, HT){
   
   return(dds_clone)
 }
-
-
-################################################################################
-# Function that partitions data by Clone,HarvestTime, and treatment
-################################################################################
-
-# partitions the data by Clone Harvest Time, and Treatment.
-dds_by_CloneXHTxTreat <- function(CountsData, Metadata, CloneName, HT, Treat){
-  
-  # Subset metadata
-  meta_clone <- Metadata[Metadata$Clone == CloneName, ]
-  meta_clone_endo <- meta_clone[meta_clone$HarvestTime == HT,]
-  meta_clone_endo <- meta_clone_endo[meta_clone_endo$Treatment == Treat,]
-  
-  # Subset counts to only include samples that are in the meta_clone_endo dataset
-  counts <- CountsData[, colnames(CountsData) %in% meta_clone_endo$SampleName]
-  
-  # Reorder columns of counts to match row order of metadata
-  counts <- counts[, match(meta_clone_endo$SampleName, colnames(counts))]
-  # Now create dds for that subset
-  dds_clone <- DESeqDataSetFromMatrix(countData = counts,
-                                      colData = meta_clone_endo,
-                                      design = ~ Endophyte)  # or other factors
-  dds_clone <- DESeq(dds_clone)
-  
-  # filter for genes that have 10 occurrences in 1/4 the samples
-  keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
-  dds_clone <- dds_clone[keep, ]
-  
-  return(dds_clone)
-}
-
-################################################################################
-# Using the function to create datasets seperated by Clone, HT, and Treatment
-################################################################################
-
-
-# 1. Get all unique combinations of Clone and Endophyte
-combos <- expand.grid(Clone = unique(metadata$Clone),
-                      HarvestTime = unique(metadata$HarvestTime),
-                      Treatment = unique(metadata$Treatment),
-                      stringsAsFactors = FALSE)
-
-# 2. Loop over each combination and run the function
-results_list_CloneXHTxTreat <- list()
-
-for (clone_name in unique(metadata$Clone)) {
-  for (HT in unique(metadata$HarvestTime)) {
-    for (treat in unique(metadata$Treatment)) {
-      
-    
-    result_key <- paste0(clone_name, "_", HT, "_",treat)
-    
-    tryCatch({
-      res <- dds_by_CloneXHTxTreat(Featurecount, metadata, clone_name, HT, treat )
-      results_list_CloneXHTxTreat[[result_key]] <- res
-      message("Successfully processed: ", result_key)
-    }, error = function(e) {
-      message("Error in: ", result_key, " - ", e$message)
-    })
-    }
-  }
-}
-
-results(results_list_CloneXHTxTreat$CTE46_October_2016_HeatxPercipitation)
-results(results_list_CloneXHTxTreat$CTE46_June_2017_HeatxPercipitation)
-
-################################################################################
-# Using the function to create datasets seperated by Clone and Endo
-################################################################################
-
-
-# 1. Get all unique combinations of Clone and Endophyte
-combos <- expand.grid(Clone = unique(metadata$Clone),
-                      Endophyte = unique(metadata$Endophyte),
-                      stringsAsFactors = FALSE)
-
-# 2. Loop over each combination and run the function
-results_list_CloneXEndo <- list()
-
-for (clone_name in unique(metadata$Clone)) {
-  for (endo_status in unique(metadata$Endophyte)) {
-    
-    result_key <- paste0(clone_name, "_", endo_status)
-    
-    tryCatch({
-      res <- dds_by_CloneXEndo(Featurecount, metadata, clone_name, endo_status)
-      results_list_CloneXEndo[[result_key]] <- res
-      message("Successfully processed: ", result_key)
-    }, error = function(e) {
-      message("Error in: ", result_key, " - ", e$message)
-    })
-  }
-}
-results(results_list_CloneXEndo$CTE25_Negative)
-results(results_list_CloneXEndo$CTE46_Positive)
-
-
-################################################################################
-# Using the function to create datasets seperated by Clone and Month
-################################################################################
-
-
-# 1. Get all unique combinations of Clone and Month
-combos <- expand.grid(Clone = unique(metadata$Clone),
-                      Endophyte = unique(metadata$Month),
-                      stringsAsFactors = FALSE)
-
-# 2. Loop over each combination and run the function
-results_list_by_ClonexMonth <- list()
-
-for (clone_name in unique(metadata$Clone)) {
-  for (month in unique(metadata$Month)) {
-    
-    result_key <- paste0(clone_name, "_", month)
-    
-    tryCatch({
-      res <- dds_by_CloneXMonth(Featurecount, metadata, clone_name, month)
-      results_list_by_ClonexMonth[[result_key]] <- res
-      message("Successfully processed: ", result_key)
-    }, error = function(e) {
-      message("Error in: ", result_key, " - ", e$message)
-    })
-  }
-}
-results(results_list_by_ClonexMonth$CTE25_June)
-results(results_list_by_ClonexMonth$CTE46_October)
 
 ################################################################################
 # Using the function to create datasets seperated by Clone and HarvestTime
@@ -373,135 +154,54 @@ for (clone_name in unique(metadata$Clone)) {
 results(results_list_by_ClonexHT$CTE46_October_2017)
 results(results_list_by_ClonexHT$CTE46_June_2016)
 
+
 ################################################################################
-# Using the function to create datasets separated only by clone
+# Function Creating Volcano Plots 
 ################################################################################
 
-# 1. Create a list to hold the results
-results_list_by_clone <- list()
 
-for (clone_name in unique(metadata$Clone)) {
-  try({
-    result <- dds_by_Clone(Featurecount, metadata, clone_name)
-    results_list_by_clone[[clone_name]] <- result
-  }, silent = TRUE)
+# Basic Volcano plot display function
+plot_volcano <- function(res, title) {
+  res_df <- as.data.frame(res)
+  res_df$significant <- with(res_df, padj < 0.05 & abs(log2FoldChange) > 1)  # SHould this really only be one? I think 1.5 maybe
+  
+  ggplot(res_df, aes(x = log2FoldChange, y = -log10(padj))) +
+    geom_point(aes(color = significant), alpha = 0.6) +
+    scale_color_manual(values = c("gray", "red")) +
+    labs(title = title, x = "Log2 Fold Change", y = "-Log10 Adjusted p-value") +
+    theme_minimal()
 }
 
-results(results_list_by_clone$CTE25)
-results(results_list_by_clone$CTE46)
+# Create a list to store all volcano plots
+all_volcano_plots <- list()
 
-################################################################################
-# Create heatmap for data that is split by comparison and dendrogram seperaator
-################################################################################
-
-generate_heatmap_pheatmap <- function(comparison_name = "CTE25_Negative", results_list, metadata, seperator = "Treatment") {
-  if (!is.character(comparison_name) || length(comparison_name) != 1) {
-    stop("comparison_name must be a single string.")
+# Loop over each DESeq object in your results list
+for (comparison_name in names(results_list_by_ClonexHT)) {
+  dds <- results_list_by_ClonexHT[[comparison_name]]
+  plots <- list()
+  
+  # 1. Built-in contrasts
+  for (res_name in resultsNames(dds)[-1]) {  # Skip Intercept
+    res <- results(dds, name = res_name)
+    plots[[res_name]] <- plot_volcano(res, paste0(comparison_name, " - ", res_name))
   }
-  dds <- results_list[[comparison_name]]
   
-  # Extract normalized counts
-  vsd <- vst(dds, blind = FALSE)
-  vsd_mat <- assay(vsd)
+  # 2. Custom contrast: Heat vs HeatxPercipitation (if both levels exist)
+  treatment_levels <- levels(colData(dds)$Treatment)
+  if (all(c("Heat", "HeatxPercipitation") %in% treatment_levels)) {
+    res_custom <- results(dds, contrast = c("Treatment", "Heat", "HeatxPercipitation"))
+    plots[["Treatment_Heat_vs_HeatxPercipitation"]] <- plot_volcano(res_custom, 
+                                                                    paste0(comparison_name, " - Heat vs HeatxPercipitation"))
+  }
   
-  # Calculate variance for each gene
-  gene_vars <- apply(vsd_mat, 1, var)
-  
-  # Select top 50 most variable genes
-  top_genes <- names(sort(gene_vars, decreasing = TRUE))[1:50]
-  vsd_sub <- vsd_mat[top_genes, ]
-  
-  # Annotation for columns (samples)
-  ann_col <- metadata %>%
-    dplyr::filter(SampleName %in% colnames(vsd_sub)) %>%
-    dplyr::select(SampleName, seperator)
-  rownames(ann_col) <- ann_col$SampleName
-  ann_col <- ann_col[seperator, drop = FALSE]
-  
-  # Plot
-  pheatmap(vsd_sub,
-           annotation_col = ann_col,
-           scale = "row",
-           clustering_distance_rows = "euclidean",
-           clustering_distance_cols = "euclidean",
-           clustering_method = "complete",
-           show_rownames = TRUE,
-           show_colnames = TRUE,
-           main = paste("Top 50 Variable Genes:", comparison_name))
+  # Store plots for this dataset
+  all_volcano_plots[[comparison_name]] <- plots
 }
 
-################################################################################
-# generating final phenotypes
-################################################################################
-colnames(metadata)
-names(results_list_CloneXEndo)
-names(results_list_by_clone) #4 datasets
-names(results_list_by_ClonexMonth) #8 datasets
-names(results_list_by_ClonexHT) #16 datasets
-names(results_list_CloneXHTxTreat) #48 datasets
 
-# Clone and endophyte
-generate_heatmap_pheatmap("CTE25_Negative",results_list_CloneXEndo,metadata,"Month")
-generate_heatmap_pheatmap("CTE25_Positive",results_list_CloneXEndo,metadata,"Month")
-generate_heatmap_pheatmap("CTE25",results_list_by_clone,metadata,"Month")
-
-generate_heatmap_pheatmap("CTE45_Negative",results_list_CloneXEndo,metadata,"HarvestTime")
-generate_heatmap_pheatmap("CTE45_Positive",results_list_CloneXEndo,metadata,"HarvestTime")
-generate_heatmap_pheatmap("CTE45",results_list_by_clone,metadata,"HarvestTime")
-
-# Clone and Harvest Time
-generate_heatmap_pheatmap("CTE45_June",results_list_by_ClonexMonth,metadata,"Endophyte")
-generate_heatmap_pheatmap("CTE45_October",results_list_by_ClonexMonth,metadata,"Treatment")
-generate_heatmap_pheatmap("CTE25_June",results_list_by_ClonexMonth,metadata,"HarvestTime")
-generate_heatmap_pheatmap("CTE25_October",results_list_by_ClonexMonth,metadata,"HarvestTime")
-
-generate_heatmap_pheatmap("CTE25_October_2017",results_list_by_ClonexHT,metadata,"Treatment")
-generate_heatmap_pheatmap("CTE25_October_2016",results_list_by_ClonexHT,metadata,"Treatment")
-
-generate_heatmap_pheatmap("CTE45_June_2016",results_list_by_ClonexHT,metadata,"Treatment")
-generate_heatmap_pheatmap("CTE45_October_2016",results_list_by_ClonexHT,metadata,"Treatment")  #Amazing seperation
-generate_heatmap_pheatmap("CTE45_October_2017",results_list_by_ClonexHT,metadata,"Treatment")
-generate_heatmap_pheatmap("CTE45_June_2017",results_list_by_ClonexHT,metadata,"Treatment")
-
-generate_heatmap_pheatmap("CTE31_October_2016",results_list_by_ClonexHT,metadata,"Treatment") #Amazing Seperation
-generate_heatmap_pheatmap("CTE31_October_2017",results_list_by_ClonexHT,metadata,"Treatment") 
-generate_heatmap_pheatmap("CTE31_June_2017",results_list_by_ClonexHT,metadata,"Treatment")
-
-# Clone, Harvest Time, Treatment
-
-generate_heatmap_pheatmap("CTE45_June_2016_Heat",results_list_CloneXHTxTreat,metadata,"Endophyte")
-generate_heatmap_pheatmap("CTE46_October_2017_Heat",results_list_CloneXHTxTreat,metadata,"Endophyte")
-generate_heatmap_pheatmap("CTE31_June_2017_HeatxPercipitation",results_list_CloneXHTxTreat,metadata,"Endophyte")
-generate_heatmap_pheatmap("CTE31_October_2017_Control",results_list_CloneXHTxTreat,metadata,"Endophyte")
-
-
-
-colnames(metadata)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+all_volcano_plots[["CTE25_October_2017"]][["Treatment_Heat_vs_Control"]]
+all_volcano_plots[["CTE25_October_2017"]][["Treatment_HeatxPercipitation_vs_Control"]]
+all_volcano_plots[["CTE25_October_2017"]][["Treatment_Heat_vs_HeatxPercipitation"]]
 
 
 

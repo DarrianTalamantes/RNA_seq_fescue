@@ -93,18 +93,17 @@ Featurecount <- Featurecount[, colnames(Featurecount) %in% metadata$SampleName]
 ncol(Featurecount)
 nrow(metadata)
 
-
-
 ################################################################################
-# Function that partitions data by Clone and HarvestTime
+# Function that partitions data by Clone,HarvestTime, and treatment
 ################################################################################
 
-# partitions the data by CLone and Month and returns deseq object
-dds_by_CloneXHT <- function(CountsData, Metadata, CloneName, HT){
+# partitions the data by Clone Harvest Time, and Treatment.
+dds_by_CloneXHTxTreat <- function(CountsData, Metadata, CloneName, HT, Treat){
   
-  # Subset metadata for one Clone (e.g., Clone1)
+  # Subset metadata
   meta_clone <- Metadata[Metadata$Clone == CloneName, ]
   meta_clone_endo <- meta_clone[meta_clone$HarvestTime == HT,]
+  meta_clone_endo <- meta_clone_endo[meta_clone_endo$Treatment == Treat,]
   
   # Subset counts to only include samples that are in the meta_clone_endo dataset
   counts <- CountsData[, colnames(CountsData) %in% meta_clone_endo$SampleName]
@@ -114,7 +113,7 @@ dds_by_CloneXHT <- function(CountsData, Metadata, CloneName, HT){
   # Now create dds for that subset
   dds_clone <- DESeqDataSetFromMatrix(countData = counts,
                                       colData = meta_clone_endo,
-                                      design = ~ Endophyte + Treatment)  # or other factors
+                                      design = ~ Endophyte)  # or other factors
   dds_clone <- DESeq(dds_clone)
   
   # filter for genes that have 10 occurrences in 1/4 the samples
@@ -125,83 +124,166 @@ dds_by_CloneXHT <- function(CountsData, Metadata, CloneName, HT){
 }
 
 ################################################################################
-# Using the function to create datasets seperated by Clone and HarvestTime
+# Using the function to create datasets seperated by Clone, HT, and Treatment
 ################################################################################
 
 
-# 1. Get all unique combinations of Clone and Harvest Time
+# 1. Get all unique combinations of Clone and Endophyte
 combos <- expand.grid(Clone = unique(metadata$Clone),
-                      Endophyte = unique(metadata$HarvestTime),
+                      HarvestTime = unique(metadata$HarvestTime),
+                      Treatment = unique(metadata$Treatment),
                       stringsAsFactors = FALSE)
 
 # 2. Loop over each combination and run the function
-results_list_by_ClonexHT <- list()
+results_list_CloneXHTxTreat <- list()
 
 for (clone_name in unique(metadata$Clone)) {
   for (HT in unique(metadata$HarvestTime)) {
-    
-    result_key <- paste0(clone_name, "_", HT)
-    
-    tryCatch({
-      res <- dds_by_CloneXHT(Featurecount, metadata, clone_name, HT)
-      results_list_by_ClonexHT[[result_key]] <- res
-      message("Successfully processed: ", result_key)
-    }, error = function(e) {
-      message("Error in: ", result_key, " - ", e$message)
-    })
+    for (treat in unique(metadata$Treatment)) {
+      
+      
+      result_key <- paste0(clone_name, "_", HT, "_",treat)
+      
+      tryCatch({
+        res <- dds_by_CloneXHTxTreat(Featurecount, metadata, clone_name, HT, treat )
+        results_list_CloneXHTxTreat[[result_key]] <- res
+        message("Successfully processed: ", result_key)
+      }, error = function(e) {
+        message("Error in: ", result_key, " - ", e$message)
+      })
+    }
   }
 }
-results(results_list_by_ClonexHT$CTE46_October_2017)
-results(results_list_by_ClonexHT$CTE46_June_2016)
 
+results(results_list_CloneXHTxTreat$CTE46_October_2016_HeatxPercipitation)
+results(results_list_CloneXHTxTreat$CTE46_June_2017_HeatxPercipitation)
 
 ################################################################################
-# Function Creating Volcano Plots 
+# Making Volcano Plots
 ################################################################################
 
-
-# Basic Volcano plot display function
-plot_volcano <- function(res, title) {
+plot_volcano <- function(res, title = "Volcano Plot") {
   res_df <- as.data.frame(res)
-  res_df$significant <- with(res_df, padj < 0.05 & abs(log2FoldChange) > 1)  # SHould this really only be one? I think 1.5 maybe
+  res_df$significant <- with(res_df, padj < 0.05 & abs(log2FoldChange) > 1.5)
   
   ggplot(res_df, aes(x = log2FoldChange, y = -log10(padj))) +
-    geom_point(aes(color = significant), alpha = 0.6) +
-    scale_color_manual(values = c("gray", "red")) +
-    labs(title = title, x = "Log2 Fold Change", y = "-Log10 Adjusted p-value") +
-    theme_minimal()
+    geom_point(aes(color = significant)) +
+    scale_color_manual(values = c("grey", "red")) +
+    theme_minimal() +
+    ggtitle(title) +
+    xlab("Log2 Fold Change, E+ vs E-") +
+    ylab("-Log10 adjusted p-value")
 }
 
-# Create a list to store all volcano plots
-all_volcano_plots <- list()
-
-# Loop over each DESeq object in your results list
-for (comparison_name in names(results_list_by_ClonexHT)) {
-  dds <- results_list_by_ClonexHT[[comparison_name]]
-  plots <- list()
+for (key in names(results_list_CloneXHTxTreat)) {
+  dds <- results_list_CloneXHTxTreat[[key]]
   
-  # 1. Built-in contrasts
-  for (res_name in resultsNames(dds)[-1]) {  # Skip Intercept
-    res <- results(dds, name = res_name)
-    plots[[res_name]] <- plot_volcano(res, paste0(comparison_name, " - ", res_name))
+  if (!inherits(dds, "DESeqDataSet")) {
+    message("Skipping ", key, ": Not a DESeqDataSet")
+    next
   }
-  
-  # 2. Custom contrast: Heat vs HeatxPercipitation (if both levels exist)
-  treatment_levels <- levels(colData(dds)$Treatment)
-  if (all(c("Heat", "HeatxPercipitation") %in% treatment_levels)) {
-    res_custom <- results(dds, contrast = c("Treatment", "Heat", "HeatxPercipitation"))
-    plots[["Treatment_Heat_vs_HeatxPercipitation"]] <- plot_volcano(res_custom, 
-                                                                    paste0(comparison_name, " - Heat vs HeatxPercipitation"))
-  }
-  
-  # Store plots for this dataset
-  all_volcano_plots[[comparison_name]] <- plots
+  res <- results(dds, contrast = c("Endophyte", "Positive", "Negative"))  # change levels as needed
+  p <- plot_volcano(res, title = paste("Volcano:", key))
+  if (!is.null(p)) print(p)
 }
 
 
-all_volcano_plots[["CTE25_October_2017"]][["Treatment_Heat_vs_Control"]]
-all_volcano_plots[["CTE25_October_2017"]][["Treatment_HeatxPercipitation_vs_Control"]]
-all_volcano_plots[["CTE25_October_2017"]][["Treatment_Heat_vs_HeatxPercipitation"]]
+################################################################################
+# Making Function to count up Significantly upregualted and down regulated genes.
+################################################################################
+
+#### Creating lists of different sample groups to look at
+names(results_list_CloneXHTxTreat)
+# Get all the names
+all_names <- names(results_list_CloneXHTxTreat)
+# Extract treatment and group
+treatments <- sapply(strsplit(all_names, "_"), function(x) tail(x, 1))
+names_by_treatment <- split(all_names, treatments)
+# Extract by clone and group
+Clones <- sapply(strsplit(all_names, "_"), function(x) head(x, 1))
+names_by_clones <- split(all_names, Clones)
+#View by treatment
+length(names_by_treatment$Heat)
+length(names_by_clones$CTE25)
+#### This will do a contrast between E+ and E- of each sample dds object
+#### Then label genes upregulated or downregulated
+# Step 1: Create a list to hold results labeled with up/down/false
+label_results <- list()
+
+for (key in names(results_list_CloneXHTxTreat)) {
+  dds <- results_list_CloneXHTxTreat[[key]]
+  
+  tryCatch({
+    res <- results(dds, contrast = c("Endophyte", "Positive", "Negative"))
+    res_df <- as.data.frame(res)
+    res_df$Gene <- rownames(res_df)
+    
+    res_df$Label <- "FALSE"
+    res_df$Label[res_df$padj < 0.05 & res_df$log2FoldChange >= 1.5] <- "Upregulated"
+    res_df$Label[res_df$padj < 0.05 & res_df$log2FoldChange <= -1.5] <- "Downregulated"
+    
+    # Store as named vector
+    label_vec <- setNames(res_df$Label, res_df$Gene)
+    label_results[[key]] <- label_vec
+  }, error = function(e) {
+    message("Error processing ", key, ": ", e$message)
+  })
+}
+
+# Step 2: Get all unique gene names
+all_genes <- unique(unlist(lapply(label_results, names)))
+
+# Step 3: Initialize empty data frame
+summary_df <- data.frame(Gene = all_genes, stringsAsFactors = FALSE)
+
+# Step 4: Fill in each column with labels
+for (key in names(label_results)) {
+  vec <- label_results[[key]]
+  # Match to all_genes, fill with FALSE where not present
+  summary_df[[key]] <- vec[summary_df$Gene]
+  summary_df[[key]][is.na(summary_df[[key]])] <- "FALSE"
+}
+
+
+#### This seperates the data into the groups and counts up the up and down
+#### regulated genes by group.
+# Create an output data frame to store counts
+gene_counts <- data.frame(Gene = summary_df$Gene, stringsAsFactors = FALSE)
+
+# Define treatment groups
+treatment_lists <- list(
+  Heat = names_by_treatment$Heat,
+  Control = names_by_treatment$Control,
+  HeatxPercipitation = names_by_treatment$HeatxPercipitation,
+  CTE25 = names_by_clones$CTE25,
+  CTE31 = names_by_clones$CTE31,
+  CTE45 = names_by_clones$CTE45,
+  CTE46 = names_by_clones$CTE46
+  # Add more if needed
+)
+
+# Loop through treatments
+for (treatment in names(treatment_lists)) {
+  samples <- treatment_lists[[treatment]]
+  # Ensure samples exist in summary_df
+  samples <- intersect(samples, colnames(summary_df))
+  print(length(samples))
+  if (length(samples) == 0) next
+  
+  # Subset summary_df to relevant columns
+  subset_df <- summary_df[, samples, drop = FALSE]
+  
+  # Count Upregulated
+  up_count <- apply(subset_df, 1, function(x) sum(x == "Upregulated"))
+  down_count <- apply(subset_df, 1, function(x) sum(x == "Downregulated"))
+  
+  # Add to final count table
+  gene_counts[[paste0(treatment, "_Up")]] <- up_count / length(samples)
+  gene_counts[[paste0(treatment, "_Down")]] <- down_count / length(samples)
+}
+
+# View final table
+head(gene_counts)
 
 
 
@@ -214,402 +296,14 @@ all_volcano_plots[["CTE25_October_2017"]][["Treatment_Heat_vs_HeatxPercipitation
 
 
 
+# View the summary
+head(summary_df)
+
+##### To do list,
+# 1. Make a big table of all the DEG's within all my E+ and E- comparisons, then count
+# up occurances and see which ones occur the most.
+# 2. Using just those genes that occur the most make a big heatmap again maybe???
+#    
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 
-# 
-# 
-# ################################################################################
-# # DeSeq
-# ################################################################################
-# # remaking og dds file
-# dds <- dds_og
-# # Grouping our treatment groups
-# dds$group <- factor(paste0(dds$Endophyte, dds$Treatment))
-# design(dds) <- ~ group
-# 
-# #Run DeSeq function, 
-# dds <- DESeq(dds)
-# resultsNames(dds) # This will show you all your comparisions you want to look at
-# 
-# # filter for genes that have 10 occurrences in 1/4 the samples
-# keep <- rowSums(counts(dds) >= 5) >= (ncol(dds) / 4)
-# dds <- dds[keep, ]
-# 
-# ####################################
-# # Getting contrats of interactions
-# ####################################
-# resultsNames(dds) # This will show you all your comparisions you want to look at
-# 
-# # The Treatments #
-# 
-# # Endo negative, heat v control
-# EndoNeg_HeatxControl <- get_results(dds,"group","NegativeHeat","NegativeControl")
-# summary(EndoNeg_HeatxControl)
-# EndoNeg_HeatxControl <- EndoNeg_HeatxControl[order(EndoNeg_HeatxControl$pvalue),]
-# head(EndoNeg_HeatxControl)
-# 
-# # Endo positive, heat v control
-# EndoPos_HeatxControl <- get_results(dds,"group","PositiveHeat","PositiveControl")
-# summary(EndoPos_HeatxControl)
-# EndoPos_HeatxControl <- EndoPos_HeatxControl[order(EndoPos_HeatxControl$pvalue),]
-# head(EndoPos_HeatxControl)
-# 
-# # Endo positive, HP v control
-# EndoPos_HPxControl <- get_results(dds,"group","PositiveHeatxPercipitation","PositiveControl")
-# summary(EndoPos_HPxControl)
-# EndoPos_HPxControl <- EndoPos_HPxControl[order(EndoPos_HPxControl$pvalue),]
-# head(EndoPos_HPxControl)
-# 
-# # Endo negative, HP v control
-# EndoNeg_HPxControl <- get_results(dds,"group","NegativeHeatxPercipitation","NegativeControl")
-# summary(EndoNeg_HPxControl)
-# EndoNeg_HPxControl <- EndoNeg_HPxControl[order(EndoNeg_HPxControl$pvalue),]
-# head(EndoNeg_HPxControl)
-# 
-# # Heat x Heat Percipitation #
-# 
-# # Endo positive, HP v control
-# EndoPos_HPxHeat <- get_results(dds,"group","PositiveHeatxPercipitation","PositiveHeat")
-# summary(EndoPos_HPxHeat)
-# EndoPos_HPxHeat <- EndoPos_HPxHeat[order(EndoPos_HPxHeat$pvalue),]
-# head(EndoPos_HPxHeat)
-# 
-# # Endo negative, HP v control
-# EndoNeg_HPxHeat <- get_results(dds,"group","NegativeHeatxPercipitation","NegativeHeat")
-# summary(EndoNeg_HPxHeat)
-# EndoNeg_HPxHeat <- EndoNeg_HPxHeat[order(EndoNeg_HPxHeat$pvalue),]
-# head(EndoNeg_HPxHeat)
-# 
-# 
-# # Endophyte negative vs Positive #
-# 
-# # Endo Positive v negative , control
-# Control_NegxPos <- get_results(dds,"group","NegativeControl","PositiveControl")
-# summary(Control_NegxPos)
-# Control_NegxPos <- Control_NegxPos[order(Control_NegxPos$pvalue),]
-# head(Control_NegxPos)
-# 
-# # Endo Positive v negative , Heat
-# Heat_NegxPos <- get_results(dds,"group","NegativeHeat","PositiveHeat")
-# summary(Heat_NegxPos)
-# Heat_NegxPos <- Heat_NegxPos[order(Heat_NegxPos$pvalue),]
-# head(Heat_NegxPos)
-# 
-# # Endo Positive v negative , PxH
-# PxH_NegxPos <- get_results(dds,"group","NegativeHeatxPercipitation","PositiveHeatxPercipitation")
-# summary(PxH_NegxPos)
-# PxH_NegxPos <- PxH_NegxPos[order(PxH_NegxPos$pvalue),]
-# head(PxH_NegxPos)
-# 
-# ###################################
-# # Volcano plots of interactions
-# ###################################
-# separator <- ggplot() + theme_void() + 
-#   theme(panel.background = element_rect(fill = "black", colour = "black"))
-# # Heat x Control
-# volcano_plot_EndoNeg_HeatxControl <- create_volcano_plot(EndoNeg_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E-,  Heat x Control")
-# print(volcano_plot_EndoNeg_HeatxControl)
-# 
-# volcano_plot_EndoPos_HeatxControl <- create_volcano_plot(EndoPos_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E+,  Heat x Control")
-# print(volcano_plot_EndoPos_HeatxControl)
-# 
-# combined_plot1 <- ggarrange(volcano_plot_EndoNeg_HeatxControl, separator, volcano_plot_EndoPos_HeatxControl, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
-# annotate_figure(combined_plot1, top = text_grob("Heat x Control Volcano Plots", face = "bold", size = 24))
-# 
-# # HeatxPresipitation x control
-# volcano_plot_EndoPos_HPxControl <- create_volcano_plot(EndoPos_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E+, Heat with Percipitation x Control")
-# print(volcano_plot_EndoPos_HPxControl)
-# 
-# volcano_plot_EndoNeg_HPxControl <- create_volcano_plot(EndoNeg_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E-, Heat with Percipitation x Control")
-# print(volcano_plot_EndoNeg_HPxControl)
-# 
-# combined_plot2 <- ggarrange(volcano_plot_EndoNeg_HPxControl, separator, volcano_plot_EndoPos_HPxControl, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
-# annotate_figure(combined_plot2, top = text_grob("Heat with Percipitation x Control Volcano Plots", face = "bold", size = 24))
-# 
-# # HeatxPresipitation x Heat
-# volcano_plot_EndoPos_HPxHeat <- create_volcano_plot(EndoPos_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E+, Heat with Percipitation x Heat")
-# print(volcano_plot_EndoPos_HPxHeat)
-# 
-# volcano_plot_EndoNeg_HPxHeat <- create_volcano_plot(EndoNeg_HPxHeat, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "E-, Heat with Percipitation x Heat")
-# print(volcano_plot_EndoNeg_HPxHeat)
-# 
-# combined_plot3 <- ggarrange(volcano_plot_EndoNeg_HPxHeat, separator, volcano_plot_EndoPos_HPxHeat, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
-# annotate_figure(combined_plot3, top = text_grob("Heat with Percipitation x Heat Volcano Plots", face = "bold", size = 24))
-# 
-# # Treatments, Negative x Positive
-# volcano_plot_Heat_NegxPos <- create_volcano_plot(Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Heat treatment, E- x E+")
-# print(volcano_plot_Heat_NegxPos)
-# 
-# volcano_plot_HP_NegxPos <- create_volcano_plot(PxH_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Heat with Percipitation, E- x E+")
-# print(volcano_plot_HP_NegxPos)
-# 
-# volcano_plot_Control_NegxPos <- create_volcano_plot(Control_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Control, Endo Negactive x Positive")
-# print(volcano_plot_Control_NegxPos)
-# 
-# combined_plot4 <- ggarrange(volcano_plot_Heat_NegxPos, separator, volcano_plot_HP_NegxPos, ncol = 3, nrow =1, common.legend = TRUE, legend = "bottom", widths = c(1 ,.005 ,1))
-# annotate_figure(combined_plot4, top = text_grob("Treatments by Endophyte Status", face = "bold", size = 24))
-# 
-# 
-# 
-# #######################################
-# # PCA Plots function
-# #######################################
-# make_PCA <- function(dds, PCx = "PC1", PCy = "PC2", colors = "Treatment" ){
-#   
-#   vsd <- vst(dds, blind = FALSE)
-#   # Doing a regular PCA without auto making it via DeSeq2
-#   vst_data <- assay(vsd) # creates an expression matrix
-#   pca_result <- prcomp(t(vst_data), center = TRUE, scale. = TRUE) # does PCA
-#   explained_variance <- summary(pca_result)$importance[2, 1:100] * 100 # extracting explained variance
-#   pca_data <- as.data.frame(pca_result$x) #savong as data frame
-#   pca_data$sample <- rownames(pca_data)
-#   sample_info <- as.data.frame(colData(dds))
-#   pca_data <- merge(pca_data, sample_info, by.x = "sample", by.y = "row.names") # adding metadata
-#   
-#   PCx_sym <- sym(PCx)
-#   PCy_sym <- sym(PCy)
-#   colors_sym <- sym(colors)
-#   
-#   pca_plot <- ggplot(pca_data, aes(x = !!PCx_sym, y = !!PCy_sym, color = !!colors_sym)) + 
-#     geom_point(size = 4) +
-#     labs(
-#       title = "PCA Plot",
-#       x = paste(PCx, " - ", round(explained_variance[1], 1), "%", sep=""),
-#       y = paste(PCy, " - ", round(explained_variance[2], 1), "%", sep="")
-#     ) +
-#     theme_minimal() +
-#     theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"))
-#   
-#   return(pca_plot)
-# }
-# 
-# #######################################
-# # PCA Plots
-# #######################################
-# 
-# vsd <- vst(dds, blind = FALSE)
-# plotPCA(vsd, intgroup=c("Clone"))
-# 
-# # Doing a regular PCA without auto making it via DeSeq2
-# vst_data <- assay(vsd) # creates an expression matrix
-# pca_result <- prcomp(t(vst_data), center = TRUE, scale. = TRUE) # does PCA
-# explained_variance <- summary(pca_result)$importance[2, 1:100] * 100 # extracting explained variance
-# pca_data <- as.data.frame(pca_result$x) #savong as data frame
-# pca_data$sample <- rownames(pca_data)
-# sample_info <- as.data.frame(colData(dds))
-# pca_data <- merge(pca_data, sample_info, by.x = "sample", by.y = "row.names") # adding metadata
-# 
-# pca_plot <- ggplot(pca_data, aes(x = PC1, y = PC2, color = Time )) + 
-#   geom_point(size = 4) +
-#   labs(
-#     title = "PCA Plot",
-#     x = paste("PC1 - ", round(explained_variance[1], 1), "%", sep=""),
-#     y = paste("PC2 - ", round(explained_variance[2], 1), "%", sep="")
-#   ) +
-#   theme_minimal() +
-#   theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"))
-# print(pca_plot)
-# 
-# # PC 2 seems to be Month
-# # Pc 3 seems to be year
-# 
-# #### I think we can investigate more. We have to remove CTE25 and CTE31. This will allow us to better see differences since those are missing months in the data
-# #### This analysis data with CTE25 and 31 removed ####
-# # making filtered dds data
-# MetaData_filtered <- subset(MetaData, (Clone %in% c("CTE25", "CTE31")))
-# names_to_remove <- MetaData_filtered$Sample
-# MetaData_filtered <- subset(MetaData, !(Clone %in% c("CTE25", "CTE31")))
-# # Remove columns in df2 that match the names in df1
-# Featurecount_filtered <- Featurecount[, !(colnames(Featurecount) %in% names_to_remove)]
-# 
-# dds_filtered <- DESeqDataSetFromMatrix(countData = Featurecount_filtered,
-#                                        colData = MetaData_filtered,
-#                                        design= ~ Month + Clone + Year + Endophyte + Treatment, tidy = TRUE)
-# # filter for genes that have 10 occurrences in 1/4 the samples
-# keep <- rowSums(counts(dds_filtered) >= 5) >= (ncol(dds_filtered) / 4)
-# dds_filtered <- dds_filtered[keep, ]
-# #PCA Make 
-# # Proves Cone is PC1
-# PCA_filtered <- make_PCA(dds_filtered,"PC1","PC2","Clone")
-# print(PCA_filtered)
-# # Proves PC2 and PC3 are the year and Month
-# PCA_filtered <- make_PCA(dds_filtered,"PC2","PC3","Time")
-# print(PCA_filtered)
-# 
-# 
-# ########################################
-# # Investigating the Clone
-# ########################################
-# 
-# # # remaking og dds file
-# # dds_clone <- dds_og
-# # 
-# # #Run DeSeq function, 
-# # dds_clone <- DESeq(dds_clone)
-# # 
-# # # filter for genes that have 10 occurrences in 1/4 the samples
-# # keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
-# # dds_clone <- dds_clone[keep, ]
-# # results(dds_clone)
-# # # Clone 
-# # CTE45xCTE46 <- get_results(dds,"Clone","CTE45","CTE46")
-# # summary(CTE45xCTE46)
-# # CTE45xCTE46 <- CTE45xCTE46[order(CTE45xCTE46$pvalue),]
-# # head(CTE45xCTE46)
-# # 
-# # CTE45xCTE46 <- create_volcano_plot(CTE45xCTE46, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "CTE45 vs CTE46")
-# # print(CTE45xCTE46)
-# 
-# ########################################
-# # Creating list of significant genes
-# ########################################
-# 
-# # Please run lines 267 - 328 before this to make the data
-# ####### Function to get a significance table #########
-# find_significance <- function(results, significant_table, log2FC_threshold = 2, pvalue_threshold = 0.05) {
-#   
-#   # Ensure the results have the required columns
-#   if(!all(c("log2FoldChange", "padj") %in% colnames(results))) {
-#     stop("Results must contain 'log2FoldChange' and 'padj' columns.")
-#   }
-#   
-#   # getting the name of the dataframe as a string
-#   name <- deparse(substitute(results))
-#   
-#   results$significance <- "Not Significant"
-#   results$significance[results$padj < pvalue_threshold & results$log2FoldChange > log2FC_threshold] <- "Significant Upregulated"
-#   results$significance[results$padj < pvalue_threshold & results$log2FoldChange < (log2FC_threshold * -1)] <- "Significant Downregulated"
-#   
-#   
-#   df_subset <- results["significance"]
-#   df_subset$Gene <- rownames(df_subset)
-#   df_subset <- as.data.frame(df_subset)
-#   merged_df <- merge(significant_table, df_subset, by = "Gene", all = TRUE)
-#   # Here we would save the name of the datatable we are using as a string to be used in the next command.
-#   colnames(merged_df)[colnames(merged_df) == "significance"] <- name
-#   
-#   return(merged_df)
-# }
-# 
-# 
-# ########## preparing to run significance function ###########
-# #Make a list of datasets we want to analyze.  
-# comparison_list <- c("EndoNeg_HeatxControl", "EndoPos_HeatxControl", "EndoPos_HPxControl", "EndoNeg_HPxControl", "EndoPos_HPxHeat", "EndoNeg_HPxHeat", "Control_NegxPos", "Heat_NegxPos", "PxH_NegxPos")
-# gene_names <- rownames(dds)
-# 
-# # Creating blank data table to fill in with values
-# significant_table <- data.table(matrix(0, nrow = length(gene_names), ncol = 1))
-# significant_table <- as.data.frame(significant_table)
-# rownames(significant_table) <- gene_names
-# significant_table$Gene <- rownames(significant_table)
-# head(significant_table)
-# 
-# ######## Running significance function ###########
-# for (data_set in comparison_list) {
-#   print(data_set)
-#   data_frame <- get(data_set)
-#   significant_table2 <- find_significance(data_frame, significant_table, 2, 0.05)
-#   significant_table <- significant_table2
-#   head(significant_table)
-# }
-# colnames(significant_table)[3:ncol(significant_table)] <- comparison_list
-# head(significant_table)
-# write.csv(significant_table, file = "significant_table.csv", row.names = FALSE)
-# 
-# 
-# ################################################################################
-# 
-# ################################################################################
-# EndoNeg_HeatxControl2 <- EndoNeg_HeatxControl
-# 
-# 
-# EndoNeg_HeatxControl2$significance <- "Not Significant"
-# EndoNeg_HeatxControl2$significance[EndoNeg_HeatxControl2$padj < .05 & EndoNeg_HeatxControl2$log2FoldChange > 2] <- "Significant Upregulated"
-# EndoNeg_HeatxControl2$significance[EndoNeg_HeatxControl2$padj < .05 & EndoNeg_HeatxControl2$log2FoldChange < (2 * -1)] <- "Significant Downregulated"
-# 
-# 
-# df_subset <- EndoNeg_HeatxControl2["significance"]
-# df_subset$Gene <- rownames(df_subset)
-# df_subset <- as.data.frame(df_subset)
-# merged_df <- merge(significant_table, df_subset, by = "Gene", all = TRUE)
-# # Here we would save the name of the datatable we are using as a string to be used in the next command.
-# colnames(merged_df)[colnames(merged_df) == "significance"] <- "name1"
-# 
-# 
-# significant_table2 <- find_significance(EndoNeg_HeatxControl, significant_table, 2, 0.05)
-# significant_table <- significant_table2
-# 
-# significant_table2 <- find_significance(EndoPos_HeatxControl, significant_table, 2, 0.05)
-# significant_table <- significant_table2
-# 
-# 
-# head(significant_table)
-# 
-# class(data_name)
-# head(data_name)
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# ############### Comparing 2 datasets using volcano plots #################
-# 
-# annotate_figure(combined_plot1, top = text_grob("Heat x Control Volcano Plots", face = "bold", size = 19))
-# 
-# create_volcano_plot_2_dataset(EndoNeg_HeatxControl, Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HeatxControl data colored by NegativexPositive")
-# create_volcano_plot_2_dataset(Heat_NegxPos, EndoNeg_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HeatxControl data colored by NegativexPositive")
-# 
-# create_volcano_plot_2_dataset(EndoPos_HeatxControl, Heat_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive HeatxControl data colored by NegativexPositive")
-# create_volcano_plot_2_dataset(Heat_NegxPos, EndoPos_HeatxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive HeatxControl data colored by NegativexPositive")
-# 
-# 
-# annotate_figure(combined_plot2, top = text_grob("Heat with Percipitation x Control Volcano Plots", face = "bold", size = 19))
-# 
-# create_volcano_plot_2_dataset(EndoNeg_HPxControl, PxH_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HPxControl data colored by NegativexPositive")
-# create_volcano_plot_2_dataset(PxH_NegxPos, EndoNeg_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Negative HPxControl data colored by NegativexPositive")
-# 
-# create_volcano_plot_2_dataset(EndoPos_HPxControl, PxH_NegxPos, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive HPxControl data colored by NegativexPositive")
-# create_volcano_plot_2_dataset(PxH_NegxPos, EndoPos_HPxControl, log2FC_threshold = 2, pvalue_threshold = 0.05, title = "Endo Positive HPxControl data colored by NegativexPositive")
-# 
-# 
-# 
-# 
