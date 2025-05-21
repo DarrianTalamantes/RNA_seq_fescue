@@ -18,21 +18,6 @@ library(grid)
 library(data.table)
 library(pheatmap)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Data recreation from previous plot
 gene_counts = read.csv(paste0(data_folder, "/Epos_Eneg_Deseq2_contrast.csv"), header = TRUE) # from 2c
 
