@@ -366,38 +366,33 @@ ggplot(long_df, aes(x = Gene, y = Count, fill = Clone)) +
 gene_counts = read.csv(paste0(data_folder, "/Epos_Eneg_Deseq2_contrast.csv"), header = TRUE)
 
 
-# We will create a function that has a few options
-# input will be the gene count data set
-# Input number that will set gene count cut off.
-# If statements for weather we are comparing clones or treatments
-# if statement to combine Up and Down regulated within same clone
-function(GeneCount = gene_counts, cutoff = 2, CorT = Clones, CombineUpDown = No){
-  rownames(gene_counts) <- gene_counts$Gene
-  data_only <- gene_counts[, -1]
-  
-  # Get top 10 genes for each column
-  top_genes_list <- apply(data_only, 2, function(col) {
-    names(sort(col, decreasing = TRUE))[1:10]
-  })
-  
-  # Combine all top gene names into one unique set
-  top_genes_unique <- unique(unlist(top_genes_list))
-  
-  # Subset the original table with only those genes
-  top_genes_df <- gene_counts[gene_counts$Gene %in% top_genes_unique, ]
-  
-  # View the result
-  top_genes_df
-  
-  # Subset the data
-  top_genes_df_CTEup <- subset_df <- subset(top_genes_df, select = c("CTE25_Up", "CTE31_Up", "CTE45_Up", "CTE46_Up" ))
-  top_genes_df_CTEdown <- subset_df <- subset(top_genes_df, select = c("CTE25_Down", "CTE31_Down", "CTE45_Down", "CTE46_Down" ))
-  top_genes_df_CTEdown <- top_genes_df_CTEdown * -1
-  
-  merged_df <- merge(top_genes_df_CTEup, top_genes_df_CTEdown, 
-                     by = "row.names", 
-                     all = TRUE)
-}
+
+rownames(gene_counts) <- gene_counts$Gene
+data_only <- gene_counts[, -1]
+
+# Get top 10 genes for each column
+top_genes_list <- apply(data_only, 2, function(col) {
+  names(sort(col, decreasing = TRUE))[1:10]
+})
+
+# Combine all top gene names into one unique set
+top_genes_unique <- unique(unlist(top_genes_list))
+
+# Subset the original table with only those genes
+top_genes_df <- gene_counts[gene_counts$Gene %in% top_genes_unique, ]
+
+# View the result
+top_genes_df
+
+# Subset the data
+top_genes_df_CTEup <- subset_df <- subset(top_genes_df, select = c("CTE25_Up", "CTE31_Up", "CTE45_Up", "CTE46_Up" ))
+top_genes_df_CTEdown <- subset_df <- subset(top_genes_df, select = c("CTE25_Down", "CTE31_Down", "CTE45_Down", "CTE46_Down" ))
+top_genes_df_CTEdown <- top_genes_df_CTEdown * -1
+
+merged_df <- merge(top_genes_df_CTEup, top_genes_df_CTEdown, 
+                   by = "row.names", 
+                   all = TRUE)
+
 # Binary data for upset plot
 binary_df <- merged_df %>%
   mutate(across(-Gene, ~ ifelse(. != 0, 1, 0)))
