@@ -17,7 +17,6 @@ library(grid)
 library(data.table)
 library(pheatmap)
 
-# install.packages("unix")
 
 # Increase memory of R to 12 GB
 memory.limit(size=12000)  #Might not need. Memory should not be capped in newer R versions
@@ -189,7 +188,7 @@ for (key in names(results_list_CloneXHTxTreat)) {
 
 
 ################################################################################
-# Making Function to count up Significantly upregualted and down regulated genes.
+# Making table comparing diff expression of E+ an E- within Clones or treatments.
 ################################################################################
 
 #### Creating lists of different sample groups to look at
@@ -278,13 +277,132 @@ for (treatment in names(treatment_lists)) {
   down_count <- apply(subset_df, 1, function(x) sum(x == "Downregulated"))
   
   # Add to final count table
-  gene_counts[[paste0(treatment, "_Up")]] <- up_count / length(samples)
-  gene_counts[[paste0(treatment, "_Down")]] <- down_count / length(samples)
+  gene_counts[[paste0(treatment, "_Up")]] <- up_count 
+  gene_counts[[paste0(treatment, "_Down")]] <- down_count 
 }
 
 # View final table
 head(gene_counts)
 
+# Save the data
+write.csv(gene_counts,paste0(data_folder, "/Epos_Eneg_Deseq2_contrast.csv"), row.names = FALSE)
+
+
+
+################################################################################
+# Stacked Bar Plot
+################################################################################
+
+
+gene_counts = read.csv(paste0(data_folder, "/Epos_Eneg_Deseq2_contrast.csv"), header = TRUE)
+
+rownames(gene_counts) <- gene_counts$Gene
+data_only <- gene_counts[, -1]
+
+# Get top 10 genes for each column
+top_genes_list <- apply(data_only, 2, function(col) {
+  names(sort(col, decreasing = TRUE))[1:10]
+})
+
+# Combine all top gene names into one unique set
+top_genes_unique <- unique(unlist(top_genes_list))
+
+# Subset the original table with only those genes
+top_genes_df <- gene_counts[gene_counts$Gene %in% top_genes_unique, ]
+
+# View the result
+top_genes_df
+
+# Subset the data
+top_genes_df_CTEup <- subset_df <- subset(top_genes_df, select = c("CTE25_Up", "CTE31_Up", "CTE45_Up", "CTE46_Up" ))
+top_genes_df_CTEdown <- subset_df <- subset(top_genes_df, select = c("CTE25_Down", "CTE31_Down", "CTE45_Down", "CTE46_Down" ))
+top_genes_df_CTEdown <- top_genes_df_CTEdown * -1
+
+merged_df <- merge(top_genes_df_CTEup, top_genes_df_CTEdown, 
+                   by = "row.names", 
+                   all = TRUE)
+
+#### Long data then plot
+# Step 1: Move rownames to a column
+merged_df$Gene <- merged_df$Row.names
+merged_df$Row.names <- NULL
+# Step 2: Pivot to long format
+long_df <- merged_df %>%
+  pivot_longer(-Gene, names_to = "CloneCondition", values_to = "Count") %>%
+  mutate(Count = as.numeric(Count)) %>%         # Ensure Count is numeric
+  filter(!is.na(Count))                         # Remove NA values
+
+
+is.numeric(long_df$Count)
+
+# Step 3: Extract clone names from column names (e.g., "CTE25_Up" → "CTE25")
+long_df <- long_df %>%
+  mutate(Clone = sub("_.*", "", CloneCondition))
+long_df$Gene <- as.factor(long_df$Gene)
+
+
+# Step 4: Plot 
+# Explanation: This plot max is -4 and 4. Each clone can get a max of 1.
+# This shows top 10 deregulated genes in all Clones
+ggplot(long_df, aes(x = Gene, y = Count, fill = Clone)) +
+  geom_bar(stat = "identity", position = "stack", colour="black") +
+  scale_fill_manual(values=c("darkgoldenrod1", "darkslategray1","darkolivegreen2", "darkorchid3")) +
+  theme_bw() +
+  ylab("Count (Upregulated = +, Downregulated = -)") +
+  xlab("Gene") +
+  ggtitle("Differentially Expressed Genes of E+ and E- Within a Genotype") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) + 
+  guides(fill=guide_legend(title="Genotype"))
+
+
+################################################################################
+# Upset Plots
+################################################################################
+
+# Data recreation from previous plot
+gene_counts = read.csv(paste0(data_folder, "/Epos_Eneg_Deseq2_contrast.csv"), header = TRUE)
+
+
+# We will create a function that has a few options
+# input will be the gene count data set
+# Input number that will set gene count cut off.
+# If statements for weather we are comparing clones or treatments
+# if statement to combine Up and Down regulated within same clone
+function(GeneCount = gene_counts, cutoff = 2, CorT = Clones, CombineUpDown = No){
+  rownames(gene_counts) <- gene_counts$Gene
+  data_only <- gene_counts[, -1]
+  
+  # Get top 10 genes for each column
+  top_genes_list <- apply(data_only, 2, function(col) {
+    names(sort(col, decreasing = TRUE))[1:10]
+  })
+  
+  # Combine all top gene names into one unique set
+  top_genes_unique <- unique(unlist(top_genes_list))
+  
+  # Subset the original table with only those genes
+  top_genes_df <- gene_counts[gene_counts$Gene %in% top_genes_unique, ]
+  
+  # View the result
+  top_genes_df
+  
+  # Subset the data
+  top_genes_df_CTEup <- subset_df <- subset(top_genes_df, select = c("CTE25_Up", "CTE31_Up", "CTE45_Up", "CTE46_Up" ))
+  top_genes_df_CTEdown <- subset_df <- subset(top_genes_df, select = c("CTE25_Down", "CTE31_Down", "CTE45_Down", "CTE46_Down" ))
+  top_genes_df_CTEdown <- top_genes_df_CTEdown * -1
+  
+  merged_df <- merge(top_genes_df_CTEup, top_genes_df_CTEdown, 
+                     by = "row.names", 
+                     all = TRUE)
+}
+# Binary data for upset plot
+binary_df <- merged_df %>%
+  mutate(across(-Gene, ~ ifelse(. != 0, 1, 0)))
+
+upset(binary_df, 
+      intersect = colnames(binary_df)[-which(names(binary_df) == "Gene")],
+      name = "Genes",
+      base_annotations = list('Intersection size' = intersection_size()))
 
 
 
@@ -296,14 +414,85 @@ head(gene_counts)
 
 
 
-# View the summary
-head(summary_df)
 
-##### To do list,
-# 1. Make a big table of all the DEG's within all my E+ and E- comparisons, then count
-# up occurances and see which ones occur the most.
-# 2. Using just those genes that occur the most make a big heatmap again maybe???
-#    
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+################################################################################
+# Huge function that creates 4 data sets
+# CTE all DEGs, CTE up or down regulated DEG count
+# Treatments all DEGs, Treatments up or down regulated DEG count.
+################################################################################
+
+function(GeneCount = gene_counts, cutoff = 2)
+  {
+  rownames(GeneCount) <- GeneCount$Gene
+  data_only <- GeneCount[, -1]
+  
+  top_genes_list <- apply(data_only, 2, function(col) {
+    # Filter out values that occur fewer than 2 times
+    filtered_col <- col[col >= cutoff]
+  })
+  # Combine all top gene names into one unique set
+  top_genes_unique <- unique(unlist(top_genes_list))
+  # Subset the original table with only those genes
+  top_genes_df <- GeneCount[GeneCount$Gene %in% top_genes_unique, ]
+  # View the result
+  
+  top_genes_df
+# This will count up all the Up and Down seperatly for CTE  
+    top_genes_df_CTEup <- subset(top_genes_df, select = c("CTE25_Up", "CTE31_Up", "CTE45_Up", "CTE46_Up" ))
+    top_genes_df_CTEdown <- subset(top_genes_df, select = c("CTE25_Down", "CTE31_Down", "CTE45_Down", "CTE46_Down" ))
+    top_genes_df_CTEdown <- top_genes_df_CTEdown * -1
+    top_genes_df_CTEup$Gene <- rownames(top_genes_df_CTEup)
+    top_genes_df_CTEdown$Gene <- rownames(top_genes_df_CTEdown)
+    final_CTE_Up_Down <- merge(top_genes_df_CTEup, top_genes_df_CTEdown, 
+                      by = "Gene", all = TRUE)
+    rownames(final_CTE_Up_Down) <- final_CTE_Up_Down$Gene
+    final_CTE_Up_Down$Gene <- NULL
+    
+    # This will count up all the Up and Down seperatly for Treatment  
+    top_genes_df_Treatsup <- subset(top_genes_df, select = c("Heat_Up", "Control_Up", "HeatxPercipitation_Up" ))
+    top_genes_df_Treatsdown <- subset(top_genes_df, select = c("Heat_Down", "Control_Down", "HeatxPercipitation_Down"))
+    top_genes_df_Treatsdown <- top_genes_df_Treatsdown * -1
+    top_genes_df_Treatsup$Gene <- rownames(top_genes_df_Treatsup)
+    top_genes_df_Treatsdown$Gene <- rownames(top_genes_df_Treatsdown)
+    final_Treats_Up_Down <- merge(top_genes_df_Treatsup, top_genes_df_Treatsdown, 
+                               by = "Gene", all = TRUE)
+    rownames(final_Treats_Up_Down) <- final_Treats_Up_Down$Gene
+    final_Treats_Up_Down$Gene <- NULL
+    
+# This will combine the up and down for count of all DEGs  
+    ids <- unique(sub("_.*", "", colnames(data_only)))
+    sums <- list()
+    for (cte in ids)
+      {
+        cols <- grep(paste0("^", cte, "_"), colnames(data_only), value = TRUE)
+        sums <- rowSums(data_only[, cols, drop = FALSE])
+        sums[[cte]] <- sums
+      }
+    final_DEGs <- as.data.frame(sums)
+    rownames(final_DEGs) <- rownames(data_only)
+    
+    return(list(
+      top_genes_df = top_genes_df,
+      final_CTE_Up_Down = final_CTE_Up_Down,
+      final_Treats_Up_Down = final_Treats_Up_Down,
+      final_DEGs = final_DEGs
+    ))
+    
+  }
 
 
