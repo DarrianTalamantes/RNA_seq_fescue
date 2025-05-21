@@ -1,4 +1,7 @@
-# This is R script uses the best partitioned data and makes volcano plots
+# This is R script uses the will partition the data then run deseq on it many different ways
+# It is a very exploritory script.
+# Best seperation was from results_list_CloneXHTxTreat which breaks everything down up excpet endophyte which can contrast
+# Then makes stacked bar plot and a preliminary upset plot.
 
 # Notes:
 # Before starting this script I deleted the suffix within the feature counts table
@@ -428,71 +431,5 @@ upset(binary_df,
 
 
 
-
-
-################################################################################
-# Huge function that creates 4 data sets
-# CTE all DEGs, CTE up or down regulated DEG count
-# Treatments all DEGs, Treatments up or down regulated DEG count.
-################################################################################
-
-function(GeneCount = gene_counts, cutoff = 2)
-  {
-  rownames(GeneCount) <- GeneCount$Gene
-  data_only <- GeneCount[, -1]
-  
-  top_genes_list <- apply(data_only, 2, function(col) {
-    # Filter out values that occur fewer than 2 times
-    filtered_col <- col[col >= cutoff]
-  })
-  # Combine all top gene names into one unique set
-  top_genes_unique <- unique(unlist(top_genes_list))
-  # Subset the original table with only those genes
-  top_genes_df <- GeneCount[GeneCount$Gene %in% top_genes_unique, ]
-  # View the result
-  
-  top_genes_df
-# This will count up all the Up and Down seperatly for CTE  
-    top_genes_df_CTEup <- subset(top_genes_df, select = c("CTE25_Up", "CTE31_Up", "CTE45_Up", "CTE46_Up" ))
-    top_genes_df_CTEdown <- subset(top_genes_df, select = c("CTE25_Down", "CTE31_Down", "CTE45_Down", "CTE46_Down" ))
-    top_genes_df_CTEdown <- top_genes_df_CTEdown * -1
-    top_genes_df_CTEup$Gene <- rownames(top_genes_df_CTEup)
-    top_genes_df_CTEdown$Gene <- rownames(top_genes_df_CTEdown)
-    final_CTE_Up_Down <- merge(top_genes_df_CTEup, top_genes_df_CTEdown, 
-                      by = "Gene", all = TRUE)
-    rownames(final_CTE_Up_Down) <- final_CTE_Up_Down$Gene
-    final_CTE_Up_Down$Gene <- NULL
-    
-    # This will count up all the Up and Down seperatly for Treatment  
-    top_genes_df_Treatsup <- subset(top_genes_df, select = c("Heat_Up", "Control_Up", "HeatxPercipitation_Up" ))
-    top_genes_df_Treatsdown <- subset(top_genes_df, select = c("Heat_Down", "Control_Down", "HeatxPercipitation_Down"))
-    top_genes_df_Treatsdown <- top_genes_df_Treatsdown * -1
-    top_genes_df_Treatsup$Gene <- rownames(top_genes_df_Treatsup)
-    top_genes_df_Treatsdown$Gene <- rownames(top_genes_df_Treatsdown)
-    final_Treats_Up_Down <- merge(top_genes_df_Treatsup, top_genes_df_Treatsdown, 
-                               by = "Gene", all = TRUE)
-    rownames(final_Treats_Up_Down) <- final_Treats_Up_Down$Gene
-    final_Treats_Up_Down$Gene <- NULL
-    
-# This will combine the up and down for count of all DEGs  
-    ids <- unique(sub("_.*", "", colnames(data_only)))
-    sums <- list()
-    for (cte in ids)
-      {
-        cols <- grep(paste0("^", cte, "_"), colnames(data_only), value = TRUE)
-        sums <- rowSums(data_only[, cols, drop = FALSE])
-        sums[[cte]] <- sums
-      }
-    final_DEGs <- as.data.frame(sums)
-    rownames(final_DEGs) <- rownames(data_only)
-    
-    return(list(
-      top_genes_df = top_genes_df,
-      final_CTE_Up_Down = final_CTE_Up_Down,
-      final_Treats_Up_Down = final_Treats_Up_Down,
-      final_DEGs = final_DEGs
-    ))
-    
-  }
 
 

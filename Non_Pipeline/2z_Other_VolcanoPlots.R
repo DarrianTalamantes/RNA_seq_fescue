@@ -1,4 +1,5 @@
-# This is R script uses the best partitioned data and makes volcano plots
+# This is R script makes various volcano plots
+##### Depricated ########
 
 # Notes:
 # Before starting this script I deleted the suffix within the feature counts table
