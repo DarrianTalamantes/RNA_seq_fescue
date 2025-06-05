@@ -32,43 +32,59 @@ data_folder <- "/home/darrian/Documents/RNA_seq_fescue/r_data"
 
 data_splitter <- function(GeneCount = gene_counts, cutoff = 2)
 {
+  # Prepare base data
   rownames(GeneCount) <- GeneCount$Gene
   data_only <- GeneCount[, -1]
   
-  top_genes_list <- apply(data_only, 2, function(col) {
-    # Filter out values that occur fewer than 2 times
-    filtered_col <- col[col >= cutoff]
-  })
-  # Combine all top gene names into one unique set
-  top_genes_unique <- unique(unlist(lapply(top_genes_list, names)))
-  # Subset the original table with only those genes
-  top_genes_df <- GeneCount[GeneCount$Gene %in% top_genes_unique, ]
-  # View the result
+  #### Subset per genotype first  ####
+  cte_up <- data_only[, c("CTE25_Up", "CTE31_Up", "CTE45_Up", "CTE46_Up")]
+  cte_down <- data_only[, c("CTE25_Down", "CTE31_Down", "CTE45_Down", "CTE46_Down")]
   
-  top_genes_df
-  # This will count up all the Up and Down seperatly for CTE  
-  top_genes_df_CTEup <- subset(top_genes_df, select = c("CTE25_Up", "CTE31_Up", "CTE45_Up", "CTE46_Up" ))
-  top_genes_df_CTEdown <- subset(top_genes_df, select = c("CTE25_Down", "CTE31_Down", "CTE45_Down", "CTE46_Down" ))
-  top_genes_df_CTEdown <- top_genes_df_CTEdown
-  top_genes_df_CTEup$Gene <- rownames(top_genes_df_CTEup)
-  top_genes_df_CTEdown$Gene <- rownames(top_genes_df_CTEdown)
-  final_CTE_Up_Down <- merge(top_genes_df_CTEup, top_genes_df_CTEdown, 
-                             by = "Gene", all = TRUE)
+  # Now filter genes for CTE Up/Down separately
+  cte_up_genes <- rownames(cte_up)[rowSums(cte_up >= cutoff) > 0]
+  cte_down_genes <- rownames(cte_down)[rowSums(cte_down >= cutoff) > 0]
+  cte_genes <- unique(c(cte_up_genes, cte_down_genes))
+  
+  # Subset just those genes
+  cte_up_subset <- cte_up[cte_genes, , drop = FALSE]
+  cte_down_subset <- cte_down[cte_genes, , drop = FALSE]
+  
+  # Convert rownames to Gene column for merging
+  cte_up_subset$Gene <- rownames(cte_up_subset)
+  cte_down_subset$Gene <- rownames(cte_down_subset)
+  
+  # Merge the two on Gene
+  final_CTE_Up_Down <- merge(cte_up_subset, cte_down_subset, by = "Gene", all = TRUE)
+  
+  # Restore rownames and reorder columns
   rownames(final_CTE_Up_Down) <- final_CTE_Up_Down$Gene
   final_CTE_Up_Down$Gene <- NULL
   
-  # This will count up all the Up and Down seperatly for Treatment  
-  top_genes_df_Treatsup <- subset(top_genes_df, select = c("Heat_Up", "Control_Up", "HeatxPercipitation_Up" ))
-  top_genes_df_Treatsdown <- subset(top_genes_df, select = c("Heat_Down", "Control_Down", "HeatxPercipitation_Down"))
-  top_genes_df_Treatsdown <- top_genes_df_Treatsdown
-  top_genes_df_Treatsup$Gene <- rownames(top_genes_df_Treatsup)
-  top_genes_df_Treatsdown$Gene <- rownames(top_genes_df_Treatsdown)
-  final_Treats_Up_Down <- merge(top_genes_df_Treatsup, top_genes_df_Treatsdown, 
-                                by = "Gene", all = TRUE)
+  #### Repeat for Treatment  ####
+  treat_up <- data_only[, c("Heat_Up", "Control_Up", "HeatxPercipitation_Up")]
+  treat_down <- data_only[, c("Heat_Down", "Control_Down", "HeatxPercipitation_Down")]
+  
+  # Identify genes to retain
+  treat_up_genes <- rownames(treat_up)[rowSums(treat_up >= cutoff) > 0]
+  treat_down_genes <- rownames(treat_down)[rowSums(treat_down >= cutoff) > 0]
+  treat_genes <- unique(c(treat_up_genes, treat_down_genes))
+  
+  # Subset the relevant genes
+  treat_up_subset <- treat_up[treat_genes, , drop = FALSE]
+  treat_down_subset <- treat_down[treat_genes, , drop = FALSE]
+  
+  # Add Gene column for merge
+  treat_up_subset$Gene <- rownames(treat_up_subset)
+  treat_down_subset$Gene <- rownames(treat_down_subset)
+  
+  # Merge by gene
+  final_Treats_Up_Down <- merge(treat_up_subset, treat_down_subset, by = "Gene", all = TRUE)
+  
+  # Restore rownames and reorder
   rownames(final_Treats_Up_Down) <- final_Treats_Up_Down$Gene
   final_Treats_Up_Down$Gene <- NULL
   
-  # This will combine the up and down for count of all DEGs  
+  #### This will combine the up and down for count of all DEGs  ####
   ids <- unique(sub("_.*", "", colnames(data_only)))
   sums <- list()
   for (cte in ids) {
@@ -85,11 +101,41 @@ data_splitter <- function(GeneCount = gene_counts, cutoff = 2)
   final_DEGs <- as.data.frame(sums)
   rownames(final_DEGs) <- rownames(data_only)
   
+  total_degs_genos <- subset(final_DEGs, select = c ("CTE25", "CTE31", "CTE45", "CTE46"))
+  total_degs_treatments <- subset(final_DEGs, select = c ("Heat", "Control", "HeatxPercipitation"))
+  
+  
+  # Filteres out any genes that are not found to have a count of 2 in at least 1 group
+  top_genes_list2 <- apply(total_degs_genos, 2, function(col) {
+    filtered_col <- col[col >= cutoff]
+  })
+  
+  total_degs_genos$Gene <- rownames(total_degs_genos)
+  # Combine all top gene names into one unique set
+  top_genes_unique2 <- unique(unlist(lapply(top_genes_list2, names)))
+  # Subset the original table with only those genes
+  total_degs_genos <- total_degs_genos[total_degs_genos$Gene %in% top_genes_unique2, ]
+  total_degs_genos$Gene <- NULL
+  
+  
+  # Filteres out any genes that are not found to have a count of 2 in at least 1 group
+  top_genes_list3 <- apply(total_degs_treatments, 2, function(col) {
+    filtered_col <- col[col >= cutoff]
+  })
+  
+  total_degs_treatments$Gene <- rownames(total_degs_treatments)
+  # Combine all top gene names into one unique set
+  top_genes_unique3 <- unique(unlist(lapply(top_genes_list3, names)))
+  # Subset the original table with only those genes
+  total_degs_treatments <- total_degs_treatments[total_degs_treatments$Gene %in% top_genes_unique3, ]
+  total_degs_treatments$Gene <- NULL
+  
   return(list(
     top_genes_df = top_genes_df,
     final_CTE_Up_Down = final_CTE_Up_Down,
     final_Treats_Up_Down = final_Treats_Up_Down,
-    final_DEGs = final_DEGs
+    total_degs_genos = total_degs_genos,
+    total_degs_treatments = total_degs_treatments
   ))
   
 }
@@ -117,24 +163,30 @@ upsetter <- function(dataframe, title_name = "DEFAULT TITLE"){
 return(plot1)
 }
 
+binary_data <- function(dataframe){
+  binary_df <- dataframe %>%
+    rownames_to_column(var = "Gene") %>%
+    mutate(across(-Gene, ~ ifelse(. != 0, 1, 0)))
+  return(binary_df)
+}
+
 
 #######################
 # Using the functions
 #######################
 all_counts <- data_splitter(gene_counts, 2)
-total_degs <- all_counts$final_DEGs
-total_degs_genos <- subset(total_degs, select = c ("CTE25", "CTE31", "CTE45", "CTE46"))
-total_degs_genos <- total_degs_genos[rowSums(total_degs_genos) != 0, ]
-total_degs_treatments <- subset(total_degs, select = c ("Heat", "Control", "HeatxPercipitation"))
-total_degs_treatments <- total_degs_treatments[rowSums(total_degs_treatments) != 0, ]
-
 
 upsetter(all_counts$final_CTE_Up_Down, "E+ and E- DEGs by Genotype")
 upsetter(all_counts$final_Treats_Up_Down, "E+ and E- DEGs by Treatment")
 
-upsetter(total_degs_genos, "E+ and E- DEGs by Genotype")
-upsetter(total_degs_treatments, "E+ and E- DEGs by Treatment")
+upsetter(all_counts$total_degs_genos, "E+ and E- DEGs by Genotype")
+upsetter(all_counts$total_degs_treatments, "E+ and E- DEGs by Treatment")
 
+binary_data(all_counts$final_CTE_Up_Down)
+
+
+write.csv(all_counts$final_CTE_Up_Down,paste0(data_folder, "/Genotypes_Up_Down_reg.csv"), row.names = TRUE)
+write.csv(all_counts$final_Treats_Up_Down,paste0(data_folder, "/Treatments_Up_Down_reg.csv"), row.names = TRUE)
 
 
 
