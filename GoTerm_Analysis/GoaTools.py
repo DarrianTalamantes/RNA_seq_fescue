@@ -11,14 +11,16 @@ import numpy as np
 import goatools
 
 #Setting data directory
-data = "/home/darrian/Documents/RNA_seq_fescue/tempdata"
+data = "/home/darrian/Documents/RNA_seq_fescue/Goatools_data"
+DEG_count_Data="/home/darrian/Documents/RNA_seq_fescue/r_data/Treatments_Up_Down_reg.csv"
+Entap_output_loc="/home/darrian/Documents/RNA_seq_fescue/EnTAP_results/annotated_without_contam_gene_ontology_terms.tsv"
+obo_loc=f"{data}/go-basic.obo"
 os.makedirs(data, exist_ok=True)  
 
 def main():
   
     
     # Importing the CSV file
-    DEG_count_Data="/home/darrian/Documents/RNA_seq_fescue/r_data/Treatments_Up_Down_reg.csv"
     print("DIE DIE DIE")
     DEGs=import_csv(DEG_count_Data)
     DEGs.reset_index(inplace=True)
@@ -26,17 +28,101 @@ def main():
 
     # Displaying the data and fixing it if necessary
     print(DEGs.head())
+
+    # Creating lists of just genes of different DEG groups
+    # These are my study files
     filter_and_write_genes(DEGs,data_dir=data)
 
+    # Getting list of all study files
+    file_list = [f for f in os.listdir(data) if os.path.isfile(os.path.join(data, f))]
 
+    # load in my assosiation file
+    association_file = makeass_file(Entap_output_loc, f"{data}/association.tsv")
+    with open(f"{data}/association.tsv") as f:
+        for _ in range(5):
+            print(next(f).strip())
 
+    #create or load in a population file 
+    population_file = get_or_create_population_file(Entap_output_loc, f"{data}/population.tsv")
+    with open(f"{data}/population.tsv") as f:
+        for _ in range(5):
+            print(next(f).strip())
+
+    print(file_list[1])
     # Running goatools
-    rungoatools(1,2,3,4)
-
-def rungoatools(pop, study, assoc, go_dag):
-    print("This Ran LOL")
+    rungoatools(population_file, f"{data}/file_list[1]", association_file, obo_loc)
 
 
+
+
+
+
+
+
+
+
+
+
+
+def rungoatools(pop, study_loc, assoc, obo_loc):
+
+
+
+
+
+
+
+
+def get_or_create_population_file(input_path, output_path):
+    """
+    This creates the population file from annotated_without_contam Entap output
+    If output_path exists, read and return it.
+    Otherwise, create it by extracting the 'query_sequence' column from input_path,
+    dropping duplicates, sorting, and writing to output_path.
+    """
+    if os.path.exists(output_path):
+        # If the file already exists, just read it in
+        with open(output_path) as f:
+            df = {line.strip() for line in f}
+        
+    else:
+        # Read input file
+        df = pd.read_csv(input_path, sep="\t")
+        # Keep only the 'query_sequence' column
+        df = df[["query_sequence"]]
+        # Drop duplicates and sort
+        df = df.drop_duplicates().sort_values(by="query_sequence")
+        # Save to output_path without header or index
+        df.to_csv(output_path, index=False, header=False)
+        df = set(df["query_sequence"])
+    return df
+
+# This function looks for the assosiation file or makes it from a Entap output "annotated_without_contam"
+def makeass_file(file_path, output_path="../Goatools_data/association.tsv"):
+    # If the output file already exists, read it in.
+    if os.path.exists(output_path):
+        # File already exists, just read it (no headers)
+        assoc = {}
+        with open(file_path) as f:
+            for line in f:
+                gene, go_terms = line.strip().split("\t", 1)
+                assoc[gene] = go_terms.split(";")
+    else:
+        # Create the association file
+        df = pd.read_csv(file_path, sep="\t")
+        grouped = df.groupby("query_sequence")["go_id"] \
+                    .apply(lambda x: ";".join(sorted(set(x)))) \
+                    .reset_index()
+        grouped.to_csv(output_path, sep="\t", index=False, header=False)
+
+        # Now load the newly created file
+        assoc = {}
+        with open(output_path) as f:
+            for line in f:
+                gene, go_terms = line.strip().split("\t", 1)
+                assoc[gene] = go_terms.split(";")
+
+    return assoc
 
 def filter_and_write_genes(df, gene_col="Gene", output_prefix="genes", data_dir= data):
     """
