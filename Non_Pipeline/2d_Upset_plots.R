@@ -131,7 +131,7 @@ data_splitter <- function(GeneCount = gene_counts, cutoff = 2)
   total_degs_treatments$Gene <- NULL
   
   return(list(
-    top_genes_df = top_genes_df,
+    top_genes_df = top_genes_df,    #Upon reval of this script i think this line needs to be deleted if we run this again
     final_CTE_Up_Down = final_CTE_Up_Down,
     final_Treats_Up_Down = final_Treats_Up_Down,
     total_degs_genos = total_degs_genos,

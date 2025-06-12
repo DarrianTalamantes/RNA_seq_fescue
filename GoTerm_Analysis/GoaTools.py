@@ -14,7 +14,7 @@ from goatools.goea.go_enrichment_ns import GOEnrichmentStudy
 #Setting data directory
 data = "/home/darrian/Documents/RNA_seq_fescue/Goatools_data"
 feature_counts = "/home/darrian/Documents/RNA_seq_fescue/r_data/feature_counts.txt"
-DEG_count_Data = "/home/darrian/Documents/RNA_seq_fescue/r_data/Treatments_Up_Down_reg.csv"
+DEG_count_Data = "/home/darrian/Documents/RNA_seq_fescue/r_data/Endophytes_Up_Down_reg_HeatvsControl.csv" # Switch this line to change DEG set
 Entap_Identified_Gos = "/home/darrian/Documents/RNA_seq_fescue/EnTAP_results/annotated_without_contam_gene_ontology_terms.tsv"
 obo_loc=f"{data}/go-basic.obo"
 os.makedirs(data, exist_ok=True)  
@@ -41,12 +41,19 @@ def main():
     # load in my assosiation file
     association_file = makeass_file(Entap_Identified_Gos, f"{data}/association.tsv")
 
+    print("Assosiation file \n")
+    for item in list(association_file)[:5]:
+        print(item)
+
     #create or load in a population file 
     population_file = get_or_create_population_file(feature_counts, f"{data}/population.tsv")
 
+    print("Population file \n")
+    for item in list(population_file)[:5]:
+        print(item)
 
     # Running goatools
-    rungoatools(population_file, f"{data}/{file_list[1]}", association_file, obo_loc)
+    # rungoatools(population_file, f"{data}/{file_list[1]}", association_file, obo_loc)
     print("loaded", f"{data}/{file_list[1]}")
 
 
@@ -97,12 +104,14 @@ def get_or_create_population_file(input_path, output_path):
     """
     if os.path.exists(output_path):
         # If the file already exists, just read it in
+        print("Population file found, re-loading")
         with open(output_path) as f:
             df = {line.strip() for line in f}
         
     else:
         # Read input file
         df = pd.read_csv(input_path, sep="\t")
+        print(df.head())
         # Keep only the 'query_sequence' column
         df = df[["query_sequence"]]
         # Drop duplicates and sort
@@ -119,6 +128,7 @@ def makeass_file(file_path, output_path="../Goatools_data/association.tsv"):
     # If the output file already exists, read it in.
     if os.path.exists(output_path):
         # File already exists, just read it (no headers)
+        print("Assosiation file found, re-loading")
         assoc = {}
         with open(file_path) as f:
             for line in f:
