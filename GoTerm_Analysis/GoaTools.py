@@ -8,12 +8,14 @@
 import os
 import pandas as pd
 import numpy as np
-import goatools
+from goatools.obo_parser import GODag
+from goatools.goea.go_enrichment_ns import GOEnrichmentStudy
 
 #Setting data directory
 data = "/home/darrian/Documents/RNA_seq_fescue/Goatools_data"
-DEG_count_Data="/home/darrian/Documents/RNA_seq_fescue/r_data/Treatments_Up_Down_reg.csv"
-Entap_output_loc="/home/darrian/Documents/RNA_seq_fescue/EnTAP_results/annotated_without_contam_gene_ontology_terms.tsv"
+feature_counts = "/home/darrian/Documents/RNA_seq_fescue/r_data/feature_counts.txt"
+DEG_count_Data = "/home/darrian/Documents/RNA_seq_fescue/r_data/Treatments_Up_Down_reg.csv"
+Entap_Identified_Gos = "/home/darrian/Documents/RNA_seq_fescue/EnTAP_results/annotated_without_contam_gene_ontology_terms.tsv"
 obo_loc=f"{data}/go-basic.obo"
 os.makedirs(data, exist_ok=True)  
 
@@ -37,21 +39,15 @@ def main():
     file_list = [f for f in os.listdir(data) if os.path.isfile(os.path.join(data, f))]
 
     # load in my assosiation file
-    association_file = makeass_file(Entap_output_loc, f"{data}/association.tsv")
-    with open(f"{data}/association.tsv") as f:
-        for _ in range(5):
-            print(next(f).strip())
+    association_file = makeass_file(Entap_Identified_Gos, f"{data}/association.tsv")
 
     #create or load in a population file 
-    population_file = get_or_create_population_file(Entap_output_loc, f"{data}/population.tsv")
-    with open(f"{data}/population.tsv") as f:
-        for _ in range(5):
-            print(next(f).strip())
+    population_file = get_or_create_population_file(feature_counts, f"{data}/population.tsv")
 
-    print(file_list[1])
+
     # Running goatools
-    rungoatools(population_file, f"{data}/file_list[1]", association_file, obo_loc)
-
+    rungoatools(population_file, f"{data}/{file_list[1]}", association_file, obo_loc)
+    print("loaded", f"{data}/{file_list[1]}")
 
 
 
@@ -65,11 +61,30 @@ def main():
 
 
 def rungoatools(pop, study_loc, assoc, obo_loc):
+    print("Running Goatools")
 
+    # === Load Study ===
+    with open(study_loc) as f:
+        study = {line.strip() for line in f}
 
+    # === Load GO DAG ===
+    godag = GODag(obo_loc)
 
+    goea = GOEnrichmentStudy(
+        pop,    # All background genes
+        assoc,         # Gene-to-GO associations
+        godag,         # Ontologies
+        methods=['fdr_bh']  # Multiple testing correction method
+    )
 
+    results = goea.run_study(study)
 
+    print("\nSignificant GO terms (FDR < 0.05):")
+    for r in results:
+        if r.p_fdr_bh < 0.05:
+            print(f"{r.GO}: {r.name} — p={r.p_fdr_bh:.4g} ({r.enrichment})")
+
+    # goea.wr_tsv("goea_results.tsv", results)
 
 
 
@@ -97,6 +112,8 @@ def get_or_create_population_file(input_path, output_path):
         df = set(df["query_sequence"])
     return df
 
+
+
 # This function looks for the assosiation file or makes it from a Entap output "annotated_without_contam"
 def makeass_file(file_path, output_path="../Goatools_data/association.tsv"):
     # If the output file already exists, read it in.
@@ -106,7 +123,7 @@ def makeass_file(file_path, output_path="../Goatools_data/association.tsv"):
         with open(file_path) as f:
             for line in f:
                 gene, go_terms = line.strip().split("\t", 1)
-                assoc[gene] = go_terms.split(";")
+                assoc[gene] = set(go_terms.split(";"))
     else:
         # Create the association file
         df = pd.read_csv(file_path, sep="\t")
@@ -120,7 +137,7 @@ def makeass_file(file_path, output_path="../Goatools_data/association.tsv"):
         with open(output_path) as f:
             for line in f:
                 gene, go_terms = line.strip().split("\t", 1)
-                assoc[gene] = go_terms.split(";")
+                assoc[gene] = set(go_terms.split(";"))
 
     return assoc
 
