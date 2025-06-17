@@ -28,9 +28,6 @@ def main():
     DEGs.reset_index(inplace=True)
     DEGs.rename(columns={'index': 'Gene'}, inplace=True) 
 
-    # Displaying the data and fixing it if necessary
-    print(DEGs.head())
-
     # Creating lists of just genes of different DEG groups
     # These are my study files
     filter_and_write_genes(DEGs,data_dir=data)
@@ -53,7 +50,7 @@ def main():
         print(item)
 
     # Running goatools
-    # rungoatools(population_file, f"{data}/{file_list[1]}", association_file, obo_loc)
+    rungoatools(population_file, f"{data}/{file_list[1]}", association_file, obo_loc)
     print("loaded", f"{data}/{file_list[1]}")
 
 
@@ -68,7 +65,7 @@ def main():
 
 
 def rungoatools(pop, study_loc, assoc, obo_loc):
-    print("Running Goatools")
+    print("--------Running Goatools--------")
 
     # === Load Study ===
     with open(study_loc) as f:
@@ -90,12 +87,13 @@ def rungoatools(pop, study_loc, assoc, obo_loc):
     for r in results:
         if r.p_fdr_bh < 0.05:
             print(f"{r.GO}: {r.name} — p={r.p_fdr_bh:.4g} ({r.enrichment})")
-
+            
     # goea.wr_tsv("goea_results.tsv", results)
 
 
 
 def get_or_create_population_file(input_path, output_path):
+    print("--------Population Function Running--------")
     """
     This creates the population file from annotated_without_contam Entap output
     If output_path exists, read and return it.
@@ -111,6 +109,7 @@ def get_or_create_population_file(input_path, output_path):
     else:
         # Read input file
         df = pd.read_csv(input_path, sep="\t")
+        df.rename(columns={df.columns[0]: "query_sequence"}, inplace=True)
         print(df.head())
         # Keep only the 'query_sequence' column
         df = df[["query_sequence"]]
@@ -125,22 +124,35 @@ def get_or_create_population_file(input_path, output_path):
 
 # This function looks for the assosiation file or makes it from a Entap output "annotated_without_contam"
 def makeass_file(file_path, output_path="../Goatools_data/association.tsv"):
+    print("--------Assosiation Function Running--------")
     # If the output file already exists, read it in.
     if os.path.exists(output_path):
         # File already exists, just read it (no headers)
         print("Assosiation file found, re-loading")
         assoc = {}
-        with open(file_path) as f:
+        with open(output_path) as f:
             for line in f:
                 gene, go_terms = line.strip().split("\t", 1)
                 assoc[gene] = set(go_terms.split(";"))
     else:
         # Create the association file
         df = pd.read_csv(file_path, sep="\t")
+        df["go_id"] = df["go_id"].apply(lambda x: str(x).split("\t")[0])
         grouped = df.groupby("query_sequence")["go_id"] \
                     .apply(lambda x: ";".join(sorted(set(x)))) \
                     .reset_index()
+
+
+        # Copy to avoid modifying original
+        grouped = grouped.copy()
+
+        # Trim gene IDs after 4th dot
+        grouped.iloc[:, 0] = grouped.iloc[:, 0].apply(lambda x: ".".join(str(x).split(".")[:4]))
+
+        # Remove rows that are duplicated (keep only fully unique rows)
+        grouped = grouped[~grouped.duplicated(keep=False)]
         grouped.to_csv(output_path, sep="\t", index=False, header=False)
+
 
         # Now load the newly created file
         assoc = {}
@@ -148,7 +160,7 @@ def makeass_file(file_path, output_path="../Goatools_data/association.tsv"):
             for line in f:
                 gene, go_terms = line.strip().split("\t", 1)
                 assoc[gene] = set(go_terms.split(";"))
-
+        
     return assoc
 
 def filter_and_write_genes(df, gene_col="Gene", output_prefix="genes", data_dir= data):
