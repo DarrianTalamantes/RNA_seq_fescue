@@ -33,8 +33,9 @@ def main():
     filter_and_write_genes(DEGs,data_dir=data)
 
     # Getting list of all study files
-    file_list = [f for f in os.listdir(data) if os.path.isfile(os.path.join(data, f))]
-
+    file_list = [f for f in os.listdir(data) 
+                if os.path.isfile(os.path.join(data, f)) and f.startswith("gene")]
+    
     # load in my assosiation file
     association_file = makeass_file(Entap_Identified_Gos, f"{data}/association.tsv")
 
@@ -50,8 +51,19 @@ def main():
         print(item)
 
     # Running goatools
-    rungoatools(population_file, f"{data}/{file_list[1]}", association_file, obo_loc)
-    print("loaded", f"{data}/{file_list[1]}")
+    for fname in file_list:
+        study_path = f"{data}/{fname}"
+        print("loaded", study_path)
+        # Extract middle part (e.g., from "genes.Control_Down.txt" → "Control_Down")
+        parts = fname.split(".")
+        if len(parts) >= 3:
+            middle_part = parts[1]  # 'Control_Down'
+        else:
+            print(f"Filename format unexpected: {fname}")
+            continue
+        output_path = f"{data}/{middle_part}_results.txt"
+        
+        rungoatools(population_file, study_path, association_file, obo_loc, output_path)
 
 
 
@@ -60,11 +72,7 @@ def main():
 
 
 
-
-
-
-
-def rungoatools(pop, study_loc, assoc, obo_loc):
+def rungoatools(pop, study_loc, assoc, obo_loc, output_path):
     print("--------Running Goatools--------")
 
     # === Load Study ===
@@ -83,12 +91,15 @@ def rungoatools(pop, study_loc, assoc, obo_loc):
 
     results = goea.run_study(study)
 
-    print("\nSignificant GO terms (FDR < 0.05):")
-    for r in results:
-        if r.p_fdr_bh < 0.05:
-            print(f"{r.GO}: {r.name} — p={r.p_fdr_bh:.4g} ({r.enrichment})")
-            
-    # goea.wr_tsv("goea_results.tsv", results)
+    # Filter significant results once
+    sig_results = [r for r in results if r.p_fdr_bh < 0.05]
+
+    # Optional: print them
+    for r in sig_results:
+        print(f"{r.GO}: {r.name} — p={r.p_fdr_bh:.4g} ({r.enrichment})")
+
+    # Save only significant results
+    goea.wr_tsv(output_path, sig_results)
 
 
 

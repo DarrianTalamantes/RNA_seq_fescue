@@ -19,10 +19,11 @@ library(data.table)
 library(pheatmap)
 library(ComplexUpset)
 
-# Data recreation from previous plot
-gene_counts = read.csv(paste0(data_folder, "/Epos_Eneg_Deseq2_contrast.csv"), header = TRUE) # from 2c
 # File locations
 data_folder <- "/home/darrian/Documents/RNA_seq_fescue/r_data"
+# Data recreation from previous plot
+gene_counts = read.csv(paste0(data_folder, "/Epos_Eneg_Deseq2_contrast.csv"), header = TRUE) # from 2c
+
 
 ################################################################################
 # Huge function that creates 4 data sets
@@ -131,7 +132,6 @@ data_splitter <- function(GeneCount = gene_counts, cutoff = 2)
   total_degs_treatments$Gene <- NULL
   
   return(list(
-    top_genes_df = top_genes_df,    #Upon reval of this script i think this line needs to be deleted if we run this again
     final_CTE_Up_Down = final_CTE_Up_Down,
     final_Treats_Up_Down = final_Treats_Up_Down,
     total_degs_genos = total_degs_genos,
@@ -189,7 +189,39 @@ write.csv(all_counts$final_CTE_Up_Down,paste0(data_folder, "/Genotypes_Up_Down_r
 write.csv(all_counts$final_Treats_Up_Down,paste0(data_folder, "/Treatments_Up_Down_reg.csv"), row.names = TRUE)
 
 
+################################################################################
+# Creating Heatmaps
+################################################################################
+
+total_degs_treatments <- all_counts$total_degs_treatments
 
 
+
+total_degs_treatments_long <- total_degs_treatments %>%
+  rownames_to_column(var = "Gene") %>%
+  pivot_longer(-Gene, names_to = "Treatment", values_to = "Expression")
+
+# Dot plot?
+ggplot(total_degs_treatments_long, aes(x = Gene, y = Expression, color = Treatment)) +
+  geom_point() +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+  labs(title = "Significant Genes Between E+ and E- Fescue")
+
+# Stacekd bar plot?
+ggplot(total_degs_treatments_long, aes(x = Gene, y = Expression, fill = Treatment)) +
+  geom_bar(position="stack", stat="identity") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+  labs(title = "Significant Genes Between E+ and E- Fescue")
+
+# Heatmap ?
+pheatmap(total_degs_treatments,
+         scale = "none",         # use "row" to normalize by row, "none" for raw values
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         fontsize_row = 7,
+         fontsize_col = 10,
+         main = "Gene Expression Heatmap")
 
 
