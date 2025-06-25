@@ -225,3 +225,13 @@ pheatmap(total_degs_treatments,
          main = "Gene Expression Heatmap")
 
 
+total_degs_genos <- all_counts$total_degs_genos
+
+# Heatmap ?
+pheatmap(total_degs_genos,
+         scale = "none",         # use "row" to normalize by row, "none" for raw values
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         fontsize_row = 7,
+         fontsize_col = 10,
+         main = "Gene Expression Heatmap")

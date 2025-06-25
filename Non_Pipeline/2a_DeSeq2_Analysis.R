@@ -16,6 +16,13 @@ library(ggpubr)
 library(tidyverse)
 library(grid)
 library(data.table)
+library(pheatmap)
+library(variancePartition)
+library(BiocGenerics) 
+library(lme4)        
+
+
+
 # install.packages("unix")
 
 # Increase memory of R to 12 GB
@@ -280,14 +287,57 @@ pheatmap(vsd_sub,
          main = "Top 50 DEGs")
 
 
+# Redo but with endophyte status
+# 4. Create annotation for columns
+ann_col <- data.frame(Endophyte = metadata$Endophyte)
+rownames(ann_col) <- metadata$SampleName
+
+# 5. Plot with pheatmap
+pheatmap(vsd_sub,
+         annotation_col = ann_col,
+         scale = "row",              # normalize rows for better visual
+         clustering_distance_rows = "euclidean",
+         clustering_distance_cols = "euclidean",
+         clustering_method = "complete",
+         show_rownames = TRUE,
+         show_colnames = TRUE,
+         main = "Top 50 DEGs")
+
+# Redo one more time but with Time Point
+# 4. Create annotation for columns
+ann_col <- data.frame("Harvest Time" = metadata$HarvestTime)
+rownames(ann_col) <- metadata$SampleName
+
+# 5. Plot with pheatmap
+pheatmap(vsd_sub,
+         annotation_col = ann_col,
+         scale = "row",              # normalize rows for better visual
+         clustering_distance_rows = "euclidean",
+         clustering_distance_cols = "euclidean",
+         clustering_method = "complete",
+         show_rownames = TRUE,
+         show_colnames = TRUE,
+         main = "Top 50 DEGs")
 
 
 
 
+# Basic PCA Plots
+p <- plotPCA(vsd, intgroup = "Clone")
+p <- plotPCA(vsd, intgroup = "HarvestTime")
+p <- plotPCA(vsd, intgroup = "Month")
+p <- plotPCA(vsd, intgroup = "Year")
+p <- plotPCA(vsd, intgroup = "Treatment")
+p <- plotPCA(vsd, intgroup = "Endophyte")
 
+p + theme_bw()
 
+# Finding the variance of all varaibles 
 
-
-
-
+meta <- as.data.frame(colData(dds))
+form <- ~ (1|Clone) + (1|Month) + (1|Year) + (1|Treatment) + (1|HarvestTime) + (1|Endophyte) 
+varPart <- fitExtractVarPartModel(vsd_mat, form, meta)
+plotVarPart(varPart)
+avg_var_explained <- colMeans(varPart)
+print(avg_var_explained)
 
