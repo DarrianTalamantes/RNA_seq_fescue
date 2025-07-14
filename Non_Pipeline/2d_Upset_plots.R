@@ -18,6 +18,8 @@ library(grid)
 library(data.table)
 library(pheatmap)
 library(ComplexUpset)
+library(cowplot)
+
 
 # File locations
 data_folder <- "/home/darrian/Documents/RNA_seq_fescue/r_data"
@@ -179,8 +181,9 @@ all_counts <- data_splitter(gene_counts, 2)
 upsetter(all_counts$final_CTE_Up_Down, "E+ and E- DEGs by Genotype")
 upsetter(all_counts$final_Treats_Up_Down, "E+ and E- DEGs by Treatment")
 
-upsetter(all_counts$total_degs_genos, "E+ and E- DEGs by Genotype")
-upsetter(all_counts$total_degs_treatments, "E+ and E- DEGs by Treatment")
+p1 <- upsetter(all_counts$total_degs_genos, "E+ and E- DEGs by Genotype")
+p2 <- upsetter(all_counts$total_degs_treatments, "E+ and E- DEGs by Treatment")
+plot_grid(p1, p2, labels = c("A", "B"), ncol = 1, align = "v")
 
 binary_data(all_counts$final_CTE_Up_Down)
 

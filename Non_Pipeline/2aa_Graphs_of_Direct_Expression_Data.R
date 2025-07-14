@@ -216,16 +216,46 @@ grid.arrange(pca1, pca2, pca3, pca4, ncol = 2)
 meta <- as.data.frame(colData(dds))
 form <- ~ (1|Clone) + (1|Treatment) + (1|HarvestTime) + (1|Endophyte) 
 varPart <- fitExtractVarPartModel(vsd_mat, form, meta)
-p <- plotVarPart(varPart)
-avg_var_explained <- colMeans(varPart)
+varPart_reordered <- varPart[, c("Clone", "HarvestTime", "Treatment", "Endophyte", "Residuals")]
+
+p <- plotVarPart(varPart_reordered)
+avg_var_explained <- colMeans(varPart_reordered)
 print(avg_var_explained)
 avg_df <- enframe(avg_var_explained, name = "Variable", value = "AvgVariance")
 
 p + 
   geom_text(data = avg_df, aes(x = Variable, y = AvgVariance + 2, label = round(AvgVariance, 3)), 
-            inherit.aes = FALSE, vjust = -41.5, size = 3.5,)
+            inherit.aes = FALSE, vjust = -35, size = 3.5,)
 
 
+#  PCA Plots seperated by genotype
 
 
+vsd_june <- vsd[, vsd$HarvestTime == "June_2016"]
+vsd_june_CTE31 <- vsd_june[, vsd_june$Clone == "CTE31"]
+vsd_june_CTE45 <- vsd_june[, vsd_june$Clone == "CTE45"]
+vsd_june_CTE25 <- vsd_june[, vsd_june$Clone == "CTE25"]
+vsd_june_CTE46 <- vsd_june[, vsd_june$Clone == "CTE46"]
 
+
+junep1 <- plotPCA(vsd_june_CTE25, intgroup = "Treatment")
+junep1_1 <- junep1 + labs(color = "Treatment") + theme_bw() + ggtitle("CTE25") +   theme(plot.title = element_text(hjust = 0.5))
+
+junep2 <- plotPCA(vsd_june_CTE31, intgroup = "Treatment")
+junep2_1 <- junep2 + labs(color = "Treatment") + theme_bw() + ggtitle("CTE31") +   theme(plot.title = element_text(hjust = 0.5))
+
+junep3 <- plotPCA(vsd_june_CTE45, intgroup = "Treatment")
+junep3_1 <- junep3 + labs(color = "Treatment") + theme_bw() + ggtitle("CTE45") +   theme(plot.title = element_text(hjust = 0.5))
+
+june4 <- plotPCA(vsd_june_CTE46, intgroup = "Treatment")
+junep4_1 <- june4 + labs(color = "Treatment") + theme_bw() + ggtitle("CTE46") +   theme(plot.title = element_text(hjust = 0.5))
+
+junep1_1
+junep2_1
+junep3_1
+junep4_1
+
+
+small_stack <- grid.arrange(junep1_1, junep2_1, junep3_1, junep4_1, ncol = 2)
+small_stack
+grid.arrange(pca1, small_stack, nrow = 2, heights = c(1, 1.5))

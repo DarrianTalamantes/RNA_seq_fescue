@@ -14,7 +14,7 @@ from goatools.goea.go_enrichment_ns import GOEnrichmentStudy
 #Setting data directory
 data = "/home/darrian/Documents/RNA_seq_fescue/Goatools_data"
 feature_counts = "/home/darrian/Documents/RNA_seq_fescue/r_data/feature_counts.txt"
-DEG_count_Data = "/home/darrian/Documents/RNA_seq_fescue/r_data/Endophytes_Up_Down_reg_HeatvsControl.csv" # Switch this line to change DEG set
+DEG_count_Data = "/home/darrian/Documents/RNA_seq_fescue/r_data/Treatments_Up_Down_reg.csv" # Switch this line to change DEG set
 Entap_Identified_Gos = "/home/darrian/Documents/RNA_seq_fescue/EnTAP_results/annotated_without_contam_gene_ontology_terms.tsv"
 obo_loc=f"{data}/go-basic.obo"
 os.makedirs(data, exist_ok=True)  
