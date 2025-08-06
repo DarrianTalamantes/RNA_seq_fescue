@@ -1,7 +1,14 @@
 # Author: Darrian Talamantes
-# This script will use the gene counts made in 2c from the partitioned data "results_list_CloneXHTxTreat" 
-# with the contrast of E+ and E-. These counts are then used to make various different upset plots.
-# split by treatment or genotype, then up and down regulated. or simply all DEGs counted up 
+# This script is very similar to that of 2d
+# but here when I filter the data to ensure that a gene appears at least 2 times 
+# within any group. Ex: In total_degs_treatments I now keep any gene that has a count of
+# 1 in any treatment group. Before I only kept genes with a count of 2. 
+# This drastically changes the graphs. 
+
+
+
+# NOTES: The filter on total_DEG data set and the filter on 
+# _up and _down data sets are done differently! This may be problematic
 
 
 # Install Bioconductor if not already installed
@@ -108,7 +115,7 @@ data_splitter <- function(GeneCount = gene_counts, cutoff = 2)
   total_degs_treatments <- subset(final_DEGs, select = c ("Heat", "Control", "HeatxPercipitation"))
   
   
-  # Filteres out any genes that are not found to have a count of 2 in at least 1 group
+  # Filteres out any genes that are not found to have a count of cutoff in at least 1 group
   top_genes_list2 <- apply(total_degs_genos, 2, function(col) {
     filtered_col <- col[col >= cutoff]
   })
@@ -121,7 +128,7 @@ data_splitter <- function(GeneCount = gene_counts, cutoff = 2)
   total_degs_genos$Gene <- NULL
   
   
-  # Filteres out any genes that are not found to have a count of 2 in at least 1 group
+  # Filteres out any genes that are not found to have a count of cutoff in at least 1 group
   top_genes_list3 <- apply(total_degs_treatments, 2, function(col) {
     filtered_col <- col[col >= cutoff]
   })
@@ -160,9 +167,9 @@ upsetter <- function(dataframe, title_name = "DEFAULT TITLE"){
                  intersect = colnames(binary_df)[-which(names(binary_df) == "Gene")],
                  name = "Unique Genes",
                  base_annotations = list('Intersection size' = intersection_size())) +
-                 labs(title = title_name)
-
-return(plot1)
+    labs(title = title_name)
+  
+  return(plot1)
 }
 
 binary_data <- function(dataframe){
@@ -176,73 +183,14 @@ binary_data <- function(dataframe){
 #######################
 # Using the functions
 #######################
-all_counts <- data_splitter(gene_counts, 2)
+all_counts <- data_splitter(gene_counts, 1)
 
 upsetter(all_counts$final_CTE_Up_Down, "E+ and E- DEGs by Genotype")
 upsetter(all_counts$final_Treats_Up_Down, "E+ and E- DEGs by Treatment")
 
-p1 <- upsetter(all_counts$total_degs_genos, "E+ and E- DEGs by Genotype")
-p2 <- upsetter(all_counts$total_degs_treatments, "E+ and E- DEGs by Treatment")
+p1 <- upsetter(all_counts$total_degs_genos, "E+ and E- DEGs by Genotype No DEG Count Filter")
+p2 <- upsetter(all_counts$total_degs_treatments, "E+ and E- DEGs by Treatment No DEG Count Filter")
 plot_grid(p1, p2, labels = c("A", "B"), ncol = 1, align = "v")
 
 binary_data(all_counts$final_CTE_Up_Down)
 
-
-write.csv(all_counts$final_CTE_Up_Down,paste0(data_folder, "/Genotypes_Up_Down_reg.csv"), row.names = TRUE)
-write.csv(all_counts$final_Treats_Up_Down,paste0(data_folder, "/Treatments_Up_Down_reg.csv"), row.names = TRUE)
-
-
-################################################################################
-# Creating Heatmaps
-################################################################################
-
-total_degs_treatments <- all_counts$total_degs_treatments
-
-
-
-total_degs_treatments_long <- total_degs_treatments %>%
-  rownames_to_column(var = "Gene") %>%
-  pivot_longer(-Gene, names_to = "Treatment", values_to = "Expression")
-
-# Dot plot?
-ggplot(total_degs_treatments_long, aes(x = Gene, y = Expression, color = Treatment)) +
-  geom_point() +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-  labs(title = "Significant Genes Between E+ and E- Fescue")
-
-# Stacekd bar plot?
-ggplot(total_degs_treatments_long, aes(x = Gene, y = Expression, fill = Treatment)) +
-  geom_bar(position="stack", stat="identity") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-  labs(title = "Significant Genes Between E+ and E- Fescue")
-
-# Get rid of rows that are all 0
-total_degs_treatments_filtered <- total_degs_treatments[rowSums(total_degs_treatments) != 0, ]
-
-# Heatmap ?
-pheatmap(total_degs_treatments_filtered,
-         scale = "none",         # use "row" to normalize by row, "none" for raw values
-         cluster_rows = TRUE,
-         cluster_cols = TRUE,
-         fontsize_row = 7,
-         fontsize_col = 10,
-         labels_row = NA,
-         color = colorRampPalette(c("white", "red"))(100),
-         main = "DEGs Grouped by Treatment")
-
-
-total_degs_genos <- all_counts$total_degs_genos
-total_degs_genos_filtered <- total_degs_genos[rowSums(total_degs_genos) != 0, ]
-
-# Heatmap ?
-pheatmap(total_degs_genos_filtered,
-         scale = "none",         # use "row" to normalize by row, "none" for raw values
-         cluster_rows = TRUE,
-         cluster_cols = TRUE,
-         fontsize_row = 7,
-         fontsize_col = 10,
-         labels_row = NA,
-         color = colorRampPalette(c("white", "red"))(100),
-         main = "DEGs Grouped by Genotype")
