@@ -1,12 +1,8 @@
-# Purpose: This script will partition the data into its smallest groups only differeing by E-
-# and E+. This will then allow me to compare genotype by treatment effect
+# Purpose: This script will partition the data into groups that differ only by Endophyte
+# and harvest time. These groups are the same in genotype and treatment. I then run
+# a contrast via endophyte + and -. I then make a heatmap from the result.
 
 # Load Libraries
-
-# Install Bioconductor if not already installed
-if (!requireNamespace("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
-# BiocManager::install("DESeq2")
 
 library(DESeq2)
 library(ggplot2)
@@ -16,10 +12,11 @@ library(tidyverse)
 library(grid)
 library(data.table)
 library(pheatmap)
+library(ComplexUpset)
+library(cowplot)
 
 
-# Increase memory of R to 12 GB
-memory.limit(size=12000)  #Might not need. Memory should not be capped in newer R versions
+# Load Data
 
 # File locations
 data_folder <- "/home/darrian/Documents/RNA_seq_fescue/r_data"
@@ -93,16 +90,19 @@ ncol(Featurecount)
 nrow(metadata)
 
 ################################################################################
-# Function that partitions data by Clone,HarvestTime, and treatment
+# Function that partitions data by Clone and treatment
 ################################################################################
 
-# partitions the data by Clone Harvest Time, and Treatment.
-dds_by_CloneXHTxTreat <- function(CountsData, Metadata, CloneName, HT, Treat){
+
+
+
+
+# partitions the data by Clone and Treatment.
+dds_by_ClonexTreat <- function(CountsData, Metadata = metadata, CloneName, Treat){
   
   # Subset metadata
   meta_clone <- Metadata[Metadata$Clone == CloneName, ]
-  meta_clone_endo <- meta_clone[meta_clone$HarvestTime == HT,]
-  meta_clone_endo <- meta_clone_endo[meta_clone_endo$Treatment == Treat,]
+  meta_clone_endo <- meta_clone[meta_clone$Treatment == Treat,]
   
   # Subset counts to only include samples that are in the meta_clone_endo dataset
   counts <- CountsData[, colnames(CountsData) %in% meta_clone_endo$SampleName]
@@ -118,73 +118,71 @@ dds_by_CloneXHTxTreat <- function(CountsData, Metadata, CloneName, HT, Treat){
   # filter for genes that have 10 occurrences in 1/4 the samples
   keep <- rowSums(counts(dds_clone) >= 5) >= (ncol(dds_clone) / 4)
   dds_clone <- dds_clone[keep, ]
+  message(sum(keep), " genes passed the filtering step.")
+  
   
   return(dds_clone)
 }
 
 ################################################################################
-# Using the function to create datasets seperated by Clone, HT, and Treatment
+# Using the function to create datasets seperated by Clone and Treatment
 ################################################################################
 
 
-# 1. Get all unique combinations of Clone and Endophyte
+# 1. Get all unique combinations of Clone and Treatment
 combos <- expand.grid(Clone = unique(metadata$Clone),
-                      HarvestTime = unique(metadata$HarvestTime),
                       Treatment = unique(metadata$Treatment),
                       stringsAsFactors = FALSE)
 
 # 2. Loop over each combination and run the function
-results_list_CloneXHTxTreat <- list()
+results_list_ClonexTreat <- list()
 
 for (clone_name in unique(metadata$Clone)) {
-  for (HT in unique(metadata$HarvestTime)) {
-    for (treat in unique(metadata$Treatment)) {
-      
-      
-      result_key <- paste0(clone_name, "_", HT, "_",treat)
-      
-      tryCatch({
-        res <- dds_by_CloneXHTxTreat(Featurecount, metadata, clone_name, HT, treat )
-        results_list_CloneXHTxTreat[[result_key]] <- res
-        message("Successfully processed: ", result_key)
-      }, error = function(e) {
-        message("Error in: ", result_key, " - ", e$message)
-      })
-    }
+  for (treat in unique(metadata$Treatment)) {
+    
+    result_key <- paste0(clone_name,"_",treat)
+    
+    tryCatch({
+      res <- dds_by_ClonexTreat(Featurecount, metadata, clone_name, treat )
+      results_list_ClonexTreat[[result_key]] <- res
+      message("Successfully processed: ", result_key)
+    }, error = function(e) {
+      message("Error in: ", result_key, " - ", e$message)
+    })
   }
 }
 
-results(results_list_CloneXHTxTreat$CTE46_October_2016_HeatxPercipitation)
-results(results_list_CloneXHTxTreat$CTE46_June_2017_HeatxPercipitation)
+results(results_list_ClonexTreat$CTE25_Control)
+results(results_list_ClonexTreat$CTE46_HeatxPercipitation)
 
 
-
-
+#### Need to add the rest of code from 2b or 2c
 
 
 ################################################################################
-# Making table comparing diff expression of E+ an E- within Clones or treatments.
+# Making table comparing diff expression of E+ an E- within Genotypes or treatments.
 ################################################################################
 
 #### Creating lists of different sample groups to look at
-names(results_list_CloneXHTxTreat)
+names(results_list_ClonexTreat)
 # Get all the names
-all_names <- names(results_list_CloneXHTxTreat)
-
-# Putting all DeSeq2 objects into groups
-group_keys <- sub("^(CTE\\d+)_.*_([^_]+)$", "\\1_\\2", all_names)
-names_by_geno_treat <- split(all_names, group_keys)
-
+all_names <- names(results_list_ClonexTreat)
+# Extract treatment and group
+treatments <- sapply(strsplit(all_names, "_"), function(x) tail(x, 1))
+names_by_treatment <- split(all_names, treatments)
+# Extract by clone and group
+Genotypes <- sapply(strsplit(all_names, "_"), function(x) head(x, 1))
+names_by_genotype <- split(all_names, Genotypes)
 #View by treatment
-length(names_by_geno_treat$CTE25_Control)
-length(names_by_geno_treat$CTE46_Heat)
+length(names_by_treatment$Heat)
+length(names_by_genotype$CTE25)
 #### This will do a contrast between E+ and E- of each sample dds object
 #### Then label genes upregulated or downregulated
 # Step 1: Create a list to hold results labeled with up/down/false
 label_results <- list()
 
-for (key in names(results_list_CloneXHTxTreat)) {
-  dds <- results_list_CloneXHTxTreat[[key]]
+for (key in names(results_list_ClonexTreat)) {
+  dds <- results_list_ClonexTreat[[key]]
   
   tryCatch({
     res <- results(dds, contrast = c("Endophyte", "Positive", "Negative"))
@@ -203,6 +201,7 @@ for (key in names(results_list_CloneXHTxTreat)) {
   })
 }
 
+
 # Step 2: Get all unique gene names
 all_genes <- unique(unlist(lapply(label_results, names)))
 
@@ -217,89 +216,97 @@ for (key in names(label_results)) {
   summary_df[[key]][is.na(summary_df[[key]])] <- "FALSE"
 }
 
+################################################################################
+# heatmap making
+################################################################################
 
-#### This seperates the data into the groups and counts up the up and down
-#### regulated genes by group.
-# Create an output data frame to store counts
-gene_counts <- data.frame(Gene = summary_df$Gene, stringsAsFactors = FALSE)
+# Filter out genes never marked as Up or Down regulated
+summary_df_filtered <- summary_df[
+  apply(summary_df[-1], 1, function(x) any(x != "FALSE")),
+]
 
-# Loop through treatments
-for (treatment in names(names_by_geno_treat)) {
-  samples <- names_by_geno_treat[[treatment]]
-  # Ensure samples exist in summary_df
-  samples <- intersect(samples, colnames(summary_df))
-  print(length(samples))
-  if (length(samples) == 0) next
-  
-  # Subset summary_df to relevant columns
-  subset_df <- summary_df[, samples, drop = FALSE]
-  
-  # Count Upregulated
-  up_count <- apply(subset_df, 1, function(x) sum(x == "Upregulated"))
-  down_count <- apply(subset_df, 1, function(x) sum(x == "Downregulated"))
-  deg_count <- apply(subset_df, 1, function(x) sum(x == "Downregulated" | x == "Upregulated"))
-  # Add to final count table
-  gene_counts[[paste0(treatment, "_Up")]] <- up_count 
-  gene_counts[[paste0(treatment, "_Down")]] <- down_count 
-  gene_counts[[paste0(treatment, "_DEGs")]] <- deg_count 
-  
-}
+# Copy and convert categorical labels to numeric
+heatmap_matrix <- summary_df_filtered
+rownames(heatmap_matrix) <- heatmap_matrix$Gene
+heatmap_matrix$Gene <- NULL
 
-# View final table
-head(gene_counts)
+# Map text to numeric values
+heatmap_matrix[] <- lapply(heatmap_matrix, function(x) {
+  ifelse(x == "Upregulated", 1, ifelse(x == "Downregulated", -1, 0))
+})
+
+# Convert to matrix
+heatmap_matrix <- as.matrix(heatmap_matrix)
+
+# Plot heatmap
+pheatmap(
+  heatmap_matrix,
+  color = colorRampPalette(c("blue", "white", "red"))(100),
+  cluster_rows = TRUE,
+  cluster_cols = TRUE,
+  show_rownames = FALSE,
+  main = "DEG Heatmap: Up/Downregulated"
+)
+
+# This heat map looks at samples in groups that all have the same genotype and treatment
+# Thus samples differ by edophyte and harvest time. It runs a contrast on all these samples by 
+# endophyte. It then labels upregulated and downregulated +1 and -1 respectivley and neither 0.
+#This is what is graphed. 
+
 
 
 ################################################################################
-# Making Heat Map
+# Upset plot
 ################################################################################
 
-gene_counts_DEGs <- gene_counts[ , grep("DEGs$", colnames(gene_counts))]
-rownames(gene_counts_DEGs) <- summary_df$Gene
-gene_counts_DEGs <- gene_counts_DEGs[rowSums(gene_counts_DEGs) != 0, ]
+# Convert to binary: TRUE if Up or Down
+binary_matrix <- summary_df
+binary_matrix[] <- lapply(binary_matrix, function(x) {
+  ifelse(x %in% c("Upregulated", "Downregulated"), 1, 0)
+})
 
-gene_count_DEGs_mat <- as.matrix(gene_counts_DEGs)
+# Convert Gene to rownames for use
+rownames(binary_matrix) <- summary_df$Gene
+binary_matrix$Gene <- NULL
+
+# Convert to data frame for ComplexUpset
+binary_df <- as.data.frame(binary_matrix)
+binary_df$Gene <- rownames(binary_matrix)
+
+# Melt into long form
+long_df <- pivot_longer(binary_df, -Gene, names_to = "Group", values_to = "Present")
+
+# Spread back into wide form, but binary (gene by group)
+wide_binary <- long_df %>%
+  filter(Present == 1) %>%
+  select(-Present) %>%
+  mutate(value = 1) %>%
+  pivot_wider(names_from = Group, values_from = value, values_fill = 0)
+
+# Plot
+ComplexUpset::upset(wide_binary, intersect = names(wide_binary)[-1], base_annotations=list('Intersection size'=intersection_size()))
 
 
-# order by treatment
-treatment <- sub("^.*?_(.*?)_DEGs$", "\\1", colnames(gene_counts_DEGs))
-order_idx <- order(treatment)
-gene_count_DEGs_treatorder <- gene_counts_DEGs[ , order_idx]
-gene_count_DEGs_treatorder_mat <- as.matrix(gene_count_DEGs_treatorder)
-
-# order by treatment
-treatment <- sub("^.*?_(.*?)_DEGs$", "\\1", colnames(gene_counts_DEGs))
-order_idx <- order(treatment)
-gene_count_DEGs_treatorder <- gene_counts_DEGs[ , order_idx]
-gene_count_DEGs_treatorder_mat <- as.matrix(gene_count_DEGs_treatorder)
 
 
-# order by genotype
-genotype <- sub("^(CTE\\d+)_.*$", "\\1", colnames(gene_counts_DEGs))
-order_idx <- order(genotype)
-gene_count_DEGs_genoorder <- gene_counts_DEGs[ , order_idx]
-gene_count_DEGs_genoorder_mat <- as.matrix(gene_count_DEGs_genoorder)
 
 
-pheatmap(gene_count_DEGs_mat,
-         scale = "row",           # scale each gene across samples
-         show_rownames = FALSE,
-         cluster_rows = TRUE,
-         cluster_cols = TRUE,
-         main = "Heatmap of DEG Count Within Same Genotype and Treatment",
-         color = colorRampPalette(c("navy", "white", "firebrick3"))(50))
 
-pheatmap(gene_count_DEGs_treatorder_mat,
-         scale = "row",           # scale each gene across samples
-         show_rownames = FALSE,
-         cluster_rows = TRUE,
-         cluster_cols = FALSE,
-         main = "Heatmap of DEG Count Within Same Genotype and Treatment (Treatment Order)",
-         color = colorRampPalette(c("navy", "white", "firebrick3"))(50))
 
-pheatmap(gene_count_DEGs_genoorder_mat,
-         scale = "row",           # scale each gene across samples
-         show_rownames = FALSE,
-         cluster_rows = TRUE,
-         cluster_cols = FALSE,
-         main = "Heatmap of DEG Count Within Same Genotype and Treatment (Genotype Order)",
-         color = colorRampPalette(c("navy", "white", "firebrick3"))(50))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
