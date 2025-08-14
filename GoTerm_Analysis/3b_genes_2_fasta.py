@@ -6,6 +6,7 @@
  
 import pandas as pd
 import re
+import unicodedata
 
 # --- Input file paths ---
 go_terms_file = "../Goatools_data/Control_Down_results.txt"
