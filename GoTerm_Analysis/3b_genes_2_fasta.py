@@ -4,10 +4,10 @@
 # Remember Scallop2 creates the transcriptome with the gene.XX.XX.XX names
 # Transcriptome Final vs Transcriptome is the reason I cant find some gene.xx.xx.xx
  
-import pandas as pd
+import pandas as pd                   # this must be installed with ml not conda now
 import re
 import unicodedata
-from Bio import SeqIO
+from Bio import SeqIO                 # this must be installed with ml not conda now
 from Bio.SeqRecord import SeqRecord
 
 # --- Input file paths ---
