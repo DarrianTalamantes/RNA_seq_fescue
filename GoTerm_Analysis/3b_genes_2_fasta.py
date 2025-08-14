@@ -7,7 +7,7 @@ import re
 
 # --- Input file paths ---
 go_terms_file = "../Goatools_data/Control_Down_results.txt"
-gtf_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final/Fescue_transcriptome.gtf"
+transcriptome_file  = "/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final/Fescue_transcriptome.gtf"
 genome = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Tall_fescue/tall_fescue_pv1.1.fasta"
 output_file = "../Goatools_data/gene_locations.tsv"
 
