@@ -1,9 +1,11 @@
 # Objective: This file will take the significant go term files and extract their gene-id and locations
 # it will then pull the relevant fasta files so you can use BLAST on them.
-# Results: This program finds that out of the results files that mattered we can not find anything in our transcriptome file that matches.
 # Remember Scallop2 creates the transcriptome with the gene.XX.XX.XX names
-# Transcriptome Final vs Transcriptome is the reason I cant find some gene.xx.xx.xx
- 
+
+# Reflection on completion:  In the results.txt files that mattered. There are nothing that appears in BLAST.
+# Control_Down_results.txt had no hits in BLAST.
+
+
 import pandas as pd                   # this must be installed with ml not conda now
 import re
 import unicodedata
@@ -11,7 +13,7 @@ from Bio import SeqIO                 # this must be installed with ml not conda
 from Bio.SeqRecord import SeqRecord
 
 # --- Input file paths ---
-go_terms_file = "../Goatools_data/Control_Down_results.txt"
+go_terms_file = "../Goatools_data/CTE31_Down_results.txt"
 transcriptome_file  = "/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/big/Fescue_transcriptome.gtf"
 genome_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Tall_fescue/tall_fescue_pv1.1.fasta"
 output_file = "../Goatools_data/gene_locations.tsv"
