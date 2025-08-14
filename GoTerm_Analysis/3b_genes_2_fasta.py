@@ -2,7 +2,7 @@
 # it will then pull the relevant fasta files so you can use BLAST on them.
 # Results: This program finds that out of the results files that mattered we can not find anything in our transcriptome file that matches.
 # Remember Scallop2 creates the transcriptome with the gene.XX.XX.XX names
-# 
+# Transcriptome Final vs Transcriptome is the reason I cant find some gene.xx.xx.xx
  
 import pandas as pd
 import re
