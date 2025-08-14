@@ -23,6 +23,11 @@ for item in go_df['study_items']:
 
 print(f"Loaded {len(gene_ids)} unique gene IDs from GO terms file")
 
+# Show a few extracted gene IDs for sanity check
+print("\nExample gene IDs from GO terms file:")
+for g in list(gene_ids)[:10]:
+    print(g)
+
 # Read GTF file
 gtf_df = pd.read_csv(
     transcriptome_file,
@@ -32,9 +37,13 @@ gtf_df = pd.read_csv(
     names=["seqname", "source", "feature", "start", "end", "score", "strand", "frame", "attribute"]
 )
 
+# Show a few raw attribute entries from the GTF
+print("\nExample 'attribute' field values from GTF:")
+for attr in gtf_df["attribute"].head(10):
+    print(attr)
+
 # Function to extract gene_id from the attribute column
 def extract_gene_id(attr):
-    # Use regex to find gene_id inside quotes
     match = re.search(r'gene_id "([^"]+)"', attr)
     if match:
         return match.group(1)
@@ -46,8 +55,8 @@ gtf_df["gene_id"] = gtf_df["attribute"].apply(extract_gene_id)
 # Filter for matching gene IDs
 gtf_filtered = gtf_df[gtf_df["gene_id"].isin(gene_ids)][["gene_id", "seqname", "start", "end"]]
 
-# Show a preview to console (first 10 rows)
-print("\nExample matches found:")
+# Show a preview of matches
+print("\nExample matches found in transcriptome:")
 for idx, row in gtf_filtered.head(10).iterrows():
     print(f"{row['gene_id']} -> {row['seqname']}:{row['start']}-{row['end']}")
 
