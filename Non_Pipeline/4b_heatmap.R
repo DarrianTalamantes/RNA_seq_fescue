@@ -1,5 +1,7 @@
-# Purpose: This script will partition the data into its smallest groups only differeing by E-
-# and E+. This will then allow me to compare genotype by treatment effect
+# Purpose: This script groups the data into the smallest possibel groups
+# thus all groups have the same genotype, harvest time, and treatment. It then runs
+# a contrast on those groups. When counting the DEGs this script uses two factors to group them
+# all DEG counts are grouped by genotype and Treatment.
 
 # Load Libraries
 
