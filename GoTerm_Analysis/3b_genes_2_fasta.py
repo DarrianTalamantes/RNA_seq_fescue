@@ -3,11 +3,13 @@
 
 
 import pandas as pd
+import re
 
-# Input files
-go_terms_file = "go_terms.tsv"
-transcriptome_file = "transcriptome.gtf"
-output_file = "gene_locations.tsv"
+# --- Input file paths ---
+go_file = "../Goatools_data/Control_Down_results.txt"
+gtf_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final/Fescue_transcriptome.gtf"
+genome = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Tall_fescue/tall_fescue_pv1.1.fasta"
+output_file = "../Goatools_data/gene_locations.tsv"
 
 # Read GO terms file
 go_df = pd.read_csv(go_terms_file, sep="\t")
