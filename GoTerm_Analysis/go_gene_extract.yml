@@ -1,0 +1,10 @@
+name: go_gene_extract
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pandas
+  - pip
+  - pip:
+      - openpyxl  # only if you might load Excel later
