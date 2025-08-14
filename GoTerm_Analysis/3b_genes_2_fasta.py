@@ -3,36 +3,48 @@
 
 
 import pandas as pd
-import re
 
-# --- Input file paths ---
-go_file = "../Goatools_data/Control_Down_results.txt"
-gtf_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final/Fescue_transcriptome.gtf"
-genome = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Tall_fescue/tall_fescue_pv1.1.fasta"
-output_file = "../Goatools_data/gene_locations.tsv"
+# Input files
+go_terms_file = "go_terms.tsv"
+transcriptome_file = "transcriptome.gtf"
+output_file = "gene_locations.tsv"
 
-# --- 1. Read GO file and collect all unique gene IDs ---
-go_df = pd.read_csv(go_file, sep="\t")
-all_genes = set()
+# Read GO terms file
+go_df = pd.read_csv(go_terms_file, sep="\t")
 
-for genes in go_df["study_items"]:
-    for g in re.split(r",\s*", genes):
-        all_genes.add(g.strip())
+# Extract all unique gene IDs from the 'study_items' column
+gene_ids = set()
+for item in go_df['study_items']:
+    gene_ids.update(g.strip() for g in item.split(", "))
 
-# --- 2. Read GTF file ---
-gtf_cols = ["chr", "source", "feature", "start", "end", "score", "strand", "frame", "attribute"]
-gtf = pd.read_csv(gtf_file, sep="\t", comment="#", names=gtf_cols)
+print(f"Loaded {len(gene_ids)} unique gene IDs from GO terms file")
 
-# Extract gene_id from attributes
-gtf["gene_id"] = gtf["attribute"].str.extract(r'gene_id "([^"]+)"')
+# Read GTF file
+gtf_df = pd.read_csv(
+    transcriptome_file,
+    sep="\t",
+    comment="#",
+    header=None,
+    names=["seqname", "source", "feature", "start", "end", "score", "strand", "frame", "attribute"]
+)
 
-# --- 3. Filter for matching gene IDs ---
-gtf_filtered = gtf[gtf["gene_id"].isin(all_genes)]
+# Function to extract gene_id from the attribute column
+def extract_gene_id(attr):
+    for field in attr.split(";"):
+        if field.strip().startswith("gene_id"):
+            return field.split('"')[1]
+    return None
 
-# --- 4. Keep only needed columns & unique entries ---
-gtf_filtered = gtf_filtered[["gene_id", "chr", "start", "end"]].drop_duplicates()
+gtf_df["gene_id"] = gtf_df["attribute"].apply(extract_gene_id)
 
-# --- 5. Save to file ---
+# Filter for matching gene IDs
+gtf_filtered = gtf_df[gtf_df["gene_id"].isin(gene_ids)][["gene_id", "seqname", "start", "end"]]
+
+# Show a preview to console (first 10 rows)
+print("\nExample matches found:")
+for idx, row in gtf_filtered.head(10).iterrows():
+    print(f"{row['gene_id']} -> {row['seqname']}:{row['start']}-{row['end']}")
+
+# Save to file
 gtf_filtered.to_csv(output_file, sep="\t", index=False)
-
-print(f"Saved {len(gtf_filtered)} gene locations to {output_file}")
+print(f"\nSaved {len(gtf_filtered)} gene locations to {output_file}")
