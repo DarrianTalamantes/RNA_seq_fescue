@@ -10,7 +10,7 @@ import unicodedata
 
 # --- Input file paths ---
 go_terms_file = "../Goatools_data/Control_Down_results.txt"
-transcriptome_file  = "/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final/Fescue_transcriptome.gtf"
+transcriptome_file  = "/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/big/Fescue_transcriptome.gtf"
 genome = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Tall_fescue/tall_fescue_pv1.1.fasta"
 output_file = "../Goatools_data/gene_locations.tsv"
 debug_gene = "gene.41791.92.0"   # set to any gene you want to sanity check
