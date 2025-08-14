@@ -37,29 +37,28 @@ gtf_df = pd.read_csv(
     names=["seqname", "source", "feature", "start", "end", "score", "strand", "frame", "attribute"]
 )
 
-# Show a few raw attribute entries from the GTF
-print("\nExample 'attribute' field values from GTF:")
-for attr in gtf_df["attribute"].head(10):
-    print(attr)
+# Show example attribute column
+print("\nFirst 5 raw attribute entries from GTF:")
+print(gtf_df["attribute"].head())
 
-# Function to extract gene_id from the attribute column
+# Extract gene_id
 def extract_gene_id(attr):
     match = re.search(r'gene_id "([^"]+)"', attr)
     if match:
         return match.group(1)
-    else:
-        return None
+    return None
 
-gtf_df["gene_id"] = gtf_df["attribute"].apply(extract_gene_id)
+gtf_df["gene_id"] = gtf_df["attribute"].apply(extract_gene_id).str.strip()
 
-# Filter for matching gene IDs
+print("\nFirst 10 extracted gene IDs from GTF:")
+print(gtf_df["gene_id"].dropna().head(10).tolist())
+
+# --- Check intersection ---
+matches = gene_ids.intersection(set(gtf_df["gene_id"]))
+print(f"\nNumber of matching gene IDs: {len(matches)}")
+print("Example matches:", list(matches)[:10])
+
+# --- Filter ---
 gtf_filtered = gtf_df[gtf_df["gene_id"].isin(gene_ids)][["gene_id", "seqname", "start", "end"]]
-
-# Show a preview of matches
-print("\nExample matches found in transcriptome:")
-for idx, row in gtf_filtered.head(10).iterrows():
-    print(f"{row['gene_id']} -> {row['seqname']}:{row['start']}-{row['end']}")
-
-# Save to file
 gtf_filtered.to_csv(output_file, sep="\t", index=False)
 print(f"\nSaved {len(gtf_filtered)} gene locations to {output_file}")
