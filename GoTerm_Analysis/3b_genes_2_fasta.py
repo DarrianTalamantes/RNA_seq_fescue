@@ -1,12 +1,14 @@
 # Objective: This file will take the significant go term files and extract their gene-id and locations
 # it will then pull the relevant fasta files so you can use BLAST on them.
-
-
+# Results: This program finds that out of the results files that mattered we can not find anything in our transcriptome file that matches.
+# Remember Scallop2 creates the transcriptome with the gene.XX.XX.XX names
+# 
+ 
 import pandas as pd
 import re
 
 # --- Input file paths ---
-go_terms_file = "../Goatools_data/CTE31_Down_results.txt"
+go_terms_file = "../Goatools_data/Control_Down_results.txt"
 transcriptome_file  = "/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final/Fescue_transcriptome.gtf"
 genome = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Tall_fescue/tall_fescue_pv1.1.fasta"
 output_file = "../Goatools_data/gene_locations.tsv"
@@ -32,10 +34,12 @@ gtf_df = pd.read_csv(
 
 # Function to extract gene_id from the attribute column
 def extract_gene_id(attr):
-    for field in attr.split(";"):
-        if field.strip().startswith("gene_id"):
-            return field.split('"')[1]
-    return None
+    # Use regex to find gene_id inside quotes
+    match = re.search(r'gene_id "([^"]+)"', attr)
+    if match:
+        return match.group(1)
+    else:
+        return None
 
 gtf_df["gene_id"] = gtf_df["attribute"].apply(extract_gene_id)
 
