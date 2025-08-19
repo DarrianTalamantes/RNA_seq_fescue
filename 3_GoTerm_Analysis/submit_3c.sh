@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH -J 3b
+#SBATCH -J 3c
 #SBATCH -p batch	
 #SBATCH --ntasks=8
 #SBATCH --mem=32GB
 #SBATCH -t 150:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/3b.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/3b.%j.err
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/3c.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/3c.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
@@ -16,7 +16,7 @@ echo "Done."
 sacct -j $SLURM_JOB_ID --format=JobID,JobName,AllocCPUS,Elapsed,ExitCode,State,MaxRSS,TotalCPU
 
 ml Biopython/1.84-foss-2024a
-module load SciPy-bundle/2024.05-gfbf-2024a
+ml SciPy-bundle/2024.05-gfbf-2024a
 
 source activate GoTerm_Analysis
 

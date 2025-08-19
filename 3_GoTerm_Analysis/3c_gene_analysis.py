@@ -30,7 +30,7 @@ def norm(s):
     return s.strip()
 
 # --- 1) Load gene IDs ---
-with open("/home/darrian/Documents/RNA_seq_fescue/Gene_lists/shared_genes_heat_heatxpercipitation.txt") as f:
+with open(gene_list) as f:
     gene_ids = set(line.strip() for line in f if line.strip())
 
 print(f"Loaded {len(gene_ids)} gene IDs")
