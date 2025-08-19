@@ -3,7 +3,8 @@
 # Remember Scallop2 creates the transcriptome with the gene.XX.XX.XX names
 
 # Reflection on completion:  In the results.txt files that mattered. There are nothing that appears in BLAST.
-# Control_Down_results.txt had no hits in BLAST.
+# Control_Down_results.txt had no hits in BLAST. arabatobsis
+# CTE31_Down_results.txt checked the first 6 and they had no match in arabatobsis
 
 
 import pandas as pd                   # this must be installed with ml not conda now

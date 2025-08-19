@@ -183,7 +183,7 @@ upsetter(all_counts$final_Treats_Up_Down, "E+ and E- DEGs by Treatment")
 
 p1 <- upsetter(all_counts$total_degs_genos, "E+ and E- DEGs by Genotype")
 p2 <- upsetter(all_counts$total_degs_treatments, "E+ and E- DEGs by Treatment")
-plot_grid(p1, p2, labels = c("A", "B"), ncol = 1, align = "v")
+plot_grid(p2, p1, labels = c("A", "B"), ncol = 1, align = "v")
 
 binary_data(all_counts$final_CTE_Up_Down)
 
@@ -191,6 +191,20 @@ binary_data(all_counts$final_CTE_Up_Down)
 write.csv(all_counts$final_CTE_Up_Down,paste0(data_folder, "/Genotypes_Up_Down_reg.csv"), row.names = TRUE)
 write.csv(all_counts$final_Treats_Up_Down,paste0(data_folder, "/Treatments_Up_Down_reg.csv"), row.names = TRUE)
 
+
+################################################################################
+# FInding all genes in upset plot
+################################################################################
+
+heat.heatxpercipitation <- all_counts$total_degs_treatments %>%
+  filter(Heat >= 1 & HeatxPercipitation >= 1 & Control == 0)
+nrow(heat.heatxpercipitation)
+genes.shared.heat.heatxp <- row.names(heat.heatxpercipitation)
+genes_df <- data.frame(gene_id = genes.shared.heat.heatxp)
+write.table(genes_df, "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/shared_genes_heat_heatxpercipitation.txt",             
+          row.names = FALSE, 
+          col.names = FALSE, 
+          quote = FALSE)
 
 ################################################################################
 # Creating Heatmaps

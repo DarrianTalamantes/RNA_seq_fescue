@@ -55,7 +55,7 @@ IDs <- IDs[-1, ]
 
 metadata <- data.frame(SampleName = IDs) %>%
   mutate(
-    Clone = str_extract(SampleName, "CTE\\d+"),
+    Genotype = str_extract(SampleName, "CTE\\d+"),
     Endophyte = str_extract(SampleName, "CTE\\d+(N|P)"),
     Endophyte = str_sub(Endophyte, -1),
     
@@ -106,7 +106,7 @@ nrow(metadata)
 #Makes DeSeq data set
 dds <- DESeqDataSetFromMatrix(countData = Featurecount,
                               colData = metadata,
-                              design= ~ Clone + HarvestTime + Endophyte + Treatment)
+                              design= ~ Genotype + HarvestTime + Endophyte + Treatment)
 
 #Run DeSeq function, 
 dds_og <- DESeq(dds)
@@ -148,7 +148,7 @@ top_genes <- names(sort(gene_vars, decreasing = TRUE))[1:50]
 vsd_sub <- vsd_mat[top_genes, ]
 
 # 4. Create annotation for columns
-ann_col <- data.frame(Clone = metadata$Clone)
+ann_col <- data.frame(Genotype = metadata$Genotype)
 rownames(ann_col) <- metadata$SampleName
 
 # 5. Plot with pheatmap
@@ -199,7 +199,7 @@ pheatmap(vsd_sub,
 
 
 # Basic PCA Plots
-geno <- plotPCA(vsd, intgroup = "Clone")
+geno <- plotPCA(vsd, intgroup = "Genotype")
 HT <- plotPCA(vsd, intgroup = "HarvestTime")
 treatment <- plotPCA(vsd, intgroup = "Treatment")
 Endo <- plotPCA(vsd, intgroup = "Endophyte")
@@ -214,9 +214,9 @@ grid.arrange(pca1, pca2, pca3, pca4, ncol = 2)
 # Finding the variance of all varaibles 
 
 meta <- as.data.frame(colData(dds))
-form <- ~ (1|Clone) + (1|Treatment) + (1|HarvestTime) + (1|Endophyte) 
+form <- ~ (1|Genotype) + (1|Treatment) + (1|HarvestTime) + (1|Endophyte) 
 varPart <- fitExtractVarPartModel(vsd_mat, form, meta)
-varPart_reordered <- varPart[, c("Clone", "HarvestTime", "Treatment", "Endophyte", "Residuals")]
+varPart_reordered <- varPart[, c("Genotype", "HarvestTime", "Treatment", "Endophyte", "Residuals")]
 
 p <- plotVarPart(varPart_reordered)
 avg_var_explained <- colMeans(varPart_reordered)
@@ -232,10 +232,10 @@ p +
 
 
 vsd_june <- vsd[, vsd$HarvestTime == "June_2016"]
-vsd_june_CTE31 <- vsd_june[, vsd_june$Clone == "CTE31"]
-vsd_june_CTE45 <- vsd_june[, vsd_june$Clone == "CTE45"]
-vsd_june_CTE25 <- vsd_june[, vsd_june$Clone == "CTE25"]
-vsd_june_CTE46 <- vsd_june[, vsd_june$Clone == "CTE46"]
+vsd_june_CTE31 <- vsd_june[, vsd_june$Genotype == "CTE31"]
+vsd_june_CTE45 <- vsd_june[, vsd_june$Genotype == "CTE45"]
+vsd_june_CTE25 <- vsd_june[, vsd_june$Genotype == "CTE25"]
+vsd_june_CTE46 <- vsd_june[, vsd_june$Genotype == "CTE46"]
 
 
 junep1 <- plotPCA(vsd_june_CTE25, intgroup = "Treatment")
