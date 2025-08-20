@@ -305,3 +305,147 @@ pheatmap(gene_count_DEGs_genoorder_mat,
          cluster_cols = FALSE,
          main = "Heatmap of DEG Count Within Same Genotype and Treatment (Genotype Order)",
          color = colorRampPalette(c("navy", "white", "firebrick3"))(50))
+
+
+
+################################################################################
+# Heat map of Raw expression data
+################################################################################
+
+# Step 1 create lists of up/down regulated gene names and their expression data
+# List to store both labels and expression
+expr_list <- list()
+label_results <- list()
+
+for (key in names(results_list_CloneXHTxTreat)) {
+  dds <- results_list_CloneXHTxTreat[[key]]
+  
+  tryCatch({
+    res <- results(dds, contrast = c("Endophyte", "Positive", "Negative"))
+    res_df <- as.data.frame(res)
+    res_df$Gene <- rownames(res_df)
+    
+    # Label genes
+    res_df$Label <- "FALSE"
+    res_df$Label[res_df$padj < 0.05 & res_df$log2FoldChange >= 1.5] <- "Upregulated"
+    res_df$Label[res_df$padj < 0.05 & res_df$log2FoldChange <= -1.5] <- "Downregulated"
+    
+    # Keep only up/downregulated genes
+    degs <- res_df$Gene[res_df$Label %in% c("Upregulated", "Downregulated")]
+    
+    # Store the normalized counts for these genes
+    norm_counts <- assay(vst(dds))   # or rlog(dds) if you prefer
+    expr_list[[key]] <- norm_counts[degs, , drop=FALSE]  # rows=genes, cols=samples
+    
+    # Store labels
+    label_results[[key]] <- setNames(res_df$Label[res_df$Gene %in% degs], degs)
+    
+  }, error = function(e) {
+    message("Error processing ", key, ": ", e$message)
+  })
+}
+
+# Step 2 : Get all unique DE genes across all datasets
+all_de_genes <- unique(unlist(lapply(label_results, names)))
+
+
+# Step 3: convert each dataset into long format with sample info
+expr_list <- lapply(expr_list, function(x) {
+  if (!is.data.frame(x)) as.data.frame(x) else x
+})
+
+long_list <- lapply(names(expr_list), function(dataset) {
+  df <- expr_list[[dataset]]
+  df$Gene <- rownames(df)   # keep gene ID
+  df_long <- df %>%
+    pivot_longer(
+      cols = -Gene,
+      names_to = "Sample",
+      values_to = "Expression"
+    ) %>%
+    mutate(Dataset = dataset)  # keep track of dataset
+  df_long
+})
+
+# Step 4: combine all datasets into one big long data frame
+big_df <- bind_rows(long_list)
+
+# Step 5: optionally filter to DE genes only
+big_df <- big_df %>% filter(Gene %in% all_de_genes)
+
+big_df_filtered <- big_df %>% 
+  filter(Gene %in% all_de_genes)
+
+head(big_df_filtered)
+
+# Step 6: Heatmap creation
+heatmap_matrix <- big_df_filtered %>%
+  select(Sample, Gene, Expression) %>%
+  pivot_wider(names_from = Gene, values_from = Expression, values_fill = 0) %>%
+  as.data.frame()
+
+# Keep Sample names as rownames
+rownames(heatmap_matrix) <- heatmap_matrix$Sample
+heatmap_matrix$Sample <- NULL
+
+# Create row annotation with Genotype
+sample_annotation <- big_df_filtered %>%
+  select(Sample, Dataset) %>%
+  distinct() %>%
+  mutate(Genotype = sub("_.*", "", Dataset)) %>%  # Extract text before first "_"
+  column_to_rownames("Sample")
+
+# Define colors for Genotypes
+genotypes <- unique(sample_annotation$Genotype)
+genotype_colors <- setNames(RColorBrewer::brewer.pal(min(length(genotypes), 12), "Set3"),
+                            genotypes)
+ann_colors <- list(Genotype = genotype_colors)
+
+# Plot heatmap
+# Create row annotation with Genotype
+sample_annotation <- big_df_filtered %>%
+  select(Sample, Dataset) %>%
+  distinct() %>%
+  mutate(Genotype = sub("_.*", "", Dataset)) %>%  # Extract text before first "_"
+  column_to_rownames("Sample")
+
+# Define colors for Genotypes
+genotypes <- unique(sample_annotation$Genotype)
+genotype_colors <- setNames(RColorBrewer::brewer.pal(min(length(genotypes), 12), "Set3"),
+                            genotypes)
+ann_colors <- list(Genotype = genotype_colors)
+
+# Plot
+p <- pheatmap(
+  heatmap_matrix,
+  scale = "row",
+  annotation_row = sample_annotation["Genotype"],
+  annotation_colors = ann_colors,
+  clustering_method = "complete",
+  show_rownames = FALSE,
+  show_colnames = FALSE,
+  annotation_names_row = FALSE
+)
+
+# Wrap heatmap in gtable
+heatmap_grob <- p$gtable
+
+# Create text grobs
+y_label <- textGrob("Samples", rot=90, gp=gpar(fontsize=14))
+x_label <- textGrob("Genes", gp=gpar(fontsize=14))
+
+# Arrange using layout_matrix
+layout_mat <- rbind(
+  c(NA, 1),  # Top row: NA on left, X label on right
+  c(2, 3)    # Bottom row: Y label on left, heatmap on right
+)
+
+grid.arrange(
+  x_label,    # index 1 in layout
+  y_label,    # index 2
+  heatmap_grob, # index 3
+  layout_matrix = layout_mat,
+  widths = c(1, 8), heights = c(1, 8)
+)
+
+

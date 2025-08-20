@@ -1,0 +1,373 @@
+
+================================================================================
+Top hit for gene.4935.3861.0
+================================================================================
+gene.4935.3861.0	gi|2922513494|ref|XM_071824699.1|	99.559	227	4.78e-110	414	PREDICTED: Lolium perenne F-box/kelch-repeat protein At2g43270 (LOC127311796), transcript variant X1, mRNA
+
+================================================================================
+Top hit for gene.8955.1759.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.1799.391.0
+================================================================================
+gene.1799.391.0	gi|2922456269|ref|XM_071827229.1|	92.704	2700	0.0	3877	PREDICTED: Lolium perenne uncharacterized protein (LOC139837911), mRNA
+gene.1799.391.0	gi|2922456269|ref|XM_071827229.1|	91.542	1005	0.0	1369	PREDICTED: Lolium perenne uncharacterized protein (LOC139837911), mRNA
+gene.1799.391.0	gi|2922456269|ref|XM_071827229.1|	92.919	579	0.0	835	PREDICTED: Lolium perenne uncharacterized protein (LOC139837911), mRNA
+
+================================================================================
+Top hit for gene.3099.6129.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.12151.3667.0
+================================================================================
+gene.12151.3667.0	gi|2212569788|ref|XM_047211925.1|	93.543	604	0.0	893	PREDICTED: Lolium rigidum uncharacterized LOC124675855 (LOC124675855), mRNA
+
+================================================================================
+Top hit for gene.12195.6415.0
+================================================================================
+gene.12195.6415.0	gi|2922445202|ref|XM_051358217.2|	93.562	963	0.0	1419	PREDICTED: Lolium perenne dirigent protein 5 (LOC127331974), mRNA
+
+================================================================================
+Top hit for gene.13119.819.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.13903.498.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.14587.200.0
+================================================================================
+gene.14587.200.0	gi|359301480|gb|JN969602.1|	94.643	224	1.20e-89	346	Lolium perenne retrotransposon Camilla_74D14_1, partial sequence; VRN1 (Lp_74D14_1) and unknown (Lp_74D14_2) genes, complete cds; and retrotransposons Camilla_74D14_2 and Camilla_74D14_3, complete sequence
+gene.14587.200.0	gi|359301480|gb|JN969602.1|	95.023	221	1.20e-89	346	Lolium perenne retrotransposon Camilla_74D14_1, partial sequence; VRN1 (Lp_74D14_1) and unknown (Lp_74D14_2) genes, complete cds; and retrotransposons Camilla_74D14_2 and Camilla_74D14_3, complete sequence
+
+================================================================================
+Top hit for gene.14703.4601.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.16059.2193.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.18343.3927.0
+================================================================================
+gene.18343.3927.0	gi|2922434771|ref|XR_007849222.2|	98.087	941	0.0	1639	PREDICTED: Lolium perenne uncharacterized lncRNA (LOC127297530), ncRNA
+
+================================================================================
+Top hit for gene.11491.2147.0
+================================================================================
+gene.11491.2147.0	gi|2922451273|ref|XM_051363210.2|	87.562	201	7.12e-54	228	PREDICTED: Lolium perenne uncharacterized protein (LOC127336400), mRNA
+
+================================================================================
+Top hit for gene.11491.2159.0
+================================================================================
+gene.11491.2159.0	gi|2922451273|ref|XM_051363210.2|	88.557	201	3.28e-57	239	PREDICTED: Lolium perenne uncharacterized protein (LOC127336400), mRNA
+
+================================================================================
+Top hit for gene.24571.1094.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.25695.760.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.26187.2284.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.26295.291.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.26691.1312.0
+================================================================================
+gene.26691.1312.0	gi|2212456235|ref|XR_006997157.1|	77.610	996	7.87e-147	536	PREDICTED: Lolium rigidum uncharacterized LOC124684776 (LOC124684776), transcript variant X5, ncRNA
+
+================================================================================
+Top hit for gene.26983.1649.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.30439.2217.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.22579.2151.0
+================================================================================
+gene.22579.2151.0	gi|2922462950|ref|XM_051369445.2|	95.957	2968	0.0	4811	PREDICTED: Lolium perenne uncharacterized protein (LOC127343330), mRNA
+
+================================================================================
+Top hit for gene.23335.2952.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.34235.4975.0
+================================================================================
+gene.34235.4975.0	gi|2922467551|ref|XM_051351762.2|	94.812	1889	0.0	2942	PREDICTED: Lolium perenne uncharacterized protein (LOC127323650), mRNA
+
+================================================================================
+Top hit for gene.38395.4596.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.31083.3383.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.43299.887.0
+================================================================================
+gene.43299.887.0	gi|2922430853|ref|XR_011750627.1|	89.508	3050	0.0	3777	PREDICTED: Lolium perenne uncharacterized lncRNA (LOC127321352), ncRNA
+gene.43299.887.0	gi|2922430853|ref|XR_011750627.1|	85.780	218	4.44e-51	220	PREDICTED: Lolium perenne uncharacterized lncRNA (LOC127321352), ncRNA
+
+================================================================================
+Top hit for gene.43931.411.0
+================================================================================
+gene.43931.411.0	gi|2922451273|ref|XM_051363210.2|	88.557	201	1.21e-56	239	PREDICTED: Lolium perenne uncharacterized protein (LOC127336400), mRNA
+
+================================================================================
+Top hit for gene.56447.1766.0
+================================================================================
+
+
+================================================================================
+Top hit for gene.58351.1715.0
+================================================================================
+gene.58351.1715.0	gi|2922480395|ref|XR_011744183.1|	92.941	85	6.07e-22	121	PREDICTED: Lolium perenne uncharacterized lncRNA (LOC127297650), ncRNA
+
+================================================================================
+Top hit for gene.53699.75.0
+================================================================================
+gene.53699.75.0	gi|2922513494|ref|XM_071824699.1|	98.678	227	1.11e-106	403	PREDICTED: Lolium perenne F-box/kelch-repeat protein At2g43270 (LOC127311796), transcript variant X1, mRNA
+
+================================================================================
+Top hit for gene.62015.311.0
+================================================================================
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	85.113	618	3.07e-173	625	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	80.193	621	5.52e-121	451	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	78.710	620	7.35e-100	381	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	78.387	620	1.59e-96	370	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	77.929	367	3.67e-48	209	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	76.650	394	1.03e-43	195	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	77.384	367	1.33e-42	191	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	77.027	370	4.78e-42	189	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	77.095	358	6.18e-41	185	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	77.159	359	2.22e-40	183	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	76.142	394	2.22e-40	183	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	76.374	364	1.34e-37	174	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	76.257	358	6.23e-36	169	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	76.765	340	2.24e-35	167	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.881	369	8.05e-35	165	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.749	367	1.04e-33	161	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.683	366	3.75e-33	159	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.691	362	1.35e-32	158	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.623	361	4.85e-32	156	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.623	361	4.85e-32	156	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.419	358	1.74e-31	154	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.556	360	1.74e-31	154	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.793	347	6.27e-31	152	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.068	365	6.27e-31	152	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.793	347	2.25e-30	150	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.346	361	2.25e-30	150	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.204	367	2.25e-30	150	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	74.619	394	2.25e-30	150	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.272	368	8.11e-30	148	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.346	361	2.92e-29	147	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	74.932	367	1.05e-28	145	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.000	368	1.05e-28	145	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	74.932	367	1.05e-28	145	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.000	368	1.05e-28	145	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.069	361	1.05e-28	145	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.138	362	3.77e-28	143	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	74.792	361	3.77e-28	143	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.294	340	3.77e-28	143	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	74.792	361	4.88e-27	139	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	74.656	363	6.31e-26	135	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	75.000	228	3.85e-13	93.5	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	86.486	74	3.00e-09	80.5	Avena sativa genome assembly, chromosome: 22
+gene.62015.311.0	gi|2187126051|emb|OV702300.1|	87.692	65	1.40e-07	75.0	Avena sativa genome assembly, chromosome: 22
+
+================================================================================
+Top hit for gene.63019.1618.0
+================================================================================
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.216	3613	0.0	3838	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.330	3526	0.0	3795	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.181	3307	0.0	3526	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.016	3311	0.0	3511	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.987	3304	0.0	3493	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.921	3324	0.0	3470	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.701	3322	0.0	3432	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.628	3326	0.0	3432	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.269	2977	0.0	3367	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.584	2974	0.0	3234	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.893	2701	0.0	3147	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.472	2690	0.0	3057	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.417	2592	0.0	2651	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.151	2390	0.0	2543	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.911	2399	0.0	2519	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.966	2501	0.0	2492	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.666	2379	0.0	2464	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.548	2401	0.0	2449	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.380	2188	0.0	2355	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.780	2187	0.0	2279	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.781	1808	0.0	1995	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.059	1961	0.0	1960	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.829	1863	0.0	1953	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.655	1776	0.0	1945	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.683	1809	0.0	1864	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.216	1945	0.0	1858	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.019	1849	0.0	1857	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.618	1780	0.0	1825	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	88.850	1426	0.0	1744	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.432	1472	0.0	1674	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.959	1480	0.0	1642	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.744	1471	0.0	1611	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.289	1424	0.0	1598	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.009	1581	0.0	1583	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.952	1575	0.0	1574	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.250	1619	0.0	1546	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.831	1468	0.0	1539	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.057	1612	0.0	1520	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.207	1494	0.0	1509	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.605	1481	0.0	1441	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	88.927	1174	0.0	1441	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.150	1343	0.0	1424	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.216	1567	0.0	1387	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.481	1350	0.0	1378	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.384	1181	0.0	1347	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.807	1553	0.0	1338	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.456	1140	0.0	1308	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.251	1106	0.0	1253	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.643	1108	0.0	1212	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.702	1140	0.0	1175	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.302	1143	0.0	1151	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.271	1127	0.0	1140	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.356	978	0.0	942	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.738	947	0.0	876	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	79.173	1330	0.0	874	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.074	963	0.0	867	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.298	934	0.0	846	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.138	854	0.0	763	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.878	841	0.0	743	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.581	626	0.0	684	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.737	782	0.0	678	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	77.537	1153	0.0	669	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	80.347	921	0.0	669	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.461	764	1.59e-180	654	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	88.051	544	3.45e-177	643	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	76.936	1175	1.62e-170	621	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.968	632	3.50e-167	610	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	75.896	1228	9.86e-158	579	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	76.150	1174	5.93e-155	569	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.165	546	2.16e-144	534	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	77.198	978	2.80e-143	531	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	78.860	842	1.30e-141	525	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.282	496	1.31e-136	508	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	76.766	977	4.72e-136	507	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	81.308	642	2.84e-133	497	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.444	495	6.15e-130	486	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	89.323	384	2.86e-128	481	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	80.542	627	8.01e-124	466	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.902	457	4.82e-121	457	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	88.021	384	6.24e-120	453	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	90.029	341	4.85e-116	440	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.828	435	8.12e-114	433	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.190	464	8.18e-109	416	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.011	465	8.18e-109	416	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.991	431	4.92e-106	407	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	78.012	664	1.38e-101	392	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.609	437	2.98e-98	381	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.453	417	3.86e-97	377	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.273	440	2.32e-94	368	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.232	439	2.32e-94	368	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	89.347	291	1.81e-90	355	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.246	382	1.09e-87	346	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.821	336	3.05e-83	331	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.894	331	1.42e-81	326	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.174	317	6.60e-80	320	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.234	334	2.39e-74	302	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.452	263	2.39e-74	302	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.500	360	3.09e-73	298	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.254	355	3.09e-73	298	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.667	270	1.11e-72	296	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.106	282	6.69e-70	287	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.560	277	8.66e-69	283	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	88.235	238	3.11e-68	281	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.932	263	1.12e-67	279	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.698	281	5.21e-66	274	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.130	269	6.74e-65	270	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.283	265	2.42e-64	268	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.234	235	8.72e-64	267	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.944	249	3.14e-63	265	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.451	284	1.46e-61	259	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.809	235	1.46e-61	259	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	80.286	350	5.25e-61	257	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.979	282	6.79e-60	254	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.957	235	8.78e-59	250	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.017	236	8.78e-59	250	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.654	237	1.14e-57	246	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.356	239	4.09e-57	244	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.477	241	4.09e-57	244	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.734	278	1.47e-56	243	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.064	251	1.90e-55	239	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.916	214	1.90e-55	239	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.232	237	1.90e-55	239	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.232	237	1.90e-55	239	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.255	235	1.48e-51	226	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.034	238	1.48e-51	226	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.388	219	1.91e-50	222	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.682	239	6.88e-50	220	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.163	221	1.15e-47	213	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	84.475	219	1.15e-47	213	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	88.636	176	4.14e-47	211	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	88.068	176	1.93e-45	206	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	88.757	169	1.93e-45	206	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.572	201	6.93e-45	204	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.861	173	8.97e-44	200	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.500	176	8.97e-44	200	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.719	171	1.16e-42	196	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	76.341	410	1.50e-41	193	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	86.034	179	5.40e-41	191	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	74.265	544	1.94e-40	189	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.240	179	1.18e-32	163	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	90.909	110	3.29e-28	148	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	81.928	166	1.98e-25	139	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	89.815	108	1.98e-25	139	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	80.645	186	7.13e-25	137	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	88.889	108	3.32e-23	132	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	79.787	188	3.32e-23	132	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	76.639	244	1.19e-22	130	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.099	142	1.54e-21	126	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	79.188	197	2.00e-20	122	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	83.471	121	4.32e-17	111	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	82.500	120	2.01e-15	106	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	81.667	120	9.36e-14	100	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	77.041	196	3.37e-13	99.0	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	76.500	200	1.21e-12	97.1	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	87.838	74	7.29e-10	87.9	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	75.500	200	9.42e-09	84.2	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	90.164	61	4.38e-07	78.7	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+gene.63019.1618.0	gi|2687147308|gb|CP145507.1|	85.526	76	1.58e-06	76.8	Brachypodium hybridum ecotype IBd483 chromosome BhS5 sequence
+
+================================================================================
+Top hit for gene.70267.209.0
+================================================================================
+

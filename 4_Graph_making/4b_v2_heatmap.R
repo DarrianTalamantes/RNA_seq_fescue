@@ -1,6 +1,7 @@
 # Purpose: This script will partition the data into groups that differ only by Endophyte
 # and harvest time. These groups are the same in genotype and treatment. I then run
 # a contrast via endophyte + and -. I then make a heatmap from the result.
+# This scirpt was dumb and is now DEPRICATED
 
 # Load Libraries
 

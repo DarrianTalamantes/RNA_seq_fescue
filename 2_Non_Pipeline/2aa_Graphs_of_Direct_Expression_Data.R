@@ -22,6 +22,8 @@ library(variancePartition)
 library(BiocGenerics) 
 library(lme4)        
 library(gridExtra)
+library(patchwork)
+library(cowplot)
 
 
 
@@ -204,7 +206,7 @@ HT <- plotPCA(vsd, intgroup = "HarvestTime")
 treatment <- plotPCA(vsd, intgroup = "Treatment")
 Endo <- plotPCA(vsd, intgroup = "Endophyte")
 
-pca1 <- geno + labs(color = "Genotype") + theme_bw()
+pca1 <- geno + labs(color = "Genotype") + theme_bw() 
 pca2 <- HT + labs(color = "Harvest Time") + theme_bw()
 pca3 <- treatment + labs(color = "Treatment") + theme_bw()
 pca4 <- Endo + labs(color = "Endophyte Status") + theme_bw()
@@ -242,7 +244,7 @@ junep1 <- plotPCA(vsd_june_CTE25, intgroup = "Treatment")
 junep1_1 <- junep1 + labs(color = "Treatment") + theme_bw() + ggtitle("CTE25") +   theme(plot.title = element_text(hjust = 0.5))
 
 junep2 <- plotPCA(vsd_june_CTE31, intgroup = "Treatment")
-junep2_1 <- junep2 + labs(color = "Treatment") + theme_bw() + ggtitle("CTE31") +   theme(plot.title = element_text(hjust = 0.5))
+junep2_1 <- junep2 + labs(color = "Treatment") + theme_bw() + ggtitle("CTE31") +   xlim(-60, 60) + theme(plot.title = element_text(hjust = 0.5))
 
 junep3 <- plotPCA(vsd_june_CTE45, intgroup = "Treatment")
 junep3_1 <- junep3 + labs(color = "Treatment") + theme_bw() + ggtitle("CTE45") +   theme(plot.title = element_text(hjust = 0.5))
@@ -256,6 +258,24 @@ junep3_1
 junep4_1
 
 
-small_stack <- grid.arrange(junep1_1, junep2_1, junep3_1, junep4_1, ncol = 2)
-small_stack
-grid.arrange(pca1, small_stack, nrow = 2, heights = c(1, 1.5))
+# Combine 2x2 grid with shared legend
+p_all <- (junep1_1 | junep2_1) / (junep3_1 | junep4_1)
+
+# Collect legends into one
+p_all2 <- p_all + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+
+
+# Moving pca1 legend to bottom 
+
+pca1a <- geno + labs(color = "Genotype") + theme_bw() + theme(legend.position = "bottom") + ggtitle("Genotype") + theme(plot.title = element_text(hjust = 0.5))
+
+# Combining the plots together Genotype and the seperate genotypes.
+final_plot <- pca1a | p_all2
+
+final_plot<- final_plot + plot_annotation(tag_levels = "A") & 
+  theme(plot.tag = element_text(face = "bold", size = 14))
+
+final_plot
+
+
+
