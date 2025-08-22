@@ -118,6 +118,7 @@ dds <- dds_og
 # filter for genes that have 10 occurrences in 1/4 the samples
 keep <- rowSums(counts(dds) >= 5) >= (ncol(dds) / 4)
 dds <- dds[keep, ]
+saveRDS(dds_og, file = "/home/darrian/Documents/RNA_seq_fescue/r_data/dds.rds")
 
 ####################################
 # Function to get results.

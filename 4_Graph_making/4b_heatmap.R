@@ -309,7 +309,7 @@ pheatmap(gene_count_DEGs_genoorder_mat,
 
 
 ################################################################################
-# Heat map of Raw expression data
+# Heat map of variance stablaized count data, only DEGs in certain groups
 ################################################################################
 
 # Step 1 create lists of up/down regulated gene names and their expression data
@@ -370,18 +370,17 @@ long_list <- lapply(names(expr_list), function(dataset) {
 # Step 4: combine all datasets into one big long data frame
 big_df <- bind_rows(long_list)
 
-# Step 5: optionally filter to DE genes only
-big_df <- big_df %>% filter(Gene %in% all_de_genes)
-
+# Step 5:  filter to DE genes only
 big_df_filtered <- big_df %>% 
   filter(Gene %in% all_de_genes)
 
 head(big_df_filtered)
 
+
 # Step 6: Heatmap creation
 heatmap_matrix <- big_df_filtered %>%
   select(Sample, Gene, Expression) %>%
-  pivot_wider(names_from = Gene, values_from = Expression, values_fill = 0) %>%
+  pivot_wider(names_from = Gene, values_from = Expression) %>%
   as.data.frame()
 
 # Keep Sample names as rownames
@@ -418,7 +417,6 @@ ann_colors <- list(Genotype = genotype_colors)
 # Plot
 p <- pheatmap(
   heatmap_matrix,
-  scale = "row",
   annotation_row = sample_annotation["Genotype"],
   annotation_colors = ann_colors,
   clustering_method = "complete",
@@ -447,5 +445,48 @@ grid.arrange(
   layout_matrix = layout_mat,
   widths = c(1, 8), heights = c(1, 8)
 )
+
+
+
+
+#################################################################################
+# Heat map by 48 groups
+################################################################################
+
+
+# RUn other heat map up till step 4
+
+# Step 5 (Making dataset thats means of 48 groups)
+grouped_fourtyeight <- big_df_filtered %>%
+  group_by(Gene, Dataset) %>%
+  summarise(mean_expression = mean(Expression, na.rm = TRUE)) %>%
+  ungroup()
+
+
+# Step 6: pivot to wide format
+wide_df <- grouped_fourtyeight %>%
+  pivot_wider(names_from = Dataset, values_from = mean_expression, values_fill = list(mean_expression = 0))
+
+# Step 7:  turn into a matrix 
+mat <- as.data.frame(wide_df)
+rownames(mat) <- mat$Gene
+mat <- mat[ , -1]   
+
+# make heatmap
+pheatmap(mat,
+         clustering_distance_rows = "euclidean",
+         clustering_distance_cols = "euclidean",
+         clustering_method = "complete",
+         show_rownames = FALSE, # hide row labels if too many genes
+         fontsize_col = 10,)
+
+################################################################################
+# Saving data for later use
+################################################################################
+
+saveRDS(all_de_genes, file = "/home/darrian/Documents/RNA_seq_fescue/r_data/all_de_genes.rds")
+write.table(metadata, file = "/home/darrian/Documents/RNA_seq_fescue/r_data/metadata_match_to_FeatureCounts.txt")
+saveRDS(label_results, file = "/home/darrian/Documents/RNA_seq_fescue/r_data/label_results")
+
 
 
