@@ -99,7 +99,7 @@ metadata <- subset(metadata, select = -c(HarvestCode))
 
 
 Featurecount <- Featurecount[, colnames(Featurecount) %in% metadata$SampleName]
-
+write.table(metadata,"/home/darrian/Documents/RNA_seq_fescue/r_data/metadata_match_to_FeatureCounts.txt" )
 ncol(Featurecount)
 nrow(metadata)
 ###############################

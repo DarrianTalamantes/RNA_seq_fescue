@@ -32,6 +32,8 @@ meta_data <- read.table(metadata_loc)
 
 
 # Loading in Feature Counts
+data_folder <- "/home/darrian/Documents/RNA_seq_fescue/r_data"
+Featurecount_loc <- paste0(data_folder, "/feature_counts_name_fixed.txt")
 Featurecount <- read.table(Featurecount_loc, header = TRUE)
 Featurecount <- Featurecount[, colnames(Featurecount) %in% meta_data$SampleName]
 
@@ -61,7 +63,7 @@ mat <- mat[rownames(mat) %in% all_de_genes, ]
 # mat <- mat_subset
 
 # 3: Ordering the data
-metadata_ordered <- meta[match(colnames(mat), meta$SampleName), ]
+metadata_ordered <- meta_data[match(colnames(mat), meta_data$SampleName), ]
 if(any(is.na(metadata_ordered$SampleName))){
   stop("Some samples in the matrix do not have matching metadata!")
 }
@@ -122,7 +124,7 @@ heat <- grid.arrange(
 )
 
 
-ggsave(heat,file ="4d_Normalized_count_heatmap.png", width = 10, height = 10, dpi = 300 )
+# ggsave(heat,file ="4d_Normalized_count_heatmap.png", width = 10, height = 10, dpi = 300 )
 
 
 
@@ -219,7 +221,7 @@ heat2 <- grid.arrange(
 )
 
 
-ggsave(heat2,file ="4d_Normalized_count_heatmap_2.png", width = 10, height = 10, dpi = 300 )
+# ggsave(heat2,file ="4d_Normalized_count_heatmap_2.png", width = 10, height = 10, dpi = 300 )
 
 
 
