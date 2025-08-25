@@ -20,6 +20,7 @@ library(tidyverse)
 library(grid)
 library(data.table)
 library(pheatmap)
+library(gridExtra)
 
 
 ################################################################################
@@ -222,6 +223,15 @@ heat2 <- grid.arrange(
 
 
 # ggsave(heat2,file ="4d_Normalized_count_heatmap_2.png", width = 10, height = 10, dpi = 300 )
+
+### Getting DEG count per group
+
+# Convert to binary: anything >0 becomes 1
+mat_binary <- (mat_filtered > 0) * 1  
+col_sums <- colSums(mat_binary)
+
+col_sums
+mean(col_sums)
 
 
 
