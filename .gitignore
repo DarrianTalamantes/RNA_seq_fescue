@@ -7,3 +7,7 @@ features/
 r_data/
 tempdata/
 Goatools_data/
+Gene_lists/*.fa
+
+
+
