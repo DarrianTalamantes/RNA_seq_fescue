@@ -17,5 +17,6 @@ genome_dir=/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Tall_fescue/
 /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Tall_fescue/tall_fescue_pv1.1.fasta
 
 
-genome_dir $genome_dir/tall_fescue_pv1.1.fasta -o $genome_dir/quast_output
+quast.py $genome_dir/tall_fescue_pv1.1.fasta -o $genome_dir/quast_output
+
 
