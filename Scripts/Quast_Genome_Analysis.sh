@@ -3,7 +3,7 @@
 #SBATCH -p batch	
 #SBATCH --ntasks=8
 #SBATCH --mem=32GB
-#SBATCH -t 150:00:00
+#SBATCH -t 50:00:00
 #SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/QUAST.%j.out
 #SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/QUAST.%j.err
 #SBATCH --mail-type=FAIL,END
