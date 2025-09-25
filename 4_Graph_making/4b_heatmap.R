@@ -3,6 +3,8 @@
 # a contrast on those groups. When counting the DEGs this script uses two factors to group them
 # all DEG counts are grouped by genotype and Treatment.
 
+
+####### Nothing from this makes it into the paper ###########
 # Load Libraries
 
 # Install Bioconductor if not already installed
@@ -382,6 +384,7 @@ heatmap_matrix <- big_df_filtered %>%
   select(Sample, Gene, Expression) %>%
   pivot_wider(names_from = Gene, values_from = Expression) %>%
   as.data.frame()
+heatmap_matrix[is.na(heatmap_matrix)] <- 0
 
 # Keep Sample names as rownames
 rownames(heatmap_matrix) <- heatmap_matrix$Sample

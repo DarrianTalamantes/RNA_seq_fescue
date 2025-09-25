@@ -220,6 +220,7 @@ meta <- as.data.frame(colData(dds))
 form <- ~ (1|Genotype) + (1|Treatment) + (1|HarvestTime) + (1|Endophyte) 
 varPart <- fitExtractVarPartModel(vsd_mat, form, meta)
 varPart_reordered <- varPart[, c("Genotype", "HarvestTime", "Treatment", "Endophyte", "Residuals")]
+colnames(varPart_reordered) <- c("Genotype", "Harvest Time", "Treatment", "Endophyte", "Residuals")
 
 p <- plotVarPart(varPart_reordered)
 avg_var_explained <- colMeans(varPart_reordered)
@@ -277,6 +278,133 @@ final_plot<- final_plot + plot_annotation(tag_levels = "A") &
   theme(plot.tag = element_text(face = "bold", size = 14))
 
 final_plot
+
+################################################################################
+# Function that makes PCA's seperated by genotype for every time point
+################################################################################
+
+PCA_HarvestTime <- function(vsd, harvest_time){
+  # Subset by harvest time
+  meta <- colData(vsd)                       # get metadata
+  samples_to_keep <- rownames(meta)[meta$HarvestTime == harvest_time]
+  vsd_sub <- vsd[, samples_to_keep]          # subset by column names
+  meta_sub <- colData(vsd_sub)
+  
+  # List of genotypes you want
+  genotypes <- c("CTE25", "CTE31", "CTE45", "CTE46")
+  
+  # Function to plot PCA for a single genotype
+  plot_one <- function(geno) {
+    vsd_g <- vsd_sub[, meta_sub$Genotype == geno]  
+    
+    p <- plotPCA(vsd_g, intgroup = "Treatment") +
+      labs(color = "Treatment") +
+      theme_bw() +
+      ggtitle(geno) +
+      theme(plot.title = element_text(hjust = 0.5))
+    return(p)
+  }
+  
+  # Make plots for all selected genotypes
+  plots <- lapply(genotypes, plot_one)
+  p_all <- (plots[[1]] | plots[[2]]) / (plots[[3]] | plots[[4]])
+  
+  # Combine 2x2 grid
+  p_all <- p_all + 
+    plot_annotation(
+      title = harvest_time,
+      theme = theme(
+        plot.title = element_text(hjust = 0.5, size = 16, face = "bold")
+      )
+    )
+  return(p_all)
+}
+
+
+PCA_HarvestTime(vsd, "June_2017")
+PCA_HarvestTime(vsd, "June_2016")
+
+
+for (ht in unique(vsd$HarvestTime)) {
+  message("Processing: ", ht)
+  plot <- PCA_HarvestTime(vsd, ht)
+  ggsave(plot,file = paste0("2aa_PCA_", gsub("[^A-Za-z0-9]", "_", ht), ".png"), width = 10, height = 10, dpi = 300 )
+}
+
+
+
+###### Finding out Variance caused by treatment in Harvest time graphs  ########
+
+ht <- "June_2016"
+geno <- "CTE46"
+
+variance_finder <- function(ht, geno){
+  # Subset by harvest time
+  meta <- colData(vsd)
+  samples_ht <- rownames(meta)[meta$HarvestTime == ht]
+  vsd_sub <- vsd[, samples_ht]
+  meta_sub <- colData(vsd_sub)
+  
+  # Subset by genotype
+  samples_geno <- rownames(meta_sub)[meta_sub$Genotype == geno]
+  vsd_g <- vsd_sub[, samples_geno]
+  
+  # Extract PCA coordinates
+  pca_data <- plotPCA(vsd_g, intgroup = "Treatment", returnData = TRUE)
+  
+  # ANOVA for PC1
+  anova_PC1 <- aov(PC1 ~ Treatment, data = pca_data)
+  ss <- summary(anova_PC1)[[1]][, "Sum Sq"]
+  
+  # Fraction of variance in PC1 explained by Treatment
+  treatment_var_fraction <- ss[1] / sum(ss)
+  treatment_var_fraction
+  return(treatment_var_fraction)
+}
+
+# Prep for using the function in a loop
+genotypes <- c("CTE25", "CTE31", "CTE45", "CTE46")
+harvest_times <- unique(vsd$HarvestTime)
+results_df <- data.frame(
+  HarvestTime = character(),
+  Genotype = character(),
+  Treatment_PC1_fraction = numeric(),
+  stringsAsFactors = FALSE
+)
+
+
+for (harvest_time in harvest_times) {
+  for (geno in genotypes) {
+    num <- variance_finder(harvest_time, geno)
+    print(paste0(harvest_time, " ", geno, " PC1 percent is ", num))
+    # Append result to data frame
+    results_df <- results_df %>%
+      add_row(
+        HarvestTime = harvest_time,
+        Genotype = geno,
+        Treatment_PC1_fraction = num
+      )
+  }
+}
+results_df
+
+
+
+
+
+
+
+
+
+
+pca_data <- plotPCA(vsd_sub, intgroup = "Treatment", returnData = TRUE)
+head(pca_data)
+# Percentage of variance in PC1 explained by Treatment
+anova_PC1 <- aov(PC1 ~ Treatment, data = pca_data)
+summary(anova_PC1)
+ss <- summary(anova_PC1)[[1]][, "Sum Sq"]
+treatment_var_fraction <- ss[1] / sum(ss)
+treatment_var_fraction
 
 
 

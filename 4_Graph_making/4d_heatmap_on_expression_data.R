@@ -1,5 +1,6 @@
-# The point of this code is to create a heat map on the base expression data.
-# I will subset the data into only the DEGs found in the 48 groups that are only different by E+ and E-
+# The point of this code is to create a heat map on the base expression data not DEG counts.
+# The base data is from DESeq on everything. However I will subset the data into 
+# only the DEGs found in the 48 groups that are only different by E+ and E-
 # I will make Y labels that are sorted first by genotype, then harvest time, then treatment, then endophyte
 
 
@@ -43,7 +44,7 @@ nrow(meta_data)
 
 #Load in the list of DEGs
 all_de_genes <- readRDS("/home/darrian/Documents/RNA_seq_fescue/r_data/all_de_genes.rds")
-dds <- readRDS("/home/darrian/Documents/RNA_seq_fescue/r_data/dds.rds")
+dds <- readRDS("/home/darrian/Documents/RNA_seq_fescue/r_data/dds.rds") #from 2aa
 label_results <- readRDS("/home/darrian/Documents/RNA_seq_fescue/r_data/label_results")
 
 ################################################################################
@@ -185,7 +186,7 @@ breaks <- c(
 )
 
 # Generate the same number of colors - 1
-my_colors <- colorRampPalette(c("blue", "yellow", "orange", "red"))(length(breaks) - 1)
+my_colors <- colorRampPalette(c("beige", "yellow", "orange", "red"))(length(breaks) - 1)
 
 
 p <- pheatmap(
@@ -222,9 +223,10 @@ heat2 <- grid.arrange(
 )
 
 
+
 # ggsave(heat2,file ="4d_Normalized_count_heatmap_2.png", width = 10, height = 10, dpi = 300 )
 
-### Getting DEG count per group
+################### Getting DEG count per group ################################
 
 # Convert to binary: anything >0 becomes 1
 mat_binary <- (mat_filtered > 0) * 1  
