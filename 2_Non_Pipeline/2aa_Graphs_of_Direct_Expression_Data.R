@@ -388,7 +388,7 @@ for (harvest_time in harvest_times) {
 }
 results_df
 
-
+write.csv(results_df, file = paste0(data_folder, "/2aa_PC1_variance_of_subsetted_data_geno_harvesttime.csv"))
 
 
 

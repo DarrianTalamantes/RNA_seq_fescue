@@ -226,6 +226,10 @@ heat2 <- grid.arrange(
 
 # ggsave(heat2,file ="4d_Normalized_count_heatmap_2.png", width = 10, height = 10, dpi = 300 )
 
+# Counts of DEGs in each sample
+nonzero_counts <- colSums(mat_filtered != 0)
+nonzero_counts <- as.data.frame(nonzero_counts)
+
 ################### Getting DEG count per group ################################
 
 # Convert to binary: anything >0 becomes 1
