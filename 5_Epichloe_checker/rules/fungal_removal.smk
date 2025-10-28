@@ -12,11 +12,9 @@ rule filter_epichloe_out:
     threads: config["fungal_removal"]["threads"]
     shell:
         """
-        # Extract @RG lines and keep only those related to JAFEMN
-        samtools view -H {input.big_bam} | grep "^@RG" | grep "JAFEMN" | cut -f 2 | sed 's/ID://g' > keep_rg.txt
-
-        # Filter the BAM file to include only those read groups
-        samtools view --threads {threads} -b -h $(cat keep_rg.txt | xargs -I {{}} echo -r {{}}) {input.big_bam} > {output.filtered_bam}
+        samtools view -h {input.big_bam} | \
+            awk 'BEGIN{OFS="\t"} /^@/ {print; next} $3 ~ /JAFEMN/' | \
+            samtools view -b -@ {threads} -o {output.filtered_bam}
         """
 
 rule grepper_sep:
@@ -26,7 +24,7 @@ rule grepper_sep:
         "../../Conda_Envs/samtools.yaml"
     params:
         output_dir = config["directories"]["filtered_bams"]
-    threads: 8
+    threads: 4
     output:
         filtered_bams = config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam"
     log:

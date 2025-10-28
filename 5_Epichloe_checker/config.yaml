@@ -53,7 +53,7 @@ kraken:
   fungal: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/fungal
 
 fungal_removal:
-  threads: 8
+  threads: 16
 
 
 scallop:
