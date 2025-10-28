@@ -110,7 +110,7 @@ rule sort_bam_by_coord:
     output:
         bam_sorted = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam"
     conda:
-        "../Conda_Envs/samtools.yaml"
+        "../../Conda_Envs/samtools.yaml"
     params:
         backups = config["directories"]["bam_backup"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam"
     log:
@@ -128,7 +128,7 @@ rule index_bam:
     output:
         csi = config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered_sorted.out.bam.csi"
     conda:
-        "../Conda_Envs/samtools.yaml"
+        "../../Conda_Envs/samtools.yaml"
     log:
         "logs/index_bam_big.log"
     threads: config["scallop"]["threads"]

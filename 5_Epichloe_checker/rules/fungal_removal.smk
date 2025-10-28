@@ -23,7 +23,7 @@ rule grepper_sep:
     input:
         sep_bams = config["directories"]["sep_bams"] + "{pairs}Aligned.sortedByCoord.out.bam"
     conda:
-        "../Conda_Envs/samtools.yaml"
+        "../../Conda_Envs/samtools.yaml"
     params:
         output_dir = config["directories"]["filtered_bams"]
     threads: 8
