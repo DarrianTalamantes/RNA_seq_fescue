@@ -1,0 +1,108 @@
+directories:
+  datadir: /scratch/drt83172/Wallace_lab/RNA_SEQ/Data
+  scriptdir: /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts
+  qcdir: /scratch/drt83172/Wallace_lab/RNA_SEQ/qc
+  logs: /scratch/drt83172/Wallace_lab/RNA_SEQ/logs
+  mqcdir: /scratch/drt83172/Wallace_lab/RNA_SEQ/mqcdir
+  trimmed: /scratch/drt83172/Wallace_lab/RNA_SEQ/Trimmed
+  genome_idx: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome_idx
+  align: /scratch/drt83172/Wallace_lab/RNA_SEQ/Alignment
+  big_bam: /scratch/drt83172/Wallace_lab/RNA_SEQ/big_bam/
+  sep_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/sep_bams/
+  features: /scratch/drt83172/Wallace_lab/RNA_SEQ/features/
+  log: /scratch/drt83172/Wallace_lab/RNA_SEQ/log
+  transcriptome_dir: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome
+  transdecoder_dir: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir_col3swap
+  blast: /scratch/drt83172/Wallace_lab/RNA_SEQ/Blast/
+  annotations: /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotations
+  filtered_bams: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams_epi/sep
+  filtered_bam_big: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams_epi/big
+  chunked_bam:  /scratch/drt83172/Wallace_lab/RNA_SEQ/chunked_bam
+  big_bam_chrom: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/big/split
+  kraken: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken
+  kraken_db: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken_db
+  scallop_out: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome
+  transcriptome: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final
+  transcriptome_big: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/big
+  bam_backup: /scratch/drt83172/Wallace_lab/RNA_SEQ/filtered_bams/big/backup
+
+
+
+lists:
+  paired_list_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/RNA_seq_fescue/paired_list.txt
+
+genome: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Epi_Genome/GCA_018801565.1_E_coen_e19_1_genomic.fna
+combined_genome: /scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Epi_Fesc_genome_combined.fa
+
+star_mapping:
+    log: /scratch/drt83172/Wallace_lab/RNA_SEQ/log/samtoolsview_log.txt
+    threads: 32
+    threads_multi: 10
+    star_manifest: manifest.tsv
+    threads_sep: 10
+
+  
+kraken:
+  db_name: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken_db
+  classified: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/classified
+  unclassified: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/unclassified
+  threads: 32
+  tools_threads: 4
+  db_in_memory: /dev/shm/kraken_db
+  non_fungal: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/non_fungal
+  fungal: /scratch/drt83172/Wallace_lab/RNA_SEQ/kraken/fungal
+
+fungal_removal:
+  threads: 8
+
+
+scallop:
+  output_file: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome_final/Fescue_transcriptome.gtf
+  threads: 32
+  output_file_big: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/big/Fescue_transcriptome.gtf
+  output_file_big_filtered: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/big/Fescue_transcriptome_no_epi.gtf
+
+
+
+star_index_files:
+    - "SA"
+    - "SAindex"
+    - "Genome"
+    - "chrLength.txt"
+    - "chrName.txt"
+    - "chrNameLength.txt"
+    - "chrStart.txt"
+    - "genomeParameters.txt"
+
+use_ignored_rule: TRUE
+
+bedtools:
+  fasta_output: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts_col3swap.fasta
+
+transdecoder:
+  gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts_col3swap.gff3
+  long_orfs: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/longest_orfs_col3swap.pep
+  pep: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.transdecoder_col3swap.pep
+  pep_clean: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.clean.transdecoder_col3swap.pep
+  fasta_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/predicted_transcripts.fasta.transdecoder_col3swap.gff3
+  genome_gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/predicted_transcripts.fasta.transdecoder_dir/transcripts.fasta.transdecoder.genome_col3swap.gff3
+
+interproscan:
+  tsv_output: /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_results.tsv
+  gff3: /scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/transcripts.fasta.transdecoder.pep.gff3
+  inter_log: /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotation/interproscan_temp
+
+
+
+
+blast:
+    output: /scratch/drt83172/Wallace_lab/RNA_SEQ/Blast/blast_results.txt
+    params:
+        db: "nr"
+        evalue: 1e-5
+        outfmt: 6
+        num_threads: 24
+
+eggnog_mapper:
+  output: /scratch/drt83172/Wallace_lab/RNA_SEQ/Annotations/predicted_transcripts.emapper.annotations
+  num_threads: 24
