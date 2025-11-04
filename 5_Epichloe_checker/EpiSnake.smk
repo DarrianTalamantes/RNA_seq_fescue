@@ -75,7 +75,6 @@ print(config["fungal_removal"]["threads"])
 rule all:
     input:
         # # Fungal Filtering
-        config["directories"]["filtered_bam_big"] + "/Aligned.sortedByCoord_filtered.out.bam",
         expand(config["directories"]["filtered_bams"] + "/{pairs}Aligned.sortedByCoord_filtered.out.bam", pairs=PAIRS)
 
         # # # Scallop and feature counts
