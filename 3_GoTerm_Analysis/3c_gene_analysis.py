@@ -1,14 +1,20 @@
 # THis file will take the gene file(s) made from 2d_Upset_plots.R and extract their sequences
 # The idea here is to find the function of these genes. 
 
+# Instructions
+# 1. Set the gene_list varaible and output names
+# 2. Run this script with submit_3c.sh
 
 
-
+############ Modules to load ##################
+# ml Biopython/1.84-foss-2024a
+# ml SciPy-bundle/2024.05-gfbf-2024a
+################################################
 
 import pandas as pd                   # this must be installed with ml not conda now
 import re
 import unicodedata
-from Bio import SeqIO                 # this must be installed with ml not conda now
+from Bio import SeqIO                 # this must be installed with ml not conda now  
 from Bio.SeqRecord import SeqRecord
 
 # --- Input file paths ---
