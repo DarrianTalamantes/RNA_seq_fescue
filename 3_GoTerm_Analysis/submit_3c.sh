@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH -J 3c_genos
+#SBATCH -J 3c_all_treatments
 #SBATCH -p batch	
 #SBATCH --ntasks=8
 #SBATCH --mem=32GB
 #SBATCH -t 150:00:00
-#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/3c_genos.%j.out
-#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/3c_genos.%j.err
+#SBATCH --output=/scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/3c_all_treatments.%j.out
+#SBATCH -e /scratch/drt83172/Wallace_lab/RNA_SEQ/Scripts/outfiles/3c_all_treatments.%j.err
 #SBATCH --mail-type=FAIL,END
 #SBATCH --mail-user drt83172@uga.edu
 
