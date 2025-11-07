@@ -12,11 +12,11 @@ from Bio import SeqIO                 # this must be installed with ml not conda
 from Bio.SeqRecord import SeqRecord
 
 # --- Input file paths ---
-gene_list = "../Gene_lists/shared_genes_heat_heatxpercipitation.txt"
+gene_list = "../Gene_lists/shared_genes_all_genos.txt"
 transcriptome_file  = "/scratch/drt83172/Wallace_lab/RNA_SEQ/transcriptome/big/Fescue_transcriptome.gtf"
 genome_file = "/scratch/drt83172/Wallace_lab/RNA_SEQ/Genome/Tall_fescue/tall_fescue_pv1.1.fasta"
-output_file = "../Gene_lists/shared_heatxheatpercipitation.tsv"
-output_fasta = "../Gene_lists/shared_heatxheatpercipitation.fa"
+output_file = "../Gene_lists/shared_genes_all_genos.tsv"
+output_fasta = "../Gene_lists/shared_genes_all_genos.fa"
 debug_gene = "gene.41791.92.0"   # set to any gene you want to sanity check
 
 # --- Helpers ---

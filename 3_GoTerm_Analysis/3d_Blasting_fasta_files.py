@@ -28,14 +28,14 @@ def main():
             
             # Run remote BLAST against NCBI nt with descriptive output
             cmd = [
-                "blastn",
-                "-query", tmp_seq_file,
-                "-db", "nt",
-                "-remote",
-                "-outfmt", "6 qseqid sseqid pident length evalue bitscore stitle",
-                "-evalue", "1e-5",
-                "-max_target_seqs", "1"  # Only get top hit
-            ]
+                    "blastx",
+                    "-query", tmp_seq_file,
+                    "-db", "nr",                      # Protein database instead of nucleotide
+                    "-remote",                        # Use NCBI servers
+                    "-outfmt", "6 qseqid sseqid pident length evalue bitscore stitle",
+                    "-evalue", "1e-5",
+                    "-max_target_seqs", "1"           # Only get top hit
+                ]
             
             print(f"Running remote BLAST for {seq_id}...")
             result = subprocess.run(cmd, capture_output=True, text=True, check=True)

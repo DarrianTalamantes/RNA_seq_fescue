@@ -231,8 +231,47 @@ p +
   geom_text(data = avg_df, aes(x = Variable, y = AvgVariance + 2, label = round(AvgVariance, 3)), 
             inherit.aes = FALSE, vjust = -35, size = 3.5,)
 
+# PCA Plots seperated by only genotype
+vsd_CTE31 <- vsd[, vsd$Genotype == "CTE31"]
+vsd_CTE25 <- vsd[, vsd$Genotype == "CTE25"]
+vsd_CTE45 <- vsd[, vsd$Genotype == "CTE45"]
+vsd_CTE46 <- vsd[, vsd$Genotype == "CTE46"]
 
-#  PCA Plots seperated by genotype
+harvest_colors <- c("#339933", "#3366ff", "#cc0000", "#ff9900")
+
+CTE31 <- plotPCA(vsd_CTE31, intgroup = "HarvestTime")
+CTE31_1 <- CTE31 + labs(color = "HarvestTime") + theme_bw() + ggtitle("CTE31") +   theme(plot.title = element_text(hjust = 0.5)) + scale_color_manual(values = harvest_colors)
+
+CTE25 <- plotPCA(vsd_CTE25, intgroup = "HarvestTime")
+CTE25_1 <- CTE25 + labs(color = "HarvestTime") + theme_bw() + ggtitle("CTE25") +   theme(plot.title = element_text(hjust = 0.5)) + scale_color_manual(values = harvest_colors)
+
+CTE45 <- plotPCA(vsd_CTE45, intgroup = "HarvestTime")
+CTE45_1 <- CTE45 +
+  labs(color = "HarvestTime") +
+  theme_bw() +
+  ggtitle("CTE45") +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 20),       # Title size
+    axis.text = element_text(size = 14),                     # Axis tick labels
+    axis.title = element_text(size = 16),                    # Axis labels
+    legend.text = element_text(size = 14),                   # Legend labels
+    legend.title = element_text(size = 16)                   # Legend title
+  ) +
+  scale_color_manual(values = harvest_colors) +
+  coord_cartesian(xlim = c(-60, 60), ylim = c(-60, 60))
+
+CTE46 <- plotPCA(vsd_CTE46, intgroup = "HarvestTime")
+CTE46_1 <- CTE46 + labs(color = "HarvestTime") + theme_bw() + ggtitle("CTE46") +   theme(plot.title = element_text(hjust = 0.5)) + scale_color_manual(values = harvest_colors)
+
+CTE31_1
+CTE25_1
+CTE45_1
+CTE46_1
+
+(CTE31_1 | CTE25_1) / (CTE45_1 | CTE46_1) +
+  plot_layout(heights = c(1, 1), widths = c(1, 1))
+
+#  PCA Plots seperated by genotype and harvest time
 
 
 vsd_june <- vsd[, vsd$HarvestTime == "June_2016"]
