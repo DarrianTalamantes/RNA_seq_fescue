@@ -196,6 +196,7 @@ write.csv(all_counts$final_Treats_Up_Down,paste0(data_folder, "/Treatments_Up_Do
 # FInding all genes in upset plot
 ################################################################################
 
+# Getting Stress DEGs
 heat.heatxpercipitation <- all_counts$total_degs_treatments %>%
   filter(Heat >= 1 & HeatxPercipitation >= 1 & Control == 0)
 nrow(heat.heatxpercipitation)
@@ -205,6 +206,32 @@ write.table(genes_df, "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/shared_
           row.names = FALSE, 
           col.names = FALSE, 
           quote = FALSE)
+
+
+# Getting Stress DEGs
+genes_all_treatments <- all_counts$total_degs_treatments %>%
+  filter(Heat >= 1 & HeatxPercipitation >= 1 & Control >= 1)
+nrow(genes_all_treatments)
+genes.shared.heat.heatxp <- row.names(genes_all_treatments)
+genes_df <- data.frame(gene_id = genes_all_treatments)
+write.table(genes_df, "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/genes_all_treatments.txt",             
+            row.names = FALSE, 
+            col.names = FALSE, 
+            quote = FALSE)
+
+
+# DEGs that are shared in all genotypes
+df <- all_counts$total_degs_genos
+# Keep only rows where *all* columns are nonzero
+shared_all <- df[rowSums(df > 0) == ncol(df), ]
+# Extract gene IDs (rownames)
+shared_genes <- rownames(shared_all)
+shared_genes
+write.table(shared_genes, "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/shared_genes_all_genos.txt",             
+            row.names = FALSE, 
+            col.names = FALSE, 
+            quote = FALSE)
+
 
 ################################################################################
 # Creating Heatmaps
