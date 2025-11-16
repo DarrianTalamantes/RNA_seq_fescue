@@ -208,11 +208,11 @@ write.table(genes_df, "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/shared_
           quote = FALSE)
 
 
-# Getting Stress DEGs
+# Getting all treatment DEGs
 genes_all_treatments <- all_counts$total_degs_treatments %>%
   filter(Heat >= 1 & HeatxPercipitation >= 1 & Control >= 1)
 nrow(genes_all_treatments)
-genes.shared.heat.heatxp <- row.names(genes_all_treatments)
+genes_all_treatments <- row.names(genes_all_treatments)
 genes_df <- data.frame(gene_id = genes_all_treatments)
 write.table(genes_df, "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/genes_all_treatments.txt",             
             row.names = FALSE, 

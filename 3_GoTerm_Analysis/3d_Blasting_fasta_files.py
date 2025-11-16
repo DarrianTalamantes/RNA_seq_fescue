@@ -1,4 +1,5 @@
-# This will take a fasta file and BLAST every sequence in the file. Good to check any genes we want to know the functions of.
+# This will take a fasta file and BLAST every sequence in the file and give the top hits for each.
+# Good to check any genes we want to know the functions of.
 
 
 #!/usr/bin/env python3
@@ -7,9 +8,9 @@ import subprocess
 from Bio import SeqIO
 
 # Input FASTA
-fasta_file = "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/shared_heatxheatpercipitation.fa"
-output_file  = "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/shared_heatxheatpercipitation_BLASTED.txt"
-filtered_fasta_path = "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/shared_heatxheatpercipitation_longest.fa"
+fasta_file = "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/genes_all_treatments.fa"
+output_file  = "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/genes_all_treatments_BLASTED.txt"
+filtered_fasta_path = "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/genes_all_treatments_longest.fa"
 
 
 def main():
@@ -30,7 +31,7 @@ def main():
             cmd = [
                     "blastx",
                     "-query", tmp_seq_file,
-                    "-db", "nr",                      # Protein database instead of nucleotide
+                    "-db", "swissprot",                      # Protein database instead of nucleotide
                     "-remote",                        # Use NCBI servers
                     "-outfmt", "6 qseqid sseqid pident length evalue bitscore stitle",
                     "-evalue", "1e-5",

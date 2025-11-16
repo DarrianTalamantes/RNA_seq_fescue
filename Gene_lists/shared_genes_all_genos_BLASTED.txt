@@ -1,0 +1,20 @@
+
+================================================================================
+Top hit for gene.15015.459.0
+================================================================================
+gene.15015.459.0	sp|Q8RW93.1|	39.394	99	4.97e-09	55.1	RecName: Full=Putative lipid-binding protein At4g00165; Flags: Precursor [Arabidopsis thaliana]
+
+================================================================================
+Top hit for gene.11847.1854.0
+================================================================================
+gene.11847.1854.0	sp|Q8RW93.1|	39.394	99	1.11e-08	56.2	RecName: Full=Putative lipid-binding protein At4g00165; Flags: Precursor [Arabidopsis thaliana]
+
+================================================================================
+Top hit for gene.26003.2175.0
+================================================================================
+gene.26003.2175.0	sp|Q42993.1|	80.066	301	1.44e-148	436	RecName: Full=Chitinase 1; AltName: Full=Class I chitinase a; Short=OsChia1a; AltName: Full=Pathogenesis related (PR)-3 chitinase 1; Flags: Precursor [Oryza sativa Japonica Group]
+
+================================================================================
+Top hit for gene.53199.474.0
+================================================================================
+gene.53199.474.0	sp|P0DXJ4.1|	42.151	344	1.03e-73	242	RecName: Full=Acetylajmalan esterase 1; Short=RsAAE1; Flags: Precursor [Rauvolfia serpentina]

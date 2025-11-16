@@ -230,6 +230,48 @@ heat2 <- grid.arrange(
 nonzero_counts <- colSums(mat_filtered != 0)
 nonzero_counts <- as.data.frame(nonzero_counts)
 
+
+################################################################################
+# Finding the special DEGs (ones with differences in E+ and E-)
+################################################################################
+
+# Detect rows (genes) with long consecutive runs of nonzero expression
+has_long_run <- function(x, min_run = 20) {
+  rle_nonzero <- rle(x != 0)
+  any(rle_nonzero$values & rle_nonzero$lengths >= min_run)
+}
+
+# Apply across rows
+long_run_genes <- rownames(mat_filtered)[apply(mat_filtered, 1, has_long_run, min_run = 20)]
+
+# Subset the matrix to only those genes
+mat_longruns <- mat_filtered[long_run_genes, ]
+
+# Check dimensions
+cat("Number of genes with long runs:", nrow(mat_longruns), "\n")
+
+
+pheatmap(
+  mat_longruns,
+  annotation_col = annotation_col,
+  show_rownames = TRUE,
+  show_colnames = FALSE,
+  cluster_rows = FALSE,
+  cluster_cols = FALSE,
+  border_color = "black",
+  color = my_colors,
+  breaks = breaks
+)
+
+mat_longruns_genes <- row.names(mat_longruns)
+genes_df <- data.frame(gene_id = mat_longruns_genes)
+write.table(genes_df, "/home/darrian/Documents/RNA_seq_fescue/Gene_lists/4d_epichloe_difference_genes.txt",             
+            row.names = FALSE, 
+            col.names = FALSE, 
+            quote = FALSE)
+
+
+
 ################### Getting DEG count per group ################################
 
 # Convert to binary: anything >0 becomes 1
