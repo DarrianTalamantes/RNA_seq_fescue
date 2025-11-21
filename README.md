@@ -15,6 +15,12 @@ include: "rules/scallop.smk"
 include: "rules/feature_counts.smk"
 include: "rules/annotation.smk"
 
+**Update**
+I have made this into individual sapelo2 submissions. There is now a folder called 1_RNA_SMK_submissions. This should allow you to simply submit the RNA seek pipline as individual scripts to sapelo2. You should be able to submit 2 and 3 at the same time but all others must be completed in order. 
+
+I forget the exact amount of memory everything used but I think what I set stuff to should be fine. If I remmeber correctly it was creating the big bam file that used the most amount of memory.
+
+
 2. Once you run the snakemake pipeline you will have two main output files.
 - Fescue_transcriptome.gtf
 - feature_counts.txt
